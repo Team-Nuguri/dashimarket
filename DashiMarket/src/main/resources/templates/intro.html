@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http:// www.thymeleaf.com">
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width= , initial-scale=1.0">
+    <title>Intro</title>
+    <link rel="stylesheet" href="/css/intro.css">
+    <link rel="stylesheet" href="/css/common/font.css">
+    <link rel="stylesheet" href="/css/common/footer.css">
+
+</head>
+
+<body>
+    <section>
+
+        <!-- 상단 로그인 버튼 -->
+        <div id="header-login">
+            <a href="">로그인</a>
+        </div>
+
+        <!-- 로고 -->
+        <div id="intro-logo-div">
+            <img src="/images/logo.png" id="intro-big-logo">
+            <div id="intro-text" class="bold-text">오늘도 착한 소비를 하러 오셨군요!</div>
+        </div>
+
+        <!-- 동네 및 검색 -->
+        <div id="row1">
+
+            <!-- 동네 선택 드롭다운 -->
+            <div id="drop-down-box">
+                <!-- 동네 선택 -->
+                <div id="select-city" class="bold-text">
+                    <div id="city-name" class="text-size-20">관철동</div>
+                    <div id="drop-down-icon"><img src="/images/svg/drop-down.svg"></div>
+                </div>
+                <div id="select-city-box">
+                    <a href=""><div class="text-size-20">관철동</div></a>
+                    <a href=""><div class="text-size-20">부암동</div></a>
+                    <a href=""><div class="text-size-20">혜화동</div></a>
+                    <a href=""><div class="text-size-20">무악동</div></a>
+                    <a href=""><div class="text-size-20">평창동</div></a>
+                    <a href=""><div class="text-size-20">ㅇㅇ동</div></a>
+                    <a href=""><div class="text-size-20">ㅇㅇ동</div></a>
+                    <a href=""><div class="text-size-20">ㅇㅇ동</div></a>
+                    <a href=""><div class="text-size-20">ㅇㅇ동</div></a>
+                    <a href=""><div class="text-size-20">ㅇㅇ동</div></a>
+                </div>
+            </div>
+
+
+            <!-- 검색 -->
+            <div id="intro-search">
+                <img src="/images/svg/searchIcon.svg" id="search-icon">
+                <input type="text" placeholder="검색어를 입력해주세요." class="text-size-14">
+            </div>
+        </div>
+
+        <div id="row2">
+            <!-- 중고거래 -->
+            <a href="">
+                <div class="intro-box">
+                    <div><img src="/images/svg/intro-giveIcon.svg" class="intro-icon"></div>
+                    <div class="category-text bold-text text-size-20">중고거래</div>
+                </div>
+            </a>
+
+            <!-- 굿즈 판매 -->
+            <a href="">
+                <div class="intro-box">
+                    <div><img src="/images/svg/intro-goods.svg" class="intro-icon"></div>
+                    <div class="category-text bold-text text-size-20">굿즈판매</div>
+                </div>
+            </a>
+
+            <!-- 커뮤니티 -->
+            <a href="">
+                <div class="intro-box">
+                    <div><img src="/images/svg/intro-community.svg" class="intro-icon"></div>
+                    <div class="category-text bold-text text-size-20">커뮤니티</div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <section>
+            <div class="footer-top">
+                <a th:href="@{#}"><img src="/images/logo.png" width="100px" style="vertical-align: middle;"></a>
+                <a th:href="@{#}">회사 소개</a>
+                <span>|</span>
+                <a th:href="@{#}">서비스 소개</a>
+                <span>|</span>
+                <a th:href="@{#}">블로그</a>
+                <span>|</span>
+                <a th:href="@{#}">채용제휴 문의</a>
+                <span>|</span>
+                <a th:href="@{#}">광고 문의</a>
+            </div>
+
+            <hr>
+
+            <div class="footer-bottom">
+
+                <div class="footer-left">
+                    (주) 다시마켓 <br>
+                    대표 너구리 <br>
+                    사업자번호 168-87-57386 <br>
+                    직업정보제공사업 신고번호J1200020200016 <br>
+                    통신판매신고번호 제2024-서울강남-06966호 <br>
+                    호스팅 사업자 Amazon Web Service(AWS)<br>
+                    주소 서울특별시 종로구 우정국로2길 21 9층, 903호 <br>
+                    전화 1877-9292 <br>
+                    고객문의 kelp@dasimacat.com
+                </div>
+                <div class="footer-right">
+                    <a href="#">공지사항</a>
+                    <a href="#">자주묻는 질문</a> <br><br>
+
+                    <a href="#">이용약관</a>
+                    <a href="#">개인정보처리방침</a>
+
+                    <a href="#">운영정책</a>
+
+                    <a href="#">위치기반서비스 이용약관</a>
+
+                    <a href="#">게시글</a>
+
+                </div>
+
+            </div>
+        </section>
+    </footer>  
+
+    <script src="/js/intro.js"></script>
+</body>
+
+</html>
