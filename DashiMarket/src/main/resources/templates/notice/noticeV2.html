@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[관리자] 게시글 작성</title>
+    <link rel="stylesheet" href="/DashiMarket/src/main/resources/static/css/notice/noticeV2.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="page-title">새 게시글 작성</h1>
+
+        <div class="form-container">
+            <div class="form-row">
+                <div class="form-label">게시판 종류</div>
+                
+                <div class="form-content">
+                    <select class="category-select">
+                        <option>공지사항</option>
+                        <option>자주 묻는 질문</option>
+                        <option>dummy</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label">제목</div>
+                <div class="form-content">
+                    <input type="text" class="title-input" placeholder="제목을 입력해 주세요">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label">내용</div>
+                <div class="form-content">
+                    <textarea class="content-textarea" placeholder="내용을 입력해 주세요"></textarea>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label">첨부파일</div>
+                <div class="form-content">
+                    <div class="hashtag-container">
+                        <div class="hashtag-row">
+                            <input type="text" class="hashtag-input">
+                            <button type="button" class="hashtag-btn">찾아보기</button>
+                            <span class="hashtag-note">*사진(이미지)만 등록 가능합니다.(최대 OOMB 등록 가능)</span>
+                        </div>
+                        <div class="hashtag-row">
+                            <input type="text" class="hashtag-input">
+                            <button type="button" class="hashtag-btn">찾아보기</button>
+                        </div>
+                        <div class="hashtag-row">
+                            <input type="text" class="hashtag-input">
+                            <button type="button" class="hashtag-btn">찾아보기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="cancel-btn">작성취소</button>
+                <button type="submit" class="submit-btn">등록하기</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
