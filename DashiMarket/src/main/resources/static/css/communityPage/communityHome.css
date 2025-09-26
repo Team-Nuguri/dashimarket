@@ -1,0 +1,99 @@
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.body {
+    width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+}
+
+
+/* 동네 선택 드롭다운 */
+.show {
+    display: block !important;
+}
+
+#select-sort-box {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 2px solid #298C69;
+    border-radius: 10px;
+    padding: 10px;
+    z-index: 100;
+    width: 150px;
+    gap: 10px;
+}
+
+#select-sort-box  a > div {
+    text-align: center;
+    padding: 5px;
+    color: black;
+}
+
+#select-sort-box a div:hover {
+    border-bottom: 2px solid #166549;
+}
+
+/* 카테고리 선택 박스 */
+#category-container {
+    width: 750px;
+    margin: 0 auto;
+    align-items: center;
+}
+
+
+
+#category-drop-down-container {
+    position: relative;
+}
+
+/* 카테고리 한 줄 (펼치기 전) */
+#drop-down-header {
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid #166549;
+    border-radius: 10px;
+    padding: 0px 20px;
+}
+
+/* 접힌 상태에서 보이는 카테고리 아이템 */
+.visible-category {
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#drop-down-header button {
+    border: none;
+    background: none;
+}
+
+#drop-down-header button:hover {
+    cursor: pointer;
+}
+
+/* 카테고리 드롭다운 (펼친 후) */
+#select-category-box {
+    display: none;
+
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+
+    /* 펼쳤을 때도 똑같이 한 행에 4개 제품 */
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+
+    background-color: white;
+    border: 2px solid #166549;
+    border-radius: 10px;
+    text-align: center;
+    padding: 15px;
+
+}

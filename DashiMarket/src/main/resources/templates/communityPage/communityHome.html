@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>커뮤니티</title>
+    <link rel="stylesheet" href="/css/common/header.css">
+    <link rel="stylesheet" href="/css/common/font.css">
+    <link rel="stylesheet" href="/css/communityPage/communityHome.css">
+</head>
+<body>
+    <header>
+        <section id="header-area">
+            <div>
+                <a href="@{/}">
+                    <img id="main-logo" src="/images/logo.png">
+                </a>
+
+            </div>
+            <div>
+                <div>
+                    <a href="/joongo" class="noto-sans-kr-20">중고거래</a>
+                </div>
+                <div>
+                    <a href="/goods" class="noto-sans-kr-20">굿즈</a>
+                </div>
+                <div>
+                    <a href="/community" class="noto-sans-kr-20">커뮤니티</a>
+                </div>
+
+            </div>
+
+            <div id="icon-area">
+                <button>
+                    <img src="/images/svg/하트.svg">
+                    <!-- <img src="@{/images/장바구니.svg}" > -->
+                    <!-- <img src="@{/images/사람.svg}" > -->
+                </button>
+
+                <button>
+                    <img src="/images/svg/group.svg">
+                </button>
+                <button>
+                    <img src="/images/svg/clarity_menu-line.svg">
+
+                </button>
+
+            </div>
+        </section>
+
+        <section id="search-area">
+            <form action="">
+                <fieldset>
+                    <img src="/images/svg/돋보기.svg">
+                    <input type="search" name="query" id="query" placeholder="검색어를 입력해주세요." class="noto-sans-kr-20">
+
+                </fieldset>
+            </form>
+        </section>
+    </header>
+    
+    <section class="body">
+
+        <!-- 동네 선택 드롭다운 -->
+        <div id="drop-down-box">
+            <!-- 동네 선택 -->
+            <div id="select-city" class="bold-text">
+                <div id="city-name" class="text-size-20">관철동</div>
+                <div id="drop-down-icon"><img src="/images/svg/drop-down.svg"></div>
+            </div>
+            <div id="select-city-box">
+                <a href=""><div class="text-size-20">관철동</div></a>
+                <a href=""><div class="text-size-20">부암동</div></a>
+                <a href=""><div class="text-size-20">혜화동</div></a>
+                <a href=""><div class="text-size-20">무악동</div></a>
+                <a href=""><div class="text-size-20">평창동</div></a>
+                <a href=""><div class="text-size-20">ㅇㅇ동</div></a>
+                <a href=""><div class="text-size-20">ㅇㅇ동</div></a>
+                <a href=""><div class="text-size-20">ㅇㅇ동</div></a>
+                <a href=""><div class="text-size-20">ㅇㅇ동</div></a>
+                <a href=""><div class="text-size-20">ㅇㅇ동</div></a>
+            </div>
+        </div>
+    </section>
+
+    <section id="category-container">
+        <!-- 카테고리 선택 드롭다운 -->
+        <div id="category-drop-down-container">
+            <div id="drop-down-header">
+                <div class="text-size-16 visible-category bold-text">전체</div>
+                <div class="text-size-16 visible-category bold-text">음식/음료</div>
+                <div class="text-size-16 visible-category bold-text">일상</div>
+                <div class="text-size-16 visible-category bold-text">병원/약국</div>
+                <button id="category-toggle-btn">
+                    <div id="drop-down-icon">
+                        <img src="/images/svg/color-drop-down.svg">
+                    </div>
+                </button>
+            </div>
+
+            <div id="select-category-box">
+                <a href=""><div class="text-size-16">전체</div></a>
+                <a href=""><div class="text-size-16">음식/음료</div></a>
+                <a href=""><div class="text-size-16">일상</div></a>
+                <a href=""><div class="text-size-16">병원/약국</div></a>
+                <a href=""><div class="text-size-16">교육</div></a>
+                <a href=""><div class="text-size-16">주거/부동산</div></a>
+                <a href=""><div class="text-size-16">운동</div></a>
+                <a href=""><div class="text-size-16">취미/오락</div></a>
+                <a href=""><div class="text-size-16">문화/예술</div></a>
+                <a href=""><div class="text-size-16">음악/악기</div></a>
+                <a href=""><div class="text-size-16">자기계발</div></a>
+                <a href=""><div class="text-size-16">여행</div></a>
+                <a href=""><div class="text-size-16">반려동물</div></a>
+                <a href=""><div class="text-size-16">가족/육아</div></a>
+            </div>
+        </div>
+    </section>
+
+    <script src="/js/communityPage/communityHome.js"></script>
+</body>
+</html>
