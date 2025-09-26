@@ -1,0 +1,343 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body, input, button, textarea, select {
+    font-family: "Noto Sans KR", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+.admin-content{
+    display: flex;
+    width: 100%;
+    height: 1080px;
+}
+
+
+/* 사이드 메뉴 */
+
+/* 로고 */
+#logo{
+    max-width: 300px;
+    padding: 10px;
+    margin: 15px 0 10px 0;
+    border-bottom: 2px solid #ddd;
+}
+
+.left-side{
+    max-width: 320px;
+    height: 1145px;
+    border-right: 2px solid #ddd;
+}
+
+.list-group{
+    min-width: 270px;
+    list-style: none;
+    padding: 15px 0 0 50px; 
+    margin-left: 20px;
+}
+
+.list-group > li{
+    font-size: 25px;
+    margin-block: 20px;
+}
+
+
+.list-group > li > span{
+    font-weight: 900;
+    font-size: 25px;
+    color: #52B291;
+}
+
+.list-group > li > a{
+    color: black;
+    text-decoration: none;
+    height: 100%;
+    font-size: 20px;
+}
+
+.list-group > li > a:hover{
+    color: #52B291;
+}
+
+/* 페이지네이션 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    list-style: none;
+}
+
+.pagination button {
+    width: 45px;
+    height: 45px;
+    border: none;
+    background-color: white;
+    color: #666;
+    cursor: pointer;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    font-size: 18px;
+}
+
+.pagination button:hover {
+    background-color: #f8f9fa;
+}
+
+.pagination .pagination-btn:hover{
+    background-color: #166549;
+    color: white;
+}
+
+.pagination button[aria-current="page"] {
+    background-color: #166549;
+    color: white;
+}
+
+.pagination .pagination-btn {
+    background-color: #166549;
+    color: white;
+    font-weight: bold;
+    height: 50px;
+    width: 85px;
+}
+
+
+/* ******************************** */
+/* 관리자페이지 공통 */
+.admin-main{
+    width: 100%;
+    padding: 0 40px;
+    margin-top: 30px;
+}
+
+.admin-group-top{
+    display: flex;
+}
+
+.admin-group-bottom{
+    width: 100%;
+    height: 100%;
+}
+
+/* 관리자 로그인 화면 */
+#admin-user{
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.admin-login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+}
+
+.admin-login > img{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: none;
+    margin-right: 20px;
+}
+
+.admin-login > p{
+    padding: 5px;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.admin-login > button{
+    border: none;
+    border-radius: 10px;
+    background-color: #166549;
+    color: white;
+    width: 70px;
+    height: 30px;
+}
+
+/**************************************/
+/* 검색 */
+#search-area{
+    margin: 40px 0 30px 0;
+    padding: 25px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    width: 50%;
+}
+
+#search-area label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 6px;
+    font-size: 20px;
+}
+
+/* 기본 검색창 */
+.search-box {
+  display: flex;
+  align-items: center; 
+  gap: 8px; 
+  margin-block: 15px;
+  padding: 10px;
+}
+
+.search-box fieldset{ 
+    width: 400px; 
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+    margin-left: 50px;
+}
+
+fieldset > [name="query"]{
+    flex: 1;
+    border: none;
+    width: 80%;
+    height: 100%;
+    font-size: 18px;
+}
+
+.searchBtn{
+    border: none;
+    background-color: transparent;
+    width: 30px;
+    height: 30px;
+    text-align: end;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* 상세검색 */
+.detail-search{
+    display: flex;
+    align-items: center; 
+    gap: 8px; 
+    margin-block: 15px;
+    padding: 10px;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 0 0 5px 20px;
+    font-size: 18px;
+}
+
+/* 초기화, 검색 버튼 */
+.search-buttons {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+}
+
+.search-buttons button:nth-child(1) {
+    width: 100px;
+    height: 45px;
+    padding: 5px;
+    font-size: 20px;
+    border-radius: 15px;
+    border: 1px solid #298C69;
+    background-color: white;
+    cursor: pointer;
+}
+
+.search-buttons button:nth-child(2) {
+    width: 100px;
+    height: 45px;
+    padding: 5px;
+    font-size: 20px;
+    border: none;
+    border-radius: 15px;
+    background-color: #298C69;
+    color: white;
+    cursor: pointer;
+}
+
+
+/* 신규 가입자수 */
+#new-user{
+    margin:40px 30px 30px 60px;
+    border: 3px solid #52B291;
+    width: 25%;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 35px;
+    display: flex;
+    flex-direction: column;  
+    justify-content: center;  
+    align-items: center;
+}
+
+#new-user > p:nth-child(2){
+    color: #52B291;
+    font-weight: bold;
+    font-size: 35px;
+    margin-top: 20px;
+}
+
+/* 이용자 수 */
+#today-user{
+    margin: 40px 30px 30px 30px;
+    border: 3px solid #52B291;
+    width: 25%;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 35px;
+    display: flex;
+    flex-direction: column;   
+    justify-content: center; 
+    align-items: center;
+}
+
+#today-user > p:nth-child(2){
+    color: #52B291;
+    font-weight: bold;
+    font-size: 35px;
+    margin-top: 20px;
+}
+
+/* 회원조회 테이블 */
+.table-content{
+    border-top: 1px solid #ddd;
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    margin-top: 30px;
+    height: 35%;   
+}
+
+.table-content .fa-square, .table-content .fa-square-check{
+    display: flex;
+    justify-content: center;  
+    align-items: center;      
+    height: 100%; 
+}
+
+.table-content tr{
+    border-bottom: 1px solid #ddd ;
+}
+
+.table-content td{
+    border-right: 1px solid #ddd;
+    height: 48px;
+}
+
+.table-content td:nth-last-child(1){border: none;}
+
+.table-title{
+    background-color: #ddd;
+}
+
+
+
