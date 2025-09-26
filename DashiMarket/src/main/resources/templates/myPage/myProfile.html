@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../static/css/myPage/myPage_secession.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <title>프로필 관리</title>
+</head>
+<body>
+
+     <header>
+        <section id="header-area">
+            <div>
+                <a href="@{/}">
+                    <img id="main-logo" src="/images/logo.png">
+                </a>
+
+            </div>
+
+            <div>
+                <div>
+                    <a href="/joongo" class="noto-sans-kr-20">중고거래</a>
+                </div>
+                <div>
+                    <a href="/goods" class="noto-sans-kr-20">굿즈</a>
+                </div>
+                <div>
+                    <a href="/community" class="noto-sans-kr-20">커뮤니티</a>
+                </div>
+
+            </div>
+            
+            <div id="icon-area">
+                <button>
+                    <img src="/images/하트.svg" >
+                    <!-- <img src="@{/images/장바구니.svg}" > -->
+                    <!-- <img src="@{/images/사람.svg}" > -->
+                </button>
+                    
+    
+                <button>
+                    <img src="/images/group.svg" >
+                </button>
+                <button>
+                    <img src="/images/clarity_menu-line.svg" >
+                    
+                </button>
+
+            </div>
+        </section>
+
+        <section id="search-area">
+
+            <form action="">
+                <fieldset>
+                    <img src="/images/돋보기.svg" >
+                    <input type="search" name="query" id="query"
+                    placeholder="검색어를 입력해주세요." class="noto-sans-kr-20">
+
+                </fieldset>
+
+            </form>
+            
+        </section>       
+       
+
+    </header>
+
+
+<main>
+
+    
+<!--왼쪽 사이드메뉴-->
+
+<section class="myPage-content">
+
+<section class="left-side">
+
+    <nav>
+
+    <div class="left-title text-size-28 bold-text">마이페이지</div>
+
+
+    <ul class="left-menu">
+        <li class="text-size-18 bold-text">
+            <img src="img/shopping.png" alt="주문내역/구매내역" width="40px" height="40px">
+            주문내역/구매내역
+
+            <ul>
+                    
+                    <li>직거래</li>
+                
+                    <li>굿즈</li>
+               
+                    <li>나눔</li>
+                
+            </ul>        
+        </li>
+    </ul>
+
+    <ul class="left-menu">
+        <li class="text-size-18 bold-text">
+            <img src="img/product.png" alt="상품관리"  width="40px" height="40px">
+            상품관리
+            <ul class="left-submenu">
+                
+                    <li>내가 찜한 상품</li>
+            
+            </ul>
+        </li>
+    </ul>
+
+    <ul class="left-menu">
+        <li class="text-size-18 bold-text">
+            <img src="img/myinfo.png" alt="내 정보 관리" width="40px" height="40px">
+            내 정보 관리       
+            <ul class="left-submenu">
+                
+                
+                    <li>프로필 관리</li>
+                
+                    <li>회원 탈퇴</li>
+                       
+            </ul>
+        </li>   
+    </ul>
+    </nav>
+    
+</section>
+
+<!--프로필 관리-->
+
+        <section class="myPage-main">
+
+            <span class="myPage-title text-size-28 bold-text" >프로필 관리</span> <br>
+            <span class="myPage-subtitle text-size-10">내 정보를 변경할 수 있습니다.</span>
+
+            <form action="/profile" class="myPage">
+
+              
+                <div class="myPage-profile">
+                    <a href=""></a>
+                    <button class="text-size-12">프로필 사진 변경</button>
+                </div>
+
+                <div class="myPage-row">
+                    <label class="myPage-label text-size-18 bold-text">아이디</label>
+                    <span class="myPage-display text-size-18">푸른바다의 전달</span>                            
+                </div>
+
+                <div class="myPage-row">
+                    <label class="myPage-label text-size-18 bold-text">패스워드</label>
+                    <input type="text" class="myPage-input text-size-18">
+                    <button class="myPage-actionButton text-size-16">변경</button>
+                </div>
+
+                <div class="myPage-row">
+                    <label class="myPage-label text-size-18 bold-text">닉네임</label>
+                    <input type="text" class="myPage-input text-size-18">
+                    <button class="myPage-actionButton text-size-16">변경</button>
+                </div>
+
+                <div class="myPage-row">
+                    <label class="myPage-label text-size-18 bold-text">전화번호</label>
+                    <input type="text" class="myPage-input text-size-18"> 
+                    <button class="myPage-actionButton text-size-16">변경</button>
+                </div>
+
+                <div class="myPage-row">
+                    <label class="myPage-label text-size-18 bold-text">이메일</label>
+                    <input type="text" class="myPage-input text-size-18">
+                    <button class="myPage-actionButton text-size-16">변경</button>
+                </div>
+
+                <div class="myPage-row">
+                    <label class="myPage-label text-size-18 bold-text">가입일자</label>
+                    <span class="myPage-display text-size-18">2025년 9월 25일</span>                            
+                </div>
+
+                <div class="myPage-addressSection">
+                    <span class="myPage-label text-size-18 bold-text">주 소</span>                                   
+                        <div class="myPage-addpost">
+                            <input type="text" class="myPage-postinput text-size-20" placeholder="우편번호"> 
+                            <button class="myPage-addactionButton text-size-18">검색</button>
+                        </div>
+                    <input type="text" class="myPage-addinput text-size-18" placeholder="도로명/지번 주소">                
+                    <input type="text" class="myPage-addinput text-size-18" placeholder="상세주소">
+                </div>
+
+                <div class="myPage-buttons">
+                <button class="myPage-submit text-size-18">수정하기</button>
+                <!-- <button class="myPage-submit">수정완료</button> -->
+                 </div>
+              
+            </form>
+
+        </section>
+
+    </section>
+    
+</main>
+
+    
+<!--footer-->
+
+<footer>
+
+     <div class="footer-top">
+        <a th:href="@{#}"><img src="logo.png" width="100px" style="vertical-align: middle;"></a>
+        <a th:href="@{#}">회사 소개</a>    
+        <span>|</span>
+        <a th:href="@{#}">서비스 소개</a>    
+        <span>|</span>
+        <a th:href="@{#}">블로그</a>    
+        <span>|</span>
+        <a th:href="@{#}">채용제휴 문의</a>    
+        <span>|</span>
+        <a th:href="@{#}">광고 문의</a>
+    </div>
+
+   <hr>
+
+  <div class="footer-bottom">
+
+    <div class="footer-left">
+      (주) 다시마켓 <br>
+대표 너구리  <br>
+사업자번호 168-87-57386  <br>
+직업정보제공사업 신고번호J1200020200016  <br>
+통신판매신고번호 제2024-서울강남-06966호  <br>
+호스팅 사업자 Amazon Web Service(AWS)<br>
+주소 서울특별시 종로구 우정국로2길 21 9층, 903호  <br>
+전화 1877-9292  <br>
+고객문의 kelp@dasimacat.com 
+    </div>
+    <div class="footer-right">
+      <a href="#">공지사항</a>
+      <a href="#">자주묻는 질문</a> <br><br>
+
+      <a href="#">이용약관</a>
+      <a href="#">개인정보처리방침</a>
+
+      <a href="#">운영정책</a>
+
+      <a href="#">위치기반서비스 이용약관</a>
+
+      <a href="#">게시글</a>
+      
+    </div>
+
+    </div>
+
+
+
+</footer>
+        
+
+
+</body>
+</html>

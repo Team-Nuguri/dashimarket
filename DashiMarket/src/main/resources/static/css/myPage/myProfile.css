@@ -1,0 +1,499 @@
+/*CSS 폰트*/
+
+
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+
+body, input, button, textarea, select {
+    font-family: "Noto Sans KR", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+/* 폰트 굵기 */
+.light-text {
+  font-weight: 300; /* Light */
+}
+
+.regular-text {
+  font-weight: 400; /* Regular(기본) */
+}
+
+.medium-text {
+  font-weight: 500; /* Medium */
+}
+
+.bold-text {
+  font-weight: 700; /* Bold */
+}
+
+/* 폰트 사이즈 */
+.text-size-10 {
+    font-size: 10px;
+}
+
+.text-size-13 {
+    font-size: 13px;
+}
+
+.text-size-14 {
+    font-size: 14px;
+}
+
+.text-size-16 {
+    font-size: 16px;
+}
+
+.text-size-18 {
+    font-size: 18px;
+}
+
+.text-size-20 {
+    font-size: 20px;
+}
+
+.text-size-24 {
+    font-size: 24px;
+}
+
+.text-size-28 {
+    font-size: 28px;
+}
+
+
+
+/*----------------------------*/
+/*프로필 관리*/ 
+
+/*사이드 메뉴 & 프로필 관리 박스*/
+.myPage-content{
+    display: flex;
+    width: 1200px;    
+    min-width: 700px;    
+    margin: 50px auto;
+    justify-content: center;    
+}
+
+/*프로필 관리 박스*/
+.myPage-main {
+    
+  width: 100%;
+ 
+  margin-left: 40px;
+  margin-bottom: 100px;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5); 
+  padding: 30px;
+  box-sizing: border-box;
+
+}
+
+/*프로필 관리 제목류(공통)*/
+.myPage-label{
+    display: flex;
+       
+    justify-content: center;
+
+    width: 150px;
+    height: 50px;
+    margin-left: 50px;
+}
+
+/*프로필 타이틀*/
+.myPage-title, .myPage-subtitle {
+    margin-left: 50px; 
+    margin-top: 30px;
+}
+
+/* 프로필 클래스 */
+.myPage-profile {
+    position: relative;   
+
+}
+
+/*프로필 사진*/
+.myPage-profile a {
+    display: block;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 2px solid rgb(248, 135, 135); 
+    margin-left: 80px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+/*프로필 사진 변경 */
+.myPage-profile button {
+    position: absolute;
+    top: 50%;
+    left: 212px;    
+}
+
+/*프로필 사진 변경 hover효과*/
+.myPage-profile > button:hover {
+    background-color: rgb(245, 183, 126);
+    cursor: pointer;    
+}
+
+
+/*프로필 변경 버튼*/
+.myPage-actionButton {
+    background-color: rgb(235, 222, 222);
+    border: 0;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-left: 15px;
+    width: 100px;
+}
+
+/* 프로필 변경 버튼 hover 효과 */
+.myPage-actionButton:hover {
+    background-color: aqua;    
+}
+
+/* 프로필 정보 박스 */
+.myPage-row {
+    display: flex;
+    padding-right: 100px;
+    margin-bottom: 15px;
+
+}
+
+/* 프로필 정보 표시(span) */
+.myPage-display {       
+    flex-grow: 1;
+    border-radius: 10px;
+    
+
+    display: flex;
+    align-items: center;
+
+    margin-left: 10px;
+}
+
+/* 프로필 정보 표시(input) */
+.myPage-input {
+    flex-grow: 1;
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+
+    margin-left: 10px;
+}
+
+/* 프로필 제목 */
+.myPage-label {
+    margin-top: 30px;
+}
+
+/* 프로필 주소 인라인 요소를 블록으로 변경 */
+.myPage-label {
+  margin-bottom: 5px; 
+}
+
+/* 우편번호 */
+.myPage-addpost {
+  margin-bottom: 15px; 
+  margin-left: 50px;
+  padding-left: 5px;
+
+}
+
+/* 우편번호 input */
+.myPage-postinput {
+    
+    width: 150px;
+    height: 50px;
+    margin-left: 50px;
+    padding-left: 5px;
+    border-radius: 10px;
+}
+
+/* 우편번호 검색 */
+.myPage-addactionButton {
+    
+    background-color: rgb(235, 222, 222);
+    border: 0;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-left: 15px;
+    width: 50px;
+    height: 50px;
+}
+
+/* 프로필 상세주소 */
+.myPage-addinput {
+    display: block;
+    flex-grow: 1;
+    width: 630px;
+    height: 50px;
+
+    
+    margin-left: 100px;
+    padding-left: 5px;
+    border-radius: 10px;
+
+    margin-bottom: 15px; 
+
+}
+
+/* 수정하기 버튼 */
+.myPage-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    margin-top: 50px;
+}
+
+/* 수정하기 버튼 input */
+.myPage-submit {
+
+    width: 200px;
+    height: 50px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+}
+
+/* 수정하기 버튼 input hover */
+.myPage-submit:hover {
+    
+    background-color: rgb(154, 255, 144);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*----------------------------*/
+/*사이드 메뉴*/ 
+
+/*사이드메뉴 박스*/
+.left-side{
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;    
+    
+    width: 30% ;    
+
+    margin-top: 0px;
+    margin-bottom: 400px;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5);   
+    
+    padding: 10px;
+    box-sizing: border-box;
+
+}
+
+/*사이드메뉴 제목*/
+.left-title{    
+
+    display: flex;        
+    justify-content: center;    
+    align-items: center;
+    height: 100px;
+}
+
+/*사이드메뉴 소제목*/
+ul, li{
+    list-style: none;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 10px;
+}
+
+/*사이드  대제목 간격*/
+.left-menu {
+    margin-bottom: 70px;
+}
+
+
+
+/*----------------------------*/
+/*헤더*/ 
+
+* { 
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+/* -------------------------------- 헤더 ------------------------------------- */
+
+/* 글씨 16px */
+.noto-sans-kr-20{
+    font-family: "Noto Sans KR", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 20px;
+}
+
+header{
+    width: 100%;
+    height: 250px;
+    border-bottom: 1px solid black;
+}
+
+/* 헤더 로고, 카테 ,아이콘 영역 정렬 */
+#header-area{
+    display: flex;
+    height: 80px;
+    width: 1200px;
+    margin: 30px auto 0 ;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+
+header>section>div:nth-child(2){
+    display: flex;
+    
+}
+
+#main-logo{
+    height: 80px;
+}
+
+/* 카테고리 박스 스타일 */
+header>section> div:nth-child(2)>div{
+
+    width: 200px;
+    height: 75px;
+    border: 1px solid #52B291;
+    margin: 30px;
+    border-radius: 10px;
+    overflow: hidden;
+    
+}                  
+
+
+/* 카테고리 박스 스타일 중앙정렬 등등 */
+header>section> div:nth-child(2) a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    width: 100%;
+    height: 100%;
+}          
+
+/* 카테고리 호버 효과 */
+header>section> div:nth-child(2)>div>a:hover{
+
+    background-color: #166549;
+    color: white;
+    transition: all 0.5s;
+}
+
+#icon-area button{
+    background-color: white;
+    border: none;
+    margin-left: 10px;
+    padding-right: 20px;
+}
+#icon-area button:hover{
+    cursor: pointer;
+}
+#icon-area img{
+    width: 25px;
+    height: 25px;
+}
+
+#search-area{
+    width: 1200px;
+    margin: 40px auto 40px ;
+    height: 150px;
+
+}
+
+#search-area fieldset{
+
+    margin: 0 auto;
+    width: 725px;
+    height: 80px;
+    border-radius: 20px;
+    border: 3px solid #166449;
+    padding: 8px 15px; 
+    display: flex; 
+    align-items: center; 
+}
+
+/* 검색창 스타일 */
+#query{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    font-size: 24px;
+    border: none;
+    outline: none; 
+}
+
+
+/* search x 버튼 없애기 */
+#query::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+    display: none;
+}
+
+/*----------------------------*/
+/*footer css*/
+
+ footer{
+      width: 1200px;
+      margin:0 auto;
+    }
+
+    .footer-bottom {
+      display: flex;               /* 좌우 배치 */
+      justify-content: space-between; /* 양쪽 끝으로 정렬 */
+      align-items: center;         /* 세로 가운데 정렬 */
+      padding: 10px 20px;
+      background-color: white;
+      color: black;
+    }
+
+    .footer-left {
+      font-size: 12px;
+    }
+
+    .footer-right a {
+      margin-left: 15px;
+      font-size:12px;
+      color: black;
+      text-decoration: none;
+    }
+
+    .footer-right a:hover {
+      text-decoration: underline;
+    }
+
+     .footer-top a:hover {
+      text-decoration: underline;
+    }
+  
+
+
