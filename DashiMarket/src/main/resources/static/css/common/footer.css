@@ -9,6 +9,20 @@ footer > section{
       
 }
 
+.footer-top {
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+}
+
+.footer-top > img {
+  margin-right: 20px;
+}
+
+.footer-top a {
+  padding: 10px;
+}
+
 .footer-bottom {
   display: flex;               /* 좌우 배치 */
   justify-content: space-between; /* 양쪽 끝으로 정렬 */
@@ -31,8 +45,10 @@ footer > section{
 
 .footer-right a:hover {
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .footer-top a:hover {
   text-decoration: underline;
+  cursor: pointer;
 }
