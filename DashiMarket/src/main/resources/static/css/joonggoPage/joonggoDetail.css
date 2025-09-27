@@ -1,0 +1,387 @@
+*{
+    box-sizing: border-box;
+}
+
+.flex{
+    display: flex;
+}
+
+.direction-column{
+    flex-direction: column;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+.center{
+    width: 1200px;
+    margin: 0 auto;
+}
+
+
+#item-detail{
+    margin-top: 20px;
+    height: 700px;
+    border-bottom: 1px solid black;
+}
+
+#item-detail>div:first-child{
+    justify-content: space-between;
+}
+
+/* a span 태그 간격 벌리기 */
+#item-detail>div:first-child a,span{
+
+    padding-right: 10px;
+    text-decoration: none;
+
+    color: black;
+}
+
+/* 마우스 올렸을 때 밑줄 */
+#item-detail>div:first-child a:hover{
+
+    text-decoration: underline;
+}
+
+#item-info{
+    display: flex;
+    margin-top: 10px;
+    justify-content: space-between;
+}
+
+#image-area{
+    position: relative;
+}
+
+#imageSlide>img{
+    width: 500px;
+    height: 500px;
+    
+}
+
+#imageSlide{
+    display: flex;  
+    width: 500px;
+    height: 500px;
+    
+}
+
+#item-info>div:first-child{
+
+    overflow: hidden;
+}
+
+/* 이미지 슬라이드 버튼 */
+#image-area button{
+    position: absolute;
+    z-index: 10;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border: 0;
+    top: 47%;
+    cursor: pointer;;
+
+    
+}
+
+/* 버튼 위치 */
+#left-btn{
+    left: 0;
+}
+
+#right-btn{
+    right: 0;
+}
+
+#item-info button>img{
+    width: 100%;
+    height: 100%;
+}
+
+#dot-area{
+    display: flex;
+    justify-content: center;
+}
+
+/* 점 투명도 */
+.opacity{
+    opacity: 0.3;
+
+}
+
+.dot{
+    cursor: pointer;
+}
+
+
+#info-area{
+    width: 500px;
+    height: 520px;
+}
+
+#item-title{
+    position: relative;
+}
+
+/* 수정, 삭제 버튼 */
+#ud-menu {
+    cursor: pointer;
+}
+
+/* 드롭다운 메뉴 스타일 */
+.dropdown-menu {
+    /* 초기에는 숨김 */
+    display: none;
+    
+    position: absolute; 
+    top: 90%; 
+    left: 95%;  
+    
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10; /* 다른 요소 위에 표시되도록 */
+    width: 150px;
+}
+
+/* 드롭다운 메뉴 내 버튼 스타일 (수정/삭제) */
+.dropdown-menu>button {
+    width: 100%;
+    padding: 10px 15px;
+    border: none;
+    text-align: center;
+    cursor: pointer;
+    font-size: 14px;
+    border: 1px solid black;
+    background-color: white;
+}
+
+.dropdown-menu>button:hover{
+    background-color: #52B291;
+    font-weight: bold;
+    transition: all 0.4s;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+#info-area>div:first-child{
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+#item-price{
+    margin-top: 20px;
+}
+
+#item-stats{
+    margin-top: 20px;
+}
+
+
+/* 조회수 관심수 등등 영역 */
+#info-area>div:nth-child(3){
+    
+    
+
+    justify-content: space-between;
+
+}
+
+#like-count, #view-count, #time-ago, #report{
+    display: flex;
+    align-items: center;
+    opacity: 0.7;
+}
+
+
+#item-description{
+    margin-top: 30px;
+    border: 3px solid #ddd;
+    height: 320px;
+}
+
+#item-detail>div:last-child{
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+#user-profile{
+    width: 500px;
+    height: 100px;
+    /* border: 1px solid black; */
+    justify-content: space-between;
+}
+
+#user-profile img{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+
+#user-profile>div{
+    align-items: center;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+#user-profile>div>div{
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+
+.nickname {
+    margin-bottom: 5px; 
+    display: block; 
+    text-decoration: none;
+    color: black;
+    font-weight: 700;
+    border: 1px solid #52B291;
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    border-radius: 10px;
+
+}
+
+#user-profile span{
+    margin-left: 20px;
+}
+
+/* 별 정렬 */
+.rating-stars {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+/* 별 색 */
+.rating-stars i {
+    color: #FFD700; 
+}
+
+
+#heart-chatting{
+    width: 500px;
+    height: 100px;
+    /* border: 1px solid black; */
+    align-items: center;
+    justify-content: space-around;
+
+}
+
+#like-heart{
+
+    font-size: 50px;
+    cursor: pointer;
+}
+
+
+.fa-solid{
+    color: red;
+}
+
+#chatting-btn{
+
+    width: 120px;
+    height: 60px;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid #52B291;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+#chatting-btn:hover{
+
+    background-color: #52B291;
+    color: white;
+
+    transition: all 0.3s;
+
+}
+
+/* --------------------------- */
+/* 비슷한 상품 목록 리스트 */
+#similar-item{
+    margin-top: 20px;
+    position: relative;
+    height: 400px;
+    /* border: 1px solid black; */
+    align-items: center;
+    border-bottom: 1px solid black;
+}
+
+
+#similar-item>button{
+    background-color: white;
+    border: none;
+    
+}
+#similar-item>button:hover{
+    cursor: pointer;
+}
+/* 왼 버튼 위치 */
+#left-out-btn{
+    position: absolute;
+    top: 45%;
+    left: -10%;
+}
+
+/* 오른 버튼 위치 */
+#right-out-btn{
+    position: absolute;
+    top: 45%;
+    right: -10%;
+}
+
+.similar-items{
+    width: 240px;
+    height: 300px;
+    /* border: 1px solid black; */
+
+    margin: 0 20px;
+}
+
+.similar-items > a {
+    width: 200px;
+    height: 300px; 
+    display: block; 
+    margin: 0 auto; 
+    /* border: 1px solid black; */
+    text-decoration: none;
+}
+
+.similar-items img{
+    width: 200px;
+    height: 200px;
+}
+
+
+.similar-name{
+    text-decoration: none;
+    text-align: center;
+    color: black;
+    font-weight: 700;
+    margin-top: 10px;
+}
+.similar-name:hover{
+    text-decoration: underline;
+}
+
+.similar-price{
+    margin-top: 10px;
+}
+
+.similar-info-container{
+    align-items: center;
+}
+
+#image-container{
+    width: 1200px;
+    overflow: hidden;
+}
