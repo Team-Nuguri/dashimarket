@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>굿즈 상품 주문 페이지</title>
+
+    <link rel="stylesheet" href="../../static/css/common/header.css">
+    <link rel="stylesheet" href="../../static/css/common/footer.css">
+    <link rel="stylesheet" href="../../static/css/common/font.css">
+    <link rel="stylesheet" href="../../static/css/orderPage/order.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <section id="header-area">
+            <div>
+                <a href="@{/}">
+                    <img id="main-logo" src="../../static/images/logo.png">
+                </a>
+
+            </div>
+
+            <div>
+                <div>
+                    <a href="/joongo" class="noto-sans-kr-20">중고거래</a>
+                </div>
+                <div>
+                    <a href="/goods" class="noto-sans-kr-20">굿즈</a>
+                </div>
+                <div>
+                    <a href="/community" class="noto-sans-kr-20">커뮤니티</a>
+                </div>
+
+            </div>
+
+            <div id="icon-area">
+                <button>
+                    <img src="../../static/images/svg/하트.svg">
+                    <!-- <img src="../../static/images/svg/장바구니.svg" > -->
+                    <!-- <img src="@{/images/사람.svg}" > -->
+                </button>
+
+
+                <button>
+                    <img src="../../static/images/svg/Group.svg">
+                </button>
+                <button>
+                    <img src="../../static/images/svg/clarity_menu-line.svg">
+
+                </button>
+
+            </div>
+        </section>
+
+        <section id="search-area">
+
+            <form action="">
+                <fieldset>
+                    <img src="../../static/images/svg/돋보기.svg">
+                    <input type="search" name="query" id="query" placeholder="검색어를 입력해주세요." class="noto-sans-kr-20">
+
+                </fieldset>
+
+            </form>
+
+        </section>
+
+    </header>
+
+    <main>
+
+
+        <!-- 주문 정보-->
+        <section class="center order-info-area">
+            <!-- 장바구니 상품 목록 -->
+            <h1 class="center" style="margin-top: 10px;">주문자 정보</h1>
+            <form action="">
+                <div class="order-container">
+                    <div class="orderer-info">
+                        <input type="text" name="ordererName" class="text-size-24 bold-text" value="이규식">
+                        <input type="text" name="ordererTel" class="text-size-24 bold-text" value="01012341234">
+                        <input type="text" name="ordererEmail" class="text-size-24 bold-text" value="user@naver.com">
+                    </div>
+
+
+                    <h1 class="center" style="margin-top: 10px;">수령인 정보</h1>
+                    <div class="recipient-info">
+                        <!-- 수령인 이름 -->
+                        <label for="recipientName">
+                            <h1 style="margin: 10px 0 20px 30px;"><span class="required">*</span>수령인 이름</h1>
+                        </label>
+                        <input type="text" name="recipientName" id="recipientName" placeholder="성함">
+                        <!-- 수령인 전화번호 -->
+                        <label for="recipientTel">
+                            <h1 style="margin: 10px 0 20px 30px;"><span class="required">*</span>수령인 전화번호</h1>
+                        </label>
+                        <input type="text" name="recipientTel" id="recipientTel" placeholder="전화번호">
+                        <!-- 수령인 주소 -->
+
+                        <label for="memberAddress" class="bold-text" style="margin: 10px 0 20px 30px; font-size: 30px;">
+                            <span class="required">*</span> 배송지
+                        </label>
+
+
+                        <div class="delivery-input-area">
+                            <input type="text" name="postcode" placeholder="우편번호" maxlength="6" id="sample6_postcode">
+
+                            <button type="button" onclick="sample6_execDaumPostcode()">검색</button>
+                        </div>
+
+
+                        <div class="delivery-input-area">
+                            <input type="text" name="addressBase" placeholder="도로명/지번 주소" id="sample6_address">
+                        </div>
+
+
+                        <div class="delivery-input-area">
+                            <input type="text" name="addressDetail" placeholder="상세 주소" id="sample6_detailAddress">
+                        </div>
+
+                    </div>
+
+
+
+
+                    <h1 class="center" style="margin-top: 10px;">주문 상품</h1>
+                    <div class="order-item">
+                        <div class="order-item-row">
+                            <!-- 상품 대표 이미지 -->
+                            <div class="item-img">
+                                <img src="../../static/images/goods/cushion.png" alt="">
+                            </div>
+
+                            <!-- 상품명 -->
+                            <div>
+                                <h1>다시마 쿠션</h1>
+                            </div>
+                            <!-- 상품 수량 -->
+                            <div class="count-price">
+                                <div class="number-input">
+                                    <button type="button" class="minus">-</button>
+                                    <input type="number" class="quantity" value="1" min="1" max="10" readonly>
+                                    <button type="button" class="plus">+</button>
+                                </div>
+
+                            </div>
+
+                            <!-- 상품 가격 -->
+                            <div>
+                                <h2 class="total-price">28,000원</h2>
+                            </div>
+
+                            <input type="hidden" name="goodsNo" value="">
+                            <input type="hidden" name="inputPrice" value="28000">
+                            <!-- 삭제 -->
+                            <div class="item-delete medium-text">
+                                <button type="button" class="text-size-16 medium-text">삭제</button>
+                            </div>
+
+                        </div>
+                        
+                        <div class="order-item-row">
+                            <!-- 상품 대표 이미지 -->
+                            <div class="item-img">
+                                <img src="../../static/images/goods/tumbler.png" alt="">
+                            </div>
+
+                            <!-- 상품명 -->
+                            <div>
+                                <h1>다시마 텀블러</h1>
+                            </div>
+                            <!-- 상품 수량 -->
+                            <div class="count-price">
+                                <div class="number-input">
+                                    <button type="button" class="minus">-</button>
+                                    <input type="number" class="quantity" value="1" min="1" max="10" readonly>
+                                    <button type="button" class="plus">+</button>
+                                </div>
+
+                            </div>
+
+                            <!-- 상품 가격 -->
+                            <div>
+                                <h2 class="total-price">25,000원</h2>
+                            </div>
+                            <input type="hidden" name="goodsNo" value="">
+                            <input type="hidden" name="inputPrice" value="25000">
+                            <!-- 삭제 -->
+                            <div class="item-delete medium-text">
+                                <button type="button" class="text-size-16 medium-text">삭제</button>
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+
+
+                    <!-- 좀 밋밋한 느낌 결제수단을 
+                        결제 대행사에서 제공해준다곤 하는데 그럼 굳이 이 영역이 필요한가 ? 싶음
+                    -->
+                    <h1>결제수단</h1>
+                    <div class="pay-method">
+                        <label class="payment-option-item">
+                            <input type="radio" name="paymentMethod" value="CARD" checked>
+                            <span class="custom-radio"></span>
+                            신용 / 체크 카드 결제
+                        </label>
+
+                        <label class="payment-option-item">
+                            <input type="radio" name="paymentMethod" value="TRANSFER">
+                            <span class="custom-radio"></span>
+                            계좌 이체
+                        </label>
+
+                        <label class="payment-option-item">
+                            <input type="radio" name="paymentMethod" value="MOBILE">
+                            <span class="custom-radio"></span>
+                            핸드폰 결제
+                        </label>
+
+                        <label class="payment-option-item">
+                            <input type="radio" name="paymentMethod" value="EASY_PAY">
+                            <span class="custom-radio"></span>
+                            간편 결제
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+
+
+                </div>
+
+
+
+
+
+
+                <!-- 결제 금액 보여줄 영역 -->
+                <div id="price-area">
+                    <div>
+                        <h1>결제 금액</h1>
+                    </div>
+                    <div>
+                        <h2>배송비</h2>
+                        <h3>무료</h3>
+                    </div>
+                    <div id="total-price-area">
+                        <div>
+                            <h2>총 결제 금액</h2>
+                        </div>
+                        <div>
+                            <h2 id="real-total-price">0 원</h2>
+                        </div>
+                    </div>
+                    <input type="hidden" name="realTotalPrice" id="realTotalPrice">
+
+                    <div>
+                        <button id="purchaseBtn" class="bold-text text-size-20"><span></span>결제하기</button>
+
+                    </div>
+                </div>
+            </form>
+
+
+        </section>
+
+    </main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <footer>
+        <section>
+
+            <div class="footer-top">
+                <a th:href="@{#}"><img src="images/logo.png" width="100px" style="vertical-align: middle;"></a>
+                <a th:href="@{#}">회사 소개</a>
+                <span>|</span>
+                <a th:href="@{#}">서비스 소개</a>
+                <span>|</span>
+                <a th:href="@{#}">블로그</a>
+                <span>|</span>
+                <a th:href="@{#}">채용제휴 문의</a>
+                <span>|</span>
+                <a th:href="@{#}">광고 문의</a>
+            </div>
+
+            <hr>
+
+            <div class="footer-bottom">
+
+                <div class="footer-left">
+                    (주) 다시마켓 <br>
+                    대표 너구리 <br>
+                    사업자번호 168-87-57386 <br>
+                    직업정보제공사업 신고번호J1200020200016 <br>
+                    통신판매신고번호 제2024-서울강남-06966호 <br>
+                    호스팅 사업자 Amazon Web Service(AWS)<br>
+                    주소 서울특별시 종로구 우정국로2길 21 9층, 903호 <br>
+                    전화 1877-9292 <br>
+                    고객문의 kelp@dasimacat.com
+                </div>
+                <div class="footer-right">
+                    <a href="#">공지사항</a>
+                    <a href="#">자주묻는 질문</a> <br><br>
+
+                    <a href="#">이용약관</a>
+                    <a href="#">개인정보처리방침</a>
+
+                    <a href="#">운영정책</a>
+
+                    <a href="#">위치기반서비스 이용약관</a>
+
+                    <a href="#">게시글</a>
+
+                </div>
+
+            </div>
+        </section>
+
+
+
+
+    </footer>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+        function sample6_execDaumPostcode() {
+            new daum.Postcode({
+                oncomplete: function (data) {
+                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                    // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                    // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                    var addr = ''; // 주소 변수
+
+                    //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                    if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                        addr = data.roadAddress;
+                    } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                        addr = data.jibunAddress;
+                    }
+
+
+                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                    document.getElementById('sample6_postcode').value = data.zonecode;
+                    document.getElementById("sample6_address").value = addr;
+                    // 커서를 상세주소 필드로 이동한다.
+                    document.getElementById("sample6_detailAddress").focus();
+                }
+            }).open();
+        }
+    </script>
+
+
+    <script src="../../static/js/order/order.js"></script>
+
+</body>
+
+</html>
