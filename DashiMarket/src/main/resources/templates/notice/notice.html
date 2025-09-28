@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/DashiMarket/src/main/resources/static/css/notice/notice.css">
+  <link rel="stylesheet" href="/DashiMarket/src/main/resources/static/css/common/font.css">
+  <title>공지사항</title>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>공지사항</h1>
+
+      <section class="search-section">
+        <form class="search-form" role="search">
+          <img src="/src/main/resources/static/images/돋보기.svg">
+          <input type="search" id="search-input" placeholder="무엇을 찾고 계신가요?" aria-label="공지사항 검색">
+        </form>
+
+        <button type="button" id="admin-writeBtn">글쓰기</button>
+
+      </section>
+
+
+
+      <nav aria-label="공지사항 필터">
+        <ul class="filter-nav">
+          <li><button type="button" aria-current="page">전체</button></li>
+          <li><button type="button">공지</button></li>
+          <li><button type="button">이벤트 관련</button></li>
+          <li><button type="button">사기예방</button></li>
+          <li><button type="button">정책변경</button></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="notice-list">
+        <table class="notice-table">
+          <thead>
+            <tr>
+              <th scope="col">분류</th>
+              <th scope="col">제목</th>
+              <th scope="col">날짜</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr role="button">
+              <td class="category">[공지]</td>
+              <td class="notice-title">개인정보 처리방침 개정안내</td>
+              <td class="notice-date">YYYY-MM-DD</td>
+            </tr>
+
+            <tr role="button">
+              <td class="category">[사기예방]</td>
+              <td class="notice-title">안전하게 직거래하는 3가지 꿀팁!</td>
+              <td class="notice-date">YYYY-MM-DD</td>
+            </tr>
+
+            <tr role="button">
+              <td class="category">[공지]</td>
+              <td class="notice-title">공지사항을 입력하세요</td>
+              <td class="notice-date">YYYY-MM-DD</td>
+            </tr>
+
+            <tr role="button">
+              <td class="category">[공지]</td>
+              <td class="notice-title">공지사항을 입력하세요</td>
+              <td class="notice-date">YYYY-MM-DD</td>
+            </tr>
+
+            <tr role="button">
+              <td class="category">[이벤트 관련]</td>
+              <td class="notice-title">이벤트 관련 사항을 입력하세요</td>
+              <td class="notice-date">YYYY-MM-DD</td>
+            </tr>
+
+            <tr role="button">
+              <td class="category">[공지]</td>
+              <td class="notice-title">공지사항을 입력하세요</td>
+              <td class="notice-date">YYYY-MM-DD</td>
+            </tr>
+
+            <tr role="button">
+              <td class="category">[정책변경]</td>
+              <td class="notice-title">공지사항을 입력하세요</td>
+              <td class="notice-date">YYYY-MM-DD</td>
+            </tr>
+
+            <tr role="button">
+              <td class="category">[사기예방]</td>
+              <td class="notice-title">안전하게 직거래하는 3가지 꿀팁!</td>
+              <td class="notice-date">YYYY-MM-DD</td>
+            </tr>
+
+            <tr role="button">
+              <td class="category">[이벤트 관련]</td>
+              <td class="notice-title">이벤트 관련 사항을 입력하세요</td>
+              <td class="notice-date">YYYY-MM-DD</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <footer>
+      <nav aria-label="페이지네이션">
+        <ul class="pagination">
+          <li><button type="button" class="pagination-btn" aria-label="이전 페이지"><img src="/src/main/resources/static/images/pagenation/pagn-previous-btn.svg"></button></li>
+          <li><button type="button" aria-current="page" aria-label="1페이지">1</button></li>
+          <li><button type="button" aria-label="2페이지">2</button></li>
+          <li><button type="button" aria-label="3페이지">3</button></li>
+          <li><button type="button" aria-label="4페이지">4</button></li>
+          <li><button type="button" aria-label="5페이지">5</button></li>
+          <li><button type="button" aria-label="6페이지">6</button></li>
+          <li><button type="button" aria-label="7페이지">7</button></li>
+          <li><button type="button" aria-label="8페이지">8</button></li>
+          <li><button type="button" aria-label="9페이지">9</button></li>
+          <li><button type="button" aria-label="10페이지">10</button></li>
+          <li><button type="button" class="pagination-btn" aria-label="다음 페이지"><img src="/src/main/resources/static/images/pagenation/pagn-next-btn.svg"></button></li>
+        </ul>
+      </nav>
+    </footer>
+
+
+
+
+
+</body>
+
+</html>
