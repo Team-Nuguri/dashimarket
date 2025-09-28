@@ -1,16 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http:// www.thymeleaf.com">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>관리자 페이지(회원조회)</title>
+    <title>회원 관리</title>
+
+    <!-- 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="/src/main/resources/static/css/adminPage/admin-style.css">
 
     <script src="https://kit.fontawesome.com/1c15543e3e.js" crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body alink="rgb(82, 178, 145, 70)">
     <main>
         <section class="admin-content">
             <!-- 사이드 메뉴 -->
@@ -18,19 +24,17 @@
                 <img src="/src/main/resources/static/images/admin/adminLogo.png" id="logo">
 
                 <ul class="list-group">
-                    <li class="sideTitle fa-solid fa-user"> 회원관리</li>
+                    <li class="sideTitle"><img src="/src/main/resources/static/images/svg/Client Management.svg">회원관리</li>
                     <li><span>|</span> <a href="#">회원 조회</a></li>
 
-                    <li class="sideTitle fa-solid fa-circle-exclamation"> 신고관리</li>
-                    <li><span>|</span> <a href="#">신고 게시글</a></li>
-                    <li><span>|</span> <a href="#">신고 회원</a></li>
+                    <li class="sideTitle"><img src="/src/main/resources/static/images/svg/report.svg">신고관리</li>
+                    <li><span>|</span> <a href="#">통합 신고</a></li>
 
+                    <li class="sideTitle"><img src="/src/main/resources/static/images/svg/goods-admin.svg">상품/거래</li>
+                    <li><span>|</span> <a href="#">상품 관리</a></li>
+                    <li><span>|</span> <a href="#">거래 내역</a></li>
 
-                    <li class="sideTitle fa-solid fa-clipboard-list"> 상품관리</li>
-                    <li><span>|</span> <a href="#">상품</a></li>
-
-
-                    <li class="sideTitle fa-solid fa-database"> 데이터</li>
+                    <li class="sideTitle"><img src="/src/main/resources/static/images/svg/Bar Chart.svg">데이터</li>
                     <li><span>|</span> <a href="#">이용자 수</a></li>
                     <li><span>|</span> <a href="#">품목별 거래</a></li>
                 </ul>
@@ -43,7 +47,7 @@
                     <div class="admin-login">
                         <img src="/src/main/resources/static/images/admin/user.png">
                         <p>관리자 계정</p>
-                        <button>로그아웃</button>
+                        <button id="logout">로그아웃</button>
                     </div>
                 </div>
 
@@ -53,7 +57,7 @@
                         <div class="search-box">
                             <label>검색</label>
                             <fieldset>
-                                <input type="text" name="query" placeholder="사용자ID/닉네임을 입력하세요.">
+                                <input type="text" name="query" placeholder="회원ID/닉네임을 입력하세요.">
                                 <button class="searchBtn fa-solid fa-magnifying-glass"></button>
                             </fieldset>
                         </div>
@@ -62,7 +66,7 @@
                         <div class="detail-search">
                             <label>상세 검색</label>
                             <div class="checkbox-group">
-                                <input type="checkbox"> 사용자ID
+                                <input type="checkbox"> 회원ID
                                 <input type="checkbox"> 닉네임
                                 <input type="checkbox"> 전화번호
                                 <input type="checkbox"> 탈퇴회원
@@ -70,20 +74,20 @@
     
                             <!-- 초기화/검색 버튼 -->
                             <div class="search-buttons">
-                                <button type="reset">초기화</button>
-                                <button type="submit">검색</button>
+                                <button type="reset" class="basic-btn">초기화</button>
+                                <button type="submit" class="color-btn">검색</button>
                             </div>
                         </div>
                     </form>
     
-                    <div id="new-user">
+                    <div id="view-box" class="box-style">
                         <p>신규 가입자</p>
-                        <p>0</p>
+                        <p class="p-tag-value">0</p>
                     </div>
     
-                    <div id="today-user">
+                    <div id="view-box2" class="box-style">
                         <p>오늘 이용자 수</p>
-                        <p>0</p>
+                        <p class="p-tag-value">0</p>
                     </div>
                 </div>
                 
@@ -92,7 +96,7 @@
                     <tr class="table-title">
                         <td class="fa-regular fa-square"></td>
                         <td>회원번호</td>
-                        <td>사용자ID</td>
+                        <td>회원ID</td>
                         <td>닉네임</td>
                         <td>전화번호</td>
                         <td>주소</td>
@@ -110,17 +114,6 @@
                         <td>N</td>
                         <td>2025.09.01</td>
                         <td>0/0.0</td>
-                    </tr>
-                    <tr>
-                        <td class="fa-solid fa-square-check"></td>
-                        <td>2</td>
-                        <td>user02@og.or.kr</td>
-                        <td>유저이</td>
-                        <td>01012345678</td>
-                        <td>서울시 종로구 관철동</td>
-                        <td>N</td>
-                        <td>2025.09.10</td>
-                        <td>1/2.0</td>
                     </tr>
                     <tr>
                         <td class="fa-solid fa-square-check"></td>
@@ -245,6 +238,8 @@
             </ul>
         </nav>
     </footer>
+
+    <script src="/src/main/resources/static/js/adminPage/admin.js"></script>
 </body>
 
 </html>
