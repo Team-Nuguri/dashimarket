@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../static/css/myPage/myPage_secession.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <title>프로필 관리</title>
+</head>
+<body>
+
+     <header>
+        <section id="header-area">
+            <div>
+                <a href="@{/}">
+                    <img id="main-logo" src="/images/logo.png">
+                </a>
+
+            </div>
+
+            <div>
+                <div>
+                    <a href="/joongo" class="noto-sans-kr-20">중고거래</a>
+                </div>
+                <div>
+                    <a href="/goods" class="noto-sans-kr-20">굿즈</a>
+                </div>
+                <div>
+                    <a href="/community" class="noto-sans-kr-20">커뮤니티</a>
+                </div>
+
+            </div>
+            
+            <div id="icon-area">
+                <button>
+                    <img src="/images/하트.svg" >
+                    <!-- <img src="@{/images/장바구니.svg}" > -->
+                    <!-- <img src="@{/images/사람.svg}" > -->
+                </button>
+                    
+    
+                <button>
+                    <img src="/images/group.svg" >
+                </button>
+                <button>
+                    <img src="/images/clarity_menu-line.svg" >
+                    
+                </button>
+
+            </div>
+        </section>
+
+        <section id="search-area">
+
+            <form action="">
+                <fieldset>
+                    <img src="/images/돋보기.svg" >
+                    <input type="search" name="query" id="query"
+                    placeholder="검색어를 입력해주세요." class="noto-sans-kr-20">
+
+                </fieldset>
+
+            </form>
+            
+        </section>       
+       
+
+    </header>
+
+
+<main>
+
+    
+<!--왼쪽 사이드메뉴-->
+
+<section class="myPage-content">
+
+<section class="left-side">
+
+    <nav>
+
+    <div class="left-title text-size-28 bold-text">마이페이지</div>
+
+
+    <ul class="left-menu">
+        <li class="text-size-18 bold-text">
+            <img src="img/shopping.png" alt="주문내역/구매내역" width="40px" height="40px">
+            주문내역/구매내역
+
+            <ul>
+                    
+                    <li>직거래</li>
+                
+                    <li>굿즈</li>
+               
+                    <li>나눔</li>
+                
+            </ul>        
+        </li>
+    </ul>
+
+    <ul class="left-menu">
+        <li class="text-size-18 bold-text">
+            <img src="img/product.png" alt="상품관리"  width="40px" height="40px">
+            상품관리
+            <ul class="left-submenu">
+                
+                    <li>내가 찜한 상품</li>
+            
+            </ul>
+        </li>
+    </ul>
+
+    <ul class="left-menu">
+        <li class="text-size-18 bold-text">
+            <img src="img/myinfo.png" alt="내 정보 관리" width="40px" height="40px">
+            내 정보 관리       
+            <ul class="left-submenu">
+                
+                
+                    <li>프로필 관리</li>
+                
+                    <li>회원 탈퇴</li>
+                       
+            </ul>
+        </li>   
+    </ul>
+    </nav>
+    
+</section>
+
+<!-- 회원탈퇴 -->
+
+        <section class="myPage-secession">
+
+            <span class="myPage-title text-size-28 bold-text" >회원 탈퇴</span> <br>   
+            
+            <form action="/secession" class="secession">              
+                
+                <div>
+                <label>탈퇴 사유를 알려주시면 개선을 위해 노력하겠습니다.</label>
+                <span>(다중 선택이 가능해요)</span>
+
+                <ul>
+                    <li>
+                        <label><input type="checkbox">사용 빈도가 낮고 개인정보 및 보안 우려</label>
+                    </li>
+                    <li>
+                        <label><input type="checkbox">비매너 사용자들로 인한 불편(사기 등)</label>
+                    </li>
+                    <li>
+                        <label><input type="checkbox">서비스 기능 불편 (상품등록/거래 등)</label>
+                    </li>
+                    <li>
+                        <label><input type="checkbox">기타</label>
+                    </li>  
+                </ul>
+
+                </div>
+
+                <div>
+                    <textarea name="" id="">
+                    </textarea>
+                </div>
+
+                <div>
+                    <span>회원 탈퇴 약관 </span>
+
+                    <p>01 탈퇴 신청일로부터 30일 이내에 동일한 아이디와 휴대폰 번호로 가입 불가하며 재가입 시, 신규 가입 혜택은 적용되지 않습니다.</p>
+
+                    <p>02 회원 탈퇴 시 본인 계정에 등록된 게시물 또는 회원이 작성한 게시물 일체는 삭제됩니다. 다만, 다른 회원에 의해 스크랩되어 게시되거나 공용 게시판에 등록된 게시물은 삭제되지 않으니 삭제를 원하신다면 미리 삭제 후 탈퇴를 진행해주세요.</p>
+
+                    <p>03 전자 상거래 등에서의 소비자 보호에 관한 법률 규정에 따라 아래와 같이 기록을 보관하며, 법률 의한 경우 외 다른 목적으로 이용되지 않습니다.</p>
+
+                        <ul>
+                            <li>표시 광고에 대한 기록  6개월</li>
+                            <li>계약 또는 청약철회, 대금결제 및 재화 등의 공급에 관한 기록 5년</li>
+                            <li>소비자의 불만 또는 분쟁처리에 관한 기록 3년</li>
+                            <li>로그인 기록 3개월</li>
+                            <li>전자금융거래기록 5년</li>                    
+                        </ul>
+
+                    <p>04 탈퇴 신청 후 72시간(3일) 이내 동일한 계정으로 로그인시 탈퇴 신청이 자동으로 철회됩니다.</p>
+                    
+
+                </div>
+
+
+                <div class="myPage-row">
+                    <label class="myPage-label text-size-18 bold-text">패스워드</label>
+                    <input type="text" class="myPage-input text-size-18" placeholder="패스워드를 입력해주세요">
+                </div>
+
+                <div class="myPage-buttons">
+                <button class="myPage-submit text-size-18">수정하기</button>                
+                </div>
+              
+            </form>
+
+        </section>
+
+    </section>
+    
+</main>
+
+    
+<!--footer-->
+
+<footer>
+
+     <div class="footer-top">
+        <a th:href="@{#}"><img src="logo.png" width="100px" style="vertical-align: middle;"></a>
+        <a th:href="@{#}">회사 소개</a>    
+        <span>|</span>
+        <a th:href="@{#}">서비스 소개</a>    
+        <span>|</span>
+        <a th:href="@{#}">블로그</a>    
+        <span>|</span>
+        <a th:href="@{#}">채용제휴 문의</a>    
+        <span>|</span>
+        <a th:href="@{#}">광고 문의</a>
+    </div>
+
+   <hr>
+
+  <div class="footer-bottom">
+
+    <div class="footer-left">
+      (주) 다시마켓 <br>
+대표 너구리  <br>
+사업자번호 168-87-57386  <br>
+직업정보제공사업 신고번호J1200020200016  <br>
+통신판매신고번호 제2024-서울강남-06966호  <br>
+호스팅 사업자 Amazon Web Service(AWS)<br>
+주소 서울특별시 종로구 우정국로2길 21 9층, 903호  <br>
+전화 1877-9292  <br>
+고객문의 kelp@dasimacat.com 
+    </div>
+    <div class="footer-right">
+      <a href="#">공지사항</a>
+      <a href="#">자주묻는 질문</a> <br><br>
+
+      <a href="#">이용약관</a>
+      <a href="#">개인정보처리방침</a>
+
+      <a href="#">운영정책</a>
+
+      <a href="#">위치기반서비스 이용약관</a>
+
+      <a href="#">게시글</a>
+      
+    </div>
+
+    </div>
+
+
+
+</footer>
+        
+
+
+</body>
+</html>
