@@ -52,7 +52,7 @@ categoryLinks.forEach(link => {
 })
 
 /* 정렬 */
-const sort = document.querySelectorAll("#sort-area a");
+const sort = document.querySelectorAll(".sort-area a");
 let isSort = null;
 
 sort.forEach(link => {
