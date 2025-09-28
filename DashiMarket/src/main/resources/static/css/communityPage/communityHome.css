@@ -58,11 +58,11 @@ a {
 }
 
 /* 동 텍스트 */
-#select-city-box a > div {
+#select-city-box a>div {
     text-align: center;
     padding: 5px;
     color: black;
-    border-bottom: 2px solid transparent; 
+    border-bottom: 2px solid transparent;
 }
 
 #select-city-box a div:hover {
@@ -70,7 +70,7 @@ a {
 }
 
 
-#select-sort-box  a > div {
+#select-sort-box a>div {
     text-align: center;
     padding: 5px;
     color: black;
@@ -96,14 +96,15 @@ a {
 }
 
 #category-drop-down-container a {
-    width: 25%; /* 한 줄에 4개씩 차지 */
+    width: 25%;
+    /* 한 줄에 4개씩 차지 */
     text-align: center;
     margin: 15px 0;
     box-sizing: border-box;
 }
 
 #category-drop-down-container a div {
-    border-bottom: 2px solid transparent; 
+    border-bottom: 2px solid transparent;
 }
 
 /* 선택 효과 */
@@ -162,7 +163,7 @@ a {
     cursor: pointer;
 }
 
-.post-thumbnail > img {
+.post-thumbnail>img {
     width: 160px;
     height: 160px;
     border-radius: 10px;
@@ -197,7 +198,8 @@ a {
     align-items: center;
 }
 
-.post-like, .post-comment {
+.post-like,
+.post-comment {
     width: 50px;
     display: flex;
     align-items: center;
@@ -209,11 +211,12 @@ a {
 }
 
 /* 아이콘 크기 */
-.post-icon div > img {
+.post-icon div>img {
     width: 24px;
 }
 
-.post-like div, .post-comment div {
+.post-like div,
+.post-comment div {
     margin-left: 3px;
 }
 
@@ -248,7 +251,7 @@ nav {
     background-color: #f8f9fa;
 }
 
-.pagination .pagination-btn:hover{
+.pagination .pagination-btn:hover {
     background-color: #166549;
     color: white;
 }
@@ -294,7 +297,7 @@ nav {
     display: flex;
 }
 
-.profile-img > img {
+.profile-img>img {
     width: 140px;
     height: 140px;
     border-radius: 50%;
@@ -327,7 +330,7 @@ nav {
     align-items: center;
 }
 
-.views-area > div > img {
+.views-area>div>img {
     width: 24px;
     padding-top: 8px;
 }
@@ -340,7 +343,7 @@ nav {
     border-bottom: 1px solid gray;
 }
 
-.post-img > img {
+.post-img>img {
     width: 400px;
     height: 400px;
     object-fit: cover;
@@ -349,7 +352,7 @@ nav {
 .post-content-area {
     margin: 30px 0;
     width: 800px;
-    overflow-wrap: break-word; 
+    overflow-wrap: break-word;
 }
 
 /* 아이콘 영역 */
@@ -366,6 +369,50 @@ nav {
     margin-bottom: 30px;
 }
 
+/* 댓글 쓰기 */
+.write-comment-row {
+    display: flex;
+    gap: 10px;
+    margin: 40px 0;
+}
+
+.write-box {
+    flex-grow: 7;
+}
+
+.write-comment-area {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    height: 80px;
+    /* 크기 조절 기능 비활성화 */
+    resize: none;
+    border: 2px solid #298C69;
+}
+
+.comment-button-area {
+    flex-grow: 1;
+}
+
+.write-comment-area:focus {
+    outline: none;
+    border: 2px solid #166549;
+}
+
+.comment-button-area button {
+    width: 100%;
+    height: 80px;
+    background-color: #52B291;
+    color: white;
+    border-radius: 10px;
+    border: none;
+}
+
+.comment-button-area button:hover {
+    background-color: #298C69;
+    cursor: pointer;
+}
+
 /* 댓글 */
 .comment-area {
     height: 100%;
@@ -378,7 +425,7 @@ nav {
     margin-bottom: 15px;
 }
 
-.comment-profile-img > img {
+.comment-profile-img>img {
     width: 80px;
     height: 80px;
     border-radius: 50%;
@@ -387,7 +434,7 @@ nav {
 }
 
 .comment-info-area {
-    display: block;
+    display: inline-block;
     margin: 10px;
 }
 
@@ -404,17 +451,23 @@ nav {
     position: relative;
 }
 
-.comment-icon div > img {
+.comment-icon>div {
+    display: flex;
+}
+
+.comment-icon div>img {
     width: 20px;
 }
 
-.comment-like, .comment-comment {
+.comment-like,
+.comment-comment {
     width: 50px;
     display: flex;
     align-items: center;
 }
 
-.comment-like div, .comment-comment div {
+.comment-like div,
+.comment-comment div {
     margin-left: 3px;
 }
 
@@ -422,17 +475,22 @@ nav {
     cursor: pointer;
 }
 
+/* 수정, 삭제 버튼 */
+.del-update-area {
+    margin-left: auto;
+    margin-top: 75px;
+}
+
+.del-update-area a {
+    padding-left: 10px;
+}
+
 /* 답글인 경우 */
 .child-comment {
     padding-left: 50px;
 }
 
-/* 삭제버튼 */
-.delete-comment {
-    margin-left: 970px;
-}
-
 /* 신고버튼 */
-.comment-icon > div:last-child > div > img {
+.comment-icon>div:last-child>div>img {
     margin-top: 6px;
 }
