@@ -190,14 +190,14 @@ body, input, button, textarea, select {
     background-color: #166549;
     color: white;
     width: 70px;
-    height: 30px;
+    height: 40px;
 }
 
 /**************************************/
 /* 검색 */
 #search-area{
-    margin: 40px 0 30px 0;
-    padding: 25px;
+    margin: 30px 0 30px 0;
+    padding: 20px;
     border: 2px solid #ccc;
     border-radius: 10px;
     width: 60%;
@@ -225,7 +225,7 @@ body, input, button, textarea, select {
     border: 2px solid #ccc;
     border-radius: 10px;
     text-align: center;
-    margin-left: 50px;
+    margin-left: 30px;
 }
 
 fieldset > [name="query"]{
@@ -249,7 +249,7 @@ fieldset > [name="query"]{
 /* 상세검색, 등록일 */
 .detail-search{
     display: flex;
-    align-items: center; 
+    align-items: baseline; 
     gap: 5px; 
     margin-block: 15px;
     padding: 10px;
@@ -286,10 +286,26 @@ fieldset > [name="query"]{
     font-size: 18px;
 }
 
+.checkbox-group2 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 0 0 5px 10px;
+    font-size: 18px;
+}
+
+.checkbox-goods{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
 /* 초기화, 검색 버튼 */
 .search-buttons {
     display: flex;
     gap: 10px;
+    margin-top: auto;
     margin-left: auto;
 }
 
@@ -298,7 +314,7 @@ fieldset > [name="query"]{
     height: 45px;
     padding: 5px;
     font-size: 20px;
-    border-radius: 15px;
+    border-radius: 10px;
     border: 2px solid #298C69;
     background-color: white;
     cursor: pointer;
@@ -310,7 +326,7 @@ fieldset > [name="query"]{
     padding: 5px;
     font-size: 20px;
     border: none;
-    border-radius: 15px;
+    border-radius: 10px;
     background-color: #298C69;
     color: white;
     cursor: pointer;
@@ -438,6 +454,7 @@ fieldset > [name="query"]{
 #dropdown-box{
     display: block;
     position: relative;
+    margin-left: 10px;
 }
 
 .dropdown-menu{
@@ -513,4 +530,19 @@ fieldset > [name="query"]{
 .sold-out:hover{
     background-color:red;
     color: white;
+}
+
+/* 데이터 통계 화면 */
+#userCount-view{
+    width: 90%;
+    height: 70%;
+    border: 3px solid #ccc;
+    border-radius: 10px;
+}
+
+#data-view{
+    width: 90%;
+    height: 60%;
+    border: 3px solid #ccc;
+    border-radius: 10px;
 }

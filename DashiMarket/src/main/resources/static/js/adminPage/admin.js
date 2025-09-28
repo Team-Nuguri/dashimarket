@@ -23,7 +23,7 @@ const statusFilter = document.getElementsByClassName("filter-btn")[1];
 const reasonMenu = document.getElementsByClassName("dropdown-menu")[0]
 const statusMenu = document.getElementsByClassName("dropdown-menu")[1]
 
-reasonFilter.addEventListener("click", ()=>{
+reasonFilter?.addEventListener("click", ()=>{
 
     const open = reasonMenu.classList.toggle("show");
 
@@ -34,7 +34,7 @@ reasonFilter.addEventListener("click", ()=>{
     }
 })
 
-statusFilter.addEventListener("click", ()=>{
+statusFilter?.addEventListener("click", ()=>{
 
     const open = statusMenu.classList.toggle("show");
 
