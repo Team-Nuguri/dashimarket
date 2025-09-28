@@ -57,6 +57,12 @@ header>section> div:nth-child(2)>div>a:hover{
     transition: all 0.5s;
 }
 
+/* 아이콘 영역 */
+#icon-area{
+    display: flex;
+    align-items: center;
+}
+
 #icon-area button{
     background-color: white;
     border: none;
@@ -66,11 +72,13 @@ header>section> div:nth-child(2)>div>a:hover{
 #icon-area button:hover{
     cursor: pointer;
 }
-#icon-area img{
+#icon-area .icon-img{
     width: 25px;
     height: 25px;
 }
 
+
+/* 검색창 */
 #search-area{
     width: 1200px;
     margin: 40px auto 40px ;
@@ -79,7 +87,6 @@ header>section> div:nth-child(2)>div>a:hover{
 }
 
 #search-area fieldset{
-
     margin: 0 auto;
     width: 725px;
     height: 75px;
@@ -107,3 +114,102 @@ header>section> div:nth-child(2)>div>a:hover{
     appearance: none;
     display: none;
 }
+
+
+/* 알림 */
+.notification-container{
+    display: block;
+    position: relative;
+}
+
+.notification-list{
+    position: absolute;
+    width: 350px;
+    height: 500px;
+    top: 16px;
+    right: 25px;
+    padding: 10px;
+    list-style: none;
+    z-index: 2000;
+    background: white;
+    overflow-y: auto;
+    border: 2px solid #52B291;
+    border-radius: 5px;
+    box-shadow: 0 0 0 2px #eee, 0 4px 8px 0 rgba(0, 0, 0, .3);
+    display: none; /*처음에 알림 창이 보이지 않게 함*/
+}
+
+/* 알림창 보임 */
+.notification-show{display: block;}
+
+.notification-btn{
+    position: relative;
+}
+
+/* 읽지 않은 알림 표시 */
+.notification-area{
+    width: 13px;
+    height: 13px;
+    border: none;
+    border-radius: 50%;
+    background: #52B291;
+    position: absolute;
+    top: -5px;
+    right: 18px;
+    display: none;
+}
+
+.notification-div{
+    display: flex;
+    align-items: center;
+    position: relative;
+    border: 1px solid #52B291;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.notification-div img{
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: none;
+}
+
+.notification-content{
+    width: 100%;
+    height: 90%;
+    position: relative;
+    padding: 5px;
+}
+
+.notification-title{
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.notification-text{
+    margin: 0;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+
+.notification-date{
+    font-size: 11px;
+    position: absolute;
+    top: 10px;
+    right: 5px;
+    color: #969696;
+}
+
+/* X 버튼 */
+.notification-content > span:nth-of-type(2){
+    position: absolute;
+    top: -15px;
+    right: 0;
+    cursor: pointer;
+}
+

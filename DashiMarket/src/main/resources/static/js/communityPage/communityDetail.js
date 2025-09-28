@@ -2,17 +2,18 @@ console.log("communityDetail.js");
 
 /* 정렬 */
 const sort = document.querySelectorAll(".sort-area a");
-let isSort = null;
+let isSort = sort[0];
+
 
 sort.forEach(link => {
-  link.addEventListener("click", (e) => {
+    link.addEventListener("click", (e) => {
     e.preventDefault();
 
     if(isSort) {
-      isSort.classList.remove("bold-text");
+        isSort.classList.remove("bold-text");
     }
 
     link.classList.add("bold-text");
     isSort = link;
-  })
+    })
 })

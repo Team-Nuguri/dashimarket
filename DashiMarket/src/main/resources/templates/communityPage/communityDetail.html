@@ -123,10 +123,18 @@
         <!-- 댓글 정렬 -->
         <div class="row5">
             <div class="sort-area">
-                <a href="" class="text-size-16">최신순</a>
+                <a href="" class="text-size-16 bold-text">최신순</a>
                 <span>|</span>
                 <a href="" class="text-size-16">인기순</a>
             </div>
+        </div>
+
+        <!-- 댓글 쓰기 -->
+        <div class="write-comment-row">
+            <div class="write-box">
+                <textarea name="write-comment-area" class="write-comment-area"></textarea>
+            </div>
+            <div class="comment-button-area"><button class="text-size-16 bold-text">댓글 달기</button></div>
         </div>
 
         <!-- 댓글 -->
@@ -152,19 +160,26 @@
 
                     <!-- 아이콘 -->
                     <div class="comment-icon">
-                        <div class="comment-like">
-                            <img src="../../static/images/svg/postLike.svg" alt="">
-                            <div>1</div>
+                        <div>
+                            <div class="comment-like">
+                                <img src="../../static/images/svg/postLike.svg" alt="">
+                                <div>1</div>
+                            </div>
+                            <div class="comment-comment">
+                                <img src="../../static/images/svg/comment.svg" alt="">
+                                <div>1</div>
+                            </div>
                         </div>
-                        <div class="comment-comment">
-                            <img src="../../static/images/svg/comment.svg" alt="">
-                            <div>1</div>
-                        </div>
-
-                        <!-- 삭제 -->
-                        <div class="delete-comment"><a href="#" class="medium-text">삭제</a></div>
+                        
                     </div>
                 </div>
+
+                <!-- 수정 삭제 버튼 -->
+                <div class="del-update-area">
+                    <a href="#" class="medium-text">수정</a>
+                    <a href="#" class="medium-text">삭제</a>
+                </div>
+
             </div>
             
             <div class="parent-comment child-comment">
@@ -202,6 +217,7 @@
                         </div>
                     </div>
                 </div>
+                
             </div>
 
             <div class="parent-comment">
