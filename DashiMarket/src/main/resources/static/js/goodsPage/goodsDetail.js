@@ -247,6 +247,32 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+const buyBtn = document.getElementById("buy");
+const cartBtn = document.getElementById("shopping-cart");
+const soldOut = document.getElementById("sold-out");
+
+buyBtn.addEventListener("click", e => {
+
+    if(soldOut.classList.contains('show')){
+
+        alert("현재 상품은 재고소진으로 인해 구매가 불가능합니다.");
+        return;
+    }
+
+    /* 구매 버튼 클릭 시 서버 ~ */
+})
+
+cartBtn.addEventListener("click", e => {
+
+    if(soldOut.classList.contains('show')){
+
+        alert("현재 상품은 재고소진으로 인해 구매가 불가능합니다.");
+        return;
+    }
+
+    /* 장바구니 버튼 클릭 시 비동기로 장바구니 테이블 insert ~ */
+})
+
 
 
 
