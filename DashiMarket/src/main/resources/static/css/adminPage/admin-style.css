@@ -16,7 +16,7 @@ body, input, button, textarea, select {
     height: 1080px;
 }
 
-
+/* ******************************************** */
 /* 사이드 메뉴 */
 
 /* 로고 */
@@ -50,19 +50,40 @@ body, input, button, textarea, select {
     font-weight: 900;
     font-size: 25px;
     color: #52B291;
+    margin-left: 20px;
 }
 
-.list-group > li > a{
+.list-group a{
     color: black;
     text-decoration: none;
     height: 100%;
     font-size: 20px;
+    margin-left: 5px;
+}
+
+.list-group a.selected{
+    color: #52B291;
 }
 
 .list-group > li > a:hover{
     color: #52B291;
 }
 
+.sideTitle{
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.sideTitle > img{
+    width: 50px;
+    height: 50px;
+}
+
+
+/* ************************************************** */
 /* 페이지네이션 */
 .pagination {
     display: flex;
@@ -110,7 +131,7 @@ body, input, button, textarea, select {
 }
 
 
-/* ******************************** */
+/* ****************************************** */
 /* 관리자페이지 공통 */
 .admin-main{
     width: 100%;
@@ -142,8 +163,8 @@ body, input, button, textarea, select {
 }
 
 .admin-login > img{
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     border: none;
     margin-right: 20px;
@@ -171,7 +192,7 @@ body, input, button, textarea, select {
     padding: 25px;
     border: 2px solid #ccc;
     border-radius: 10px;
-    width: 50%;
+    width: 60%;
 }
 
 #search-area label {
@@ -183,17 +204,17 @@ body, input, button, textarea, select {
 
 /* 기본 검색창 */
 .search-box {
-  display: flex;
-  align-items: center; 
-  gap: 8px; 
-  margin-block: 15px;
-  padding: 10px;
+    display: flex;
+    align-items: center; 
+    gap: 8px; 
+    margin-block: 15px;
+    padding: 10px;
 }
 
 .search-box fieldset{ 
     width: 400px; 
     height: 40px;
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
     border-radius: 10px;
     text-align: center;
     margin-left: 50px;
@@ -221,11 +242,12 @@ fieldset > [name="query"]{
 .detail-search{
     display: flex;
     align-items: center; 
-    gap: 8px; 
+    gap: 5px; 
     margin-block: 15px;
     padding: 10px;
 }
 
+/* 체크박스 */
 .checkbox-group {
     display: flex;
     flex-wrap: wrap;
@@ -241,18 +263,18 @@ fieldset > [name="query"]{
     margin-left: auto;
 }
 
-.search-buttons button:nth-child(1) {
+.basic-btn{
     width: 100px;
     height: 45px;
     padding: 5px;
     font-size: 20px;
     border-radius: 15px;
-    border: 1px solid #298C69;
+    border: 2px solid #298C69;
     background-color: white;
     cursor: pointer;
 }
 
-.search-buttons button:nth-child(2) {
+.color-btn{
     width: 100px;
     height: 45px;
     padding: 5px;
@@ -264,12 +286,25 @@ fieldset > [name="query"]{
     cursor: pointer;
 }
 
-
-/* 신규 가입자수 */
-#new-user{
+/* view-box(신규 회원 수, 오늘 신고수) */
+#view-box{
     margin:40px 30px 30px 60px;
+    width: 20%;
+}
+
+/* view-box2(이용자 수, 정지 회원수) */
+#view-box2{
+    margin: 40px 30px 30px 30px;
+    width: 20%;
+}
+
+#view-box3{
+    margin: 40px 0 30px 30px;
+    width: 20%;
+}
+
+.box-style{
     border: 3px solid #52B291;
-    width: 25%;
     border-radius: 15px;
     text-align: center;
     font-size: 35px;
@@ -279,32 +314,19 @@ fieldset > [name="query"]{
     align-items: center;
 }
 
-#new-user > p:nth-child(2){
+.p-tag-value{
     color: #52B291;
     font-weight: bold;
     font-size: 35px;
     margin-top: 20px;
 }
 
-/* 이용자 수 */
-#today-user{
-    margin: 40px 30px 30px 30px;
-    border: 3px solid #52B291;
-    width: 25%;
-    border-radius: 15px;
-    text-align: center;
-    font-size: 35px;
+.result-buttons{
     display: flex;
-    flex-direction: column;   
-    justify-content: center; 
-    align-items: center;
-}
-
-#today-user > p:nth-child(2){
-    color: #52B291;
-    font-weight: bold;
-    font-size: 35px;
-    margin-top: 20px;
+    justify-content: right;
+    flex-wrap: wrap;
+    column-gap: 15px;
+    margin-left: auto;
 }
 
 /* 회원조회 테이블 */
@@ -317,6 +339,7 @@ fieldset > [name="query"]{
     height: 35%;   
 }
 
+/* 테이블 체크박스 */
 .table-content .fa-square, .table-content .fa-square-check{
     display: flex;
     justify-content: center;  
@@ -331,12 +354,89 @@ fieldset > [name="query"]{
 .table-content td{
     border-right: 1px solid #ddd;
     height: 48px;
+    margin-left: auto;
 }
 
 .table-content td:nth-last-child(1){border: none;}
 
 .table-title{
     background-color: #ddd;
+}
+
+/* 회원 테이블 상태 드롭다운 */
+.status-item{
+    border-radius: 5px;
+    border-color: #52B291;
+    width: 80px;
+    height: 40px;
+    text-align: center;
+}
+
+/* ***************************************************** */
+/* 드롭다운 */
+.show{
+    display: block;
+}
+
+.close{
+    display: none;
+}
+
+/* 검색(필터) - 드롭다운 */
+.dropdown-group{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-left: 40px;
+}
+
+
+#dropdown-box{
+    display: block;
+    position: relative;
+}
+
+.dropdown-menu{
+    list-style: none;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    position: absolute;
+    background-color: white;
+    margin-left: 10px;
+    width: 100%;
+}
+
+.dropdown-menu > li{
+    margin: 15px;
+    text-align: center;
+}
+
+.dropdown-menu > hr{color: #ccc;}
+
+
+.dropdown-item{
+    text-decoration: none;
+    color: black;
+    padding: 8px;
+}
+
+
+.filter-btn{
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 5px 8px 5px 8px;
+    margin-left: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+}
+
+/* 회원 테이블 상태 드롭다운 */
+.status-group{
+    display: flex;
+    justify-content: center;
 }
 
 
