@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주문 완료 페이지</title>
+
+    <link rel="stylesheet" href="../../static/css/common/header.css">
+    <link rel="stylesheet" href="../../static/css/common/footer.css">
+    <link rel="stylesheet" href="../../static/css/common/font.css">
+    <link rel="stylesheet" href="../../static/css/orderPage/orderComplete.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <section id="header-area">
+            <div>
+                <a href="@{/}">
+                    <img id="main-logo" src="../../static/images/logo.png">
+                </a>
+
+            </div>
+
+            <div>
+                <div>
+                    <a href="/joongo" class="noto-sans-kr-20">중고거래</a>
+                </div>
+                <div>
+                    <a href="/goods" class="noto-sans-kr-20">굿즈</a>
+                </div>
+                <div>
+                    <a href="/community" class="noto-sans-kr-20">커뮤니티</a>
+                </div>
+
+            </div>
+
+            <div id="icon-area">
+                <button>
+                    <img src="../../static/images/svg/하트.svg">
+                    <!-- <img src="../../static/images/svg/장바구니.svg" > -->
+                    <!-- <img src="@{/images/사람.svg}" > -->
+                </button>
+
+
+                <button>
+                    <img src="../../static/images/svg/Group.svg">
+                </button>
+                <button>
+                    <img src="../../static/images/svg/clarity_menu-line.svg">
+
+                </button>
+
+            </div>
+        </section>
+
+        <section id="search-area">
+
+            <form action="">
+                <fieldset>
+                    <img src="../../static/images/svg/돋보기.svg">
+                    <input type="search" name="query" id="query" placeholder="검색어를 입력해주세요." class="noto-sans-kr-20">
+
+                </fieldset>
+
+            </form>
+
+        </section>
+
+    </header>
+
+    <main>
+        <section class="center order-complete">
+            <!-- 주문 오나료 이미지 -->
+            <div>
+                <img src="../../static/images/order/orderCompleteImage.png">
+                <h2>주문이 완료되었습니다.</h2>
+            </div>
+            <!-- 주문 상품 내역 -->
+            <div class="order-item">
+                <div>
+                    <h1></h1>
+                    <h1>상품명</h1>
+                    <h1>수량</h1>
+                    <h1>결제금액</h1>
+                </div>
+                <div class="order-item-row">
+                    <img src="../../static/images/goods/tumbler.png" alt="">
+                    <span class="text-size-20 medium-text">다시마 텀블러</span>
+                    <span class="text-size-20 medium-text">2</span>
+                    <span class="text-size-20 medium-text">50,000 원</span>
+                </div>
+                <div class="order-item-row">
+                    <img src="../../static/images/goods/cushion.png" alt="">
+                    <span class="text-size-20 medium-text">다시마 쿠션</span>
+                    <span class="text-size-20 medium-text">1</span>
+                    <span class="text-size-20 medium-text">28,000 원</span>
+                </div>
+            </div>
+            
+            <!-- 
+                th:text="${#numbers.formatDecimal(item.unitPrice, 0, 'COMMA', 0, 'POINT')} + '원'"
+                DB에는 숫자만 저장하고 값 보여줄 땐 형식 바꿔서 보여주기 
+            -->
+            <!-- 배송지 결제 정보 -->
+            <div class="order-info">
+                <div>
+                    <h1>주문 정보</h1>
+                    <table class="order-info-table">
+                        <tr>
+                            <th>주문번호</th>
+                            <td colspan="3">2025092912345</td>
+                        </tr>
+                        <tr>
+                            <th>주문자</th>
+                            <td colspan="3">이규식</td>
+                        </tr>
+                        <tr>
+                            <th>수령인</th>
+                            <td colspan="3">삼규식</td>
+                        </tr>
+                        <tr>
+                            <th>전화번호</th>
+                            <td colspan="3">01012341234</td>
+                        </tr>
+                        <tr>
+                            <th>배송지</th>
+                            <td colspan="3">2025092912345</td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div>
+                    <h1>결제 정보</h1>
+                    <table class="order-info-table">
+                        <tr>
+                            <th>상품금액</th>
+                            <td colspan="3">78,000 원</td>
+                        </tr>
+                        <tr>
+                            <th>배송비</th>
+                            <td colspan="3">0</td>
+                        </tr>
+                        <tr>
+                            <th>총 결제 금액</th>
+                            <td colspan="3">78,000 원</td>
+                        </tr>
+                        <tr>
+                            <th>결제 수단</th>
+                            <td colspan="3">카드</td>
+                        </tr>
+                        <tr>
+                            <th>결제 일시</th>
+                            <td colspan="3">2025.09.29 00:49:25</td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+            
+
+
+        </section>
+
+    </main>
+
+    
+
+
+    <footer>
+        <section>
+
+            <div class="footer-top">
+                <a th:href="@{#}"><img src="images/logo.png" width="100px" style="vertical-align: middle;"></a>
+                <a th:href="@{#}">회사 소개</a>
+                <span>|</span>
+                <a th:href="@{#}">서비스 소개</a>
+                <span>|</span>
+                <a th:href="@{#}">블로그</a>
+                <span>|</span>
+                <a th:href="@{#}">채용제휴 문의</a>
+                <span>|</span>
+                <a th:href="@{#}">광고 문의</a>
+            </div>
+
+            <hr>
+
+            <div class="footer-bottom">
+
+                <div class="footer-left">
+                    (주) 다시마켓 <br>
+                    대표 너구리 <br>
+                    사업자번호 168-87-57386 <br>
+                    직업정보제공사업 신고번호J1200020200016 <br>
+                    통신판매신고번호 제2024-서울강남-06966호 <br>
+                    호스팅 사업자 Amazon Web Service(AWS)<br>
+                    주소 서울특별시 종로구 우정국로2길 21 9층, 903호 <br>
+                    전화 1877-9292 <br>
+                    고객문의 kelp@dasimacat.com
+                </div>
+                <div class="footer-right">
+                    <a href="#">공지사항</a>
+                    <a href="#">자주묻는 질문</a> <br><br>
+
+                    <a href="#">이용약관</a>
+                    <a href="#">개인정보처리방침</a>
+
+                    <a href="#">운영정책</a>
+
+                    <a href="#">위치기반서비스 이용약관</a>
+
+                    <a href="#">게시글</a>
+
+                </div>
+
+            </div>
+        </section>
+
+
+
+
+    </footer>
+</body>
+</html>
