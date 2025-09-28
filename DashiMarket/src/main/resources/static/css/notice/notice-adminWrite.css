@@ -9,18 +9,18 @@
      margin: 0 auto;
      padding: 40px 20px;
  }
-
+/* 새 게시글 작성  */
  .header {
      text-align: left;
      margin-bottom: 50px;
  }
-
+/* 새 게시글 작성 텍스트 */
  .header h1 {
      font-size: 24px;
      font-weight: 700;
      color: #166449;
  }
-
+/* 카테고리 전체 레이아웃(게시판 종류, 제목, 내용, 첨부파일)  */
  .form-list {
      list-style: none;
      border: 0.5px solid #ddd;
@@ -28,16 +28,16 @@
      overflow: hidden;
      margin-bottom: 40px;
  }
-
+/* 게시판 종류 */
  .form-item {
      display: flex;
      border-bottom: 0.5px solid #ddd;
  }
-
+/* 드롭다운 */
  .form-item:last-child {
      border-bottom: none;
  }
-
+/* 카테고리 디테일 (게시판 종류, 제목, 내용, 첨부파일) */
  .label-area {
      width: 120px;
      background-color: #f0f0f0;
@@ -47,19 +47,12 @@
      justify-content: center;
      border-right: 0.5px solid #ddd;
  }
-
- .content-item .label-area,
- .attachment-item .label-area {
-     align-items: flex-start;
-     padding-top: 25px;
- }
-
+/* 각 카테고리의 div */
  .field-area {
      flex: 1;
      padding: 20px 30px;
      background-color: #fff;
  }
-
  .form-label {
      font-size: 14px;
      color: #666;
@@ -99,20 +92,21 @@
      align-items: flex-start;
  }
 
+ /* 첨부파일명 나오는 div */
  .attachment-area {
      flex: 1;
      border: 1px solid #ddd;
      border-radius: 25px;
-     padding: 0px 20px;
+     padding: 0px 10px;
      background-color: #ffffff;
      text-align: center;
      min-height: 30px;
      display: flex;
      align-items: center;
      justify-content: center;
-     
  }
 
+ /* 첨부파일 버튼 */
  .attachment-buttons {
      display: flex;
      flex-direction: column;
@@ -129,12 +123,16 @@
      font-size: 12px;
      color: #2C2C2C;
      min-width: 80px;
-     margin-right: 170px;
-     
+
  }
 
  .attachment-btn:hover {
      background: #f3f3f3;
+ }
+
+ .attachment-description {
+     font-size: 12px;
+     color: #a5a5a5;
  }
 
  .button-group {
