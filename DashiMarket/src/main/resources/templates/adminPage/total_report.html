@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http:// www.thymeleaf.com">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신고 관리</title>
+
+    <!-- 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/src/main/resources/static/css/adminPage/admin-style.css">
+
+    <script src="https://kit.fontawesome.com/1c15543e3e.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <main>
+        <section class="admin-content">
+            <!-- 사이드 메뉴 -->
+            <section class="left-side">
+                <img src="/src/main/resources/static/images/admin/adminLogo.png" id="logo">
+
+                <ul class="list-group">
+                    <li class="sideTitle"><img src="/src/main/resources/static/images/svg/Client Management.svg">회원관리
+                    </li>
+                    <li><span>|</span> <a href="#">회원 조회</a></li>
+
+                    <li class="sideTitle"><img src="/src/main/resources/static/images/svg/report.svg">신고관리</li>
+                    <li><span>|</span> <a href="#">통합 신고</a></li>
+
+                    <li class="sideTitle"><img src="/src/main/resources/static/images/svg/goods-admin.svg">상품/거래</li>
+                    <li><span>|</span> <a href="#">상품 관리</a></li>
+                    <li><span>|</span> <a href="#">거래 내역</a></li>
+
+                    <li class="sideTitle"><img src="/src/main/resources/static/images/svg/Bar Chart.svg">데이터</li>
+                    <li><span>|</span> <a href="#">이용자 수</a></li>
+                    <li><span>|</span> <a href="#">품목별 거래</a></li>
+                </ul>
+            </section>
+
+            <section class="admin-main">
+
+                <div id="admin-user">
+                    <h1 class="admin-title">통합 신고</h1>
+                    <div class="admin-login">
+                        <img src="/src/main/resources/static/images/admin/user.png">
+                        <p>관리자 계정</p>
+                        <button>로그아웃</button>
+                    </div>
+                </div>
+
+                <div class="admin-group-top">
+                    <form id="search-area">
+                        <!-- 검색창 -->
+                        <div class="search-box">
+                            <label>검색</label>
+                            <fieldset>
+                                <input type="text" name="query" placeholder="게시글 제목/회원ID를 입력하세요.">
+                                <button class="searchBtn fa-solid fa-magnifying-glass"></button>
+                            </fieldset>
+                        </div>
+
+                        <!-- 필터 영역 -->
+                        <div class="detail-search">
+                            <label>필터</label>
+                            <div class="dropdown-group">
+                                <div id="dropdown-box">
+                                    <button class="filter-btn btn-secondary dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" data-bs-auto-close="inside" aria-expanded="false">
+                                        사유<img src="/src/main/resources/static/images/svg/color-drop-down.svg">
+                                    </button>
+                                    <ul class="dropdown-menu close">
+                                        <li><a class="dropdown-item" href="#">스팸</a></li>
+                                        <hr>
+                                        <li><a class="dropdown-item" href="#">불법</a></li>
+                                        <hr>
+                                        <li><a class="dropdown-item" href="#">욕설</a></li>
+                                        <hr>
+                                        <li><a class="dropdown-item" href="#">비방</a></li>
+                                        <hr>
+                                        <li><a class="dropdown-item" href="#">사기</a></li>
+                                        <hr>
+                                        <li><a class="dropdown-item" href="#">기타</a></li>
+                                    </ul>
+                                </div>
+                                
+                                <div id="dropdown-box">
+                                    <button class="filter-btn btn-secondary dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" data-bs-auto-close="inside" aria-expanded="false">
+                                        상태<img src="/src/main/resources/static/images/svg/color-drop-down.svg">
+                                    </button>
+                                    <ul class="dropdown-menu close">
+                                        <li><a class="dropdown-item" href="#">대기</a></li>
+                                        <hr>
+                                        <li><a class="dropdown-item" href="#">처리중</a></li>
+                                        <hr>
+                                        <li><a class="dropdown-item" href="#">완료</a></li>
+                                    </ul>
+                                </div>
+
+                                신고일:<input type="date">
+                            </div>
+                            
+                            <!-- 초기화/검색 버튼 -->
+                            <div class="search-buttons">
+                                <button type="reset" class="basic-btn">초기화</button>
+                                <button type="submit" class="color-btn">검색</button>
+                            </div>
+
+                        </div>
+                    </form>
+
+                    <div id="view-box" class="box-style">
+                        <p>오늘 신고</p>
+                        <p class="p-tag-value">0</p>
+                    </div>
+
+                    <div id="view-box2" class="box-style">
+                        <p>정지 회원</p>
+                        <p class="p-tag-value">0</p>
+                    </div>
+
+                    <div id="view-box3" class="box-style">
+                        <p>강제 탈퇴</p>
+                        <p class="p-tag-value">0</p>
+                    </div>
+                </div>
+
+                <div class="result-buttons">
+                    <button type="button" class="color-btn">경고</button>
+                    <button type="button" class="color-btn">정지</button>
+                    <button type="button" class="color-btn">강제탈퇴</button>
+                </div>
+
+                <table class="table-content">
+                    <tr class="table-title">
+                        <td class="fa-regular fa-square"></td>
+                        <td>신고번호</td>
+                        <td>신고자</td>
+                        <td>신고 게시글</td>
+                        <td>신고회원</td>
+                        <td>신고 사유</td>
+                        <td>상태</td>
+                        <td>처리</td>
+                        <td>신고일</td>
+                        <td>처리일</td>
+                    </tr>
+                    <tr>
+                        <td class="fa-solid fa-square-check"></td>
+                        <td>01</td>
+                        <td>user01@og.or.kr</td>
+                        <td>아이폰16 판매합니다.......</td>
+                        <td></td>
+                        <td>불법</td>
+                        <td>
+                            <select class="status-item">
+                                <option value="대기">대기</option>
+                                <option value="처리중">처리중</option>
+                                <option value="완료">완료</option>
+                            </select>
+                        </td>
+                        <td></td>
+                        <td>2025.09.01</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="fa-solid fa-square-check"></td>
+                        <td>02</td>
+                        <td>user02@og.or.kr</td>
+                        <td>안읽는 도서 판매합니다...</td>
+                        <td></td>
+                        <td>사기</td>
+                        <td>완료</td>
+                        <td>게시글 삭제</td>
+                        <td>2025.09.04</td>
+                        <td>2025.09.06</td>
+                    </tr>
+                    <tr>
+                        <td class="fa-solid fa-square-check"></td>
+                        <td>03</td>
+                        <td>user02@og.or.kr</td>
+                        <td></td>
+                        <td>wkqch33@og.kr</td>
+                        <td>사기</td>
+                        <td>완료</td>
+                        <td>정지</td>
+                        <td>2025.09.01</td>
+                        <td>2025.09.02</td>
+                    </tr>
+                    <tr>
+                        <td class="fa-solid fa-square-check"></td>
+                        <td>04</td>
+                        <td>user04@og.or.kr</td>
+                        <td></td>
+                        <td>wkqch76@og.kr</td>
+                        <td>스팸</td>
+                        <td>완료</td>
+                        <td>정지</td>
+                        <td>2025.09.01</td>
+                        <td>2025.09.02</td>
+                    </tr>
+                    <tr>
+                        <td class="fa-solid fa-square-check"></td>
+                        <td>05</td>
+                        <td>user05@og.or.kr</td>
+                        <td></td>
+                        <td>wkqch33@og.kr</td>
+                        <td>사기</td>
+                        <td>완료</td>
+                        <td>강제탈퇴</td>
+                        <td>2025.09.01</td>
+                        <td>2025.09.02</td>
+                    </tr>
+                    <tr>
+                        <td class="fa-regular fa-square"></td>
+                        <td>06</td>
+                        <td>user06@og.or.kr</td>
+                        <td></td>
+                        <td>wkqch33@og.kr</td>
+                        <td>욕설</td>
+                        <td>처리중</td>
+                        <td></td>
+                        <td>2025.09.01</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="fa-regular fa-square"></td>
+                        <td>07</td>
+                        <td>user07@og.or.kr</td>
+                        <td>안읽는 도서 판매합니다...</td>
+                        <td></td>
+                        <td>사기</td>
+                        <td>완료</td>
+                        <td>반려</td>
+                        <td>2025.09.04</td>
+                        <td>2025.09.06</td>
+                    </tr>
+                    <tr>
+                        <td class="fa-regular fa-square"></td>
+                        <td>08</td>
+                        <td>user02@og.or.kr</td>
+                        <td></td>
+                        <td>wkqch33@og.kr</td>
+                        <td>사기</td>
+                        <td>완료</td>
+                        <td>정지</td>
+                        <td>2025.09.01</td>
+                        <td>2025.09.02</td>
+                    </tr>
+                    <tr>
+                        <td class="fa-regular fa-square"></td>
+                        <td>09</td>
+                        <td>user09@og.or.kr</td>
+                        <td>아이폰15 판매합니다.......</td>
+                        <td></td>
+                        <td>불법</td>
+                        <td>대기</td>
+                        <td></td>
+                        <td>2025.09.14</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="fa-regular fa-square"></td>
+                        <td>10</td>
+                        <td>user10@og.or.kr</td>
+                        <td>안읽는 도서 판매합니다...</td>
+                        <td></td>
+                        <td>스팸</td>
+                        <td>완료</td>
+                        <td>게시글 삭제</td>
+                        <td>2025.09.04</td>
+                        <td>2025.09.06</td>
+                    </tr>
+                </table>
+
+            </section>
+        </section>
+    </main>
+
+    <footer>
+        <nav aria-label="페이지네이션">
+            <ul class="pagination">
+                <li><button type="button" class="pagination-btn" aria-label="이전 페이지"><img
+                            src="/src/main/resources/static/images/pagination/pagn-previous-btn.svg"></button></li>
+                <li><button type="button" aria-current="page" aria-label="1페이지">1</button></li>
+                <li><button type="button" aria-label="2페이지">2</button></li>
+                <li><button type="button" aria-label="3페이지">3</button></li>
+                <li><button type="button" aria-label="4페이지">4</button></li>
+                <li><button type="button" aria-label="5페이지">5</button></li>
+                <li><button type="button" aria-label="6페이지">6</button></li>
+                <li><button type="button" aria-label="7페이지">7</button></li>
+                <li><button type="button" aria-label="8페이지">8</button></li>
+                <li><button type="button" aria-label="9페이지">9</button></li>
+                <li><button type="button" aria-label="10페이지">10</button></li>
+                <li><button type="button" class="pagination-btn" aria-label="다음 페이지"><img
+                            src="/src/main/resources/static/images/pagination/pagn-next-btn.svg"></button></li>
+            </ul>
+        </nav>
+    </footer>
+
+    <script src="/src/main/resources/static/js/adminPage/admin.js"></script>
+</body>
+
+</html>
