@@ -370,6 +370,11 @@ nav {
     overflow: hidden;
 }
 
+.post-img > img {
+    width: 400px;
+    height: 400px;
+}
+
 .left-btn {
     left: 0;
 }

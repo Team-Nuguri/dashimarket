@@ -17,3 +17,10 @@ sort.forEach(link => {
     isSort = link;
     })
 })
+
+/* 이미지 슬라이드 */
+const imgList = document.querySelectorAll(".post-img img");
+const imgLength = imgList.length; // 이미지 개수
+
+let currentIndex = 0;
+const width = 400;
