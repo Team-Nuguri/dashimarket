@@ -1,78 +1,10 @@
-/*CSS 폰트*/
-
-
-
-* {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-}
-
-
-body, input, button, textarea, select {
-    font-family: "Noto Sans KR", sans-serif;
-    font-optical-sizing: auto;
-    font-style: normal;
-}
-
-/* 폰트 굵기 */
-.light-text {
-  font-weight: 300; /* Light */
-}
-
-.regular-text {
-  font-weight: 400; /* Regular(기본) */
-}
-
-.medium-text {
-  font-weight: 500; /* Medium */
-}
-
-.bold-text {
-  font-weight: 700; /* Bold */
-}
-
-/* 폰트 사이즈 */
-.text-size-10 {
-    font-size: 10px;
-}
-
-.text-size-13 {
-    font-size: 13px;
-}
-
-.text-size-14 {
-    font-size: 14px;
-}
-
-.text-size-16 {
-    font-size: 16px;
-}
-
-.text-size-18 {
-    font-size: 18px;
-}
-
-.text-size-20 {
-    font-size: 20px;
-}
-
-.text-size-24 {
-    font-size: 24px;
-}
-
-.text-size-28 {
-    font-size: 28px;
-}
-
-
-
 /*----------------------------*/
+
+
 /*회원가입 관리*/ 
 .signUp-content{
     display: flex;
-    width: 1200px;    
-    min-width: 700px;    
+    max-width: 1200px;
     margin: 50px auto;
     justify-content: center;    
 }
@@ -123,12 +55,21 @@ body, input, button, textarea, select {
     background-color: aqua;    
 }
 
+.signUp-infoField {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    gap: 15px;
+
+    margin-top: 50px;
+}
+
 /* 프로필 정보 박스 */
 .signUp-row {
     display: flex;
+    align-items: center;
+    margin-bottom: 20px;
     padding-right: 100px;
-    margin-bottom: 15px;
-    margin-top: 60px;
 
 }
 
@@ -153,12 +94,17 @@ body, input, button, textarea, select {
     align-items: center;
 
     margin-left: 10px;
+    
+    height: 60px;
 
 }
 
 /*회원가입 변경 버튼*/
 .signUp-actionButton {
-    background-color: rgb(235, 222, 222);
+
+    background-color: #166549;
+    color: white;
+
     border: 0;
     border-radius: 10px;
     cursor: pointer;
@@ -197,7 +143,9 @@ body, input, button, textarea, select {
 /* 우편번호 검색 */
 .signUp-addactionButton {
     
-    background-color: rgb(235, 222, 222);
+    background-color: #166549;
+    color: white;
+
     border: 0;
     border-radius: 10px;
     cursor: pointer;
@@ -226,6 +174,42 @@ body, input, button, textarea, select {
     display: inline;
 }
 
+
+/* 프로필 상세주소 input */
+
+.myPage-addinputDongDetail1 {
+    border-radius: 10px;
+    padding-left: 5px;
+    width: 630px;
+    height: 50px;
+    margin-left: 100px;
+    margin-bottom: 10px;
+}
+
+.myPage-addinputDongInside {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+}
+
+.myPage-addinputDongDetail2 {
+    border-radius: 10px;
+    padding-left: 5px;
+    width: 500px;
+    height: 50px;
+    margin-left: 100px;
+    margin-bottom: 10px;
+}
+
+.myPage-addinputDongDetail3 {
+    border-radius: 10px;
+    padding-left: 5px;
+    width: 120px;
+    height: 50px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
 /* 수정하기 버튼 */
 .signUp-buttons {
     display: flex;
@@ -245,174 +229,16 @@ body, input, button, textarea, select {
 
     cursor: pointer;
 
+    background-color: #166549;
+    color: white;
+
 }
 
 /* 수정하기 버튼 input hover */
 .signUp-submit:hover {
     
-    background-color: rgb(154, 255, 144);
+    background-color: rgba(79, 14, 230, 0.829);
 
 }
-
-
-
-
-/* -------------------------------- 헤더 ------------------------------------- */
-
-/* 글씨 16px */
-.noto-sans-kr-20{
-    font-family: "Noto Sans KR", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 500;
-    font-style: normal;
-    font-size: 20px;
-}
-
-header{
-    width: 100%;
-    height: 250px;
-    border-bottom: 1px solid black;
-}
-
-/* 헤더 로고, 카테 ,아이콘 영역 정렬 */
-#header-area{
-    display: flex;
-    height: 80px;
-    width: 1200px;
-    margin: 30px auto 0 ;
-    align-items: center;
-    justify-content: space-between;
-}
-
-
-
-header>section>div:nth-child(2){
-    display: flex;
-    
-}
-
-#main-logo{
-    height: 80px;
-}
-
-/* 카테고리 박스 스타일 */
-header>section> div:nth-child(2)>div{
-
-    width: 200px;
-    height: 75px;
-    border: 1px solid #52B291;
-    margin: 30px;
-    border-radius: 10px;
-    overflow: hidden;
-    
-}                  
-
-
-/* 카테고리 박스 스타일 중앙정렬 등등 */
-header>section> div:nth-child(2) a{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    color: black;
-    width: 100%;
-    height: 100%;
-}          
-
-/* 카테고리 호버 효과 */
-header>section> div:nth-child(2)>div>a:hover{
-
-    background-color: #166549;
-    color: white;
-    transition: all 0.5s;
-}
-
-#icon-area button{
-    background-color: white;
-    border: none;
-    margin-left: 10px;
-    padding-right: 20px;
-}
-#icon-area button:hover{
-    cursor: pointer;
-}
-#icon-area img{
-    width: 25px;
-    height: 25px;
-}
-
-#search-area{
-    width: 1200px;
-    margin: 40px auto 40px ;
-    height: 150px;
-
-}
-
-#search-area fieldset{
-
-    margin: 0 auto;
-    width: 725px;
-    height: 80px;
-    border-radius: 20px;
-    border: 3px solid #166449;
-    padding: 8px 15px; 
-    display: flex; 
-    align-items: center; 
-}
-
-/* 검색창 스타일 */
-#query{
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    font-size: 24px;
-    border: none;
-    outline: none; 
-}
-
-
-/* search x 버튼 없애기 */
-#query::-webkit-search-cancel-button {
-    -webkit-appearance: none;
-    appearance: none;
-    display: none;
-}
-
-/*----------------------------*/
-/*footer css*/
-
- footer{
-      width: 1200px;
-      margin:0 auto;
-    }
-
-    .footer-bottom {
-      display: flex;               /* 좌우 배치 */
-      justify-content: space-between; /* 양쪽 끝으로 정렬 */
-      align-items: center;         /* 세로 가운데 정렬 */
-      padding: 10px 20px;
-      background-color: white;
-      color: black;
-    }
-
-    .footer-left {
-      font-size: 12px;
-    }
-
-    .footer-right a {
-      margin-left: 15px;
-      font-size:12px;
-      color: black;
-      text-decoration: none;
-    }
-
-    .footer-right a:hover {
-      text-decoration: underline;
-    }
-
-     .footer-top a:hover {
-      text-decoration: underline;
-    }
-  
 
 

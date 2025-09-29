@@ -11,9 +11,9 @@ selectCity.addEventListener("click", () => {
     const isOpen = cityBox.classList.toggle("show");
 
     if (isOpen) { // 드롭다운 펼쳐졌을 때
-        dropDownIcon.setAttribute("src", "/images/svg/drop-down-reverse.svg");
+        dropDownIcon.setAttribute("src", "../../static/images/svg/drop-down-reverse.svg");
     } else {
-        dropDownIcon.setAttribute("src", "/images/svg/drop-down.svg");
+        dropDownIcon.setAttribute("src", "../../static/images/svg/drop-down.svg");
     }
 });
 
@@ -28,7 +28,7 @@ cityLinks.forEach(link => {
         /* 선택한 동네 이름으로 반영하기 */
         cityName.innerText = link.innerText;
         cityBox.classList.remove("show");
-        dropDownIcon.setAttribute("src", "/images/svg/drop-down.svg");
+        dropDownIcon.setAttribute("src", "../../static/images/svg/drop-down.svg");
     })
 })
 
