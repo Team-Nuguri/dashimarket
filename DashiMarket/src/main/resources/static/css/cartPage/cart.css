@@ -1,0 +1,221 @@
+.center{
+    width: 1200px;
+    margin: 0 auto;
+}
+
+
+/* ------------------------ */
+/* 장바구니 비어있을 때 */
+.cart-empty{
+    display: flex;
+    height: 800px;
+    justify-content: center;
+    align-items: center;
+}
+
+.cart-empty>div{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    align-items: center;
+}
+
+.cart-empty>div>a{
+
+    width: 200px;
+    height: 80px;
+}
+
+#goToShoppingBtn{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background-color: white;
+    border: 1px solid #52B291;
+    cursor: pointer;
+}
+
+#goToShoppingBtn:hover{
+
+    
+    background-color: #52B291;
+    color: white;
+    transition: all 0.4s;
+}
+
+
+/* -------------------------- */
+/* 장바구니 안 비어있을 때 */
+.cart-not-empty>form{
+    display: flex;
+    margin-top: 30px;
+    gap: 100px;
+}
+
+/* 장바구니 상품 컨테이너  */
+.cart-container{
+    width: 700px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+/* 상품 총 가격 */
+.cart-not-empty>form>div:last-child{
+    width: 400px;
+    height: 300px;
+    border: 3px solid #52B291;
+    border-radius: 20px;
+}
+
+/* 상품 목록 */
+.cart-item-row{
+    border: 1px solid #52B291;
+    border-radius: 20px;
+    width: 100%;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    position: relative;
+}
+
+.item-check>input{
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    background-color: #52B291;
+}
+
+
+/* 상품 이미지 크기 */
+.item-img>img{
+    width: 100px;
+    height: 100px;
+}
+
+.item-info{
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    height: 200px;
+}
+
+/* 수량 */
+.count-price{
+    display: flex;
+    align-items: center;
+    height: 200px;
+    justify-content: space-between  ;
+}
+
+
+.number-input {
+    align-items: center;
+    border: 1px solid #52B291;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+
+/* 수량 조절 버튼 */
+.number-input button {
+    background-color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+}
+/* 수량 인풋창 */
+.number-input input {
+    width: 50px;
+    text-align: center;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    
+}
+
+/* 삭제 */
+.item-delete{
+    position: absolute;
+    top: 25%;
+    right: 5%;
+}
+.item-delete>button{
+    background-color: white;
+    border: none;
+    color: black;
+    cursor: pointer;
+}
+.item-delete>button:hover{
+    text-decoration: underline;
+}
+
+
+/* 총 결제 금액 */
+#price-area{
+    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+}
+
+#price-area>div:nth-child(2){
+    display: flex;
+    justify-content: space-between;
+    width: 290px;
+}
+
+#total-price-area{
+    display: flex;
+    justify-content: space-between;
+}
+
+#total-price-area>div{
+    width: 200px;
+}
+
+#real-total-price{
+    text-align: center;
+}
+
+/* 구매버튼 */
+#purchaseBtn{
+
+    position: absolute;
+    background-color: #166449;
+    color: white;
+    width: 300px;
+    height: 60px;
+    border-radius: 20px;
+    bottom: 0%;
+    left: 20px;
+}
+#purchaseBtn:hover{
+    cursor: pointer;
+}
+
+#price-area>div:last-child{
+    
+    position: relative;
+    height: 50px;
+}
+
+#selectAllCheckbox{
+    width: 30px;
+    height: 30px;
+}
+
+.cart-header-actions > label{
+    font-size: 24px;
+    padding-left: 10px;
+}
+
+#selectAllCheckbox, .cart-header-actions > label:hover{
+    cursor: pointer;
+}

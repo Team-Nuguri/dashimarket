@@ -1,0 +1,548 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body, input, button, textarea, select {
+    font-family: "Noto Sans KR", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+.admin-content{
+    display: flex;
+    width: 100%;
+    height: 1080px;
+}
+
+.button-default{
+    background-color: white;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+/* ******************************************** */
+/* 사이드 메뉴 */
+
+/* 로고 */
+#logo{
+    max-width: 300px;
+    padding: 10px;
+    margin: 15px 0 10px 0;
+    border-bottom: 2px solid #ddd;
+}
+
+.left-side{
+    max-width: 320px;
+    height: 1145px;
+    border-right: 2px solid #ddd;
+}
+
+.list-group{
+    min-width: 270px;
+    list-style: none;
+    padding: 15px 0 0 50px; 
+    margin-left: 20px;
+}
+
+.list-group > li{
+    font-size: 25px;
+    margin-block: 20px;
+}
+
+
+.list-group > li > span{
+    font-weight: 900;
+    font-size: 25px;
+    color: #52B291;
+    margin-left: 20px;
+}
+
+.list-group a{
+    color: black;
+    text-decoration: none;
+    height: 100%;
+    font-size: 20px;
+    margin-left: 5px;
+}
+
+.list-group a.selected{
+    color: #52B291;
+}
+
+.list-group > li > a:hover{
+    color: #52B291;
+}
+
+.sideTitle{
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.sideTitle > img{
+    width: 50px;
+    height: 50px;
+}
+
+
+/* ************************************************** */
+/* 페이지네이션 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    list-style: none;
+}
+
+.pagination button {
+    width: 45px;
+    height: 45px;
+    border: none;
+    background-color: white;
+    color: #666;
+    cursor: pointer;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    font-size: 18px;
+}
+
+.pagination button:hover {
+    background-color: #f8f9fa;
+}
+
+.pagination .pagination-btn:hover{
+    background-color: #166549;
+    color: white;
+}
+
+.pagination button[aria-current="page"] {
+    background-color: #166549;
+    color: white;
+}
+
+.pagination .pagination-btn {
+    background-color: #166549;
+    color: white;
+    font-weight: bold;
+    height: 50px;
+    width: 85px;
+}
+
+
+/* ****************************************** */
+/* 관리자페이지 공통 */
+.admin-main{
+    width: 100%;
+    padding: 0 40px;
+    margin-top: 30px;
+}
+
+.admin-group-top{
+    display: flex;
+}
+
+.admin-group-bottom{
+    width: 100%;
+    height: 100%;
+}
+
+/* 관리자 로그인 화면 */
+#admin-user{
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.admin-login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+}
+
+.admin-login > img{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    margin-right: 20px;
+}
+
+.admin-login > p{
+    padding: 5px;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.admin-login > button{
+    border: none;
+    border-radius: 10px;
+    background-color: #166549;
+    color: white;
+    width: 70px;
+    height: 40px;
+}
+
+/**************************************/
+/* 검색 */
+#search-area{
+    margin: 30px 0 30px 0;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    width: 60%;
+}
+
+#search-area label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 6px;
+    font-size: 20px;
+}
+
+/* 기본 검색창 */
+.search-box {
+    display: flex;
+    align-items: center; 
+    gap: 8px; 
+    margin-block: 15px;
+    padding: 10px;
+}
+
+.search-box fieldset{ 
+    width: 400px; 
+    height: 40px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+    margin-left: 30px;
+}
+
+fieldset > [name="query"]{
+    flex: 1;
+    border: none;
+    width: 80%;
+    height: 100%;
+    font-size: 18px;
+}
+
+.searchBtn{
+    border: none;
+    background-color: transparent;
+    width: 30px;
+    height: 30px;
+    text-align: end;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* 상세검색, 등록일 */
+.detail-search{
+    display: flex;
+    align-items: baseline; 
+    gap: 5px; 
+    margin-block: 15px;
+    padding: 10px;
+}
+
+.detail-search div:nth-of-type(1){
+    margin-left: 10px;
+}
+
+.detail-search .dateBtn{
+    width: 55px;
+    height: 40px;
+    font-size: 16px;
+}
+
+.detail-search .dateBtn:hover{
+    color: white;
+    background-color: #298C69;
+}
+
+.detail-search input[type="date"]{
+    width: 120px;
+    height: 35px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+/* 체크박스 */
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 0 0 5px 20px;
+    font-size: 18px;
+}
+
+.checkbox-group2 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 0 0 5px 10px;
+    font-size: 18px;
+}
+
+.checkbox-goods{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* 초기화, 검색 버튼 */
+.search-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+    margin-left: auto;
+}
+
+.basic-btn{
+    width: 100px;
+    height: 45px;
+    padding: 5px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: 2px solid #298C69;
+    background-color: white;
+    cursor: pointer;
+}
+
+.color-btn{
+    width: 100px;
+    height: 45px;
+    padding: 5px;
+    font-size: 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: #298C69;
+    color: white;
+    cursor: pointer;
+}
+
+/* view-box(신규 회원 수, 오늘 신고수) */
+#view-box{
+    margin:40px 30px 30px 60px;
+    width: 20%;
+}
+
+/* view-box2(이용자 수, 정지 회원수) */
+#view-box2{
+    margin: 40px 30px 30px 30px;
+    width: 20%;
+}
+
+#view-box3{
+    margin: 40px 0 30px 30px;
+    width: 20%;
+}
+
+.box-style{
+    border: 3px solid #52B291;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 35px;
+    display: flex;
+    flex-direction: column;  
+    justify-content: center;  
+    align-items: center;
+}
+
+.p-tag-value{
+    color: #52B291;
+    font-weight: bold;
+    font-size: 35px;
+    margin-top: 20px;
+}
+
+/* 중간에 있는 버튼과 드롭다운들 */
+.result-buttons{
+    display: flex;
+    justify-content: right;
+    flex-wrap: wrap;
+    column-gap: 15px;
+    margin-left: auto;
+}
+
+.result-middle{
+    display: flex;
+    align-items: center;
+}
+
+.result-middle p{
+    font-weight: bold;
+}
+
+.result-middle button{
+    padding: 10px;
+    width: 120px;
+    margin-left: 10px;
+    font-size: 16px;
+}
+
+.result-middle button:hover{
+    color: white;
+    background-color: #298C69;
+}
+
+
+/* 회원조회 테이블 */
+.table-content{
+    border-top: 1px solid #ddd;
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    margin-top: 30px;
+    height: 35%;   
+}
+
+/* 테이블 체크박스 */
+.table-content .fa-square, .table-content .fa-square-check{
+    display: flex;
+    justify-content: center;  
+    align-items: center;      
+    height: 100%; 
+}
+
+.table-content tr{
+    border-bottom: 1px solid #ddd ;
+}
+
+.table-content td{
+    border-right: 1px solid #ddd;
+    height: 48px;
+    margin-left: auto;
+}
+
+.table-content td:nth-last-child(1){border: none;}
+
+.table-title{
+    background-color: #ddd;
+}
+
+/* ***************************************************** */
+/* 드롭다운 */
+.show{
+    display: block;
+}
+
+.close{
+    display: none;
+}
+
+/* 검색(필터) - 드롭다운 */
+.dropdown-group{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+
+#dropdown-box{
+    display: block;
+    position: relative;
+    margin-left: 10px;
+}
+
+.dropdown-menu{
+    list-style: none;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    position: absolute;
+    background-color: white;
+    margin-left: 10px;
+    width: 100%;
+}
+
+.dropdown-menu > li{
+    margin: 15px;
+    text-align: center;
+}
+
+.dropdown-menu > hr{color: #ccc;}
+
+
+.dropdown-item{
+    text-decoration: none;
+    color: black;
+    padding: 8px;
+}
+
+
+.filter-btn{
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 5px 8px 5px 8px;
+    margin-left: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    cursor: pointer;
+}
+
+/* 회원 테이블 상태 드롭다운 */
+.status-group{
+    display: flex;
+    justify-content: center;
+}
+
+.table-item{
+    border-radius: 5px;
+    border-color: #52B291;
+    width: 80px;
+    height: 40px;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* 최신순 드롭다운 */
+.select-item{
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: left;
+    font-size: 16px;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+/* sold out 버튼 */
+.sold-out{
+    padding: 10px;
+    color: red;
+    font-weight: bold;
+}
+
+.sold-out:hover{
+    background-color:red;
+    color: white;
+}
+
+/* 데이터 통계 화면 */
+#userCount-view{
+    width: 90%;
+    height: 70%;
+    border: 3px solid #ccc;
+    border-radius: 10px;
+}
+
+#data-view{
+    width: 90%;
+    height: 60%;
+    border: 3px solid #ccc;
+    border-radius: 10px;
+}

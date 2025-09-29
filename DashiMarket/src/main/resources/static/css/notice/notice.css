@@ -1,0 +1,202 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    background-color: white;
+    min-height: 100vh;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* 공지사항 */
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #166449;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+/* 검색창 섹션 */
+.search-section {
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+/* 관리자 글쓰기 버튼 */
+#admin-writeBtn {
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background-color: #FFC800;
+    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-left: 12px;
+}
+
+.search-form {
+    display: inline-block;
+    position: relative;
+}
+
+.search-form img {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    opacity: 0.6;
+}
+
+.search-form input[type="search"] {
+    width: 300px;
+    padding: 8px 16px 8px 50px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    font-size: 14px;
+    outline: none;
+}
+
+.search-form input[type="search"]::placeholder {
+    color: #999;
+}
+
+nav {
+    margin-bottom: 40px;
+}
+
+.filter-nav {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    list-style: none;
+}
+
+.filter-nav button {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    background-color: white;
+    color: #666;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.filter-nav button[aria-current="page"] {
+    background-color: #298C69;
+    color: white;
+    border-color: #298C69;
+}
+
+main {
+    margin-bottom: 40px;
+}
+
+.notice-table {
+    width: 100%;
+    border-top: 2px solid #333;
+    border-collapse: collapse;
+}
+
+.notice-table thead {
+    display: none;
+    /* 시각적으로 숨김 */
+}
+
+.notice-table tbody tr {
+    display: flex;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.notice-table tbody tr:hover {
+    background-color: #34a57d1e;
+}
+
+.notice-table td {
+    border: none;
+    padding: 0;
+}
+
+.category {
+    width: 80px;
+    font-size: 13px;
+    color: #666;
+    text-align: left;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.category.event {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.notice-title {
+    flex: 1;
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+    margin-left: 20px;
+}
+
+.notice-date {
+    font-size: 14px;
+    color: #666;
+    margin-right: 25px;
+
+}
+
+/* 페이지네이션 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    list-style: none;
+}
+
+.pagination button {
+    width: 35px;
+    height: 35px;
+    border: none;
+    background-color: white;
+    color: #666;
+    cursor: pointer;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.pagination button:hover {
+    background-color: #34a57d1e;
+}
+
+.pagination .pagination-btn:hover {
+    background-color: #166549;
+    color: white;
+}
+
+.pagination button[aria-current="page"] {
+    background-color: #166549;
+    color: white;
+}
+
+.pagination .pagination-btn {
+    background-color: #166549;
+    color: white;
+    font-weight: bold;
+    height: 35px;
+    width: 65px;
+}

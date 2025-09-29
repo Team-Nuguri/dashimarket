@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>커뮤니티</title>
+    <link rel="stylesheet" href="../../static/css/common/header.css">
+    <link rel="stylesheet" href="../../static/css/common/font.css">
+    <link rel="stylesheet" href="../../static/css/communityPage/communityHome.css">
+    <link rel="stylesheet" href="../../static/css/common/footer.css">
+
+</head>
+<body>
+    <header>
+        <section id="header-area">
+            <div>
+                <a href="@{/}">
+                    <img id="main-logo" src="../../static/images/logo.png">
+                </a>
+
+            </div>
+            <div>
+                <div>
+                    <a href="/joongo" class="noto-sans-kr-20">중고거래</a>
+                </div>
+                <div>
+                    <a href="/goods" class="noto-sans-kr-20">굿즈</a>
+                </div>
+                <div>
+                    <a href="/community" class="noto-sans-kr-20">커뮤니티</a>
+                </div>
+
+            </div>
+
+            <div id="icon-area">
+                <button>
+                    <!-- <img src="/images/svg/하트.svg"> -->
+                    <!-- <img src="@{/images/장바구니.svg}" > -->
+                    <img src="../../static/images/svg/사람.svg" >
+                </button>
+
+                <button>
+                    <img src="../../static/images/svg/group.svg">
+                </button>
+                <button>
+                    <img src="../../static/images/svg/clarity_menu-line.svg">
+
+                </button>
+
+            </div>
+        </section>
+
+        <section id="search-area">
+            <form action="">
+                <fieldset>
+                    <img src="../../static/images/svg/돋보기.svg">
+                    <input type="search" name="query" id="query" placeholder="검색어를 입력해주세요." class="noto-sans-kr-20">
+
+                </fieldset>
+            </form>
+        </section>
+    </header>
+    
+    <section class="body">
+
+        <div id="category-header">
+            <div class="text-size-24 bold-text">일상</div>
+        </div>
+
+        <div class="row1">
+
+            <!-- 글쓴이 -->
+            <div class="user-info">
+
+                <!-- 프로필 사진 -->
+                <div class="profile-img"><img src="../../static/images/community/너굴.jpg" alt=""></div>
+                <div class="info-text">
+                    <div class="user-nick-name bold-text text-size-20">너굴맨</div>
+                    <span class="user-dong medium-text text-size-16">관철동</span>
+                    <span>•</span>
+                    <span class="post-date text-size-15"6>30분전</span>
+                </div>
+            </div>
+
+            <!-- 신고 -->
+            <div class="report">
+                <div><img src="../../static/images/svg/Siren.svg" alt=""></div>
+                <a href="#" class="report-text text-size-14">신고</a>
+            </div>
+        </div>
+
+        <!-- 제목 -->
+        <div class="row2">
+            <div class="post-title text-size-24 bold-text">이제 잠 못 잘 거야~!</div>
+            <div class="views-area">
+                <div><img src="../../static/images/svg/Eye.svg" alt=""></div>
+                <div class="text-size-14">14</div>
+            </div>
+        </div>
+
+        <!-- 본문 -->
+        <div class="row3">
+            <div class="post-img"><img src="../../static/images/community/잘해요.jpg" alt=""></div>
+            <div class="post-content-area">
+                <div class="text-size-16 medium-text">잘하는지도 모르겠어요 그래서 그냥 잠 안 자려구요.<br>오늘도 깃허브 충돌 고치다가 파일 다 날려먹는 줄 알고 식겁해서 심장이 떨리고 반쯤 울면서 고쳤읍니다...</div>
+            </div>
+        </div>
+
+        <!-- 아이콘 영역 -->
+        <div class="row4 post-icon">
+
+            <div class="post-like">
+                <img src="../../static/images/svg/community-liked.svg" alt="">
+                <div>9</div>
+            </div>
+
+            <div class="post-comment">
+                <img src="../../static/images/svg/comment.svg" alt="">
+                <div>3</div>
+            </div>
+        </div>
+
+        <!-- 댓글 정렬 -->
+        <div class="row5">
+            <div class="sort-area">
+                <a href="" class="text-size-16 bold-text">최신순</a>
+                <span>|</span>
+                <a href="" class="text-size-16">인기순</a>
+            </div>
+        </div>
+
+        <!-- 댓글 쓰기 -->
+        <div class="write-comment-row">
+            <div class="write-box">
+                <textarea name="write-comment-area" class="write-comment-area"></textarea>
+            </div>
+            <div class="comment-button-area"><button class="text-size-16 bold-text">댓글 달기</button></div>
+        </div>
+
+        <!-- 댓글 -->
+        <div class="comment-area">
+
+            <!-- 댓글 하나 -->
+            <div class="parent-comment">
+                <!-- 프로필 사진 -->
+                <div class="comment-profile-img"><img src="../../static/images/community/우사기.jpg" alt=""></div>
+
+                <div class="comment-info-area">
+                    <!-- 닉네임 -->
+                    <div class="comment-info">
+                        <span class="bold-text">우사기</span>
+                        <span>•</span>
+                        <span>39분전</span>
+                    </div>
+    
+                    <!-- 댓글 내용 -->
+                    <div class="comment-content">
+                        저도 깃허브가 너무 어려워요 엉엉엉
+                    </div>
+
+                    <!-- 아이콘 -->
+                    <div class="comment-icon">
+                        <div>
+                            <div class="comment-like">
+                                <img src="../../static/images/svg/postLike.svg" alt="">
+                                <div>1</div>
+                            </div>
+                            <div class="comment-comment">
+                                <img src="../../static/images/svg/comment.svg" alt="">
+                                <div>1</div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <!-- 수정 삭제 버튼 -->
+                <div class="del-update-area">
+                    <a href="#" class="medium-text">수정</a>
+                    <a href="#" class="medium-text">삭제</a>
+                </div>
+
+            </div>
+            
+            <div class="parent-comment child-comment">
+                <!-- 프로필 사진 -->
+                <div class="comment-profile-img"><img src="../../static/images/community/dog.jpg" alt=""></div>
+
+                <div class="comment-info-area">
+                    <!-- 닉네임 -->
+                    <div class="comment-info">
+                        <span class="bold-text">말티쥬입니다</span>
+                        <span>•</span>
+                        <span>39분전</span>
+                    </div>
+    
+                    <!-- 댓글 내용 -->
+                    <div class="comment-content">
+                        답글 답글
+                    </div>
+
+                    <!-- 아이콘 -->
+                    <div class="comment-icon">
+                        <div class="comment-like">
+                            <img src="../../static/images/svg/postLike.svg" alt="">
+                            <div>1</div>
+                        </div>
+                        <div class="comment-comment">
+                            <img src="../../static/images/svg/comment.svg" alt="">
+                            <div>0</div>
+                        </div>
+
+                        <!-- 신고 -->
+                        <div class="report">
+                            <div><img src="../../static/images/svg/Siren.svg" alt=""></div>
+                            <a href="#" class="report-text text-size-14">신고</a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="parent-comment">
+                <!-- 프로필 사진 -->
+                <div class="comment-profile-img"><img src="../../static/images/community/dog.jpg" alt=""></div>
+
+                <div class="comment-info-area">
+                    <!-- 닉네임 -->
+                    <div class="comment-info">
+                        <span class="bold-text">말티쥬입니다</span>
+                        <span>•</span>
+                        <span>40분전</span>
+                    </div>
+    
+                    <!-- 댓글 내용 -->
+                    <div class="comment-content">
+                        잠은 죽어서 자기~!
+                    </div>
+
+                    <!-- 아이콘 -->
+                    <div class="comment-icon">
+                        <div class="comment-like">
+                            <img src="../../static/images/svg/postLike.svg" alt="">
+                            <div>10</div>
+                        </div>
+                        <div class="comment-comment">
+                            <img src="../../static/images/svg/comment.svg" alt="">
+                            <div>0</div>
+                        </div>
+
+                        <!-- 신고 -->
+                        <div class="report">
+                            <div><img src="../../static/images/svg/Siren.svg" alt=""></div>
+                            <a href="#" class="report-text text-size-14">신고</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+    </section>
+
+    <footer>
+        <section>
+            <div class="footer-top">
+                <img src="../../static/images/logo.png" width="100px" style="vertical-align: middle;">
+                <a th:href="@{#}">회사 소개</a>
+                <span>|</span>
+                <a th:href="@{#}">서비스 소개</a>
+                <span>|</span>
+                <a th:href="@{#}">블로그</a>
+                <span>|</span>
+                <a th:href="@{#}">채용제휴 문의</a>
+                <span>|</span>
+                <a th:href="@{#}">광고 문의</a>
+            </div>
+    
+            <hr>
+    
+            <div class="footer-bottom">
+    
+                <div class="footer-left">
+                    (주) 다시마켓 <br>
+                    대표 너구리 <br>
+                    사업자번호 168-87-57386 <br>
+                    직업정보제공사업 신고번호J1200020200016 <br>
+                    통신판매신고번호 제2024-서울강남-06966호 <br>
+                    호스팅 사업자 Amazon Web Service(AWS)<br>
+                    주소 서울특별시 종로구 우정국로2길 21 9층, 903호 <br>
+                    전화 1877-9292 <br>
+                    고객문의 kelp@dasimacat.com
+                </div>
+                <div class="footer-right">
+                    <a href="#">공지사항</a>
+                    <a href="#">자주묻는 질문</a> <br><br>
+    
+                    <a href="#">이용약관</a>
+                    <a href="#">개인정보처리방침</a>
+    
+                    <a href="#">운영정책</a>
+    
+                    <a href="#">위치기반서비스 이용약관</a>
+    
+                    <a href="#">게시글</a>
+    
+                </div>
+    
+            </div>
+        </section>
+    </footer>
+
+    <script src="../../static/js/communityPage/communityDetail.js"></script>
+</body>
+</html>

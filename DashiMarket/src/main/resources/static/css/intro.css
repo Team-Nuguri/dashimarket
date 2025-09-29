@@ -1,0 +1,184 @@
+a {
+    text-decoration: none;
+}
+
+section {
+    position: relative;
+    width: 1200px;
+    margin: 0 auto 150px;
+    align-items: center;
+}
+
+/* ----------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------- */
+
+/* 우측 상단 로그인 */
+#header-login {
+    position: absolute;
+    top: 10px;
+    right: 120px;
+}
+
+#header-login > a {
+    display: block;
+    color: black;
+    font-weight: 600;
+}
+
+#header-login > a:hover {
+    color: #298C69;
+}
+
+/* 로고 */
+#intro-logo-div {
+    text-align: center;
+}
+
+#intro-big-logo {
+    width: 450px;
+    margin-top: 100px;
+}
+
+/* 인트로 텍스트 */
+#intro-text {
+    font-size: 30px;
+    margin-top: 20px;
+    color: #166549;
+    margin-left: 15px;
+}
+
+/* 1행 */
+#row1 {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+#select-city {
+    width: 180px;
+    background-color: #166549;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    color: white;
+}
+
+/* 동네 선택 버튼 호버 효과 */
+#select-city:hover {
+    background-color: #298C69;
+    cursor: pointer;
+}
+
+/* 동네명 */
+#city-name {
+    padding-right: 10px;
+    line-height: 65px;
+}
+
+#drop-down-icon {
+    position: absolute;
+    right: 20px;
+}
+
+/* 드롭다운 메뉴 */
+#drop-down-box {
+    position: relative;
+}
+
+.show {
+    display: block !important;
+}
+
+#select-city-box {
+    display: none;
+    position: absolute;
+    top: 100%; /* select-city 바로 아래 */
+    left: 0;
+    background-color: white;
+    border: 2px solid #298C69;
+    border-radius: 10px;
+    padding: 10px;
+    z-index: 100;
+    width: 177px;
+    gap: 10px;
+}
+
+/* 동 텍스트 */
+#select-city-box a > div {
+    text-align: center;
+    padding: 5px;
+    color: black;
+}
+
+#select-city-box a div:hover {
+    border-bottom: 2px solid #166549;
+}
+
+/* 검색창 */
+#intro-search {
+    display: flex;
+    border: 3px solid #166549;
+    width: 587px;
+    padding: 10px;
+    align-items: center;
+    border-radius: 10px;
+}
+
+#search-icon {
+    width: 40px;
+    height: 40px;
+    margin: 0px 10px;
+}
+
+#intro-search input {
+    border: none;
+    outline: none;
+    margin: 10px;
+}
+
+/* 중고거래, 굿즈판매, 커뮤니티*/
+#row2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 60px;
+}
+
+/* 초록색 박스 */
+.intro-box {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 250px;
+    background-color: #166549;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    box-shadow : 2px 6px 10px 3px rgb(176, 176, 176);
+
+    transition: all 0.3s ease-out;
+}
+
+/* 박스 호버 효과 */
+.intro-box:hover {
+    cursor: pointer;
+    transform: translateY(-5px);
+}
+
+/* 아이콘 */
+.intro-icon {
+    width: 60px;
+    height: 60px;
+
+}
+
+/* 카테고리 텍스트 */
+.category-text {
+    margin-top: 10px;
+    color: white;
+}

@@ -1,0 +1,81 @@
+<link rel="stylesheet" href="../../static/css/common/header.css">
+
+<header>
+    <section id="header-area">
+        <!-- 다시마켓 로고 -->
+        <div>
+            <a href="@{/}">
+                <img id="main-logo" src="../../static/images/logo.png">
+            </a>
+        </div>
+
+        <!-- 카테고리 박스 -->
+        <div>
+            <div>
+                <a href="/joongo" class="noto-sans-kr-20">중고거래</a>
+            </div>
+            <div>
+                <a href="/goods" class="noto-sans-kr-20">굿즈</a>
+            </div>
+            <div>
+                <a href="/community" class="noto-sans-kr-20">커뮤니티</a>
+            </div>
+        </div>
+
+        <!-- 아이콘 영역 -->
+        <div id="icon-area">
+            <button>
+                <img src="../../static/images/svg/하트.svg" class="icon-img">
+                <!-- <img src="../../static/images/svg/장바구니.svg" > -->
+                <!-- <img src="@{/images/사람.svg}" > -->
+            </button>
+
+            <!-- 알림 영역 -->
+            <section class="notification-container">
+
+                <!-- 알림 버튼 -->
+                <button class="notification-btn" id="bell">
+                    <img src="../../static/images/svg/Group.svg" class="icon-img">
+                    
+                    <!-- 알림 표시 -->
+                    <div class="notification-area"></div>
+                </button>
+
+                <!-- 알림 목록 -->
+                <ul class="notification-list">
+                    <li class="notification-item">
+                        <div class="notification-div">
+                            <img src="/src/main/resources/static/images/admin/user.png">
+
+                            <div class="notification-content">
+                                <p class="notification-title">관심 상품이 등록되었습니다.</p> 
+                                <p class="notification-text">알림 내용</p>
+                                <span class="notification-date">알림 보낸 시간</span>
+                                <span>X</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+            </section>
+
+            <button>
+                <img src="../../static/images/svg/clarity_menu-line.svg" class="icon-img">
+            </button>
+        </div>
+    </section>
+
+    <section id="search-area">
+
+        <form action="">
+            <fieldset>
+                <input type="search" name="query" id="query" placeholder="검색어를 입력해주세요." class="noto-sans-kr-20">
+                <img src="../../static/images/svg/돋보기.svg">
+            </fieldset>
+        </form>
+
+    </section>
+
+    <script src="/src/main/resources/static/js/common/header.js"></script>
+
+</header>

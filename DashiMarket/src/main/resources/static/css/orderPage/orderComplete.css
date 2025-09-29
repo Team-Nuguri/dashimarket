@@ -1,0 +1,85 @@
+.center{
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.order-complete>div:first-child{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.order-complete img{
+    width: 300px;
+    height: 300px;
+    
+}
+
+.order-item{
+    width: 100%;
+    margin-top: 50px;
+}
+
+.order-item img{
+    width: 150px;
+    height: 150px;
+}
+
+.order-item>div:first-child{
+    border-top: 2px solid black;
+    
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    text-align: center;
+    height: 70px;
+    border-bottom: 1px solid #ddd;
+}
+
+
+.order-item-row{
+    height: 200px;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    align-items: center; 
+}
+
+
+
+/* 주문 정보 */
+.order-info{  
+    display: flex;
+    border-top: 2px solid black;
+    margin-top: 50px;
+    padding-top: 30px;
+    gap: 100px;
+}
+
+.order-info>div{
+    width: 550px;
+}
+
+.order-info-table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-top: 2px solid #333; 
+    border-bottom: 2px solid #333 !important; 
+}
+
+.order-info th, .order-info td {
+    padding: 30px 15px;
+    text-align: left;
+    vertical-align: middle;
+    border-bottom: 1px solid #ddd;
+}
+
+.order-info-table tr:last-child th,
+.order-info-table tr:last-child td {
+    border-bottom: none; 
+}
+.order-info th {
+    width: 25%; /* 제목 열 너비 지정 */
+    font-weight: 700;
+}

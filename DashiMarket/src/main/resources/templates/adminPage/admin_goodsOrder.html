@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http:// www.thymeleaf.com">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>굿즈 거래 내역</title>
+
+    <!-- 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/src/main/resources/static/css/adminPage/admin-style.css">
+
+    <script src="https://kit.fontawesome.com/1c15543e3e.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <main>
+        <section class="admin-content">
+            <!-- 사이드 메뉴 -->
+            <section class="left-side">
+                <img src="/src/main/resources/static/images/admin/adminLogo.png" id="logo">
+
+                <ul class="list-group">
+                    <li class="sideTitle"><img src="/src/main/resources/static/images/svg/Client Management.svg">회원관리</li>
+                    <li><span>|</span> <a href="#">회원 조회</a></li>
+
+                    <li class="sideTitle"><img src="/src/main/resources/static/images/svg/report.svg">신고관리</li>
+                    <li><span>|</span> <a href="#">통합 신고</a></li>
+
+                    <li class="sideTitle"><img src="/src/main/resources/static/images/svg/goods-admin.svg">상품/거래</li>
+                    <li><span>|</span> <a href="#">상품 관리</a></li>
+                    <li><span>|</span> <a href="#">거래 내역</a></li>
+
+                    <li class="sideTitle"><img src="/src/main/resources/static/images/svg/Bar Chart.svg">데이터</li>
+                    <li><span>|</span> <a href="#">이용자 수</a></li>
+                    <li><span>|</span> <a href="#">품목별 거래</a></li>
+                </ul>
+            </section>
+
+            <section class="admin-main">
+                
+                <div id="admin-user">
+                    <h1 class="admin-title">굿즈 거래 내역</h1>
+                    <div class="admin-login">
+                        <img src="/src/main/resources/static/images/admin/user.png">
+                        <p>관리자 계정</p>
+                        <button id="logout">로그아웃</button>
+                    </div>
+                </div>
+
+                <div class="admin-group-top">
+                    <form id="search-area">
+                        <!-- 검색창 -->
+                        <div class="search-box">
+                            <label>검색</label>
+                            <fieldset>
+                                <input type="text" name="query" placeholder="구매자명을 입력하세요.">
+                                <button class="searchBtn fa-solid fa-magnifying-glass"></button>
+                            </fieldset>
+                        </div>
+                        
+                        <!-- 판매상태 체크박스 영역 -->
+                        <div class="detail-search">
+                            <label>거래 상태</label>
+                            <div class="checkbox-group">
+                                <input type="checkbox">전체
+                                <input type="checkbox">주문확인
+                                <input type="checkbox">배송중
+                                <input type="checkbox">배송완료
+                                <input type="checkbox">반품
+                                <input type="checkbox">환불
+                            </div>
+                        </div>
+
+                        <!-- 등록일 검색 영역-->
+                        <div class="detail-search">
+                            <label>결제일</label>
+                            <div>
+                                <button class="dateBtn button-default">1개월</button>
+                                <button class="dateBtn button-default">1년</button>
+                                <button class="dateBtn button-default">전체</button>
+                                <input type="date"> - <input type="date">
+                            </div>
+
+                            <!-- 초기화/검색 버튼 -->
+                            <div class="search-buttons">
+                                <button type="reset" class="basic-btn">초기화</button>
+                                <button type="submit" class="color-btn">검색</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="result-middle">
+                    <p>1개 선택됨</p>
+                    <button class="color-btn">발송처리</button>
+
+                    <select class="select-item">
+                        <option value="대기">최신순</option>
+                        <option value="처리중">가격순</option>
+                    </select>
+                </div>
+                
+                <!-- 회원조회 테이블 -->
+                <table class="table-content">
+                    <tr class="table-title">
+                        <td class="fa-regular fa-square"></td>
+                        <td>거래번호</td>
+                        <td>거래 상태</td>
+                        <td>구매자명</td>
+                        <td>상품명</td>
+                        <td>구매자 연락처</td>
+                        <td>배송지</td>
+                        <td>결제수단</td>
+                        <td>결제금액</td>
+                        <td>결제일</td>
+                    </tr>
+                    <tr>
+                        <td class="fa-solid fa-square-check"></td>
+                        <td>23</td>
+                        <td>주문확인</td>
+                        <td>너구리</td>
+                        <td>다시마 피규어</td>
+                        <td>01045678999</td>
+                        <td>서울특별시 종로구 관철동 대왕빌딩 9층 903호</td>
+                        <td>카드결제</td>
+                        <td>21,000</td>
+                        <td>2025.09.28</td>
+                    </tr>
+                    <tr>
+                        <td class="fa-regular fa-square"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="fa-regular fa-square"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="fa-regular fa-square"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="fa-regular fa-square"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="fa-regular fa-square"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="fa-regular fa-square"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="fa-regular fa-square"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="fa-regular fa-square"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="fa-regular fa-square"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+
+            </section>
+        </section>
+    </main>
+
+    <footer>
+        <nav aria-label="페이지네이션">
+            <ul class="pagination">
+            <li><button type="button" class="pagination-btn" aria-label="이전 페이지"><img src="/src/main/resources/static/images/pagination/pagn-previous-btn.svg"></button></li>
+            <li><button type="button" aria-current="page" aria-label="1페이지">1</button></li>
+            <li><button type="button" aria-label="2페이지">2</button></li>
+            <li><button type="button" aria-label="3페이지">3</button></li>
+            <li><button type="button" aria-label="4페이지">4</button></li>
+            <li><button type="button" aria-label="5페이지">5</button></li>
+            <li><button type="button" aria-label="6페이지">6</button></li>
+            <li><button type="button" aria-label="7페이지">7</button></li>
+            <li><button type="button" aria-label="8페이지">8</button></li>
+            <li><button type="button" aria-label="9페이지">9</button></li>
+            <li><button type="button" aria-label="10페이지">10</button></li>
+            <li><button type="button" class="pagination-btn" aria-label="다음 페이지"><img src="/src/main/resources/static/images/pagination/pagn-next-btn.svg"></button></li>
+            </ul>
+        </nav>
+    </footer>
+
+    <script src="/src/main/resources/static/js/adminPage/admin.js"></script>
+</body>
+
+</html>

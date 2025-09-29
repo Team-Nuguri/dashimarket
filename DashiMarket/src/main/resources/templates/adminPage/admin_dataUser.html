@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http:// www.thymeleaf.com">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이용자 수</title>
+
+    <!-- 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/src/main/resources/static/css/adminPage/admin-style.css">
+
+    <script src="https://kit.fontawesome.com/1c15543e3e.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <main>
+        <section class="admin-content">
+            <!-- 사이드 메뉴 -->
+            <section class="left-side">
+                <img src="/src/main/resources/static/images/admin/adminLogo.png" id="logo">
+
+                <ul class="list-group">
+                    <li class="sideTitle"><img src="/src/main/resources/static/images/svg/Client Management.svg">회원관리</li>
+                    <li><span>|</span> <a href="#">회원 조회</a></li>
+
+                    <li class="sideTitle"><img src="/src/main/resources/static/images/svg/report.svg">신고관리</li>
+                    <li><span>|</span> <a href="#">통합 신고</a></li>
+
+                    <li class="sideTitle"><img src="/src/main/resources/static/images/svg/goods-admin.svg">상품/거래</li>
+                    <li><span>|</span> <a href="#">상품 관리</a></li>
+                    <li><span>|</span> <a href="#">거래 내역</a></li>
+
+                    <li class="sideTitle"><img src="/src/main/resources/static/images/svg/Bar Chart.svg">데이터</li>
+                    <li><span>|</span> <a href="#">이용자 수</a></li>
+                    <li><span>|</span> <a href="#">품목별 거래</a></li>
+                </ul>
+            </section>
+
+            <section class="admin-main">
+                
+                <div id="admin-user">
+                    <h1 class="admin-title">이용자 수</h1>
+                    <div class="admin-login">
+                        <img src="/src/main/resources/static/images/admin/user.png">
+                        <p>관리자 계정</p>
+                        <button id="logout">로그아웃</button>
+                    </div>
+                </div>
+
+                <div class="admin-group-top">
+                    <form id="search-area">
+                        <!-- 기간 검색 영역-->
+                        <div class="detail-search">
+                            <label>기간</label>
+                            <div>
+                                <button class="dateBtn button-default">1개월</button>
+                                <button class="dateBtn button-default">1년</button>
+                                <button class="dateBtn button-default">전체</button>
+                                <input type="date"> - <input type="date">
+                            </div>
+
+                            <!-- 초기화/검색 버튼 -->
+                            <div class="search-buttons">
+                                <button type="reset" class="basic-btn">초기화</button>
+                                <button type="submit" class="color-btn">검색</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- 데이터 통계 view -->
+                <div id="userCount-view">
+
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <footer>
+        <nav aria-label="페이지네이션">
+            <ul class="pagination">
+            <li><button type="button" class="pagination-btn" aria-label="이전 페이지"><img src="/src/main/resources/static/images/pagination/pagn-previous-btn.svg"></button></li>
+            <li><button type="button" aria-current="page" aria-label="1페이지">1</button></li>
+            <li><button type="button" aria-label="2페이지">2</button></li>
+            <li><button type="button" aria-label="3페이지">3</button></li>
+            <li><button type="button" aria-label="4페이지">4</button></li>
+            <li><button type="button" aria-label="5페이지">5</button></li>
+            <li><button type="button" aria-label="6페이지">6</button></li>
+            <li><button type="button" aria-label="7페이지">7</button></li>
+            <li><button type="button" aria-label="8페이지">8</button></li>
+            <li><button type="button" aria-label="9페이지">9</button></li>
+            <li><button type="button" aria-label="10페이지">10</button></li>
+            <li><button type="button" class="pagination-btn" aria-label="다음 페이지"><img src="/src/main/resources/static/images/pagination/pagn-next-btn.svg"></button></li>
+            </ul>
+        </nav>
+    </footer>
+
+    <script src="/src/main/resources/static/js/adminPage/admin.js"></script>
+</body>
+
+</html>

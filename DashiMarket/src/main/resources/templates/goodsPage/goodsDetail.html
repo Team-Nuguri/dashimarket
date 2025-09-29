@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>goodsDetail</title>
+    
+    <link rel="stylesheet" href="../../static/css/common/header.css">
+    <link rel="stylesheet" href="../../static/css/common/footer.css">
+    <link rel="stylesheet" href="../../static/css/common/font.css">
+    <link rel="stylesheet" href="../../static/css/goodsPage/goodsDetail.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <section id="header-area">
+            <div>
+                <a href="@{/}">
+                    <img id="main-logo" src="../../static/images/logo.png">
+                </a>
+
+            </div>
+
+            <div>
+                <div>
+                    <a href="/joongo" class="noto-sans-kr-20">중고거래</a>
+                </div>
+                <div>
+                    <a href="/goods" class="noto-sans-kr-20">굿즈</a>
+                </div>
+                <div>
+                    <a href="/community" class="noto-sans-kr-20">커뮤니티</a>
+                </div>
+
+            </div>
+
+            <div id="icon-area">
+                <button>
+                    <!-- <img src="/images/하트.svg"> -->
+                    <img src="../../static/images/svg/장바구니.svg" >
+                    <!-- <img src="@{/images/사람.svg}" > -->
+                </button>
+
+
+                <button>
+                    <img src="../../static/images/svg/Group.svg">
+                </button>
+                <button>
+                    <img src="../../static/images/svg/clarity_menu-line.svg">
+
+                </button>
+
+            </div>
+        </section>
+
+        <section id="search-area">
+
+            <form action="">
+                <fieldset>
+                    <img src="../../static/images/svg/돋보기.svg">
+                    <input type="search" name="query" id="query" placeholder="검색어를 입력해주세요." class="noto-sans-kr-20">
+
+                </fieldset>
+
+            </form>
+
+        </section>
+
+    </header>
+    <!-- ----------------------------------------- -->
+
+
+    <main>
+        <section class="center" id="item-detail">
+            <div class="noto-sans-kr flex">
+                <div>  
+                    <a href=""><span>목록으로</span></a>
+                </div>
+            </div>
+            <!-- 상품 정보 영역 -->
+            <div id="item-info">
+                <div id="image-area">
+                    <button id="left-btn"><img src="../../static/images/svg/왼쪽.svg"></button>
+                    <div id="imageSlide">
+                        <img src="../../static/images/goods/tumbler.png">
+                        <img src="images/item/폰2.png">
+                        <img src="images/item/폰3.png">
+                        <img src="images/item/폰4.png">
+                        <img src="images/item/폰5.png">
+                    </div>
+                    <!-- soldout 이미지 -->
+                    <div class="sold-out" id="sold-out"><img src="../../static/images/goods/soldout.jpg" style="width: 500px; height: 500px;" ></div>
+                    <button id="right-btn"><img src="../../static/images/svg/오른쪽.svg"></button>
+                    <div id="dot-area">
+                        <img src="../../static/images/svg/dot.svg" class="dot">
+                        <img src="../../static/images/svg/dot.svg" class="dot opacity">
+                        <img src="../../static/images/svg/dot.svg" class="dot opacity">
+                        <img src="../../static/images/svg/dot.svg" class="dot opacity">
+                        <img src="../../static/images/svg/dot.svg" class="dot opacity">
+                    </div>
+
+                </div>
+
+                <div id="info-area">
+                    <div class="flex" id="item-title">
+                        <h1>다시마 텀블러</h1>
+                        <span><img src="../../static/images/svg/케밥메뉴.svg" id="ud-menu"></span>
+
+                        <!-- 관리자만 볼 수 있게 -->
+                        <div class="dropdown-menu">
+                            <button class="action-edit">수정하기</button>
+                            <button class="action-delete">삭제하기</button>
+                        </div>
+                    </div>
+                    <div id="item-price">
+                        <h1>25,000 원</h1>
+                    </div>
+                    <div class="flex" id="count-price">
+                        <div class="number-input">
+                            <button class="minus">-</button>
+                            <input type="number" id="quantity" value="1" min="1" max="10" readonly>
+                            <button class="plus">+</button>
+                        </div>
+
+                        <div>
+                            <h1 class="total-price">25,000 원</h1>
+                            <input type="hidden" id="total-price" value="">
+                        </div>
+                    </div>
+                    <div id="cart-buy" class="flex">
+                        <button id="shopping-cart" class="pointer">
+                            <img src="../../static/images/svg/Shopping Cart.svg" style="width: 100px; height: 60px;">
+                        </button>
+                        <button class="flex pointer" id="buy">
+                            <img src="../../static/images/svg/Won.svg" style="width: 100px; height: 60px;">
+                            <h2>구매하기</h2>
+                        </button>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- 별점 / 리뷰 수 -->
+            <div class="flex" id="star-rating">
+                <div>
+                    <i class="fas fa-star yellow" style="font-size: 30px;"></i>
+                    <span style="font-size: 20px; font-weight: bold;">5.0</span>
+                </div>
+                <div>
+                    <i class="fas fa-comment-alt" style="font-size: 30px;"></i>
+                    <span style="font-size: 20px; font-weight: bold;">15</span>
+                </div>
+            </div>
+
+
+        </section>
+
+        <!-- 비슷한 상품 목록 섹션 -->
+        <section id="similar-item" class="flex center">
+            <button id="left-out-btn"><img src="../../static/images/svg/왼쪽.svg"></button>
+
+            <div class="center" id="image-container">
+                <div class="flex" id="image-slide">
+
+                    <div class="similar-items flex direction-column">
+                        <a href="">
+                            <div class="similar-image-container">
+                                <img src="../../static/images/goods/tumbler.png">
+                            </div>
+                            <div class="similar-info-container flex direction-column">
+                                <p class="similar-name">다시마 노트</p>
+                                <span class="similar-price">2,500 원</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="similar-items flex direction-column">
+                        <a href="">
+                            <div class="similar-image-container">
+                                <img src="../../static/images/goods/sticker.png">
+                            </div>
+                            <div class="similar-info-container flex direction-column">
+                                <p class="similar-name">아이폰 7 상태 좋아요</p>
+                                <span class="similar-price">140,000 원</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="similar-items flex direction-column">
+                        <a href="">
+                            <div class="similar-image-container">
+                                <img src="../../static/images/goods/socks.png">
+                            </div>
+                            <div class="similar-info-container flex direction-column">
+                                <p class="similar-name">아이폰 7 상태 좋아요</p>
+                                <span class="similar-price">140,000 원</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="similar-items flex direction-column">
+                        <a href="">
+                            <div class="similar-image-container">
+                                <img src="../../static/images/goods/note.png">
+                            </div>
+                            <div class="similar-info-container flex direction-column">
+                                <p class="similar-name">아이폰 7 상태 좋아요</p>
+                                <span class="similar-price">140,000 원</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="similar-items flex direction-column">
+                        <a href="">
+                            <div class="similar-image-container">
+                                <img src="../../static/images/goods/mug-cup.png">
+                            </div>
+                            <div class="similar-info-container flex direction-column">
+                                <p class="similar-name">아이폰 7 상태 좋아요</p>
+                                <span class="similar-price">140,000 원</span>
+                            </div>
+                        </a>
+                    </div>
+
+
+                    <div class="similar-items flex direction-column">
+                        <a href="">
+                            <div class="similar-image-container">
+                                <img src="../../static/images/goods/key ring.png">
+                            </div>
+                            <div class="similar-info-container flex direction-column">
+                                <p class="similar-name">아이폰 7 상태 좋아요</p>
+                                <span class="similar-price">140,000 원</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="similar-items flex direction-column">
+                        <a href="">
+                            <div class="similar-image-container">
+                                <img src="../../static/images/goods/figures.png">
+                            </div>
+                            <div class="similar-info-container flex direction-column">
+                                <p class="similar-name">아이폰 7 상태 좋아요</p>
+                                <span class="similar-price">140,000 원</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="similar-items flex direction-column">
+                        <a href="">
+                            <div class="similar-image-container">
+                                <img src="../../static/images/goods/echo-bag.png">
+                            </div>
+                            <div class="similar-info-container flex direction-column">
+                                <p class="similar-name">아이폰 7 상태 좋아요</p>
+                                <span class="similar-price">140,000 원</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="similar-items flex direction-column">
+                        <a href="">
+                            <div class="similar-image-container">
+                                <img src="../../static/images/goods/cushion.png">
+                            </div>
+                            <div class="similar-info-container flex direction-column">
+                                <p class="similar-name">아이폰 7 상태 좋아요</p>
+                                <span class="similar-price">140,000 원</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="similar-items flex direction-column">
+                        <a href="">
+                            <div class="similar-image-container">
+                                <img src="../../static/images/goods/blanket.png">
+                            </div>
+                            <div class="similar-info-container flex direction-column">
+                                <p class="similar-name">아이폰 7 상태 좋아요</p>
+                                <span class="similar-price">140,000 원</span>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <button id="right-out-btn"><img src="../../static/images/svg/오른쪽.svg"></button>
+
+        </section>
+
+        <!-- 상품 정보, 리뷰, qna, 반품 교환 -->
+        <section class="flex center" id="cate-btn">
+            <a href="#goods-info"><button>상품 정보</button></a>
+            <a href="#goods-review"><button>리뷰</button></a>
+            <a href="#goods-qna"><button>QnA</button></a>
+            <a href="#goods-exchange"><button>반품/교환 정보</button></a>
+        </section>
+
+        <!-- 상품 상세 정보 -->
+        <section id="goods-info" class=" center">
+            <div class="flex">
+                <h1 class="text-green">상품 정보</h1>
+            </div>
+            <div id="goods-info-img">
+                <img src="../../static/images/goods-info/tumbler_info.png">
+            </div>
+        </section>
+
+        <!-- 상품 리뷰 -->
+        <section id="goods-review" class="center">
+            <div class="flex">
+                <h1 class="text-green">리뷰</h1>
+            </div>
+            <div class="flex">
+                <div class="flex direction-column">
+                    <span class="text-size-20 medium-text">사용자 총 평점</span>
+                    <span>
+                        <i class="fa-solid fa-star" style="color: gold; font-size: 30px;"></i>
+                        <i class="fa-solid fa-star" style="color: gold; font-size: 30px;"></i>
+                        <i class="fa-solid fa-star" style="color: gold; font-size: 30px;"></i>
+                        <i class="fa-solid fa-star" style="color: gold; font-size: 30px;"></i>
+                        <i class="fa-solid fa-star" style="color: gold; font-size: 30px;"></i>
+                    </span>
+                    <div>
+                        <span class="text-size-24  bold-text">4.9</span>
+                        <span class="opacity text-size-24 ">/5</span>
+                    </div>
+                </div>
+                <div class="flex direction-column">
+                    <span>전체 리뷰 수</span>
+                    <span><i class="fas fa-comment-alt" style="font-size: 30px;"></i></span>
+                    <span class="text-size-24  bold-text">15</span>
+                </div>
+            </div>
+
+            <div class="flex">
+                <a href="#" class="text-deco medium-text">최신순</a> <span>|</span>
+                <a href="#" class="text-deco text-opacity medium-text">평점 높은순</a> <span>|</span>
+                <a href="#" class="text-deco text-opacity medium-text">평점 낮은순</a>
+            </div>
+
+            <!-- 리뷰 목록 -->
+            <ul>
+                <li class="review flex">
+                    <div class="flex" style="gap: 30px;">
+                        <div>
+                            <img src="/images/member/짱구.jpg">
+                        </div>
+                        <div class="flex direction-column" style="gap: 10px;">
+                            <div>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <span class="medium-text">5</span>
+                            </div>
+                            <div class="flex" style="gap: 10px;">
+                                <span class="light-text">holysik</span>
+                                <span class="light-text">2025.09.26</span>
+                                <span class="light-text">|</span>
+                                <span class="light-text report-button">신고</span>
+                            </div>
+                            <div>
+                                <span class="medium-text">다시마 텀블러</span>
+                            </div>
+                            <div class="review-content medium-text">
+                                너무 귀여운 텀블러에요 ~ 주변사람들한테도 추천중입니다 !
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <!-- 리뷰에 단 이미지 ? or 상품 대표 이미지 -->
+                        <img src="../../static/images/goods/tumbler.png">
+                    </div>
+
+                </li>
+                <li class="review flex">
+                    <div class="flex" style="gap: 30px;">
+                        <div>
+                            <img src="/images/member/짱구.jpg">
+                        </div>
+                        <div class="flex direction-column" style="gap: 10px;">
+                            <div>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <span class="medium-text">5</span>
+                            </div>
+                            <div class="flex" style="gap: 10px;">
+                                <span class="light-text">holysik</span>
+                                <span class="light-text">2025.09.26</span>
+                                <span class="light-text">|</span>
+                                <span class="light-text report-button">신고</span>
+                            </div>
+                            <div>
+                                <span class="medium-text">다시마 텀블러</span>
+                            </div>
+                            <div class="review-content medium-text">
+                                제가 쓴 텀블러 중 역대급입니다. 스탠리 ? 그게 뭐죠 ? 앞으론 다시마입니다.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <!-- 리뷰에 단 이미지 ? or 상품 대표 이미지 -->
+                        <img src="../../static/images/goods/tumbler.png">
+                    </div>
+
+                </li>
+                <li class="review flex">
+                    <div class="flex" style="gap: 30px;">
+                        <div>
+                            <img src="/images/member/짱구.jpg">
+                        </div>
+                        <div class="flex direction-column" style="gap: 10px;">
+                            <div>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <span class="medium-text">5</span>
+                            </div>
+                            <div class="flex" style="gap: 10px;">
+                                <span class="light-text">holysik</span>
+                                <span class="light-text">2025.09.26</span>
+                                <span class="light-text">|</span>
+                                <span class="light-text report-button">신고</span>
+                            </div>
+                            <div>
+                                <span class="medium-text">다시마 텀블러</span>
+                            </div>
+                            <div class="review-content medium-text">
+                                한손에 착 감기는 역대급 그립감.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <!-- 리뷰에 단 이미지 ? or 상품 대표 이미지 -->
+                        <img src="../../static/images/goods/tumbler.png">
+                    </div>
+
+                </li>
+                <li class="review flex">
+                    <div class="flex" style="gap: 30px;">
+                        <div>
+                            <img src="/images/member/짱구.jpg">
+                        </div>
+                        <div class="flex direction-column" style="gap: 10px;">
+                            <div>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <span class="medium-text">5</span>
+                            </div>
+                            <div class="flex" style="gap: 10px;">
+                                <span class="light-text">holysik</span>
+                                <span class="light-text">2025.09.26</span>
+                                <span class="light-text">|</span>
+                                <span class="light-text report-button">신고</span>
+                            </div>
+                            <div>
+                                <span class="medium-text">다시마 텀블러</span>
+                            </div>
+                            <div class="review-content medium-text">
+                                이 제품을 왜 이제 알았을까 인생 절반 손해봤습니다.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <!-- 리뷰에 단 이미지 ? or 상품 대표 이미지 -->
+                        <img src="../../static/images/goods/tumbler.png">
+                    </div>
+
+                </li>
+                <li class="review flex">
+                    <div class="flex" style="gap: 30px;">
+                        <div>
+                            <img src="/images/member/짱구.jpg">
+                        </div>
+                        <div class="flex direction-column" style="gap: 10px;">
+                            <div>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <span class="medium-text">5</span>
+                            </div>
+                            <div class="flex" style="gap: 10px;">
+                                <span class="light-text">holysik</span>
+                                <span class="light-text">2025.09.26</span>
+                                <span class="light-text">|</span>
+                                <span class="light-text report-button">신고</span>
+                            </div>
+                            <div>
+                                <span class="medium-text">다시마 텀블러</span>
+                            </div>
+                            <div class="review-content medium-text">
+                                너무 귀여워요 &gt;&lt; 앞으로 텀블러는 다시마 !
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <!-- 리뷰에 단 이미지 ? or 상품 대표 이미지 -->
+                        <img src="../../static/images/goods/tumbler.png">
+                    </div>
+
+                </li>
+
+            </ul>
+            <!-- 페이지 네이션 -->
+            <nav aria-label="페이지네이션" id="pagination-area">
+                <ul class="pagination">
+                    <li><button type="button" class="pagination-btn" aria-label="이전 페이지"><img
+                                src="../../static/images/svg/pagn-previous-btn.svg"></button>
+                    </li>
+                    <li><button type="button" aria-current="page" aria-label="1페이지">1</button></li>
+                    <li><button type="button" aria-label="2페이지">2</button></li>
+                    <li><button type="button" aria-label="3페이지">3</button></li>
+                    <li><button type="button" aria-label="4페이지">4</button></li>
+                    <li><button type="button" aria-label="5페이지">5</button></li>
+                    <li><button type="button" aria-label="6페이지">6</button></li>
+                    <li><button type="button" aria-label="7페이지">7</button></li>
+                    <li><button type="button" aria-label="8페이지">8</button></li>
+                    <li><button type="button" aria-label="9페이지">9</button></li>
+                    <li><button type="button" aria-label="10페이지">10</button></li>
+                    <li><button type="button" class="pagination-btn" aria-label="다음 페이지"><img
+                                src="../../static/images/svg/pagn-next-btn.svg"></button>
+                    </li>
+                </ul>
+            </nav>
+
+
+        </section>
+
+
+        <!-- 상품 QnA -->
+        <section id="goods-qna" class="center">
+            <div class="flex" style="gap: 10px;">
+                <h1 class="text-green">QnA</h1>
+
+            </div>
+            <div class="qna-write flex direction-column">
+                <span>구매하시려는 상품에 대해 궁금한 점이 있으신 경우 문의해주세요.</span>
+                <button class="medium-text " id="qna-write-btn">상품 QnA 작성하기</button>
+                <form action="" id="qna-frm" class="display-none">
+                    <textarea class="qna-write-area text-size-20 medium-text"></textarea>
+                    <button id="commit-btn">등록</button>
+                    <button id="cancel-btn">취소</button>
+
+                </form>
+
+            </div>
+
+            <ul class="qna-list">
+                <li class="qna-item">
+                    <div class="qna-header">
+                        <span style="width: 15%;" class="status-pending">미답변</span>
+                        <span style="width: 50%; font-weight: bold;" class="pointer">일규식인가요?</span>
+                        <span style="width: 15%; text-align: right;">일규식</span>
+                        <span style="width: 20%; text-align: right; color: #888;">2025.09.18</span>
+                    </div>
+                    <!-- <div class="qna-answer">
+                        <div style="margin-bottom: 5px;">ㄴ 답변 안녕하세요 이규식입니다.</div>
+                        <div class="qna-info">
+                            <span>관리자</span>
+                            <span style="margin-left: 10px;">2025.09.23</span>
+                        </div>
+                    </div> -->
+                    <form action="" class="answer-write-form">
+                        <textarea name="commentAns" id=""></textarea>
+                        <div class="flex">
+                            <button id="comment-commit-btn" class="pointer">등록</button>
+                            <button id="comment-cancel-btn" class="pointer">취소</button>
+                        </div>
+                    </form>
+
+                </li>
+                <li class="qna-item">
+                    <div class="qna-header">
+                        <span style="width: 15%;" class="status-completed">답변완료</span>
+                        <span style="width: 50%; font-weight: bold;" class="pointer">일규식인가요?</span>
+                        <span style="width: 15%; text-align: right;">일규식</span>
+                        <span style="width: 20%; text-align: right; color: #888;">2025.09.18</span>
+                    </div>
+                    <div class="qna-answer">
+                        <div style="margin-bottom: 5px;">ㄴ 답변 안녕하세요 이규식입니다.</div>
+                        <div class="qna-info">
+                            <span>관리자</span>
+                            <span style="margin-left: 10px;">2025.09.23</span>
+                        </div>
+                    </div>
+                </li>
+
+
+                <li class="qna-item">
+                    <div class="qna-header">
+                        <span style="width: 15%;" class="status-secret">답변완료</span>
+                        <span style="width: 50%;" class="pointer">비밀글입니다. 🔒</span>
+                        <span style="width: 15%; text-align: right;">삼규식</span>
+                        <span style="width: 20%; text-align: right; color: #888;">2025.09.18</span>
+                    </div>
+                    <div class="qna-answer">
+                        <div style="margin-bottom: 5px;">ㄴ 답변 안녕하세요 이규식입니다.</div>
+                        <div class="qna-info">
+                            <span>관리자</span>
+                            <span style="margin-left: 10px;">2025.09.23</span>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+
+            <nav aria-label="페이지네이션" id="pagination-area2">
+                <ul class="pagination">
+                    <li><button type="button" class="pagination-btn" aria-label="이전 페이지"><img
+                                src="../../static/images/svg/pagn-previous-btn.svg"></button>
+                    </li>
+                    <li><button type="button" aria-current="page" aria-label="1페이지">1</button></li>
+                    <li><button type="button" aria-label="2페이지">2</button></li>
+                    <li><button type="button" aria-label="3페이지">3</button></li>
+                    <li><button type="button" aria-label="4페이지">4</button></li>
+                    <li><button type="button" aria-label="5페이지">5</button></li>
+                    <li><button type="button" aria-label="6페이지">6</button></li>
+                    <li><button type="button" aria-label="7페이지">7</button></li>
+                    <li><button type="button" aria-label="8페이지">8</button></li>
+                    <li><button type="button" aria-label="9페이지">9</button></li>
+                    <li><button type="button" aria-label="10페이지">10</button></li>
+                    <li><button type="button" class="pagination-btn" aria-label="다음 페이지"><img
+                                src="../../static/images/svg/pagn-next-btn.svg"></button>
+                    </li>
+                </ul>
+            </nav>
+
+
+        </section>
+
+
+
+        <!-- 반품 교환 정보 -->
+        <section id="goods-exchange" class="center">
+            <div class="flex" style="gap: 10px;">
+                <h1 class="text-green">반품 / 교환 정보</h1>
+            </div>
+
+            <div>
+                <h2>다시마켓 반품 / 교환 안내</h2>
+            </div>
+
+            <table class="info-table">
+                <tr>
+                    <th>지정 택배사</th>
+                    <td colspan="3">CJ 대한통운</td>
+                </tr>
+                <tr>
+                    <th>반품배송비</th>
+                    <td>편도 3000원</td>
+                    <th>교환배송비</th>
+                    <td>6000원</td>
+
+                </tr>
+                <tr>
+                    <th>보내실 곳</th>
+                    <td colspan="3">서울특별시 종로구 우정국로2길 219층, 903호</td>
+                </tr>
+                <tr>
+                    <th>반품/교환 사유에 따른 요청 가능기간</th>
+                    <td colspan="3">
+                        구매자 단순 변심은 상품 수령 후 7일 이내 (구매자 반품배송비 부담) <br>
+                        표시/광고와 상이, 계약 내용과 다르게 이행된 경우 상품 수령 후 3개월 이내 혹은 표시/광고와 다른 사실을 안 날로부터 30일 이내 둘 중 하나 경과 시 반품/교환 불가
+                    </td>
+                </tr>
+                <tr>
+                    <th>반품/교환 불가 사유</th>
+                    <td colspan="3">
+                        <ol style="margin-left: 20px;" class="medium-text">
+                            <li>반품 요청기간이 지난 경우</li>
+                            <li>구매자의 책임 있는 사유로 상품 등이 멸실 또는 훼손된 경우</li>
+                            <li>구매자의 책임 있는 사유로 포장이 훼손되어 상품 가치가 현저히 상실된 경우</li>
+                            <li>구매자의 사용 또는 일부 소비에 의하여 상품의 가치가 현저히 감소한 경우</li>
+                            <li>시간의 경과에 의하여 재판매가 곤란할 정도로 상품 등의 가치가 현저히 감소한 경우</li>
+                            <li>고객의 요청사항에 맞춰 제작에 들어가는 맞춤 제작 상품의 경우</li>
+                            <li>복제가 간으한 상품 등의 포장을 훼손한 경우</li>
+                        </ol>
+                    </td>
+                </tr>
+            </table>
+
+
+        </section>
+
+    </main>
+
+
+
+    <footer>
+        <section>
+
+            <div class="footer-top">
+                <a th:href="@{#}"><img src="images/logo.png" width="100px" style="vertical-align: middle;"></a>
+                <a th:href="@{#}">회사 소개</a>
+                <span>|</span>
+                <a th:href="@{#}">서비스 소개</a>
+                <span>|</span>
+                <a th:href="@{#}">블로그</a>
+                <span>|</span>
+                <a th:href="@{#}">채용제휴 문의</a>
+                <span>|</span>
+                <a th:href="@{#}">광고 문의</a>
+            </div>
+
+            <hr>
+
+            <div class="footer-bottom">
+
+                <div class="footer-left">
+                    (주) 다시마켓 <br>
+                    대표 너구리 <br>
+                    사업자번호 168-87-57386 <br>
+                    직업정보제공사업 신고번호J1200020200016 <br>
+                    통신판매신고번호 제2024-서울강남-06966호 <br>
+                    호스팅 사업자 Amazon Web Service(AWS)<br>
+                    주소 서울특별시 종로구 우정국로2길 21 9층, 903호 <br>
+                    전화 1877-9292 <br>
+                    고객문의 kelp@dasimacat.com
+                </div>
+                <div class="footer-right">
+                    <a href="#">공지사항</a>
+                    <a href="#">자주묻는 질문</a> <br><br>
+
+                    <a href="#">이용약관</a>
+                    <a href="#">개인정보처리방침</a>
+
+                    <a href="#">운영정책</a>
+
+                    <a href="#">위치기반서비스 이용약관</a>
+
+                    <a href="#">게시글</a>
+
+                </div>
+
+            </div>
+        </section>
+
+
+
+
+    </footer>
+
+
+
+
+
+    <script src="../../static/js/goodsPage/goodsDetail.js"></script>
+
+</body>
+
+</html>
