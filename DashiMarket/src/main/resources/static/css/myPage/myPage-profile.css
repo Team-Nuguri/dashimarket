@@ -1,0 +1,314 @@
+
+/*----------------------------*/
+/*프로필 관리*/ 
+
+/*사이드 메뉴 & 프로필 관리 박스*/
+.myPage-content{
+    display: flex;
+    max-width: 1200px;    
+    min-width: 700px;    
+    margin: 50px auto;
+    justify-content: center;    
+}
+
+/*프로필 관리 박스*/
+.myPage-main {
+    
+  width: 100%;
+ 
+  margin-left: 40px;
+  margin-bottom: 100px;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5); 
+  padding: 30px;
+  box-sizing: border-box;
+
+}
+
+/*프로필 관리 제목류(공통)*/
+.myPage-label{
+    display: flex;
+       
+    justify-content: flex-start;
+
+    width: 150px;
+    height: 50px;
+    margin-left: 50px;
+}
+
+/*프로필 타이틀*/
+.myPage-title, .myPage-subtitle {
+    margin-left: 50px; 
+    margin-top: 30px;
+}
+
+/* 프로필 클래스 */
+.myPage-profile {
+    position: relative;   
+
+}
+
+/*프로필 사진*/
+.myPage-profile a {
+    display: block;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 2px solid rgb(248, 135, 135); 
+    margin-left: 80px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+/*프로필 사진 변경 */
+.myPage-profile button {
+    position: absolute;
+    top: 50%;
+    left: 212px;  
+    
+    background-color: #166549;
+    color: white;
+}
+
+/*프로필 사진 변경 hover효과*/
+.myPage-profile > button:hover {
+    background-color: #f37ad9;
+    
+    cursor: pointer;    
+}
+
+
+/* 프로필 변경 버튼 hover 효과 */
+.myPage-actionButton:hover {    
+    background-color: #166549;
+    color: white;
+}
+
+.myPage-infoField {
+
+    display: grid;
+    grid-template-columns: 1fr;  
+    grid-template-rows: auto auto;  
+    gap: 15px;
+}
+
+.myPage-input {
+    border-radius: 10px;
+    height: 50px;
+    width: 410px;
+}
+
+.myPage-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-right: 100px;
+}
+
+
+/*프로필 변경 버튼*/
+.myPage-actionButton {
+    background-color: rgb(235, 222, 222);
+    border: 0;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-left: 15px;
+    width: 100px;
+    height: 50px;
+
+    background-color: #166549;
+    color: white;
+}
+
+/* 우편번호 */
+.myPage-addpost {
+  margin-bottom: 15px; 
+  margin-left: 50px;
+  padding-left: 5px;
+
+}
+
+/* 우편번호 input */
+.myPage-postinput {
+    
+    width: 150px;
+    height: 50px;
+    margin-left: 50px;
+    padding-left: 15px;
+    border-radius: 10px;
+}
+
+/* 우편번호 검색 */
+.myPage-addactionButton {
+    
+    background-color: rgb(235, 222, 222);
+    border: 0;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-left: 5px;
+    width: 50px;
+    height: 50px;
+
+    background-color: #166549;
+    color: white;
+}
+
+/* 프로필 상세주소 */
+.myPage-addinput {
+    display: block;
+    flex-grow: 1;
+    width: 630px;
+    height: 50px;
+
+    
+    margin-left: 100px;
+    padding-left: 5px;
+    border-radius: 10px;
+
+    margin-bottom: 15px; 
+
+}
+
+/* 프로필 상세주소 */
+.myPage-addinputDong {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+/* 프로필 상세주소 input */
+
+.myPage-addinputDongDetail1 {
+    border-radius: 10px;
+    padding-left: 5px;
+    width: 630px;
+    height: 50px;
+    margin-left: 100px;
+    margin-bottom: 10px;
+}
+
+.myPage-addinputDongInside {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+}
+
+.myPage-addinputDongDetail2 {
+    border-radius: 10px;
+    padding-left: 5px;
+    width: 500px;
+    height: 50px;
+    margin-left: 100px;
+    margin-bottom: 10px;
+}
+
+.myPage-addinputDongDetail3 {
+    border-radius: 10px;
+    padding-left: 5px;
+    width: 120px;
+    height: 50px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+/* 수정하기 버튼 */
+.myPage-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    margin-top: 50px;
+}
+
+/* 수정하기 버튼 input */
+.myPage-submit {
+
+    width: 200px;
+    height: 50px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    background-color: #166549;
+    color: white;
+
+}
+
+/* 수정하기 버튼 input hover */
+.myPage-submit:hover {
+    
+    background-color: rgb(154, 255, 144);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*----------------------------*/
+/*사이드 메뉴*/ 
+
+/*사이드메뉴 박스*/
+.left-side{
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;    
+    
+    width: 30% ;    
+
+    margin-top: 0px;
+    margin-bottom: 400px;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5);   
+    
+    padding: 10px;
+    box-sizing: border-box;
+
+}
+
+/*사이드메뉴 제목*/
+.left-title{    
+
+    display: flex;        
+    justify-content: center;    
+    align-items: center;
+    height: 100px;
+}
+
+/*사이드메뉴 소제목*/
+ul, li{
+    list-style: none;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 10px;
+}
+
+/*사이드  대제목 간격*/
+.left-menu {
+    margin-bottom: 70px;
+}
+
+
+
+/*----------------------------*/
+/*헤더*/ 
+
+* { 
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.myPage-a a {
+    text-decoration: none;
+    color: black;
+}

@@ -343,10 +343,61 @@ nav {
     border-bottom: 1px solid gray;
 }
 
-.post-img>img {
+
+/* 이미지 슬라이드 영역 */
+.post-img-area {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    overflow: hidden;
+}
+
+.post-img-area button {
+    position: absolute;
+    z-index: 10;
+    background-color: transparent;
+    border: 0;
+    top: 47%;
+    cursor: pointer;
+}
+
+.post-img-area button > img {
+    width: 40px;
+    height: 40px;
+}
+
+.post-img {
+    display: flex;
+}
+
+.post-img img {
     width: 400px;
     height: 400px;
     object-fit: cover;
+}
+
+#left-btn {
+    left: 0;
+}
+
+#right-btn {
+    right: 0;
+}
+
+/* 현재 이미지 몇번째인지 표시하는 점 */
+#dot-area {
+    display: flex;
+    justify-content: center;
+}
+
+/* 점 투명도 */
+.opacity {
+    opacity: 0.3;
+
+}
+
+.dot {
+    cursor: pointer;
 }
 
 .post-content-area {
