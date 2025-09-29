@@ -140,7 +140,7 @@ header>section> div:nth-child(2)>div>a:hover{
 }
 
 /* 알림창 보임 */
-.notification-show{display: block;}
+.show{display: block;}
 
 .notification-btn{
     position: relative;
