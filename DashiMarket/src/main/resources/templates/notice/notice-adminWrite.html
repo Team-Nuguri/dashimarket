@@ -5,8 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>[관리자 전용] 게시글 작성</title>
+    
+    <!-- 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/src/main/resources/static/css/notice/notice-adminWrite.css">
-    <link rel="stylesheet" href="/src/main/resources/static/css/common/font.css">
 </head>
 
 <body>
@@ -22,7 +26,7 @@
                         <span class="form-label">게시판 종류</span>
                     </div>
                     <div class="field-area">
-                        <select class="form-control form-select" required>
+                        <select class="form-control form-select" id="customSelect" required>
                             <option value="notice">공지사항</option>
                             <option value="qna">자주 묻는 질문</option>
                             <option value="dummy1">dummy1</option>
@@ -90,5 +94,7 @@
             </div>
         </form>
     </div>
+
+    <script src="/src/main/resources/static/js/notice/notice-adminWrite.js"></script>
 </body>
 </html>
