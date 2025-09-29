@@ -117,12 +117,64 @@ a {
 #btn-row {
     display: flex;
     margin-top: 80px;
-    align-items: end;
     justify-content: space-between;
+    position: relative;
 }
 
-.sort-area a {
+/* 상품 정렬 */
+#select-sort {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    background-color: #166549;
+    border-radius: 10px;
+}
+
+#select-sort:hover {
+    background-color: #298C69;
+    cursor: pointer;
+}
+
+#sort-text {
+    padding-right: 20px;
+    line-height: 50px;
+    color: white;
+}
+
+#sort-drop-down-icon {
+    position: absolute;
+    right: 10px;
+}
+
+/* 드롭다운 메뉴 */
+.show {
+    display: block !important;
+}
+
+#select-sort-box {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 2px solid #298C69;
+    border-radius: 10px;
     padding: 10px;
+    z-index: 100;
+    width: 150px;
+    gap: 10px;
+}
+
+#select-sort-box  a > div {
+    text-align: center;
+    padding: 5px;
+    color: black;
+}
+
+#select-sort-box a div:hover {
+    border-bottom: 2px solid #166549;
 }
 
 /* 글쓰기 */
@@ -149,10 +201,10 @@ a {
 }
 
 .community-post {
-    margin: 20px;
+    margin: 40px 20px;
     padding-bottom: 8px;
     display: flex;
-    border-bottom: 1px solid rgb(180, 180, 180);
+    border-bottom: 1.5px solid #166549;
 }
 
 .post-thumbnail {
@@ -196,6 +248,7 @@ a {
 .post-icon {
     display: flex;
     align-items: center;
+    margin-top: 10px;
 }
 
 .post-like,
@@ -345,14 +398,28 @@ nav {
 
 
 /* 이미지 슬라이드 영역 */
-.post-img-area {
+#image-area {
     position: relative;
-    width: 400px;
-    height: 400px;
-    overflow: hidden;
 }
 
-.post-img-area button {
+#image-slide {
+    display: flex;
+    width: 400px;
+    height: 400px;
+}
+
+#image-slide>img {
+    width: 100%;
+    height: 400px;
+    object-fit: contain;
+}
+
+.row3>div:first-child {
+    overflow: hidden;
+    width: 400px;
+}
+
+#image-area button {
     position: absolute;
     z-index: 10;
     background-color: transparent;
@@ -361,19 +428,9 @@ nav {
     cursor: pointer;
 }
 
-.post-img-area button > img {
-    width: 40px;
-    height: 40px;
-}
-
-.post-img {
-    display: flex;
-}
-
-.post-img img {
-    width: 400px;
-    height: 400px;
-    object-fit: cover;
+#image-area button > img {
+    width: 30px;
+    height: 30px;
 }
 
 #left-btn {
