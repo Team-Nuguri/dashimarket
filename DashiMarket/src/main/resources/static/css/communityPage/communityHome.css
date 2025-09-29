@@ -149,10 +149,10 @@ a {
 }
 
 .community-post {
-    margin: 20px;
+    margin: 40px 20px;
     padding-bottom: 8px;
     display: flex;
-    border-bottom: 1px solid rgb(180, 180, 180);
+    border-bottom: 1.5px solid #166549;
 }
 
 .post-thumbnail {
@@ -196,6 +196,7 @@ a {
 .post-icon {
     display: flex;
     align-items: center;
+    margin-top: 10px;
 }
 
 .post-like,
