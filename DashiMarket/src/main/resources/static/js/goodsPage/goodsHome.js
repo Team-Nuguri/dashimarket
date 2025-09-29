@@ -11,9 +11,9 @@ selectSort.addEventListener("click", () => {
     const isOpen = sortBox.classList.toggle("show");
 
     if (isOpen) { // 드롭다운 펼쳐졌을 때
-        dropDownIcon.setAttribute("src", "/images/svg/drop-down-reverse.svg");
+        dropDownIcon.setAttribute("src", "../../static/images/svg/drop-down-reverse.svg");
     } else {
-        dropDownIcon.setAttribute("src", "/images/svg/drop-down.svg");
+        dropDownIcon.setAttribute("src", "../../static/images/svg/drop-down.svg");
     }
 });
 
@@ -28,6 +28,6 @@ sortLinks.forEach(link => {
         /* 선택한 정렬 반영하기 */
         sortText.innerText = link.innerText;
         sortBox.classList.remove("show");
-        dropDownIcon.setAttribute("src", "/images/svg/drop-down.svg");
+        dropDownIcon.setAttribute("src", "../../static/images/svg/drop-down.svg");
     })
 })

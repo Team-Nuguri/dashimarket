@@ -24,3 +24,40 @@ const imgLength = imgList.length; // 이미지 개수
 
 let currentIndex = 0;
 const width = 400;
+
+const postImg = document.getElementsByClassName("post-img")[0];
+const dots = document.getElementsByClassName("dot");
+
+/* 오른쪽 버튼 클릭시 */
+document.getElementById("right-btn").addEventListener("click", e => {
+
+    if(currentIndex < imgLength - 1) {
+        currentIndex++;
+
+        for(let dot of dots) {
+            dot.classList.add("opacity");
+        }
+
+        dots[currentIndex].classList.remove("opacity");
+
+        postImg.style.transform = `translateX(-${width * currentIndex}px)`;
+        postImg.style.transition = '0.5s';
+    }
+});
+
+/* 왼쪽 버튼 클릭시 */
+document.getElementById("left-btn").addEventListener("click", e => {
+
+    if(currentIndex > 0) {
+        currentIndex--;
+
+        for(let dot of dots) {
+            dot.classList.add("opacity");
+        }
+
+        dots[currentIndex].classList.remove("opacity");
+
+        postImg.style.transform = `translateX(-${width * currentIndex}px)`;
+        postImg.style.transition = '0.5s';
+    }
+});

@@ -349,6 +349,7 @@ nav {
     position: relative;
     width: 400px;
     height: 400px;
+    overflow: hidden;
 }
 
 .post-img-area button {
@@ -367,19 +368,19 @@ nav {
 
 .post-img {
     display: flex;
-    overflow: hidden;
 }
 
-.post-img > img {
+.post-img img {
     width: 400px;
     height: 400px;
+    object-fit: cover;
 }
 
-.left-btn {
+#left-btn {
     left: 0;
 }
 
-.right-btn {
+#right-btn {
     right: 0;
 }
 
@@ -397,13 +398,6 @@ nav {
 
 .dot {
     cursor: pointer;
-}
-
-/* 본문 이미지 */
-.post-img>img {
-    width: 400px;
-    height: 400px;
-    object-fit: cover;
 }
 
 .post-content-area {
