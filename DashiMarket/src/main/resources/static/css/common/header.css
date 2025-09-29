@@ -166,6 +166,7 @@ header>section> div:nth-child(2)>div>a:hover{
     border: 1px solid #52B291;
     border-radius: 10px;
     padding: 10px;
+    margin: 5px 0;
 }
 
 .notification-div img{
@@ -174,6 +175,11 @@ header>section> div:nth-child(2)>div>a:hover{
     margin: 5px;
     flex-shrink: 0;
     border-radius: 50%;
+    border: none;
+}
+
+.box-background{
+    background-color: #65dbb2d6;
     border: none;
 }
 
@@ -202,7 +208,7 @@ header>section> div:nth-child(2)>div>a:hover{
     position: absolute;
     top: 10px;
     right: 5px;
-    color: #969696;
+    color: #5e5e5e;
 }
 
 /* X 버튼 */
