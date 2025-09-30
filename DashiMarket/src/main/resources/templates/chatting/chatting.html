@@ -13,8 +13,42 @@
     <link rel="stylesheet" href="/src/main/resources/static/css/chatting/chatting.css">
 
     <script src="https://kit.fontawesome.com/1c15543e3e.js" crossorigin="anonymous"></script>
+
+    <style>
+        .img-area{
+            position: fixed;
+            right: 50px;
+            bottom: 50px;
+        }
+        .img-box{
+            background-color: #166549;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;  
+            align-items: center;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .img-box > img{
+            width: 50px;
+            height: 50px;
+        }
+    </style>
 </head>
 <body>
+    <!-- floating 버튼 -->
+    <section class="img-area">
+        <div class="img-box">
+            <img src="/src/main/resources/static/images/svg/chatting.svg">
+        </div>
+        <div class="img-box">
+            <img src="/src/main/resources/static/images/svg/chatbot.svg">
+        </div>
+    </section>
+
     <div class="chatting-area">
         <ul class="chatting-list">
             <li class="chatting-item">
@@ -29,7 +63,9 @@
         </ul>
     </div>
 
-
+    <!--------------------------------------- sockjs를 이용한 WebSocket 구현을 위해 라이브러리 추가 ---------------------------------------------->   
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    
     <script src="/src/main/resources/static/js/chatting/chatting.js"></script>
 </body>
 </html>
