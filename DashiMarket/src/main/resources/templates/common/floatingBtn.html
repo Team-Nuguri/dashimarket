@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .img-area{
+            position: fixed;
+            right: 50px;
+            bottom: 50px;
+        }
+        .img-box{
+            background-color: #166549;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;  
+            align-items: center;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .img-box > img{
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <section class="img-area">
+        <div class="img-box">
+            <img src="/src/main/resources/static/images/svg/chatting.svg">
+        </div>
+        <div class="img-box">
+            <img src="/src/main/resources/static/images/svg/chatbot.svg">
+        </div>
+    </section>
+</body>
+</html>
