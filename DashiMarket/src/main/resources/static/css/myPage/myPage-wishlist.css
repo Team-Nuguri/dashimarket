@@ -1,0 +1,142 @@
+
+  .category_title{
+    width: 600px;
+    margin:0 auto;  /* 중앙정렬 */
+    text-align: left;
+
+    font-family: "Noto Sans KR", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-weight: 700; /* Bold */
+    font-size: 35px;
+    color: #166449;
+  }
+
+  .list{
+    width: 600px;
+    margin:0 auto;  /* 중앙정렬 */
+  }
+
+   .item{
+    width: 500px;
+    display: flex;
+    justify-content: flex-start;   /* 좌측정렬 */
+    margin-top: 20px;
+    margin-bottom: 20px;
+   }
+
+   .thumb {
+     width: 150px;
+     height: 150px;
+     text-align: left;
+   }
+
+   .meta {
+     width: 350px;
+     padding-left: 20px;
+    align-content: center;
+   }
+
+   .price-area {
+    width: 100px;
+    align-content: center;
+   }
+
+   .actions {
+     width: 80px;
+     align-content: center;
+   }
+
+   
+ .btn-delete {
+    /* border: 2px solid white; */
+    border-radius: 20%;
+    background-color: #166449;    
+    color:white;
+    width: 70px;
+    height: 35px;
+}
+
+
+
+#top-menu {
+    text-align: center;
+}
+
+
+
+/*사이드 메뉴 & 프로필 관리 박스*/
+.myPage-content{
+    display: flex;
+    max-width: 1200px;    
+    min-width: 700px;    
+    margin: 50px auto;
+    justify-content: center;    
+}
+
+/*프로필 관리 박스*/
+.myPage-main {
+    
+  width: 100%;
+ 
+  margin-left: 40px;
+  margin-bottom: 100px;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5); 
+  padding: 30px;
+  box-sizing: border-box;
+
+}
+
+
+
+/*----------------------------*/
+/*사이드 메뉴*/ 
+
+/*사이드메뉴 박스*/
+.left-side{
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;    
+    
+    width: 30% ;    
+
+    margin-top: 0px;
+    margin-bottom: 400px;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5);   
+    
+    padding: 10px;
+    box-sizing: border-box;
+
+}
+
+/*사이드메뉴 제목*/
+.left-title{    
+
+    display: flex;        
+    justify-content: center;    
+    align-items: center;
+    height: 100px;
+}
+
+/*사이드메뉴 소제목*/
+ul, li{
+    list-style: none;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 10px;
+}
+
+/*사이드  대제목 간격*/
+.left-menu {
+    margin-bottom: 70px;
+}
+
+
+.myPage-a a {
+    text-decoration: none;
+    color: black;
+}
+
