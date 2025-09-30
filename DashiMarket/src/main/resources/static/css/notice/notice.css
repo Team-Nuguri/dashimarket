@@ -100,7 +100,7 @@ main {
 
 .notice-table {
     width: 100%;
-    border-top: 2px solid #333;
+    border-top: 1px solid #166549;
     border-collapse: collapse;
 }
 
@@ -136,10 +136,6 @@ main {
     margin-left: 20px;
 }
 
-.category.event {
-    color: #28a745;
-    font-weight: bold;
-}
 
 .notice-title {
     flex: 1;
