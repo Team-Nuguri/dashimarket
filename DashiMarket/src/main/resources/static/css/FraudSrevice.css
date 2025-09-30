@@ -51,9 +51,9 @@ fieldset input {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto auto;
-    gap: 200px;
-
+    gap: 200px; 
 }
+
 
 .fraud-countToday {
     display: flex;
@@ -62,31 +62,44 @@ fieldset input {
     position: relative;
 }
 
-.fraud-countToday::after {
-    position: absolute;
-    content: '';
-    left: 10px;
-    right: 45px;
-    border-bottom: 1px solid black;
-    bottom: -5px;
+.fraud-count img {
+    width: 40px
+
 }
 
+.fraud-countToday img {
+
+    position: absolute;    
+
+    top: -10px;
+    left: -40px;
+}
+
+.fraud-countToday {
+
+    margin-left: 40px;
+}
+
+.fraud-countTotal {
+
+    margin-left: 20px;
+}
 
 .fraud-countTotal {
     display: flex;
     justify-content: space-between;
-    padding-right: 50px;
-    position: relative;
+    padding-right: 50px;  
+    position: relative;  
 }
 
-.fraud-countTotal::after {
-    position: absolute;
-    content: '';
-    left: 10px;
-    right: 45px;
-    border-bottom: 1px solid black;
-    bottom: -5px;
+.fraud-countToday img {
+
+    position: absolute;    
+
+    top: -10px;
+    left: -40px;
 }
+
 
 .fraud-exTitle {
     display: flex;
@@ -226,7 +239,22 @@ header>section> div:nth-child(2)>div>a:hover{
     padding: 8px 15px; 
     display: flex; 
     align-items: center; 
+    
 }
+
+fieldset {
+    position: relative;
+}
+
+fieldset img {
+ position: absolute;
+ width: 35px;   
+
+ top: 5px;
+ left: 0px;
+
+}
+
 
 /* 검색창 스타일 */
 #query{
