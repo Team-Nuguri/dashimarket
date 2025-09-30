@@ -63,8 +63,9 @@
     
     <section class="body">
 
-        <div id="category-header">
+        <div id="post-category-header">
             <div class="text-size-24 bold-text">일상</div>
+            <div><a href="#" class="text-size-16 medium-text">목록</a></div>
         </div>
 
         <div class="row1">
@@ -92,15 +93,16 @@
         <!-- 제목 -->
         <div class="row2">
             <div class="post-title text-size-24 bold-text">이제 잠 못 잘 거야~!</div>
+
+            <!-- 조회수 -->
             <div class="views-area">
                 <div><img src="../../static/images/svg/Eye.svg" alt=""></div>
-                <div class="text-size-14">14</div>
+                <div class="text-size-14">1,234</div>
             </div>
         </div>
 
         <!-- 본문 -->
         <div class="row3">
-            <!-- <div class="post-img"><img src="../../static/images/community/잘해요.jpg" alt=""></div> -->
             
             <!-- 본문 이미지 슬라이드 -->
             <div id="image-area">
@@ -159,7 +161,7 @@
         <!-- 댓글 쓰기 -->
         <div class="write-comment-row">
             <div class="write-box">
-                <textarea name="write-comment-area" class="write-comment-area"></textarea>
+                <textarea name="write-comment-area" class="write-comment-area" placeholder="댓글을 입력하세요."></textarea>
             </div>
             <div class="comment-button-area"><button class="text-size-16 bold-text">댓글 달기</button></div>
         </div>
@@ -188,10 +190,6 @@
                     <!-- 아이콘 -->
                     <div class="comment-icon">
                         <div>
-                            <div class="comment-like">
-                                <img src="../../static/images/svg/postLike.svg" alt="">
-                                <div>1</div>
-                            </div>
                             <div class="comment-comment">
                                 <img src="../../static/images/svg/comment.svg" alt="">
                                 <div>1</div>
@@ -203,10 +201,24 @@
 
                 <!-- 수정 삭제 버튼 -->
                 <div class="del-update-area">
-                    <a href="#" class="medium-text">수정</a>
-                    <a href="#" class="medium-text">삭제</a>
+                    <button class="update-btn medium-text">수정</button>
+                    <button class="reply-btn medium-text">답글</button>
+                    <button class="delete-btn medium-text">삭제</button>
                 </div>
 
+            </div>
+
+            <!-- 답글 작성칸 -->
+            <div class="reply-form">
+                <div class="reply-input-area">
+                    <div class="comment-profile-img"><img src="../../static/images/community/우사기.jpg" alt=""></div>
+                    <textarea class="reply-textarea" placeholder="답글을 입력하세요."></textarea>
+                </div>
+
+                <div class="reply-btn-area">
+                    <button class="reply-cancel-btn">취소</button>
+                    <button class="reply-submit-btn">등록</button>
+                </div>
             </div>
             
             <div class="parent-comment child-comment">
@@ -224,24 +236,6 @@
                     <!-- 댓글 내용 -->
                     <div class="comment-content">
                         답글 답글
-                    </div>
-
-                    <!-- 아이콘 -->
-                    <div class="comment-icon">
-                        <div class="comment-like">
-                            <img src="../../static/images/svg/postLike.svg" alt="">
-                            <div>1</div>
-                        </div>
-                        <div class="comment-comment">
-                            <img src="../../static/images/svg/comment.svg" alt="">
-                            <div>0</div>
-                        </div>
-
-                        <!-- 신고 -->
-                        <div class="report">
-                            <div><img src="../../static/images/svg/Siren.svg" alt=""></div>
-                            <a href="#" class="report-text text-size-14">신고</a>
-                        </div>
                     </div>
                 </div>
                 
@@ -266,25 +260,31 @@
 
                     <!-- 아이콘 -->
                     <div class="comment-icon">
-                        <div class="comment-like">
-                            <img src="../../static/images/svg/postLike.svg" alt="">
-                            <div>10</div>
-                        </div>
                         <div class="comment-comment">
                             <img src="../../static/images/svg/comment.svg" alt="">
                             <div>0</div>
                         </div>
-
-                        <!-- 신고 -->
-                        <div class="report">
-                            <div><img src="../../static/images/svg/Siren.svg" alt=""></div>
-                            <a href="#" class="report-text text-size-14">신고</a>
-                        </div>
                     </div>
+                </div>
+
+                <!-- 수정 삭제 버튼 -->
+                <div class="del-update-area">
+                    <button class="reply-btn medium-text">답글</button>
                 </div>
             </div>
 
+            <!-- 답글 작성칸 -->
+            <div class="reply-form">
+                <div class="reply-input-area">
+                    <div class="comment-profile-img"><img src="../../static/images/community/우사기.jpg" alt=""></div>
+                    <textarea class="reply-textarea" placeholder="답글을 입력하세요."></textarea>
+                </div>
 
+                <div class="reply-btn-area">
+                    <button class="reply-cancel-btn">취소</button>
+                    <button class="reply-submit-btn">등록</button>
+                </div>
+            </div>
 
         </div>
 
@@ -332,7 +332,7 @@
     
                     <a href="#">위치기반서비스 이용약관</a>
     
-                    <a href="#">게시글</a>
+                    <a href="#">게시글 수집 및 이용 안내</a>
     
                 </div>
     
