@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="/src/main/resources/static/css/chatting/chatting.css">
+    <link rel="stylesheet" href="../../static/css/chatting/chatting.css">
 
     <script src="https://kit.fontawesome.com/1c15543e3e.js" crossorigin="anonymous"></script>
 
@@ -42,30 +42,54 @@
     <!-- floating 버튼 -->
     <section class="img-area">
         <div class="img-box">
-            <img src="/src/main/resources/static/images/svg/chatting.svg">
+            <img src="../../static/images/svg/chatting.svg">
         </div>
         <div class="img-box">
-            <img src="/src/main/resources/static/images/svg/chatbot.svg">
+            <img src="../../static/images/svg/chatbot.svg">
         </div>
     </section>
 
-    <div class="chatting-area">
+    <!-- 채팅 영역 -->
+    <div class="chatting-popup">
+
+        <div class="popup-header">
+            <p>채팅</p>
+            <span id="closeBtn">&times</span>
+        </div>
+
         <ul class="chatting-list">
-            <li class="chatting-item">
-                <div>
-                    <!-- 채팅 프로필 이미지 -->
-                    <img src="">
+
+            <!-- 검색 -->
+            <div class="search-box">
+                <p class="searchBtn fa-solid fa-magnifying-glass"></p>
+                <input type="text" name="chat-query" id="name-search" placeholder="이름으로 검색하세요." autocomplete="off">
+            </div>
+
+            <!-- 추가된 회원 채팅방 -->
+            <li class="chatting-item" chat-no="" target-no="">
+                <div class="item-header">
+                    <img src="../../static/images/member/짱구.jpg">
                 </div>
-                <div>
-                    
+
+                <div class="item-body">
+                    <p>
+                        <span class="target-name">상대방 이름</span>
+                        <span class="recent-send-time">메세지 보낸 시간</span>
+                    </p>
+                    <div>
+                        <p class="recent-message">메세지 내용</p>
+                        <p class="not-read-count">안읽은 메세지 수</p>
+                    </div>
                 </div>
             </li>
         </ul>
     </div>
 
-    <!--------------------------------------- sockjs를 이용한 WebSocket 구현을 위해 라이브러리 추가 ---------------------------------------------->   
-    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
     
-    <script src="/src/main/resources/static/js/chatting/chatting.js"></script>
+
+    <!----------- sockjs를 이용한 WebSocket 구현을 위해 라이브러리 추가 ------------->   
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script> -->
+    
+    <script src="../../static/js/chatting/chatting.js"></script>
 </body>
 </html>
