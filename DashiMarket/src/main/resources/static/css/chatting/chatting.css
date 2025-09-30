@@ -1,0 +1,90 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body, input, button, textarea, select {
+    font-family: "Noto Sans KR", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+body{
+    position: relative;
+}
+
+/* 팝업 헤더 */
+.popup-header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 40px;
+    background-color: #298C69;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.popup-header > p{color: white;}
+
+.popup-header > span{
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    color: white;
+    font-size: 20px;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+.chatting-popup{
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 1000px;
+    height: 650px;
+    margin: auto;
+    position: fixed;
+    top: 100px;
+    right: 180px;
+}
+
+/* 채팅 목록 - 왼쪽 사이드바 */
+.chatting-list{
+    list-style: none;
+    width: 30%;
+    height: 605px;
+    border-right: 1px solid black;
+}
+
+.chatting-item * {
+    pointer-events: none;
+}
+
+.chatting-item{
+    background-color: gray;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.chatting-item img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+}
+
+/* 검색 */
+.search-box{
+    border: 1px solid #9c9c9c;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+}
+
+.search-box input{
+    border: none;
+    margin-left: 5px;
+}
