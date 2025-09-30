@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>[관리자 전용] 게시글 작성</title>
-    
+
     <!-- 폰트 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,7 +18,7 @@
         <div class="header">
             <h1>새 게시글 작성</h1>
         </div>
-        
+
         <form id="writeForm">
             <ul class="form-list">
                 <li class="form-item">
@@ -26,42 +26,45 @@
                         <span class="form-label">게시판 종류</span>
                     </div>
                     <div class="field-area">
-                        <select class="form-control form-select" id="customSelect" required>
+                        <select class="form-control form-select" id="boardSelect" required>
                             <option value="notice">공지사항</option>
                             <option value="qna">자주 묻는 질문</option>
-                            <option value="dummy1">dummy1</option>
-                            <option value="dummy2">dummy2</option>
                         </select>
                     </div>
                 </li>
-                
+
+                <li class="form-item">
+                    <div class="label-area">
+                        <span class="form-label">게시글 분류</span>
+                    </div>
+                    <div class="field-area">
+                        <select class="form-control form-select" id="categorySelect" required>
+                            <option value="notice-category">[공지]</option>
+                            <option value="event-category">[이벤트 관련]</option>
+                            <option value="fraud-category">[사기예방]</option>
+                            <option value="policy-category">[정책변경]</option>
+                        </select>
+                    </div>
+                </li>
+
                 <li class="form-item">
                     <div class="label-area">
                         <span class="form-label">제목</span>
                     </div>
                     <div class="field-area">
-                        <input 
-                            type="text" 
-                            class="form-control" 
-                            placeholder="게시글의 제목을 입력하세요.    ex) [공지] 공지사항 제목" 
-                            required
-                        >
+                        <input type="text" class="form-control" placeholder="게시글의 제목을 입력하세요." required>
                     </div>
                 </li>
-                
+
                 <li class="form-item content-item">
                     <div class="label-area">
                         <span class="form-label">내용</span>
                     </div>
                     <div class="field-area">
-                        <textarea 
-                            class="form-control content-textarea" 
-                            placeholder="내용을 입력하세요" 
-                            required
-                        ></textarea>
+                        <textarea class="form-control content-textarea" placeholder="내용을 입력하세요" required></textarea>
                     </div>
                 </li>
-                
+
                 <li class="form-item attachment-item">
                     <div class="label-area">
                         <span class="form-label">첨부파일</span>
@@ -69,7 +72,7 @@
                     <div class="field-area">
                         <div class="attachment-container">
                             <div class="attachment-area">
-                                
+
                             </div>
                             <div class="attachment-buttons">
                                 <button type="file" class="attachment-btn">첨부파일</button>
@@ -83,7 +86,7 @@
                     </div>
                 </li>
             </ul>
-            
+
             <div class="button-group">
                 <button type="button" class="btn btn-cancel">
                     취소하기
@@ -97,4 +100,5 @@
 
     <script src="/src/main/resources/static/js/notice/notice-adminWrite.js"></script>
 </body>
+
 </html>
