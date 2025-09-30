@@ -78,3 +78,51 @@ for (let i = 0; i < imgLength; i++) {
     })
     
 }
+
+/* 답글 */
+const replyBtn = document.querySelectorAll(".reply-btn");
+
+    replyBtn.forEach(button => {
+        button.addEventListener('click', e => {
+            /* 버튼이 속한 댓글 찾기 */
+            const parentComment = e.target.closest('.parent-comment');
+
+            /* 해당 댓글 아래의 답글 작성란  */
+            const replyForm = parentComment.nextElementSibling; 
+
+            if (replyForm) {
+                const currentDisplay = replyForm.style.display;
+                
+                if (currentDisplay == 'none' || currentDisplay === '') {
+                    replyForm.style.display = 'block';
+                } else {
+                    replyForm.style.display = 'none';
+                }
+            }
+        });
+    });
+
+    /* 답글 취소 */
+    const replyCancelBtns = document.querySelectorAll('.reply-cancel-btn');
+
+    replyCancelBtns.forEach(cancelBtn => {
+        cancelBtn.addEventListener('click', e => {
+            const replyForm = e.target.closest('.reply-form');
+            if (replyForm) {
+                replyForm.style.display = 'none';
+
+                const replyBtn = document.querySelector(".reply-btn");
+                if (replyBtn) {
+                    replyBtn.textContent = '답글';
+                }
+            }
+        });
+    });
+
+    /* 답글 등록시 */
+    const replySubmitBtn = document.querySelectorAll(".reply-submit-btn");
+    replySubmitBtn.forEach(submit => {
+        submit.addEventListener("click", e => {
+            alert("답글 등록!");
+        })
+    })

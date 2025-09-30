@@ -67,6 +67,11 @@ section {
     color: white;
 }
 
+#select-city > div > img {
+    width: 35px;
+    margin-right: 10px;
+}
+
 /* 동네 선택 버튼 호버 효과 */
 #select-city:hover {
     background-color: #298C69;
