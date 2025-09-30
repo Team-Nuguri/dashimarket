@@ -607,6 +607,24 @@
 
 }
 
+#qna-frm>label{
+    position: absolute;
+    bottom: 20px;
+    right: 280px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+/* 비밀글 */
+#secretCheck{
+    position: absolute;
+    bottom: 20px;
+    right: 250px;
+    width: 25px;
+    height: 25px;
+
+}
+
 /* 등록 버튼 */
 #commit-btn{
     position: absolute;
@@ -775,3 +793,5 @@
     width: 25%; /* 제목 열 너비 지정 */
     font-weight: 500;
 }
+
+
