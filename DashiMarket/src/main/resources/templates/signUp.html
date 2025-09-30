@@ -79,54 +79,66 @@
    <section class="signUp-main">
         
             <span class="signUp-title text-size-24 bold-text" >회원 가입</span>
-            <span class="signUp-subtitle text-size-10">국내 1위 중고거래 온라인 거래 
+            <span class="signUp-subtitle text-size-14">국내 1위 중고거래 온라인 거래 
                 (주)다시마켓 회원가입을 환영합니다. </span>
  
             <form action="/signUp" class="signUp">
 
               <div class="signUp-infoField">
+
                 <div class="signUp-row">
-                    <label class="signUp-label text-size-18 bold-text">아이디(이메일)</label>
-                    <input type="text" class="signUp-input text-size-18" id="memberEmail">                            
+                    <label class="signUp-label text-size-16 bold-text">이름</label>
+                    <input type="text" class="signUp-input text-size-16" placeholder="김영웅">                            
                     <button class="signUp-actionButton text-size-16">중복 검사</button>
                     <span id="emailMessage"></span>
                 </div>
 
                 <div class="signUp-row">
-                    <label class="signUp-label text-size-18 bold-text">인증번호</label>
-                    <input type="text" class="signUp-input text-size-18" id="sendAuthKeyBtn">
+                    <label class="signUp-label text-size-16 bold-text">아이디/이메일</label>
+                    <input type="text" class="signUp-input text-size-16"  placeholder="dashmarket@dashmarket.com" id="memberEmail">                            
+                    <button class="signUp-actionButton text-size-16">중복 검사</button>
+                    <span id="emailMessage"></span>
+                </div>
+
+                <div class="signUp-row">
+                    <label class="signUp-label text-size-16 bold-text">인증번호</label>
+                    <input type="text" class="signUp-input text-size-16" id="sendAuthKeyBtn">
                     <button class="signUp-actionButton text-size-16">인증하기</button>
                     <span id="sendAuthKeyBtn"></span>
                 </div>
 
                 <div class="signUp-row">
-                    <label class="signUp-label text-size-18 bold-text">비밀번호</label>
-                    <input type="text" class="signUp-input text-size-18" placeholder="비밀번호">               
-                    <input type="text" class="signUp-input text-size-18" placeholder="비밀번호 확인">
+                    <label class="signUp-label text-size-16 bold-text">비밀번호</label>
+                    <input type="text" class="signUp-input text-size-16" placeholder="비밀번호">                                
                 </div>
 
                 <div class="signUp-row">
-                    <label class="signUp-label text-size-18 bold-text">닉네임</label>
-                    <input type="text" class="signUp-input text-size-18" placeholder="닉네임"> 
+                <label class="signUp-label text-size-16 bold-text">비밀번호 확인</label>
+                <input type="text" class="signUp-input text-size-16" placeholder="비밀번호 확인">
                 </div>
 
                 <div class="signUp-row">
-                    <label class="signUp-label text-size-18 bold-text">전화번호</label>
-                    <input type="text" class="signUp-input text-size-18" placeholder="전화번호"> 
+                    <label class="signUp-label text-size-16 bold-text">닉네임</label>
+                    <input type="text" class="signUp-input text-size-16" placeholder="닉네임"> 
+                </div>
+
+                <div class="signUp-row">
+                    <label class="signUp-label text-size-16 bold-text">전화번호</label>
+                    <input type="text" class="signUp-input text-size-16" placeholder="전화번호"> 
                 </div>
 
                 <div class="signUp-addressSection">
-                    <span class="signUp-label text-size-18 bold-text">주 소</span>                                   
+                    <span class="signUp-label text-size-16 bold-text">주 소</span>                                   
                         <div class="signUp-addpost">
-                            <input type="text" class="signUp-postinput text-size-20" placeholder="우편번호"> 
-                            <button class="signUp-addactionButton text-size-18">검색</button>
+                            <input type="text" class="signUp-postinput text-size-16" placeholder="우편번호"> 
+                            <button class="signUp-addactionButton text-size-16">검색</button>
                         </div>
 
                         <div class="myPage-addinputDong">
-                            <input type="text" class="myPage-addinputDongDetail1 text-size-18" placeholder="도로명/지번 주소">
+                            <input type="text" class="myPage-addinputDongDetail1 text-size-16" placeholder="도로명/지번 주소">
                             <div class="myPage-addinputDongInside">
-                            <input type="text" class="myPage-addinputDongDetail2 text-size-18" placeholder="상세주소">
-                            <input type="text" class="myPage-addinputDongDetail3 text-size-18" placeholder="동">
+                            <input type="text" class="myPage-addinputDongDetail2 text-size-16" placeholder="상세주소">
+                            <input type="text" class="myPage-addinputDongDetail3 text-size-16" placeholder="동">
                             </div>
                         </div>   
                 
@@ -197,7 +209,7 @@
 
 </footer>
         
-<script src="signUp.js"></script>
+<script src="../static/js/signUp.js"></script>
 
 </body>
 </html>
