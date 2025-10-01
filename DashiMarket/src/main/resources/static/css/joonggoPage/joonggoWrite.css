@@ -42,6 +42,7 @@
 .form-item {
     display: flex;
     border-bottom: 0.5px solid #ddd;
+    min-height: 130px;
 }
 
 
@@ -59,6 +60,7 @@
 /* 각 카테고리의 div */
 .field-area {
     flex: 1;
+    display: flex;
     padding: 20px 30px;
     background-color: #fff;
     align-items: center;
@@ -233,6 +235,10 @@
     cursor: pointer;
 }
 
+#joonggo-img-list label:hover{
+    cursor: pointer;
+}
+
 
 .content-item img{
     width: 70px;
@@ -264,6 +270,7 @@
 }
 
 .category-area li{
+
     padding: 0;      /* 내부 여백 제거 */
     margin: 0;       /* 외부 여백 제거 */
 }

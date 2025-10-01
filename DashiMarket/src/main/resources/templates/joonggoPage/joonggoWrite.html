@@ -122,7 +122,7 @@
                             <ul id="joonggo-img-list">
                                 <li>
                                     <label for="joonggoImg">
-                                        <img src="../../static/images/svg/Add Image.svg" alt="">
+                                        <img src="../../static/images/svg/Add Image.svg">
                                     </label>
                                     <input type="file" name="joonggoImg" id="joonggoImg" accept="image/*" multiple>
                                 </li>
@@ -142,7 +142,7 @@
                             required></textarea>
                     </div>
                 </li>
-               
+            
                 <li class="form-item">
                     <div class="label-area">
                         <span class="required">*</span>
@@ -160,13 +160,13 @@
                                 <button type="button" class="main-category" data-category="J300">스포츠/레저</button>
                             </li>
                             <li>
-                                <button type="button" class="main-category" data-category="J400">뷰티</button>
+                                <button type="button" class="main-category" data-category="J400">신발</button>
                             </li>
                             <li>
-                                <button type="button" class="main-category" data-category="J500">게임</button>
+                                <button type="button" class="main-category" data-category="J500">뷰티/미용</button>
                             </li>
                             <li>
-                                <button type="button" class="main-category" data-category="J600">식품</button>
+                                <button type="button" class="main-category" data-category="J600">게임</button>
                             </li>
                             <li>
                                 <button type="button" class="main-category" data-category="J700">생활</button>
@@ -196,13 +196,13 @@
                                 <button type="button" class="main-category" data-category="J1500">공구/산업용품</button>
                             </li>
 
-                            <input type="hidden" name="mainCategory" value="">
+                            <input type="hidden" name="mainCategory" id="mainCategory" value="">
 
                         </ul>
                         <ul id="sub-category">
                             
                         </ul>
-                        <input type="hidden" name="subCategory" value="">
+                        <input type="hidden" name="subCategory" id="subCategory" value="">
                     </div>
 
                 </li>
@@ -217,8 +217,6 @@
                     <div class="price-area">
                         <input type="text" class="form-control" name="joonggoPrice" id="joonggoPrice"
                             placeholder="가격을 입력해주세요" required>
-                            <label for="freeCheck">나눔</label>
-                        <input type="checkbox" id="freeCheck" name="freeCheck">
                     </div>
 
                 </li>
