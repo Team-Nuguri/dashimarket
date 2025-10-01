@@ -26,23 +26,9 @@
                         <span class="form-label">게시판 종류</span>
                     </div>
                     <div class="field-area">
-                        <select class="form-control form-select" id="boardSelect" required>
+                        <select class="form-control form-select" id="boardSelect" name="admWriteBoardSelect" required>
                             <option value="notice">공지사항</option>
                             <option value="qna">자주 묻는 질문</option>
-                        </select>
-                    </div>
-                </li>
-
-                <li class="form-item">
-                    <div class="label-area">
-                        <span class="form-label">게시글 분류</span>
-                    </div>
-                    <div class="field-area">
-                        <select class="form-control form-select" id="categorySelect" required>
-                            <option value="notice-category">[공지]</option>
-                            <option value="event-category">[이벤트 관련]</option>
-                            <option value="fraud-category">[사기예방]</option>
-                            <option value="policy-category">[정책변경]</option>
                         </select>
                     </div>
                 </li>
@@ -52,7 +38,8 @@
                         <span class="form-label">제목</span>
                     </div>
                     <div class="field-area">
-                        <input type="text" class="form-control" placeholder="게시글의 제목을 입력하세요." required>
+                        <input type="text" class="form-control" name="admWriteTitle" placeholder="ex) [공지] 게시글 제목을 입력하세요."
+                            required>
                     </div>
                 </li>
 
@@ -61,7 +48,8 @@
                         <span class="form-label">내용</span>
                     </div>
                     <div class="field-area">
-                        <textarea class="form-control content-textarea" placeholder="내용을 입력하세요" required></textarea>
+                        <textarea class="form-control content-textarea" name="admWriteContent" placeholder="내용을 입력하세요"
+                            required></textarea>
                     </div>
                 </li>
 
@@ -74,9 +62,12 @@
                             <div class="attachment-area">
 
                             </div>
+
                             <div class="attachment-buttons">
-                                <button type="file" class="attachment-btn">첨부파일</button>
+                                <label for="fileInput" class="attachment-btn">첨부파일</label>
+                                <input type="file" id="fileInput" name="admWriteFileInput" style="display:none;">
                             </div>
+
                             <div>
                                 <span class="attachment-description">
                                     *사진(이미지)만 등록 가능합니다.(최대 OOMB 등록 가능)

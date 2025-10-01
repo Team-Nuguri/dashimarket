@@ -30,9 +30,13 @@
  }
 /* 게시판 종류 */
  .form-item {
-     display: flex;
-     border-bottom: 0.5px solid #ddd;
- }
+  display: flex;
+  border-bottom: 0.5px solid #ddd;
+  /* 위아래 공간을 늘리고 싶다면 min-height를 줘도 됨 */
+  min-height: 150px;
+  align-items: stretch; /* <-- 자식 요소 높이를 동일하게 늘려줌 */
+}
+
  .form-item:last-child {
      border-bottom: none;
      
@@ -46,6 +50,7 @@
      align-items: center;
      justify-content: center;
      border-right: 0.5px solid #ddd;
+     
  }
 /* 각 카테고리의 div */
  .field-area {
