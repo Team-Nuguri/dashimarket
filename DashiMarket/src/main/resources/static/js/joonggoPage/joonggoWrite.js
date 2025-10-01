@@ -119,15 +119,18 @@ for (let btn of mainBtn) {
 
         btn.classList.add("text-green");
 
+        mainCategory.value = e.target.dataset.category;
+
         if(subCategoryList){
 
-            for (let sub of subCategoryList) {
+           /*  for (let sub of subCategoryList) {
     
                 const li = document.createElement("li");
                 const button = document.createElement("button");
                 button.classList.add("sub-category");
                 button.setAttribute('type', 'button');
-    
+                
+                
                 button.innerText = sub;
                 li.append(button);
     
@@ -136,11 +139,35 @@ for (let btn of mainBtn) {
                 
     
                 
+            } */
+
+            for(let i = 0; i < subCategoryList.length; i++){
+                
+                const li = document.createElement("li");
+                const button = document.createElement("button");
+                button.classList.add("sub-category");
+                button.setAttribute('type', 'button');
+                button.innerText = subCategoryList[i];
+
+                li.append(button);
+    
+                subcate.append(li);
+
+                const prefix = mainCategory.value.slice(0,1);
+                const suffix = mainCategory.value.slice(1);
+
+                let numberSuffix  = parseInt(suffix);
+
+                numberSuffix = numberSuffix + i+1;
+                let subNo = prefix + numberSuffix;
+
+                button.dataset.subCategory = subNo;
+
             }
         }
 
 
-        mainCategory.value = e.target.dataset.category;
+        
 
         
 
@@ -157,8 +184,7 @@ for (let btn of mainBtn) {
                     }
                     
         
-                    subCategory.value = generateCategoryNumber(mainCategory.value, i+1);
-                    console.log(subCategory.value);
+                    subCategory.value = e.target.dataset.subCategory;
 
                     subBtn[i].classList.add("text-green");
                     
@@ -172,21 +198,6 @@ for (let btn of mainBtn) {
     
 }
 
-
-
-function generateCategoryNumber(mainValue, index){
-
-    const prefix = mainValue.slice(0,1);
-    const suffix = mainValue.slice(1);
-
-    let numberSuffix  = parseInt(suffix);
-
-    numberSuffix = numberSuffix + index;
-
-    return prefix + numberSuffix;
-
-    
-}
 
 
 
