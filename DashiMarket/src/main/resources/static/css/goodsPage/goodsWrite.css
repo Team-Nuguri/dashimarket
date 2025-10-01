@@ -37,6 +37,7 @@
 .form-item {
     display: flex;
     border-bottom: 0.5px solid #ddd;
+    height: 130px;
 }
 
 
@@ -215,8 +216,8 @@
 }
 
 #goods-img-list img{
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;;
 }
 
 #goods-img-list>li:not(:nth-child(1)){
@@ -234,8 +235,8 @@
 
 
 .content-item img{
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
 }
 
 .content-item input{
@@ -246,3 +247,9 @@
     display: flex;
     align-items: center;
 } 
+
+
+.form-list>li:first-child>div:last-child{
+    display: flex;
+    align-items: center;
+}

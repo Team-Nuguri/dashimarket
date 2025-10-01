@@ -103,6 +103,7 @@
             <ul class="form-list">
                 <li class="form-item">
                     <div class="label-area">
+                        <span class="required">*</span>
                         <span class="form-label">상품명</span>
                     </div>
                     <div class="field-area">
@@ -113,6 +114,7 @@
 
                 <li class="form-item attachment-item">
                     <div class="label-area">
+                        <span class="required">*</span>
                         <span class="form-label">첨부파일</span>
                     </div>
                     <div class="field-area">
@@ -132,6 +134,7 @@
 
                 <li class="form-item content-item">
                     <div class="label-area">
+                        <span class="required">*</span>
                         <span class="form-label">상품 설명</span>
                     </div>
                     <div class="field-area">
@@ -139,65 +142,67 @@
                             required></textarea>
                     </div>
                 </li>
-
+               
                 <li class="form-item">
                     <div class="label-area">
-                        <span class="form-label">상품 카테고리</span>
+                        <span class="required">*</span>
+                        <span class="form-label">카테고리</span>
                     </div>
                     <div class="category-area">
                         <ul id="mainCategory">
                             <li>
-                                <button type="button" class="main-category" data-category="electronics">가전제품</button>
+                                <button type="button" class="main-category" data-category="J100">가전제품</button>
                             </li>
                             <li>
-                                <button type="button" class="main-category" data-category="apparel">의류</button>
+                                <button type="button" class="main-category" data-category="J200">의류</button>
                             </li>
                             <li>
-                                <button type="button" class="main-category" data-category="sports">스포츠/레저</button>
+                                <button type="button" class="main-category" data-category="J300">스포츠/레저</button>
                             </li>
                             <li>
-                                <button type="button" class="main-category" data-category="beauty">뷰티</button>
+                                <button type="button" class="main-category" data-category="J400">뷰티</button>
                             </li>
                             <li>
-                                <button type="button" class="main-category" data-category="gaming">게임</button>
+                                <button type="button" class="main-category" data-category="J500">게임</button>
                             </li>
                             <li>
-                                <button type="button" class="main-category" data-category="food">식품</button>
+                                <button type="button" class="main-category" data-category="J600">식품</button>
                             </li>
                             <li>
-                                <button type="button" class="main-category" data-category="home_living">생활</button>
+                                <button type="button" class="main-category" data-category="J700">생활</button>
                             </li>
                             <li>
-                                <button type="button" class="main-category" data-category="vehicles">차량/오토바이</button>
+                                <button type="button" class="main-category" data-category="J800">차량/오토바이</button>
                             </li>
                             <li>
-                                <button type="button" class="main-category" data-category="furniture">가구/인테리어</button>
+                                <button type="button" class="main-category" data-category="J900">가구/인테리어</button>
                             </li>
                             <li>
-                                <button type="button" class="main-category" data-category="camera">카메라/캠코더</button>
+                                <button type="button" class="main-category" data-category="J1000">카메라/캠코더</button>
                             </li>
                             <li>
-                                <button type="button" class="main-category" data-category="music">음반/악기</button>
+                                <button type="button" class="main-category" data-category="J1100">음반/악기</button>
                             </li>
                             <li>
-                                <button type="button" class="main-category" data-category="accessories">패션 액세서리</button>
+                                <button type="button" class="main-category" data-category="J1200">패션 액세서리</button>
                             </li>
                             <li>
-                                <button type="button" class="main-category" data-category="books">도서/문구</button>
+                                <button type="button" class="main-category" data-category="J1300">도서/문구</button>
                             </li>
                             <li>
-                                <button type="button" class="main-category" data-category="art">예술/희귀</button>
+                                <button type="button" class="main-category" data-category="J1400">예술/희귀</button>
                             </li>
                             <li>
-                                <button type="button" class="main-category" data-category="tools">공구/산업용품</button>
+                                <button type="button" class="main-category" data-category="J1500">공구/산업용품</button>
                             </li>
 
                             <input type="hidden" name="mainCategory" value="">
 
                         </ul>
                         <ul id="sub-category">
-    
+                            
                         </ul>
+                        <input type="hidden" name="subCategory" value="">
                     </div>
 
                 </li>
@@ -206,11 +211,14 @@
 
                 <li class="form-item">
                     <div class="label-area">
+                        <span class="required">*</span>
                         <span class="form-label">상품 가격</span>
                     </div>
                     <div class="price-area">
                         <input type="text" class="form-control" name="joonggoPrice" id="joonggoPrice"
                             placeholder="가격을 입력해주세요" required>
+                            <label for="freeCheck">나눔</label>
+                        <input type="checkbox" id="freeCheck" name="freeCheck">
                     </div>
 
                 </li>

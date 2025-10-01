@@ -67,7 +67,7 @@ const subCategory = document.getElementsByName("subCategory")[0];
 
 
 const subcategory = {
-    electronics : ["생활가전", "주방가전", "미용가전", "냉장고", "에어컨", "세탁기/건조기", "TV", "사무기기"],
+    J100 : ["생활가전", "주방가전", "미용가전", "냉장고", "에어컨", "세탁기/건조기", "TV", "사무기기"],
     
 }
 
@@ -113,6 +113,9 @@ for (let btn of mainBtn) {
 
         mainCategory.value = e.target.dataset.category;
 
+        console.log(mainCategory.value.slice(0,1));
+        console.log(parseInt(mainCategory.value.slice(1))+1);
+
         const subBtn = document.getElementsByClassName("sub-category");
         
         if(subBtn != null){
@@ -135,6 +138,16 @@ for (let btn of mainBtn) {
         
         }
     })
+    
+}
+
+function generateCategoryNumber(mainValue){
+
+    const prefix = mainValue.slice(0,1);
+    const suffix = mainValue.slice(1);
+
+    const numberSuffix  = parseInt(suffix);
+
     
 }
 
