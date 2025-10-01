@@ -14,6 +14,19 @@ body{
     position: relative;
 }
 
+/* 채팅 영역 */
+.chatting-popup{
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 1000px;
+    height: 650px;
+    z-index: 500;
+    margin: auto;
+    position: fixed;
+    top: 100px;
+    right: 180px;
+}
+
 /* 팝업 헤더 */
 .popup-header{
     display: flex;
@@ -36,17 +49,6 @@ body{
     font-size: 20px;
     font-weight: bolder;
     cursor: pointer;
-}
-
-.chatting-popup{
-    border: 1px solid black;
-    border-radius: 10px;
-    width: 1000px;
-    height: 650px;
-    margin: auto;
-    position: fixed;
-    top: 100px;
-    right: 180px;
 }
 
 /* 채팅 목록 - 왼쪽 사이드바 */
@@ -74,16 +76,23 @@ body{
     margin: 7px 5px 0 5px;
     border: 1px solid #9c9c9c;
     border-radius: 10px;
+    cursor: pointer;
 }
 
-.item-header img{
-    width: 50px;
-    height: 50px;
+.item-header img, .content-message img{
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
     border: none;
     margin: 5px;
 }
 
+.item-body{ padding: 3px;}
+
+.item-body > div{
+    display: flex;
+    align-items: center;
+}
 
 .target-name{
     font-size: 16px;
@@ -95,6 +104,27 @@ body{
     padding: 5px;
     margin-left: 30px;
 }
+
+.recent-message{font-size: 18px;}
+
+.not-read-count{
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+    font-size: 14px;
+    color: white;
+    background-color: red;
+    margin-left: auto;
+}
+
+/* 채팅 내용 */
+.chatting-content{
+    background-color: gray;
+    width: 65%;
+    height: 610px;
+}
+
 /* 검색 */
 .search-box{
     border-bottom: 1px solid #9c9c9c;
@@ -105,3 +135,4 @@ body{
     border: none;
     margin-left: 5px;
 }
+
