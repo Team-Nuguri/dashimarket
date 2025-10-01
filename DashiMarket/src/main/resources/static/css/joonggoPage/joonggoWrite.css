@@ -4,6 +4,11 @@
     box-sizing: border-box;
 }
 
+.required{
+    color: red;
+    padding: 0 5px;
+}
+
 .container {
     max-width: 800px;
     margin: 0 auto;
@@ -123,6 +128,7 @@
 .price-area{
     display: flex;
     align-items: center;
+    gap: 50px;
 
 }
 
@@ -210,8 +216,8 @@
 }
 
 #joonggo-img-list img{
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
 }
 
 #joonggo-img-list>li:not(:nth-child(1)){
