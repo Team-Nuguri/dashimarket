@@ -57,73 +57,109 @@
             <span id="closeBtn">&times</span>
         </div>
 
-        <!-- 채팅 목록 -->
-        <ul class="chatting-list">
-
-            <!-- 검색 -->
-            <div class="search-box">
-                <p class="searchBtn fa-solid fa-magnifying-glass"></p>
-                <input type="text" name="chat-query" id="name-search" placeholder="이름으로 검색하세요." autocomplete="off">
-            </div>
-
-            <!-- 추가된 회원 채팅방 -->
-            <li class="chatting-item" chat-no="" target-no="">
-                <div class="item-header">
-                    <img src="../../static/images/member/짱구.jpg">
+        <div class="chatting-body">
+            <!-- 채팅 목록 -->
+            <ul class="chatting-list">
+    
+                <!-- 검색 -->
+                <div class="search-box">
+                    <p class="searchBtn fa-solid fa-magnifying-glass"></p>
+                    <input type="text" name="chat-query" id="name-search" placeholder="이름으로 검색하세요." autocomplete="off">
                 </div>
-
-                <div class="item-body">
-                    <p>
-                        <span class="target-name">상대방 이름</span>
-                        <span class="recent-send-time">메세지 보낸 시간</span>
-                    </p>
-                    <div>
-                        <p class="recent-message">메세지 내용</p>
-                        <p class="not-read-count">2</p>
+    
+                <!-- 추가된 회원 채팅방 -->
+                <li class="chatting-item" chat-no="" target-no="">
+                    <div class="item-header">
+                        <img src="../../static/images/member/짱구.jpg">
+                    </div>
+    
+                    <div class="item-body">
+                        
+                        <p>
+                            <span class="target-name">상대방 이름</span>
+                            <span class="recent-send-time">메세지 보낸 시간</span>
+                        </p>
+                        <div>
+                            <p class="recent-message">메세지 내용</p>
+                            <p class="not-read-count">2</p>
+                        </div>
+                    </div>
+                </li>
+    
+                <!-- 클릭된(입장) 채팅방 -->
+                <li class="chatting-item color" chat-no="" target-no="">
+                    <div class="item-header">
+                        <img src="../../static/images/member/짱구.jpg">
+                    </div>
+    
+                    <div class="item-body">
+                        <p>
+                            <span class="target-name">상대방 이름</span>
+                            <span class="recent-send-time">메세지 보낸 시간</span>
+                        </p>
+                        <div>
+                            <p class="recent-message">메세지 내용</p>
+                            <p class="not-read-count">1</p>
+                        </div>
+                    </div>
+                </li>
+                
+            </ul>
+    
+            <!-- 채팅 내용 -->
+            <div class="chatting-content">
+    
+                <div class="content-header">
+                    <p>너구리</p>
+                    <div class="button-img-box">
+                        <button id="reserve">
+                            <img src="../../static/images/svg/예약.svg" class="img-set">
+                            <p>예약</p>
+                        </button>
+                        <button id="complete">
+                            <img src="../../static/images/svg/거래완료.svg" class="img-set">
+                            <p>거래완료</p>
+                        </button>
+                        <button id="exit">
+                            <img src="../../static/images/svg/Menu Vertical.svg">
+                        </button>
                     </div>
                 </div>
-            </li>
+    
+                <ul class="display-chatting">
+                    <!-- 날짜 표시 -->
+                    <li>
+                        <div class="chat-date-line">
+                            <hr class="line">
+                            <span class="chat-date-text">2025.09.22</span>
+                            <hr class="line">
+                        </div>
+                    </li>
 
-            <!-- 클릭된(입장) 채팅방 -->
-            <li class="chatting-item color" chat-no="" target-no="">
-                <div class="item-header">
-                    <img src="../../static/images/member/짱구.jpg">
+                    <li class="my-chat">
+                        <span class="chat-date">오후 5시30분</span>
+                        <p class="chat">안녕하세요^^</p>
+                    </li>
+    
+                    <li class="target-chat">
+                         <img src="../../static/images/member/짱구.jpg">
+                          
+                         <div>
+                            <b>다시맛</b>
+                            <div class="my-chat">
+                                <p class="chat target">안녕하세요 ㅎㅎ</p>
+                                <span class="chat-date">오후 5시30분</span>
+                            </div>
+                         </div>
+                    </li>
+                </ul>
+                <div class="content-send">
+                    <button id="img-send"><img src="../../static/images/svg/image-btn.svg"></button>
+                    <textarea id="inputChatting" rows="3"></textarea>
+                    <button id="send"><img src="../../static/images/svg/Send-Btn.svg"></button>
                 </div>
-
-                <div class="item-body">
-                    <p>
-                        <span class="target-name">상대방 이름</span>
-                        <span class="recent-send-time">메세지 보낸 시간</span>
-                    </p>
-                    <div>
-                        <p class="recent-message">메세지 내용</p>
-                        <p class="not-read-count">1</p>
-                    </div>
-                </div>
-            </li>
-            
-        </ul>
-
-        <!-- 채팅 내용 -->
-        <div class="chatting-content">
-
-            <div class="content-header">
-                <img src="">
-                <img src="">
-                <img src="">
+    
             </div>
-
-            <div class="content-message">
-                <div>
-                    <img src="../../static/images/member/짱구.jpg" >
-                    <p>안녕하세요^^</p>
-                    <span>오후 5시30분</span>
-                </div>
-            </div>
-            <div class="content-send">
-
-            </div>
-
         </div>
 
     </div>
