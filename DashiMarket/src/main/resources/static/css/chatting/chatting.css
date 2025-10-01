@@ -50,11 +50,16 @@ body{
 }
 
 /* 채팅 목록 - 왼쪽 사이드바 */
+.chatting-list .color{
+    background-color: #35ad83;
+    border-color: #35ad83;
+}
+
 .chatting-list{
     list-style: none;
     width: 30%;
-    height: 605px;
-    border-right: 1px solid black;
+    height: 610px;
+    border-right: 1px solid #9c9c9c;
 }
 
 .chatting-item * {
@@ -62,26 +67,38 @@ body{
 }
 
 .chatting-item{
-    background-color: gray;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     gap: 10px;
+    margin: 7px 5px 0 5px;
+    border: 1px solid #9c9c9c;
+    border-radius: 10px;
 }
 
-.chatting-item img{
+.item-header img{
     width: 50px;
     height: 50px;
     border-radius: 50%;
     border: none;
+    margin: 5px;
 }
 
+
+.target-name{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.recent-send-time{ 
+    font-size: 12px;
+    padding: 5px;
+    margin-left: 30px;
+}
 /* 검색 */
 .search-box{
-    border: 1px solid #9c9c9c;
-    border-radius: 5px;
+    border-bottom: 1px solid #9c9c9c;
     padding: 5px;
-    margin: 5px;
 }
 
 .search-box input{
