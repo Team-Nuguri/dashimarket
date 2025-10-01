@@ -56,6 +56,7 @@
     flex: 1;
     padding: 20px 30px;
     background-color: #fff;
+    align-items: center;
 }
 
 .form-label {
@@ -204,3 +205,44 @@
 #goodsImg{
     display: none;
 }
+
+
+#goods-img-list{
+    list-style: none;
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+#goods-img-list img{
+    width: 70px;
+    height: 70px;
+}
+
+#goods-img-list>li:not(:nth-child(1)){
+    position: relative;
+    border: 1px solid #eee;
+}
+
+#goods-img-list>li>span{
+    position: absolute;
+    top: -20px;
+    left: 100%;
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+
+.content-item img{
+    width: 70px;
+    height: 70px;
+}
+
+.content-item input{
+    display: none;
+}
+
+.content-item>div:last-child{
+    display: flex;
+    align-items: center;
+} 

@@ -94,9 +94,7 @@
 
     </header>
 
-    <section>
-
-    </section>
+    
     <div class="container">
         <div class="header">
             <h1>굿즈 상품 등록</h1>
@@ -109,8 +107,8 @@
                         <span class="form-label">상품명</span>
                     </div>
                     <div class="field-area">
-                        <input type="text" class="form-control" name="goodsName" id="goodsName" placeholder="상품명을 입력해주세요."
-                            required>
+                        <input type="text" class="form-control" name="goodsName" id="goodsName"
+                            placeholder="상품명을 입력해주세요." required>
                     </div>
                 </li>
 
@@ -119,7 +117,11 @@
                         <span class="form-label">상품 설명</span>
                     </div>
                     <div class="field-area">
-                        <input type="file" name="goodsInfo">
+                        <label for="goodsInfo">
+                            <img src="../../static/images/svg/Add Image.svg">
+                        </label>
+                        <input type="file" name="goodsInfo" id="goodsInfo" accept="image/*">
+                        <span style="margin-left: 40px;" id="goodsInfoName">선택된 파일이 없습니다.</span>
                     </div>
                 </li>
 
@@ -131,10 +133,12 @@
                         <div class="attachment-container">
                             <ul id="goods-img-list">
                                 <li>
-                                    <label for="goodsImg">s</label>
-                                    <input type="file" name="goodsImg" id="goodsImg">
+                                    <label for="goodsImg">
+                                        <img src="../../static/images/svg/Add Image.svg" >
+                                    </label>
+                                    <input type="file" name="goodsImg" id="goodsImg" accept="image/*" multiple>
                                 </li>
-                                <li></li>
+
                             </ul>
                         </div>
                     </div>
@@ -144,22 +148,19 @@
                         <span class="form-label">상품 가격</span>
                     </div>
                     <div class="price-area">
-                        <input type="text" class="form-control" name="goodsPrice" id="goodsPrice" placeholder="가격을 입력해주세요"
-                            required>
-                        <label for="freeCheck"></label>
-                        <input type="checkbox" name="freeCheck" id="freeCheck">
+                        <input type="text" class="form-control" name="goodsPrice" id="goodsPrice"
+                            placeholder="가격을 입력해주세요" required>
                     </div>
-                    
+
                 </li>
                 <li class="form-item">
                     <div class="label-area">
                         <span class="form-label">재고</span>
                     </div>
                     <div class="price-area">
-                        <input type="number" class="form-control" name="goodsStock" id="goodsStock" value="0"
-                            required>
+                        <input type="number" class="form-control" name="goodsStock" id="goodsStock" value="0" required>
                     </div>
-                    
+
                 </li>
             </ul>
 
@@ -191,11 +192,11 @@
                 <span>|</span>
                 <a th:href="@{#}">광고 문의</a>
             </div>
-    
+
             <hr>
-    
+
             <div class="footer-bottom">
-    
+
                 <div class="footer-left">
                     (주) 다시마켓 <br>
                     대표 너구리 <br>
@@ -210,22 +211,24 @@
                 <div class="footer-right">
                     <a href="#">공지사항</a>
                     <a href="#">자주묻는 질문</a> <br><br>
-    
+
                     <a href="#">이용약관</a>
                     <a href="#">개인정보처리방침</a>
-    
+
                     <a href="#">운영정책</a>
-    
+
                     <a href="#">위치기반서비스 이용약관</a>
-    
+
                     <a href="#">게시글</a>
-    
+
                 </div>
-    
+
             </div>
         </section>
 
     </footer>
+
+    <script src="../../static/js/goodsPage/goodsWrite.js"></script>
 </body>
 
 </html>
