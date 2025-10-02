@@ -306,6 +306,7 @@ body{
 #inputChatting{
     width: 100%;
     border: none;
+    resize: none;
 }
 
 

@@ -8,24 +8,52 @@
     <link rel="stylesheet" href="../../static/css/common/font.css">
 </head>
 <body>
-    <div>
-        <div>
-            다시마 AI
+    <section>
+        <div class="chatBot-header">
+            <div class="chatBot-title text-size-20 bold-text">다시마 챗봇</div>
         </div>
-
+    
         <!-- 첫 대화인 경우 - 대화를 시작해보세요 -->
-        <div id="chatting-start">
-            <div>
+        <!-- <div class="chatting-start-area">
+            <div id="chatting-suggestion">
                 <img src="../../static/images/svg/chatBot-start.svg" alt="">
-                <div class="text-size-24 bold-text">대화를 시작해보세요!</div>
-            </div>
+                <div class="text-size-16 medium-text">대화를 시작해보세요!</div>
+            </div> -->
     
             <!-- 새 문의하기 -->
-            <div>
-    
+            <!-- <button id="chatting-start-btn">
+                <img src="../../static/images/svg/newChatBot.svg" alt="">
+            </button>
+        </div> -->
+
+        <!-- 채팅 중 -->
+        <div class="chatting-area">
+            <!-- 다시마봇 -->
+            <div class="dashima-chatting">
+                <div class="dashima-info">
+                    <img src="../../static/images/svg/just-dashima.svg" alt="">
+                    <div class="text-size-16 medium-text">다시마봇</div>
+                </div>
+                <p class="bot-text text-size-14">
+                    안녕하세요. 다시마봇이예요.<br>
+                    궁금하신 점은 무엇이든지 물어보세요!
+                </p>
+            </div>
+
+            <!-- 유저 -->
+            <div class="user-chatting">
+                <p class="user-text text-size-14">굿즈 문의 드려요~!</p>
+            </div>
+
+            <!-- 채팅 보내는 영역 -->
+            <div class="write-chatting-area">
+                <textarea name="questionToBot" id="write-chatting"></textarea>
+                <div><img src="../../static/images/svg/chatBot-send.svg" alt=""></div>
             </div>
         </div>
-    </div>
+        
+    </section>
 
+    <script src="../../static/js/chatting/chatBot.js"></script>
 </body>
 </html>
