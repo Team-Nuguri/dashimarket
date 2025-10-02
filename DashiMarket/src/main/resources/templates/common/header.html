@@ -3,8 +3,8 @@
 <header>
     <section id="header-area">
         <div>
-            <a href="@{/}">
-                <img id="main-logo" src="/src/main/resources/static/images/logo.png">
+            <a th:href="@{/}">
+                <img id="main-logo" th:src="@{/images/logo.png}">
             </a>
 
         </div>
@@ -13,13 +13,13 @@
             
             
             <div>
-                <a href="/joongo" class="noto-sans-kr-20">중고거래</a>
+                <a th:href="@{/joonggo}" class="noto-sans-kr-20">중고거래</a>
             </div>
             <div>
-                <a href="/goods" class="noto-sans-kr-20">굿즈</a>
+                <a th:href="@{/goods}" class="noto-sans-kr-20">굿즈</a>
             </div>
             <div>
-                <a href="/community" class="noto-sans-kr-20">커뮤니티</a>
+                <a th:href="@{/community}" class="noto-sans-kr-20">커뮤니티</a>
             </div>
 
         </div>
@@ -27,9 +27,9 @@
         <!-- 아이콘 영역 -->
         <div id="icon-area">
             <button>
-                <img src="../../static/images/svg/하트.svg" class="icon-img">
-                <!-- <img src="../../static/images/svg/장바구니.svg" > -->
-                <!-- <img src="@{/images/사람.svg}" > -->
+                <img th:src="@{/images/svg/하트.svg}" class="icon-img">
+                <!-- <img th:src="../../static/images/svg/장바구니.svg" > -->
+                <!-- <img th:src="@{/images/사람.svg}" > -->
             </button>
 
             <!-- 알림 영역 -->
@@ -37,7 +37,7 @@
 
                 <!-- 알림 버튼 -->
                 <button class="notification-btn" id="bell">
-                    <img src="../../static/images/svg/Group.svg" class="icon-img">
+                    <img th:src="@{/images/svg/Group.svg}" class="icon-img">
 
                     <!-- 알림 표시 -->
                     <div class="notification-area"></div>
@@ -48,7 +48,7 @@
                     <li class="notification-item">
                         <div class="notification-div">
                             <!-- 읽은 알림 -->
-                            <img src="/src/main/resources/static/images/admin/user.png">
+                            <img th:src="@{/images/admin/user.png}">
                             <div class="notification-content">
                                 <p class="notification-title">관심 상품이 등록되었습니다.</p>
                                 <p class="notification-text">알림 내용</p>
@@ -59,7 +59,7 @@
 
                         <!-- 안읽은 알림 -->
                         <div class="notification-div box-background">
-                            <img src="/src/main/resources/static/images/admin/user.png">
+                            <img th:src="@{/images/admin/user.png}">
 
                             <div class="notification-content">
                                 <p class="notification-title">관심 상품이 등록되었습니다.</p>
@@ -74,12 +74,12 @@
             </section>
 
             <button>
-                <img src="../../static/images/svg/clarity_menu-line.svg" class="icon-img">
+                <img th:src="@{/images/svg/clarity_menu-line.svg}" class="icon-img">
 
             </button>
 
             <div id="login-area">
-                <a href="#" id="login">로그인</a>
+                <a th:href="@{login}" id="login">로그인</a>
 
             </div>
             
@@ -91,7 +91,7 @@
 
         <form action="">
             <fieldset>
-                <img src="../../static/images/svg/돋보기.svg">
+                <img th:src="@{/images/svg/돋보기.svg}">
                 <input type="search" name="query" id="query" placeholder="검색어를 입력해주세요." class="noto-sans-kr-20">
             </fieldset>
         </form>
@@ -99,6 +99,6 @@
     </section>
 
 
-    <script src="/src/main/resources/static/js/common/header.js"></script>
+    <script th:src="@{/js/common/header.js}"></script>
 
 </header>
