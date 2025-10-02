@@ -197,10 +197,10 @@ body, input, button, textarea, select {
 /* 검색 */
 #search-area{
     margin: 30px 0 30px 0;
-    padding: 20px;
+    padding: 15px;
     border: 2px solid #ccc;
     border-radius: 10px;
-    width: 60%;
+    width: 70%;
 }
 
 #search-area label {
@@ -214,7 +214,7 @@ body, input, button, textarea, select {
 .search-box {
     display: flex;
     align-items: center; 
-    gap: 8px; 
+    gap: 5px; 
     margin-block: 15px;
     padding: 10px;
 }
@@ -344,10 +344,6 @@ fieldset > [name="query"]{
     width: 20%;
 }
 
-#view-box3{
-    margin: 40px 0 30px 30px;
-    width: 20%;
-}
 
 .box-style{
     border: 3px solid #52B291;
@@ -392,7 +388,7 @@ fieldset > [name="query"]{
     font-size: 16px;
 }
 
-.result-middle button:hover{
+.result-middle button:nth-of-type(1):hover{
     color: white;
     background-color: #298C69;
 }
@@ -503,7 +499,7 @@ fieldset > [name="query"]{
 .table-item{
     border-radius: 5px;
     border-color: #52B291;
-    width: 80px;
+    width: 100px;
     height: 40px;
     text-align: center;
     cursor: pointer;
