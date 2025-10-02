@@ -2,6 +2,7 @@ section {
     width: 500px;
     height: 700px;
     border: 1px solid #ddd;
+    position: relative;
 }
 .chatBot-header {
     display: flex;
@@ -50,15 +51,74 @@ section {
 /* 채팅 중 */
 .chatting-area {
     height: 100%;
-    display: flex;
-    justify-content: space-between;
 }
 
+/* 봇 채팅 */
 .dashima-chatting {
     display: flex;
     flex-direction: column;
+    margin: 20px;
+}
+
+.dashima-info {
+    display: flex;
+}
+
+.dashima-info > img {
+    width: 40px;
+    border: 2px solid #166549;
+    border-radius: 50%;
+}
+
+.dashima-info div {
+    margin: 10px;
 }
 
 .bot-text {
+    width: 250px;
+    border: 10px;
+    background-color: #e3e3e3;
+    margin-left: 50px;
+    padding: 10px;
+    border-radius: 0 10px 10px 10px;
+}
+
+/* 사용자 채팅 */
+.user-chatting {
     display: flex;
+    justify-content: end;
+    margin: 20px;
+}
+
+.user-text {
+    background-color: #166549;
+    padding: 10px;
+    color: white;
+    border-radius: 10px 0 10px 10px;
+}
+
+/* 채팅 보내는 영역 */
+.write-chatting-area {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+#write-chatting {
+    resize: none;
+    width: 350px;
+    border-radius: 10px;
+}
+
+
+.write-chatting-area img {
+    margin-left: 10px;
+}
+
+.write-chatting-area img:hover {
+    cursor: pointer;
 }

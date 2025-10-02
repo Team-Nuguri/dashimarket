@@ -30,21 +30,28 @@
         <div class="chatting-area">
             <!-- 다시마봇 -->
             <div class="dashima-chatting">
-                <div>
+                <div class="dashima-info">
                     <img src="../../static/images/svg/just-dashima.svg" alt="">
-                    <div>다시마봇</div>
+                    <div class="text-size-16 medium-text">다시마봇</div>
                 </div>
-                <div class="bot-text">
+                <p class="bot-text text-size-14">
                     안녕하세요. 다시마봇이예요.<br>
                     궁금하신 점은 무엇이든지 물어보세요!
-                </div>
+                </p>
             </div>
 
             <!-- 유저 -->
             <div class="user-chatting">
-                <div class="user-text">굿즈 문의 드려요~!</div>
+                <p class="user-text text-size-14">굿즈 문의 드려요~!</p>
+            </div>
+
+            <!-- 채팅 보내는 영역 -->
+            <div class="write-chatting-area">
+                <textarea name="questionToBot" id="write-chatting"></textarea>
+                <div><img src="../../static/images/svg/chatBot-send.svg" alt=""></div>
             </div>
         </div>
+        
     </section>
 
     <script src="../../static/js/chatting/chatBot.js"></script>
