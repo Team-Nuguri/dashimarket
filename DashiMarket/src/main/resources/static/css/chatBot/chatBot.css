@@ -13,6 +13,7 @@ section {
     display: flex;
 }
 
+/* 채팅 시작 전 */
 .chatting-start-area {
     height: 100%;
     display: flex;
@@ -46,3 +47,8 @@ section {
     cursor: pointer;
 }
 
+/* 채팅 중 */
+.chatting-area {
+    height: 100%;
+    display: flex;
+}
