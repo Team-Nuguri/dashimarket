@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>굿즈 상품 등록</title>
+    <title>중고 상품 등록</title>
 
     <link rel="stylesheet" href="../../static/css/common/header.css">
     <link rel="stylesheet" href="../../static/css/common/footer.css">
     <link rel="stylesheet" href="../../static/css/common/font.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="../../static/css/goodsPage/goodsWrite.css">
+    <link rel="stylesheet" href="../../static/css/joonggoPage/joonggoWrite.css">
 </head>
 
 <body>
@@ -94,65 +94,134 @@
 
     </header>
 
-    <section>
-
-    </section>
     <div class="container">
         <div class="header">
-            <h1>굿즈 상품 등록</h1>
+            <h1>중고 상품 등록</h1>
         </div>
 
         <form id="writeForm">
             <ul class="form-list">
                 <li class="form-item">
                     <div class="label-area">
+                        <span class="required">*</span>
                         <span class="form-label">상품명</span>
                     </div>
                     <div class="field-area">
-                        <input type="text" class="form-control" placeholder="게시글의 제목을 입력하세요.    ex) [공지] 공지사항 제목"
-                            required>
-                    </div>
-                </li>
-
-                <li class="form-item content-item">
-                    <div class="label-area">
-                        <span class="form-label">상품 설명 이미지</span>
-                    </div>
-                    <div class="field-area">
-                        <textarea class="form-control content-textarea" placeholder="내용을 입력하세요" required></textarea>
+                        <input type="text" class="form-control" name="joonggoName" id="joonggoName"
+                            placeholder="상품명을 입력해주세요." required>
                     </div>
                 </li>
 
                 <li class="form-item attachment-item">
                     <div class="label-area">
+                        <span class="required">*</span>
                         <span class="form-label">첨부파일</span>
                     </div>
                     <div class="field-area">
                         <div class="attachment-container">
-                            <div class="attachment-area">
+                            <ul id="joonggo-img-list">
+                                <li>
+                                    <label for="joonggoImg">
+                                        <i class="fas fa-camera" style="font-size: 40px;"></i>
+                                    </label>
+                                    <input type="file" name="joonggoImg" id="joonggoImg" accept="image/*" multiple>
+                                </li>
 
-                            </div>
-                            <div class="attachment-buttons">
-                                <button type="file" class="attachment-btn">첨부파일</button>
-                            </div>
-                            <div>
-                                <span class="attachment-description">
-                                    *사진(이미지)만 등록 가능합니다.(최대 OOMB 등록 가능)
-                                </span>
-                            </div>
+                            </ul>
                         </div>
                     </div>
                 </li>
-                <li class="form-item">
+
+                <li class="form-item content-item">
                     <div class="label-area">
-                        <span class="form-label">상품 가격</span>
+                        <span class="required">*</span>
+                        <span class="form-label">상품 설명</span>
                     </div>
                     <div class="field-area">
-                        <input type="text" class="form-control" placeholder="게시글의 제목을 입력하세요.    ex) [공지] 공지사항 제목"
-                            required>
+                        <textarea class="form-control content-textarea" name="joonggoContent" placeholder="내용을 입력하세요"
+                            required></textarea>
                     </div>
-                    
                 </li>
+            
+                <li class="form-item">
+                    <div class="label-area">
+                        <span class="required">*</span>
+                        <span class="form-label">카테고리</span>
+                    </div>
+                    <div class="category-area">
+                        <ul id="mainCategory">
+                            <li>
+                                <button type="button" class="main-category" data-category="J100">가전제품</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="J200">의류</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="J300">스포츠/레저</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="J400">신발</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="J500">뷰티/미용</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="J600">게임</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="J700">생활</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="J800">차량/오토바이</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="J900">가구/인테리어</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="J1000">디지털</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="J1100">음반/악기</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="J1200">패션 액세서리</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="J1300">도서/문구</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="J1400">예술/희귀</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="J1500">공구/산업용품</button>
+                            </li>
+
+                            <input type="hidden" name="mainCategory" id="mainCategory" value="">
+
+                        </ul>
+
+                        <ul id="sub-category">
+                            
+                        </ul>
+                        <input type="hidden" name="subCategory" id="subCategory" value="">
+                    </div>
+
+                </li>
+
+
+
+                <li class="form-item">
+                    <div class="label-area">
+                        <span class="required">*</span>
+                        <span class="form-label">상품 가격</span>
+                    </div>
+                    <div class="price-area">
+                        <input type="text" class="form-control" name="joonggoPrice" id="joonggoPrice"
+                            placeholder="가격을 입력해주세요" required>
+                    </div>
+
+                </li>
+
             </ul>
 
             <div class="button-group">
@@ -183,11 +252,11 @@
                 <span>|</span>
                 <a th:href="@{#}">광고 문의</a>
             </div>
-    
+
             <hr>
-    
+
             <div class="footer-bottom">
-    
+
                 <div class="footer-left">
                     (주) 다시마켓 <br>
                     대표 너구리 <br>
@@ -202,22 +271,24 @@
                 <div class="footer-right">
                     <a href="#">공지사항</a>
                     <a href="#">자주묻는 질문</a> <br><br>
-    
+
                     <a href="#">이용약관</a>
                     <a href="#">개인정보처리방침</a>
-    
+
                     <a href="#">운영정책</a>
-    
+
                     <a href="#">위치기반서비스 이용약관</a>
-    
+
                     <a href="#">게시글</a>
-    
+
                 </div>
-    
+
             </div>
         </section>
 
     </footer>
+
+    <script src="../../static/js/joonggoPage/joonggoWrite.js"></script>
 </body>
 
 </html>

@@ -90,6 +90,11 @@ body {
 
 }
 
+.extra-options a {
+  text-decoration: none;
+  color: black;
+}
+
 .divider {
   
   margin-top: 20px;
@@ -149,5 +154,14 @@ body {
   color: white;
 }
 
+
+#signUp{
+    text-decoration: none;
+    color: black;
+}
+
+#signUp:hover{
+  text-decoration: underline;
+}
 
 

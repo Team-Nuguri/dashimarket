@@ -219,3 +219,6 @@ header>section> div:nth-child(2)>div>a:hover{
     cursor: pointer;
 }
 
+#login{
+    align-items: baseline;
+}
