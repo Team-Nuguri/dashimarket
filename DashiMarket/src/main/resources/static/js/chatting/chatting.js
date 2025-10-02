@@ -4,21 +4,34 @@ const reserve = document.getElementById("reserve")
 const complete = document.getElementById("complete")
 const imgSet = document.querySelectorAll(".img-set")
 
-reserve.addEventListener("click", ()=>{
+// 예약
+reserve.addEventListener("click", () => {
+    // 예약된 상태인지 확인 (class로 구분)
+    const isReserved = reserve.classList.contains("color-icon");
 
-    if(reserve.classList.toggle("color-icon")){
-        imgSet[0].setAttribute("src", "../../static/images/svg/예약-color.svg")
-        alert("예약이 완료되었습니다.")
-    
-    }else{
-        imgSet[0].setAttribute("src", "../../static/images/svg/예약.svg")
-        alert("예약이 취소되었습니다.")
+    if (!isReserved) {
+        // 아직 예약 안 됐을 때 → 예약 confirm
+        if (confirm("예약하시겠습니까?")) {
+            reserve.classList.add("color-icon");
+            imgSet[0].setAttribute("src", "../../static/images/svg/예약-color.svg");
+            alert("예약되었습니다.");
+        }
+    } else {
+        // 이미 예약된 상태일 때 → 취소 confirm
+        if (confirm("예약을 취소하시겠습니까?")) {
+            reserve.classList.remove("color-icon");
+            imgSet[0].setAttribute("src", "../../static/images/svg/예약.svg");
+            alert("예약이 취소되었습니다.");
+        }
     }
-})
+});
 
+// 거래완료
 complete.addEventListener("click", ()=>{
 
-    if(complete.classList.toggle("color-icon")){
+    const isComplete = complete.classList.add("color-icon");
+
+    if(confirm("거래를 완료 하시겠습니까?")){
         imgSet[1].setAttribute("src", "../../static/images/svg/거래완료-color.svg")
         alert("거래완료 되었습니다.")
 
