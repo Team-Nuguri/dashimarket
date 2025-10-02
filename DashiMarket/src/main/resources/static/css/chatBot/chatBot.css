@@ -51,4 +51,14 @@ section {
 .chatting-area {
     height: 100%;
     display: flex;
+    justify-content: space-between;
+}
+
+.dashima-chatting {
+    display: flex;
+    flex-direction: column;
+}
+
+.bot-text {
+    display: flex;
 }
