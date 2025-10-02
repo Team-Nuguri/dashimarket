@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http:// www.thymeleaf.com">
+<html lang="en" xmlns="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../../static/css/adminPage/admin-style.css">
+    <link rel="stylesheet" th:href="@{/css/adminPage/admin-style.css}">
 
     <script src="https://kit.fontawesome.com/1c15543e3e.js" crossorigin="anonymous"></script>
 </head>
@@ -20,32 +20,14 @@
     <main>
         <section class="admin-content">
             <!-- 사이드 메뉴 -->
-            <section class="left-side">
-                <img src="/src/main/resources/static/images/admin/adminLogo.png" id="logo">
-
-                <ul class="list-group">
-                    <li class="sideTitle"><img src="/src/main/resources/static/images/svg/Client Management.svg">회원관리</li>
-                    <li><span>|</span> <a href="#">회원 조회</a></li>
-
-                    <li class="sideTitle"><img src="/src/main/resources/static/images/svg/declaration.svg">신고관리</li>
-                    <li><span>|</span> <a href="#">통합 신고</a></li>
-
-                    <li class="sideTitle"><img src="/src/main/resources/static/images/svg/goods-admin.svg">상품/거래</li>
-                    <li><span>|</span> <a href="#">상품 관리</a></li>
-                    <li><span>|</span> <a href="#">거래 내역</a></li>
-
-                    <li class="sideTitle"><img src="/src/main/resources/static/images/svg/Bar Chart.svg">데이터</li>
-                    <li><span>|</span> <a href="#">이용자 수</a></li>
-                    <li><span>|</span> <a href="#">품목별 거래</a></li>
-                </ul>
-            </section>
+            <th:block th:replace="~{admin/sideMenu}">admin-sideMenu.html</th:block>
 
             <section class="admin-main">
                 
                 <div id="admin-user">
                     <h1 class="admin-title">회원 조회</h1>
                     <div class="admin-login">
-                        <img src="/src/main/resources/static/images/admin/user.png">
+                        <img th:src="@{/images/admin/user.png}">
                         <p>관리자 계정</p>
                         <button id="logout">로그아웃</button>
                     </div>
@@ -220,26 +202,9 @@
         </section>
     </main>
 
-    <footer>
-        <nav aria-label="페이지네이션">
-            <ul class="pagination">
-            <li><button type="button" class="pagination-btn" aria-label="이전 페이지"><img src="/src/main/resources/static/images/pagination/pagn-previous-btn.svg"></button></li>
-            <li><button type="button" aria-current="page" aria-label="1페이지">1</button></li>
-            <li><button type="button" aria-label="2페이지">2</button></li>
-            <li><button type="button" aria-label="3페이지">3</button></li>
-            <li><button type="button" aria-label="4페이지">4</button></li>
-            <li><button type="button" aria-label="5페이지">5</button></li>
-            <li><button type="button" aria-label="6페이지">6</button></li>
-            <li><button type="button" aria-label="7페이지">7</button></li>
-            <li><button type="button" aria-label="8페이지">8</button></li>
-            <li><button type="button" aria-label="9페이지">9</button></li>
-            <li><button type="button" aria-label="10페이지">10</button></li>
-            <li><button type="button" class="pagination-btn" aria-label="다음 페이지"><img src="/src/main/resources/static/images/pagination/pagn-next-btn.svg"></button></li>
-            </ul>
-        </nav>
-    </footer>
+    <th:block th:replace="~{common/pagination}">pagination.html</th:block>
 
-    <script src="/src/main/resources/static/js/adminPage/admin.js"></script>
+    <script th:src="@{/js/adminPage/admin.js}"></script>
 </body>
 
 </html>

@@ -1,0 +1,19 @@
+<section class="left-side">
+    <img th:src="@{/images/admin/adminLogo.png}" id="logo">
+
+    <ul class="list-group">
+        <li class="sideTitle"><img th:src="@{/images/svg/Client Management.svg}">회원관리</li>
+        <li><span>|</span> <a th:href="@{/admin/main}">회원 조회</a></li>
+
+        <li class="sideTitle"><img th:src="@{/images/svg/declaration.svg}">신고관리</li>
+        <li><span>|</span> <a th:href="@{/admin/report}">통합 신고</a></li>
+
+        <li class="sideTitle"><img th:src="@{/images/svg/goods-admin.svg}">상품/거래</li>
+        <li><span>|</span> <a th:href="@{/admin/goods}">상품 관리</a></li>
+        <li><span>|</span> <a th:href="@{/admin/order}">거래 내역</a></li>
+
+        <li class="sideTitle"><img th:src="@{/images/svg/Bar Chart.svg}">데이터</li>
+        <li><span>|</span> <a th:href="@{/admin/data/user}">이용자 수</a></li>
+        <li><span>|</span> <a th:href="@{/admin/data/goods}">품목별 거래</a></li>
+    </ul>
+</section>
