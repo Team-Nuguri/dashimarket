@@ -10,7 +10,7 @@ public class MainController {
 	public String mainForward() {
 		
 		
-		return "intro.html";
+		return "intro";
 	}
 
 }

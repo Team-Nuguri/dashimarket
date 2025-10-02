@@ -9,9 +9,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width= , initial-scale=1.0">
     <title>Intro</title>
-    <link rel="stylesheet" href="../../resources/static/css/intro.css">
-    <link rel="stylesheet" href="../../resources/static/css/common/font.css">
-    <link rel="stylesheet" href="../../resources/static/css/common/footer.css">
+    <link rel="stylesheet" th:href="@{/css/intro.css}">
+    <link rel="stylesheet" th:href="@{/css/common/font.css}">
+    <link rel="stylesheet" th:href="@{/css/common/footer.css}">
 
 </head>
 
@@ -20,12 +20,12 @@
 
         <!-- 상단 로그인 버튼 -->
         <div id="header-login">
-            <a href="">로그인</a>
+            <a th:href="@{#}">로그인</a>
         </div>
 
         <!-- 로고 -->
         <div id="intro-logo-div">
-            <img src="../..//resources/static/images/logo.png" id="intro-big-logo">
+            <img th:src="@{/images/logo.png}" id="intro-big-logo">
             <div id="intro-text" class="bold-text">오늘도 착한 소비를 하러 오셨군요!</div>
         </div>
 
@@ -34,13 +34,13 @@
 
             <!-- 선택한 동네 -->
             <div id="select-city" class="bold-text">
-                <div><img src="../../resources/static/images/svg/location.svg" alt=""></div>
+                <div><img th:src="@{/images/svg/location.svg}" alt=""></div>
                 <div id="city-name" class="text-size-20">관철동</div>
             </div>
 
             <!-- 검색 -->
             <div id="intro-search">
-                <img src="../..//resources/static/images/svg/searchIcon.svg" id="search-icon">
+                <img th:src="@{/images/svg/searchIcon.svg}" id="search-icon">
                 <input type="text" placeholder="검색어를 입력해주세요." class="text-size-14">
             </div>
         </div>
@@ -49,7 +49,7 @@
             <!-- 중고거래 -->
             <a href="">
                 <div class="intro-box">
-                    <div><img src="../..//resources/static/images/svg/intro-giveIcon.svg" class="intro-icon"></div>
+                    <div><img th:src="@{/images/svg/intro-giveIcon.svg}" class="intro-icon"></div>
                     <div class="category-text bold-text text-size-20">중고거래</div>
                 </div>
             </a>
@@ -57,7 +57,7 @@
             <!-- 굿즈 판매 -->
             <a href="">
                 <div class="intro-box">
-                    <div><img src="../..//resources/static/images/svg/intro-goods.svg" class="intro-icon"></div>
+                    <div><img th:src="@{/images/svg/intro-goods.svg}" class="intro-icon"></div>
                     <div class="category-text bold-text text-size-20">굿즈판매</div>
                 </div>
             </a>
@@ -65,7 +65,7 @@
             <!-- 커뮤니티 -->
             <a href="">
                 <div class="intro-box">
-                    <div><img src="../../resources/static/images/svg/intro-community.svg" class="intro-icon"></div>
+                    <div><img th:src="@{/images/svg/intro-community.svg}" class="intro-icon"></div>
                     <div class="category-text bold-text text-size-20">커뮤니티</div>
                 </div>
             </a>
@@ -75,16 +75,16 @@
     <footer>
         <section>
             <div class="footer-top">
-                <a th:href="@{#}"><img src="../../resources/static/images/logo.png" width="100px" style="vertical-align: middle;"></a>
-                <a th:href="@{#}">회사 소개</a>
+                <a href="#"><img th:src="@{/images/logo.png}" width="100px" style="vertical-align: middle;"></a>
+                <a href="#">회사 소개</a>
                 <span>|</span>
-                <a th:href="@{#}">서비스 소개</a>
+                <a href="#">서비스 소개</a>
                 <span>|</span>
-                <a th:href="@{#}">블로그</a>
+                <a href="#">블로그</a>
                 <span>|</span>
-                <a th:href="@{#}">채용제휴 문의</a>
+                <a href="#">채용제휴 문의</a>
                 <span>|</span>
-                <a th:href="@{#}">광고 문의</a>
+                <a href="#">광고 문의</a>
             </div>
 
             <hr>
@@ -121,7 +121,7 @@
         </section>
     </footer>  
 
-    <script src="../../resources/static/js/intro.js"></script>
+    <script th:src="@{/js/intro.js}"></script>
 </body>
 
 </html>
