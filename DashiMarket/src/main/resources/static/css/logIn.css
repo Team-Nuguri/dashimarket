@@ -150,4 +150,13 @@ body {
 }
 
 
+#signUp{
+    text-decoration: none;
+    color: black;
+}
+
+#signUp:hover{
+  text-decoration: underline;
+}
+
 

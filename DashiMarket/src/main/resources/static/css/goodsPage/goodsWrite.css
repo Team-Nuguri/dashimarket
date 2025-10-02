@@ -253,3 +253,8 @@
     display: flex;
     align-items: center;
 }
+
+.required{
+    color: red;
+    padding: 0 5px;
+}
