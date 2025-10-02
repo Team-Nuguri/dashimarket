@@ -94,7 +94,7 @@
 
 .content-textarea {
     min-height: 120px;
-    resize: vertical;
+    resize: none;
     font-family: inherit;
     border-radius: 15px;
 }
@@ -217,7 +217,12 @@
     flex-wrap: wrap;
 }
 
-#joonggo-img-list img{
+i{
+    text-align: center;
+    margin-top: 10px;
+}
+
+#joonggo-img-list  i,img{
     width: 60px;
     height: 60px;
 }
