@@ -10,10 +10,6 @@ section {
     padding: 15px;
 }
 
-.show {
-    display: flex;
-}
-
 /* 채팅 시작 전 */
 .chatting-start-area {
     height: 100%;
@@ -46,11 +42,13 @@ section {
 
 #chatting-start-btn:hover {
     cursor: pointer;
+    transform: scale(1.1);
 }
 
 /* 채팅 중 */
 .chatting-area {
     height: 100%;
+    display: none;
 }
 
 /* 봇 채팅 */
@@ -62,10 +60,13 @@ section {
 
 .dashima-info {
     display: flex;
+    align-items: center;
 }
 
+/* 봇 사진 */
 .dashima-info > img {
     width: 40px;
+    height: 40px;
     border: 2px solid #166549;
     border-radius: 50%;
 }
@@ -108,15 +109,33 @@ section {
     padding: 10px;
 }
 
-#write-chatting {
-    resize: none;
-    width: 350px;
+.write-chatting-area > div {
+    display: flex;
+    align-items: center;
     border-radius: 10px;
+    width: 300px;
+    height: 50px;
+    box-shadow : 3px 3px 10px 5px rgba(188, 188, 188, 0.372);
 }
 
+#write-chatting {
+    margin-top: 15px;
+    width: 100%;
+    border-radius: 10px;
+    border: none;
+    resize: none;
+    text-align: center;
+}
 
-.write-chatting-area img {
+#write-chatting:focus {
+    outline: none;
+}
+
+.write-chatting-area > img {
     margin-left: 10px;
+    background-color: #1C8F67;
+    border-radius: 15px;
+    box-shadow : 3px 3px 10px 5px rgba(188, 188, 188, 0.372);
 }
 
 .write-chatting-area img:hover {
