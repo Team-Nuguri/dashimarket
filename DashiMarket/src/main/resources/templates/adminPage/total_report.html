@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>신고 관리</title>
+    <title>통합 신고</title>
 
     <!-- 폰트 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,7 +28,7 @@
                     </li>
                     <li><span>|</span> <a href="#">회원 조회</a></li>
 
-                    <li class="sideTitle"><img src="/src/main/resources/static/images/svg/report.svg">신고관리</li>
+                    <li class="sideTitle"><img src="/src/main/resources/static/images/svg/declaration.svg">신고관리</li>
                     <li><span>|</span> <a href="#">통합 신고</a></li>
 
                     <li class="sideTitle"><img src="/src/main/resources/static/images/svg/goods-admin.svg">상품/거래</li>
@@ -58,7 +58,7 @@
                         <div class="search-box">
                             <label>검색</label>
                             <fieldset>
-                                <input type="text" name="query" placeholder="게시글 제목/회원ID를 입력하세요.">
+                                <input type="text" name="query" placeholder="게시글 제목/회원ID를 입력하세요." autocomplete="off">
                                 <button class="searchBtn fa-solid fa-magnifying-glass"></button>
                             </fieldset>
                         </div>
@@ -105,31 +105,31 @@
                     </div>
                 </div>
 
-                <div class="result-buttons">
-                    <button type="button" class="color-btn">경고</button>
-                    <button type="button" class="color-btn">정지</button>
-                    <button type="button" class="color-btn">강제탈퇴</button>
+                <div class="result-middle">
+                    <p>0개 선택됨</p>
+                    <button type="button" class="color-btn">처리완료</button>
                 </div>
 
                 <table class="table-content">
                     <tr class="table-title">
-                        <td class="fa-regular fa-square"></td>
+                        <td><input type="checkbox"></td>
                         <td>신고번호</td>
                         <td>신고자</td>
-                        <td>신고 게시글</td>
-                        <td>신고회원</td>
+                        <td>신고된 게시글</td>
+                        <td>신고된 회원</td>
                         <td>신고 사유</td>
-                        <td>처리 결과</td>
                         <td>신고일</td>
+                        <td>처리 결과</td>
                         <td>처리일</td>
                     </tr>
                     <tr>
-                        <td class="fa-solid fa-square-check"></td>
+                        <td><input type="checkbox"></td>
                         <td>01</td>
                         <td>user01@og.or.kr</td>
                         <td>아이폰16 판매합니다.......</td>
                         <td></td>
                         <td>불법</td>
+                        <td>2025.09.01</td>
                         <td>
                             <select class="table-item">
                                 <option value="-">-</option>
@@ -138,107 +138,106 @@
                                 <option value="회원탈퇴">회원탈퇴</option>
                             </select>
                         </td>
-                        <td></td>
                         <td>2025.09.01</td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td class="fa-solid fa-square-check"></td>
+                        <td><input type="checkbox"></td>
                         <td>02</td>
                         <td>user02@og.or.kr</td>
-                        <td>안읽는 도서 판매합니다...</td>
+                        <td><a href="/joonggo/100/1">안읽는 도서 판매합니다...</a></td>
                         <td></td>
                         <td>사기</td>
-                        <td>게시글 삭제</td>
                         <td>2025.09.04</td>
+                        <td>게시글 삭제</td>
                         <td>2025.09.06</td>
                     </tr>
                     <tr>
-                        <td class="fa-solid fa-square-check"></td>
+                        <td><input type="checkbox"></td>
                         <td>03</td>
                         <td>user02@og.or.kr</td>
                         <td></td>
                         <td>wkqch33@og.kr</td>
                         <td>사기</td>
-                        <td>게시글 삭제</td>
                         <td>2025.09.01</td>
+                        <td>게시글 삭제</td>
                         <td>2025.09.02</td>
                     </tr>
                     <tr>
-                        <td class="fa-solid fa-square-check"></td>
+                        <td><input type="checkbox"></td>
                         <td>04</td>
                         <td>user04@og.or.kr</td>
                         <td></td>
                         <td>wkqch76@og.kr</td>
                         <td>스팸</td>
-                        <td>회원탈퇴</td>
                         <td>2025.09.01</td>
+                        <td>회원탈퇴</td>
                         <td>2025.09.02</td>
                     </tr>
                     <tr>
-                        <td class="fa-solid fa-square-check"></td>
+                        <td><input type="checkbox"></td>
                         <td>05</td>
                         <td>user05@og.or.kr</td>
                         <td></td>
                         <td>wkqch33@og.kr</td>
                         <td>사기</td>
-                        <td>회원탈퇴</td>
                         <td>2025.09.01</td>
+                        <td>회원탈퇴</td>
                         <td>2025.09.02</td>
                     </tr>
                     <tr>
-                        <td class="fa-regular fa-square"></td>
+                        <td><input type="checkbox"></td>
                         <td>06</td>
                         <td>user06@og.or.kr</td>
                         <td></td>
                         <td>wkqch33@og.kr</td>
                         <td>욕설</td>
-                        <td></td>
                         <td>2025.09.01</td>
+                        <td></td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td class="fa-regular fa-square"></td>
+                        <td><input type="checkbox"></td>
                         <td>07</td>
                         <td>user07@og.or.kr</td>
                         <td>안읽는 도서 판매합니다...</td>
                         <td></td>
                         <td>사기</td>
-                        <td>거절</td>
                         <td>2025.09.04</td>
+                        <td>거절</td>
                         <td>2025.09.06</td>
                     </tr>
                     <tr>
-                        <td class="fa-regular fa-square"></td>
+                        <td><input type="checkbox"></td>
                         <td>08</td>
                         <td>user02@og.or.kr</td>
                         <td></td>
                         <td>wkqch33@og.kr</td>
                         <td>사기</td>
-                        <td>정지</td>
                         <td>2025.09.01</td>
+                        <td>거절</td>
                         <td>2025.09.02</td>
                     </tr>
                     <tr>
-                        <td class="fa-regular fa-square"></td>
+                        <td><input type="checkbox"></td>
                         <td>09</td>
                         <td>user09@og.or.kr</td>
                         <td>아이폰15 판매합니다.......</td>
                         <td></td>
                         <td>불법</td>
-                        <td></td>
                         <td>2025.09.14</td>
+                        <td></td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td class="fa-regular fa-square"></td>
+                        <td><input type="checkbox"></td>
                         <td>10</td>
                         <td>user10@og.or.kr</td>
                         <td>안읽는 도서 판매합니다...</td>
                         <td></td>
                         <td>스팸</td>
-                        <td>게시글 삭제</td>
                         <td>2025.09.04</td>
+                        <td>게시글 삭제</td>
                         <td>2025.09.06</td>
                     </tr>
                 </table>

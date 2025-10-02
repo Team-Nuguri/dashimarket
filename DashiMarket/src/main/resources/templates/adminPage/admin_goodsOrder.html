@@ -27,7 +27,7 @@
                     <li class="sideTitle"><img src="/src/main/resources/static/images/svg/Client Management.svg">회원관리</li>
                     <li><span>|</span> <a href="#">회원 조회</a></li>
 
-                    <li class="sideTitle"><img src="/src/main/resources/static/images/svg/report.svg">신고관리</li>
+                    <li class="sideTitle"><img src="/src/main/resources/static/images/svg/declaration.svg">신고관리</li>
                     <li><span>|</span> <a href="#">통합 신고</a></li>
 
                     <li class="sideTitle"><img src="/src/main/resources/static/images/svg/goods-admin.svg">상품/거래</li>
@@ -57,7 +57,7 @@
                         <div class="search-box">
                             <label>검색</label>
                             <fieldset>
-                                <input type="text" name="query" placeholder="구매자명을 입력하세요.">
+                                <input type="text" name="query" placeholder="구매자명을 입력하세요." autocomplete="off">
                                 <button class="searchBtn fa-solid fa-magnifying-glass"></button>
                             </fieldset>
                         </div>
@@ -67,11 +67,9 @@
                             <label>거래 상태</label>
                             <div class="checkbox-group">
                                 <input type="checkbox">전체
-                                <input type="checkbox">주문확인
+                                <input type="checkbox">배송전
                                 <input type="checkbox">배송중
                                 <input type="checkbox">배송완료
-                                <input type="checkbox">반품
-                                <input type="checkbox">환불
                             </div>
                         </div>
 
@@ -95,9 +93,6 @@
                 </div>
 
                 <div class="result-middle">
-                    <p>1개 선택됨</p>
-                    <button class="color-btn">발송처리</button>
-
                     <select class="select-item">
                         <option value="대기">최신순</option>
                         <option value="처리중">가격순</option>
@@ -107,7 +102,6 @@
                 <!-- 회원조회 테이블 -->
                 <table class="table-content">
                     <tr class="table-title">
-                        <td class="fa-regular fa-square"></td>
                         <td>거래번호</td>
                         <td>거래 상태</td>
                         <td>구매자명</td>
@@ -119,9 +113,8 @@
                         <td>결제일</td>
                     </tr>
                     <tr>
-                        <td class="fa-solid fa-square-check"></td>
                         <td>23</td>
-                        <td>주문확인</td>
+                        <td>배송전</td>
                         <td>너구리</td>
                         <td>다시마 피규어</td>
                         <td>01045678999</td>
@@ -131,7 +124,6 @@
                         <td>2025.09.28</td>
                     </tr>
                     <tr>
-                        <td class="fa-regular fa-square"></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -141,7 +133,6 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td class="fa-regular fa-square"></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -151,7 +142,6 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td class="fa-regular fa-square"></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -161,7 +151,6 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td class="fa-regular fa-square"></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -171,7 +160,6 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td class="fa-regular fa-square"></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -181,7 +169,6 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td class="fa-regular fa-square"></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -191,7 +178,6 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td class="fa-regular fa-square"></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -201,7 +187,6 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td class="fa-regular fa-square"></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -211,7 +196,6 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td class="fa-regular fa-square"></td>
                         <td></td>
                         <td></td>
                         <td></td>
