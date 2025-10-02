@@ -67,6 +67,58 @@ emailInput.addEventListener("input", ()=>{
 
 // 인증번호 
 
+const sendAuthKeyBtn = document.getElementById('sendAuthKeyBtn');
+const authMessage = document.getElementById('authMessage');
+
+let authTimer;
+let authMin = 4;
+let authSec = 59;
+
+let tempEmail;
+
+sendAuthKeyBtn.addEventListener("click", function() {
+    authMin = 4;
+    authSec = 59;
+
+    if(checkObj.emailInput) {
+
+    fetch('/sendEmail/signUp?email>='+emailInput.value)
+    .then(resp => resp.text())
+    .then(result => {
+        if(result>0){
+        tempEmail = emailInput.value;
+
+        authMessage.innerText = "05:00";
+        
+        clearInterval(authTimer)
+        authTimer = window.setInterval(()=>{
+
+            authMessage = authMin + ":" + (authSec>10 ? "0" + authSec : authSec);
+
+            if(authMin == 0 && authSec == 0){
+                checkObj.authKey = false;
+                return;
+            }
+
+            if(authSec == 0){
+                authSec = 60;
+                authMin--;
+            }
+
+            authSec--;
+
+        }, 1000)
+
+
+        }else {
+            alert("중복되지 않은 이메일을 작성해주세요")
+            emailInput.focus();
+        }
+})
+
+
+
+
 
 // -----------------------------
 
@@ -101,6 +153,7 @@ pwInput.addEventListener("input", () => {
 
 })
 
+// 비밀번호 재확인 유효성 검사
 
 pwConfirmInput.addEventListener("input", ()=>{
     
@@ -109,8 +162,86 @@ pwConfirmInput.addEventListener("input", ()=>{
         pwMessage.textContent = '필수 입력 항목입니다.';
         pwMessage.classList.add('is-error');
         pwMessage.classList.remove('is-success');
+    } else {
+        
+        pwMessage.textContent = "";
+
+        if(pwInput.value === pwConfirmInput.value){
+            pwMessage.textContent = '비밀번호 일치합니다.';            
+            pwMessage.classList.remove('is-error');
+            pwMessage.classList.add('is-success');
+        }else {
+            pwMessage.textContent = '비밀번호가 일치하지 않습니다.';
+            pwMessage.classList.add('is-error');
+            pwMessage.classList.remove('is-success');
+        }       
     }
 })
+
+//닉네임 유효성 검사
+
+const nickInput = document.getElementById('signUp-nickInput');
+const nickMessage = document.getElementById('nickMessage');
+
+nickInput.addEventListener("input", ()=>{
+
+    const reExp = /^[ㄱ-힣A-Za-z0-9\s]{2,10}$/
+    
+    if(nickInput.value.trim() === ""){
+        
+        nickMessage.textContent = '필수 입력 항목입니다.';
+        nickMessage.classList.add('is-error');
+        nickMessage.classList.remove('is-success');
+    } else {
+
+        if(reExp.test(nickInput.value)){
+            
+            nickMessage.textContent = '유효한 닉네임입니다.'; 
+            nickMessage.classList.remove('is-error');
+            nickMessage.classList.add('is-success');
+        } else {
+            nickMessage.textContent = '유효한 닉네임을 입력해주세요';
+            nickMessage.classList.add('is-error');
+            nickMessage.classList.remove('is-success');
+        }
+    }
+})
+
+// 전화번호 유효성 검사
+
+const telInput = document.getElementById('signUp-telInput');
+const telMessage = document.getElementById('telMessage');
+
+telInput.addEventListener("input", ()=>{
+
+    const reExp = /^010\d{4}\d{4}$/
+
+
+    if(telInput.value.trim() === ""){
+
+        telMessage.textContent = '필수 입력 항목입니다 '; 
+        telMessage.classList.add('is-error');
+        telMessage.classList.remove('is-success');
+    } else {
+        if(reExp.test(telInput.value)) {
+            telMessage.textContent = '유효한 전화번호입니다. '; 
+            telMessage.classList.remove('is-error');
+            telMessage.classList.add('is-success');
+
+            const telValue = telInput.value.trim();
+            const telInputFinal = telValue.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+            telInput.value = telInputFinal;
+
+        }else {
+            telMessage.textContent = '유효한 전화번호를 입력해주세요';
+            telMessage.classList.add('is-error');
+            telMessage.classList.remove('is-success');
+        }
+    }
+})
+
+
+
 
 
 
