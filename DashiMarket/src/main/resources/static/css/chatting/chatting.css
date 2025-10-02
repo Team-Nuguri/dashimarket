@@ -175,6 +175,37 @@ body{
     flex-direction: column;
 }
 
+/* 드롭다운 */
+.dropdown {
+  position: absolute;
+  right: 150px; 
+  top: 130px;    
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 8px 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  width: 140px;
+  z-index: 999;
+}
+
+/* 드롭다운 항목 */
+.dropdown p {
+  margin: 0;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.dropdown p:hover {
+  background: #f5f5f5;
+}
+
+/* 숨김 */
+.hidden {
+  display: none;
+}
+
 
 /* 채팅 메세지 화면 */
 .display-chatting{
