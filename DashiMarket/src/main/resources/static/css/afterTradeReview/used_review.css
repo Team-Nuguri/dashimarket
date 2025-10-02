@@ -151,6 +151,7 @@
       resize: vertical;
       margin-bottom: 15px;
       background-color: #f8f9fa;
+      resize: none;
     }
 
     textarea:focus {

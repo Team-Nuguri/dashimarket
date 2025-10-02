@@ -1,0 +1,48 @@
+section {
+    width: 500px;
+    height: 700px;
+    border: 1px solid #ddd;
+}
+.chatBot-header {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    padding: 15px;
+}
+
+.show {
+    display: flex;
+}
+
+.chatting-start-area {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#chatting-suggestion {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#chatting-suggestion > img {
+    width: 120px;
+}
+
+#chatting-suggestion div {
+    color: #AFAFAF;
+    margin-bottom: 15px;
+}
+
+#chatting-start-btn {
+    border: none;
+    background-color: transparent;
+}
+
+#chatting-start-btn:hover {
+    cursor: pointer;
+}
+
