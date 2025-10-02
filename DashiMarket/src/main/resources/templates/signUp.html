@@ -87,45 +87,48 @@
               <div class="signUp-infoField">
 
                 <div class="signUp-row">
-                    <label class="signUp-label text-size-16 bold-text">이름</label>
-                    <input type="text" class="signUp-input text-size-16" placeholder="김영웅">                            
+                    <label class="signUp-label text-size-16 bold-text" id="signUp-id">이름</label>
+                    <input type="text" id="signUp-name-input" class="signUp-input text-size-16" placeholder="김영웅">                            
                     <button class="signUp-actionButton text-size-16">중복 검사</button>
-                    <span id="emailMessage"></span>
                 </div>
+                <span class="text-size-12" id="nameMessage"></span>
 
                 <div class="signUp-row">
                     <label class="signUp-label text-size-16 bold-text">아이디/이메일</label>
-                    <input type="text" class="signUp-input text-size-16"  placeholder="dashmarket@dashmarket.com" id="memberEmail">                            
-                    <button class="signUp-actionButton text-size-16">중복 검사</button>
-                    <span id="emailMessage"></span>
+                    <input type="text" id="signUp-email-input" class="signUp-input text-size-16"  placeholder="dashmarket@dashmarket.com" id="memberEmail">                            
+                    <button class="signUp-actionButton text-size-16" id="sendAuthKeyBtn">인증번호 받기</button>
                 </div>
+                <span class="text-size-12" id="emailMessage"></span>
 
                 <div class="signUp-row">
                     <label class="signUp-label text-size-16 bold-text">인증번호</label>
                     <input type="text" class="signUp-input text-size-16" id="sendAuthKeyBtn">
                     <button class="signUp-actionButton text-size-16">인증하기</button>
-                    <span id="sendAuthKeyBtn"></span>
                 </div>
+                <span class="text-size-12" id="emailMessage"></span>
 
                 <div class="signUp-row">
                     <label class="signUp-label text-size-16 bold-text">비밀번호</label>
-                    <input type="text" class="signUp-input text-size-16" placeholder="비밀번호">                                
+                    <input type="text" id="signUp-passWord-input" class="signUp-input text-size-16" placeholder="비밀번호">                                
                 </div>
 
-                <div class="signUp-row">
-                <label class="signUp-label text-size-16 bold-text">비밀번호 확인</label>
-                <input type="text" class="signUp-input text-size-16" placeholder="비밀번호 확인">
+                <div class="signUp-row">                    
+                    <label class="signUp-label"></label>
+                    <input type="text" id="signUp-passwordConfirm-input" class="signUp-input text-size-16" placeholder="비밀번호 재확인">                                
                 </div>
+                <span class="text-size-12" id="pwMessage"></span>
 
                 <div class="signUp-row">
-                    <label class="signUp-label text-size-16 bold-text">닉네임</label>
-                    <input type="text" class="signUp-input text-size-16" placeholder="닉네임"> 
+                <label class="signUp-label text-size-16 bold-text">닉네임</label>
+                <input type="text" id="signUp-nickInput" class="signUp-input text-size-16" placeholder="닉네임"> 
                 </div>
+                <span class="text-size-12" id="nickMessage"></span>
 
                 <div class="signUp-row">
                     <label class="signUp-label text-size-16 bold-text">전화번호</label>
-                    <input type="text" class="signUp-input text-size-16" placeholder="전화번호"> 
+                    <input type="text" id="signUp-telInput" class="signUp-input text-size-16" placeholder="전화번호"> 
                 </div>
+                <span class="text-size-12" id="telMessage"></span>
 
                 <div class="signUp-addressSection">
                     <span class="signUp-label text-size-16 bold-text">주 소</span>                                   
@@ -146,7 +149,7 @@
               </div>
 
                 <div class="signUp-buttons">
-                <button class="signUp-submit text-size-18">가입하기</button>
+                <button class="signUp-submit text-size-20">가입하기</button>
                 </div>
               
             </form>
