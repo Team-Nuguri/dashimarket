@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>굿즈 상품 등록</title>
+    <title>굿즈 상품 수정</title>
 
     <link rel="stylesheet" href="../../static/css/common/header.css">
     <link rel="stylesheet" href="../../static/css/common/footer.css">
@@ -97,24 +97,24 @@
     
     <div class="container">
         <div class="header">
-            <h1>굿즈 상품 등록</h1>
+            <h1>굿즈 상품 수정</h1>
         </div>
 
-        <form id="writeForm">
+        <form id="goods-Update-Form" action="#" method="post">
             <ul class="form-list">
                 <li class="form-item">
                     <div class="label-area">
-                        <span class="form-label"><span class="required">*</span>상품명</span>
+                        <span class="form-label">상품명</span>
                     </div>
                     <div class="field-area">
                         <input type="text" class="form-control" name="goodsName" id="goodsName"
-                            placeholder="상품명을 입력해주세요." required>
+                            placeholder="상품명을 입력해주세요." value="다시마 텀블러" required>
                     </div>
                 </li>
 
                 <li class="form-item content-item">
                     <div class="label-area">
-                        <span class="form-label"><span class="required">*</span>상품 설명</span>
+                        <span class="form-label">상품 설명</span>
                     </div>
                     <div class="field-area">
                         <label for="goodsInfo">
@@ -127,7 +127,7 @@
 
                 <li class="form-item attachment-item">
                     <div class="label-area">
-                        <span class="form-label"><span class="required">*</span>첨부파일</span>
+                        <span class="form-label">첨부파일</span>
                     </div>
                     <div class="field-area">
                         <div class="attachment-container">
@@ -145,20 +145,20 @@
                 </li>
                 <li class="form-item">
                     <div class="label-area">
-                        <span class="form-label"><span class="required">*</span>상품 가격</span>
+                        <span class="form-label">상품 가격</span>
                     </div>
                     <div class="price-area">
                         <input type="text" class="form-control" name="goodsPrice" id="goodsPrice"
-                            placeholder="가격을 입력해주세요" required>
+                            placeholder="가격을 입력해주세요" value="25000" required>
                     </div>
 
                 </li>
                 <li class="form-item">
                     <div class="label-area">
-                        <span class="form-label"><span class="required">*</span>재고</span>
+                        <span class="form-label">재고</span>
                     </div>
                     <div class="price-area">
-                        <input type="number" class="form-control" name="goodsStock" id="goodsStock" value="0" required>
+                        <input type="number" class="form-control" name="goodsStock" id="goodsStock" value="60" required>
                     </div>
 
                 </li>
@@ -169,7 +169,7 @@
                     취소하기
                 </button>
                 <button type="submit" class="btn btn-submit">
-                    등록하기
+                    수정하기
                 </button>
             </div>
         </form>

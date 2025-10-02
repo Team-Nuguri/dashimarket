@@ -4,6 +4,11 @@
     box-sizing: border-box;
 }
 
+.required{
+    color: red;
+    padding: 0 5px;
+}
+
 .container {
     max-width: 800px;
     margin: 0 auto;
@@ -37,7 +42,7 @@
 .form-item {
     display: flex;
     border-bottom: 0.5px solid #ddd;
-    height: 130px;
+    min-height: 130px;
 }
 
 
@@ -55,6 +60,7 @@
 /* 각 카테고리의 div */
 .field-area {
     flex: 1;
+    display: flex;
     padding: 20px 30px;
     background-color: #fff;
     align-items: center;
@@ -124,6 +130,7 @@
 .price-area{
     display: flex;
     align-items: center;
+    gap: 50px;
 
 }
 
@@ -190,42 +197,37 @@
 
 
 /* 상품 가격 */
-#goodsPrice{
+#joonggoPrice{
     margin-left: 25px;
     height: 40px;
 }
 
-#goodsStock{
-    margin-left: 25px;
-    height: 40px;
-    width: 100px;
-    text-align: center;
-}
 
 
-#goodsImg{
+
+#joonggoImg{
     display: none;
 }
 
 
-#goods-img-list{
+#joonggo-img-list{
     list-style: none;
     display: flex;
     gap: 40px;
     flex-wrap: wrap;
 }
 
-#goods-img-list img{
+#joonggo-img-list img{
     width: 60px;
-    height: 60px;;
+    height: 60px;
 }
 
-#goods-img-list>li:not(:nth-child(1)){
+#joonggo-img-list>li:not(:nth-child(1)){
     position: relative;
     border: 1px solid #eee;
 }
 
-#goods-img-list>li>span{
+#joonggo-img-list>li>span{
     position: absolute;
     top: -20px;
     left: 100%;
@@ -233,10 +235,14 @@
     cursor: pointer;
 }
 
+#joonggo-img-list label:hover{
+    cursor: pointer;
+}
+
 
 .content-item img{
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
 }
 
 .content-item input{
@@ -248,13 +254,46 @@
     align-items: center;
 } 
 
-
-.form-list>li:first-child>div:last-child{
+.category-area{
+    border: 1px solid #52B291;
     display: flex;
-    align-items: center;
 }
 
-.required{
-    color: red;
-    padding: 0 5px;
+.category-area ul{
+    width: 200px;
+    height: 200px;
+    overflow-y: scroll;
+    list-style: none; /* 목록의 점 제거 */
+    background-color: white;
+    padding: 0;
+    border-radius: 10px;
+}
+
+.category-area li{
+
+    padding: 0;      /* 내부 여백 제거 */
+    margin: 0;       /* 외부 여백 제거 */
+}
+
+.category-area button{
+    padding: 0;      /* 내부 여백 제거 */
+    margin: 0;       /* 외부 여백 제거 */
+    width: 100%;
+    background-color: white;
+    border: none;
+    text-align: center;
+    cursor: pointer;
+}
+
+
+#mainCategory button:hover{
+
+    background-color: #298C69;
+
+}
+
+.text-green{
+
+    color: #52B291;
+    
 }
