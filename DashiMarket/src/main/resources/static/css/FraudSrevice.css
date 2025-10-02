@@ -47,13 +47,27 @@ fieldset input {
     height: 40px;
 }
 
+/* 오늘,누적 조회수 */
+
 .fraud-count {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto;
-    gap: 200px; 
+    display: flex;
+    justify-content: space-around;    
+
+    margin-bottom: 100px;    
 }
 
+.fraud-countToday, .fraud-countTotal {
+    display: flex;
+    align-items: center;
+    gap: 200px;
+    white-space: nowrap;
+
+}
+
+.fraud-count img {
+    width: 40px
+
+}
 
 .fraud-countToday {
     display: flex;
@@ -62,51 +76,33 @@ fieldset input {
     position: relative;
 }
 
-.fraud-count img {
-    width: 40px
-
-}
-
-.fraud-countToday img {
+.fraud-countToday img, .fraud-countTotal img {
 
     position: absolute;    
 
     top: -10px;
-    left: -40px;
+    left: 0px;
 }
 
-.fraud-countToday {
-
-    margin-left: 40px;
-}
-
-.fraud-countTotal {
-
-    margin-left: 20px;
+.fraud-countToday a, .fraud-countTotal a {
+    margin-left: 50px;
 }
 
 .fraud-countTotal {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+    align-items: center;
     padding-right: 50px;  
     position: relative;  
+    margin-left: 10px;
+    margin-right: 10px;
 }
-
-.fraud-countToday img {
-
-    position: absolute;    
-
-    top: -10px;
-    left: -40px;
-}
-
 
 .fraud-exTitle {
     display: flex;
-    justify-content: flex-start;
-    gap: 440px;
-    margin-left: 10px;
+    justify-content: space-around;    
     margin-bottom: 40px;
+    white-space: nowrap;
 }
 
 .fraud-info {
@@ -131,8 +127,6 @@ fieldset input {
     width: 450px;
     height: 300px;
 }
-
-
 
 
 

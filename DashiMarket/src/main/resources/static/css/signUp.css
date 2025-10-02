@@ -58,8 +58,7 @@
 .signUp-infoField {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: auto auto;
-    gap: 15px;
+    grid-template-rows: auto;    
 
     margin-top: 50px;
 }
@@ -67,11 +66,25 @@
 /* 프로필 정보 박스 */
 .signUp-row {
     display: flex;
-    align-items: center;
-    margin-bottom: 5px;
+    align-items: center;    
     padding-right: 100px;
 
 }
+
+#nameMessage, #emailMessage, #pwMessage, #nickMessage, #telMessage {    
+    margin-left: 220px;  
+    margin-bottom: 30px;
+}
+
+.is-error {
+    color: red;
+}
+
+.is-success {
+    color: green;
+}
+
+
 
 /* 프로필 정보 표시(span) */
 .signUp-display {       
@@ -100,6 +113,11 @@
 
     padding-left: 40px;
 
+}
+
+.signUp-pwConfirm {
+    display: block;
+    width: 100%;
 }
 
 /*회원가입 변경 버튼*/
@@ -245,5 +263,7 @@
     background-color: rgba(79, 14, 230, 0.829);
 
 }
+
+
 
 

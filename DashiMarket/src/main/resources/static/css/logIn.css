@@ -90,6 +90,11 @@ body {
 
 }
 
+.extra-options a {
+  text-decoration: none;
+  color: black;
+}
+
 .divider {
   
   margin-top: 20px;
