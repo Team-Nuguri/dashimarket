@@ -6,7 +6,7 @@ const move = document.querySelectorAll(".list-group a");
 
 move.forEach(link => {
     link.addEventListener("click", (e) => {
-        e.preventDefault(); // 페이지 이동 방지 (나중에 지우기)
+        //e.preventDefault(); // 페이지 이동 방지 (나중에 지우기)
         
         // 모든 a 태그에서 active 제거
         move.forEach(i => i.classList.remove("selected"));

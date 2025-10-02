@@ -184,13 +184,14 @@ body, input, button, textarea, select {
     font-size: 16px;
 }
 
-.admin-login > button{
+#logout{
     border: none;
     border-radius: 10px;
     background-color: #166549;
     color: white;
     width: 70px;
     height: 40px;
+    cursor: pointer;
 }
 
 /**************************************/
