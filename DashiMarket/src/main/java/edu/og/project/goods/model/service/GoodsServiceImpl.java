@@ -18,6 +18,7 @@ public class GoodsServiceImpl implements GoodsService {
 	public Map<String, Object> selectGoodsList(String boardType, int cp) {
 		// 삭제되지 않은 게시글 수 조회
 		int listCount = mapper.getListCount(boardType);
+		System.out.println(listCount);
 		return null;
 	}
 
