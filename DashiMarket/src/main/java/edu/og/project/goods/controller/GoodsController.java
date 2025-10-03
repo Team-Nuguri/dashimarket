@@ -4,13 +4,12 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import ch.qos.logback.core.model.Model;
 import edu.og.project.goods.model.service.GoodsService;
 
 @Controller
@@ -26,7 +25,9 @@ public class GoodsController {
 								  Model model) {
 		
 		Map<String, Object> map = service.selectGoodsList(boardType, cp);
+		System.out.println(map);
 		
+		model.addAttribute("map", map);
 		return "goodsPage/goodsHome";
 	}
 	

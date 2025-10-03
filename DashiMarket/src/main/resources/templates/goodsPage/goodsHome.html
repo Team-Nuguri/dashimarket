@@ -11,7 +11,7 @@
     <link rel="stylesheet" th:href="@{/css/common/footer.css}">
 </head>
 
-<body>
+<body th:with="pagination=${map.pagination}, boardList=${map.boardList}">
 
     <th:block th:replace="~{common/header}">header.html</th:block>
 
@@ -44,58 +44,21 @@
             </a>
         </div>
 
-        <!-- 제품 보여지는 전체 컨테이너 -->
-        <div id="goods-container">
+        <!-- 제품 보여지는 전체 컨테이너(조회 결과가 있는 경우) -->
+        <div id="goods-container" th:if="${#lists.size(boardList) > 0}">
 
-            <!-- 상품들 -->
-            <a th:href="@{#}" class="goods-detail-area">
-                <!-- 이미지 -->
-                <div class="goods-img"><img th:src="@{/images/goods/tumbler.png}" alt=""></div>
-                <!-- 제품명 -->
-                <div class="goods-name text-size-16 medium-text">다시마 로고 텀블러</div>
-                <!-- 가격 -->
-                <div class="goods-price">25,000원</div>
-            </a>
-            <a th:href="@{#}" class="goods-detail-area">
-                <div class="goods-img"><img th:src="@{/images/goods/figures.png}" alt=""></div>
-                <div class="goods-name text-size-16 medium-text">다시마 피규어</div>
-                <div class="goods-price">18,000원</div>
-            </a>
-            <a th:href="@{#}" class="goods-detail-area">
-                <div class="goods-img"><img th:src="@{/images/goods/socks.png}" alt=""></div>
-                <div class="goods-name text-size-16 medium-text">다시마 캐릭터 양말</div>
-                <div class="goods-price">4,500원</div>
-            </a>
-            <a th:href="@{#}" class="goods-detail-area">
-                <div class="goods-img"><img th:src="@{/images/goods/cushion.png}" alt=""></div>
-                <div class="goods-name text-size-16 medium-text">다시마 캐릭터 쿠션</div>
-                <div class="goods-price">28,000원</div>
-            </a>
-            <a th:href="@{#}" class="goods-detail-area">
-                <div class="goods-img"><img th:src="@{/images/goods/echo-bag.png}" alt=""></div>
-                <div class="goods-name text-size-16 medium-text">다시마 로고 에코백</div>
-                <div class="goods-price">12,000원</div>
-            </a>
-            <a th:href="@{#}" class="goods-detail-area">
-                <div class="goods-img"><img th:src="@{/images/goods/key-ring.png}" alt=""></div>
-                <div class="goods-name text-size-16 medium-text">다시마 캐릭터 키링</div>
-                <div class="goods-price">7,000원</div>
-            </a>
-            <a th:href="@{#}" class="goods-detail-area">
-                <div class="goods-img"><img th:src="@{/images/goods/blanket.png}" alt=""></div>
-                <div class="goods-name text-size-16 medium-text">따끈따끈 다시마 캐릭터 담요</div>
-                <div class="goods-price">15,000원</div>
-            </a>
-            <a th:href="@{#}" class="goods-detail-area">
-                <div class="goods-img"><img th:src="@{/images/goods/note.png}" alt=""></div>
-                <div class="goods-name text-size-16 medium-text">왕다시마 캐릭터 노트</div>
-                <div class="goods-price">9,000원</div>
-            </a>
-            <a th:href="@{#}" class="goods-detail-area">
-                <div class="goods-img"><img th:src="@{/images/goods/sticker.png}" alt=""></div>
-                <div class="goods-name text-size-16 medium-text">다시마 캐릭터 스티커</div>
-                <div class="goods-price">9,000원</div>
-            </a>
+                <th:block th:each="board : ${boardList}">
+
+                    <a th:href="@{#}" class="goods-detail-area">
+                        <!-- 이미지 -->
+                        <div class="goods-img"><img th:src="@{/images/goods/tumbler.png}" alt=""></div>
+                        <!-- 제품명 -->
+                        <div class="goods-name text-size-16 medium-text">다시마 로고 텀블러</div>
+                        <!-- 가격 -->
+                        <div class="goods-price">25,000원</div>
+                    </a>
+                    
+                </th:block>
         </div>
 
     </section>
