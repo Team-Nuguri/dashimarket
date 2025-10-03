@@ -7,8 +7,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.og.project.joonggo.model.dto.Joonggo;
 import edu.og.project.joonggo.model.dto.SimilarItem;
@@ -48,6 +51,22 @@ public class JoonggoController {
 		
 		
 		return "joonggoPage/joonggoDetail";
+	}
+	
+	
+	
+	// 중고 상품 삭제
+	@DeleteMapping("/joonggo/delete")
+	@ResponseBody
+	public int deleteJoonggoItem(
+			@RequestBody Map<String, String> paramMap ) {
+		
+			String joonggoNo = paramMap.get("joonggoNo");
+			
+			System.out.println(joonggoNo);
+		
+		
+		return service.deleteJoonggoItem(joonggoNo);
 	}
 		
 	

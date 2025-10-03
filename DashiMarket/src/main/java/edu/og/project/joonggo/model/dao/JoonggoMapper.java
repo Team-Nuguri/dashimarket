@@ -18,6 +18,10 @@ public interface JoonggoMapper {
 	
 	// 비슷한 상품 목록 조회
 	List<SimilarItem> selectJonggoList(Map<String, Object> map);
+
+	
+	// 중고 상품 삭제
+	int deleteJoonggoItem(String joonggoNo);
 	
 	
 
