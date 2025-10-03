@@ -1,7 +1,9 @@
-package edu.og.project.community.model.dto;
+package edu.og.project.goods.model.dto;
 
 import java.util.List;
 
+import edu.og.project.common.dto.Comment;
+import edu.og.project.common.dto.Image;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,9 +11,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Commnity {
+public class Goods {
 
-	private String boardNo; // 굿즈 상품 번호
+	private String boardNo; // 굿즈 상품 번호(게시글 번호)
 	
 	// 굿즈 테이블과 join
 	private int goodsPrice; // 굿즈 가격
@@ -25,21 +27,15 @@ public class Commnity {
 	private int postViews; // 조회수
 	private int boardCode; // 게시판 코드
 	
-	// 회원 테이블과 join
-	private int memberNo; // 회원 번호
-	private String memberNickname;
-	private String profileImage;
-	private String thumbnail;
-	
 	// 이미지
-//	private List<Image> imgList;
+	private List<Image> imgList;
 	
-	// 댓글 목록
-//	private List<Comment> commentList;
+	// 후기 목록 리스트
+	private List<Comment> commentList;
 	
-	// 댓글 수
+	// 후기 수
 	private int commentCount;
 	
-	// 좋아요 수
+	// 장바구니 수(좋아요 수)
 	private int likeCount;
 }
