@@ -24,4 +24,13 @@ public interface JoonggoService {
 	 */
 	List<SimilarItem> selectJonggoList(Map<String, Object> map);
 
+
+	
+	
+	/** 중고 상품 삭제
+	 * @param String
+	 * @return int 행 개수
+	 */
+	int deleteJoonggoItem(String joonggoNo);
+
 }

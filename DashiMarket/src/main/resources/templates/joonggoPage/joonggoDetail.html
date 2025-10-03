@@ -53,8 +53,8 @@
                         <h1 th:text="${joonggo.joonggoTitle}"> 게시글 제목</h1>
                         <span><img th:src="@{/images/svg/케밥메뉴.svg}" id="ud-menu"></span>
                         <div class="dropdown-menu">
-                            <button class="action-edit">수정하기</button>
-                            <button class="action-delete">삭제하기</button>
+                            <button id="editBtn">수정하기</button>
+                            <button id="deleteBtn">삭제하기</button>
                         </div>
                     </div>
                     <div id="item-price">
@@ -95,7 +95,7 @@
                     <div class="flex">
                         <a th:href="@{#}">
                             <!-- 유저 프로필 없을 때 -->
-                            <img th:unless="${joonggo.profileImage}" th:src="@{/images/user.png}">
+                            <img th:unless="${joonggo.profileImage}" th:src="@{/images/common/user.png}">
                             <!-- 유저 프로필 있을 때 -->
                             <img th:if="${joonggo.profileImage}" th:src="${joonggo.profileImage}">
                         </a>
@@ -159,6 +159,12 @@
     <th:block th:replace="~{/common/footer}">footer.html</th:block>
 
 
+
+    <script th:inline="javascript">
+        
+        const joonggoNo =/*[[${joonggo.joonggoNo}]]*/ '중고 상품 번호';
+
+    </script>
 
 
 

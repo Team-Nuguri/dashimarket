@@ -34,4 +34,13 @@ public class JoonggoServiceImpl implements JoonggoService {
 		return mapper.selectJonggoList(map);
 	}
 
+
+	
+	// 중고 상품 목록 삭제
+	@Override
+	public int deleteJoonggoItem(String joonggoNo) {
+		
+		return mapper.deleteJoonggoItem(joonggoNo);
+	}
+
 }

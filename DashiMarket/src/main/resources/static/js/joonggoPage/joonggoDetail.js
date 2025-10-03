@@ -118,3 +118,30 @@ leftBtn.addEventListener("click", () => {
 
 
 
+document.getElementById("deleteBtn")?.addEventListener("click", e => {
+
+
+    if(confirm("정말 삭제하시겠습니까 ?")){
+        
+        const data = {joonggoNo : joonggoNo};
+
+        fetch("/joonggo/delete", {
+            method : "DELETE",
+            headers : {"Content-Type" : "application/json"},
+            body : JSON.stringify(data)
+    
+        })
+        .then(resp => resp.text())
+        .then(result => {
+            if(result > 0){
+                alert("삭제되었습니다.");
+                location.href ='/joonggo';
+            }else{
+                alert("삭제 실패하였습니다.");
+            }
+        })
+        .catch(e => console.log(e))
+    }
+    
+
+})
