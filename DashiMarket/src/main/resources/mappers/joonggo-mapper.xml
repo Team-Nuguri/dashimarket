@@ -11,7 +11,7 @@
       <result property="joonggoContent" column="BOARD_CONTENT"/>
       <result property="joonggoCreateDate" column="BOARD_CREATE_DATE"/>
       <result property="joonggoUpdateDate" column="BOARD_UPDATE_DATE"/>
-      <result property="readCount" column="POST_VIEW"/>
+      <result property="readCount" column="POST_VIEWS"/>
       <result property="likeCount" column="LIKE_COUNT"/>
       <result property="joonggoPrice" column="JOONGGO_PRICE" />
       
