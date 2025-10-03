@@ -49,7 +49,7 @@
 
             <th:block th:each="board : ${boardList}">
 
-                <a th:href="@{/${board.boardNo}}" class="goods-detail-area">
+                <a th:href="@{/{boardType}/{boardNo}(boardType=${boardType}, boardNo=${board.boardNo}, cp=${pagination.currentPage})}"  class="goods-detail-area">
                     <!-- 이미지 -->
                     <div class="goods-img"><img th:src="${board.thumbnail}" alt="">굿즈 이미지</div>
                     <!-- 제품명 -->
