@@ -58,7 +58,7 @@ public class DBConfig {
 		sessionFactoryBean.setDataSource(dataSource);
 		
 		//매퍼 파일이 모여있는 경로 지정
-		//sessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:/mappers/**.xml"));
+		sessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:/mappers/**.xml"));
 		
 		//별칭을 지정해야하는 DTO가 모여있는 패키지 지정
 		//-> 해당 패키지에 있는 모든 클래스가 클래스명으로 별칭이 지정됨
