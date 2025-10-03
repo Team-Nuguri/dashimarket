@@ -37,8 +37,10 @@ public class JoonggoController {
 		
 		
 		if(joonggo != null) {
+			map.put("boardNo", joonggo.getJoonggoNo());
+			map.put("categoryId", joonggo.getCategoryId());
 			
-			List<SimilarItem> similarList = service.selectJonggoList(joonggo.getCategoryId());
+			List<SimilarItem> similarList = service.selectJonggoList(map);
 			
 			model.addAttribute("joonggo", joonggo);
 			model.addAttribute("similarList", similarList);

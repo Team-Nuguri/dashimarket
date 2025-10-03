@@ -17,7 +17,7 @@ public interface JoonggoMapper {
 	
 	
 	// 비슷한 상품 목록 조회
-	List<SimilarItem> selectJonggoList(String categoryId);
+	List<SimilarItem> selectJonggoList(Map<String, Object> map);
 	
 	
 

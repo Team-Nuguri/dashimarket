@@ -119,6 +119,7 @@
 		        JOIN JOONGGO USING(BOARD_NO)
 		        JOIN IMAGE USING(BOARD_NO)
 		        WHERE CATEGORY_ID = #{categoryId}
+		        AND BOARD_NO != #{boardNo}
 		        AND DELETE_FL = 'N'
 		        AND IMG_ORDER = 0
 		        ORDER BY DBMS_RANDOM.VALUE)

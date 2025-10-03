@@ -30,8 +30,8 @@ public class JoonggoServiceImpl implements JoonggoService {
 
 	// 비슷한 상품 목록 조회
 	@Override
-	public List<SimilarItem> selectJonggoList(String categoryId) {
-		return mapper.selectJonggoList(categoryId);
+	public List<SimilarItem> selectJonggoList(Map<String, Object> map) {
+		return mapper.selectJonggoList(map);
 	}
 
 }
