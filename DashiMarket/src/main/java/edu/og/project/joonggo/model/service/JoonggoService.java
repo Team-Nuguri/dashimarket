@@ -19,9 +19,9 @@ public interface JoonggoService {
 	
 	
 	/** 비슷한 상품 목록 조회
-	 * @param categoryId
+	 * @param map
 	 * @return List
 	 */
-	List<SimilarItem> selectJonggoList(String categoryId);
+	List<SimilarItem> selectJonggoList(Map<String, Object> map);
 
 }
