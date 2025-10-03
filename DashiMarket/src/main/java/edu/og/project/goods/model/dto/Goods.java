@@ -16,7 +16,7 @@ public class Goods {
 	private String boardNo; // 굿즈 상품 번호(게시글 번호)
 	
 	// 굿즈 테이블과 join
-	private int goodsPrice; // 굿즈 가격
+	private String goodsPrice; // 굿즈 가격
 	private int goodsStock; // 재고 수량
 	
 	// 기본 게시판 틀
@@ -26,6 +26,7 @@ public class Goods {
 	private String boardUpdateDate; // 수정일
 	private int postViews; // 조회수
 	private int boardCode; // 게시판 코드
+	private String thumbnail;
 	
 	// 이미지
 	private List<Image> imgList;

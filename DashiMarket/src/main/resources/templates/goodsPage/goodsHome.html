@@ -47,18 +47,18 @@
         <!-- 제품 보여지는 전체 컨테이너(조회 결과가 있는 경우) -->
         <div id="goods-container" th:if="${#lists.size(boardList) > 0}">
 
-                <th:block th:each="board : ${boardList}">
+            <th:block th:each="board : ${boardList}">
 
-                    <a th:href="@{#}" class="goods-detail-area">
-                        <!-- 이미지 -->
-                        <div class="goods-img"><img th:src="@{/images/goods/tumbler.png}" alt=""></div>
-                        <!-- 제품명 -->
-                        <div class="goods-name text-size-16 medium-text">다시마 로고 텀블러</div>
-                        <!-- 가격 -->
-                        <div class="goods-price">25,000원</div>
-                    </a>
-                    
-                </th:block>
+                <a th:href="@{/${board.boardNo}}" class="goods-detail-area">
+                    <!-- 이미지 -->
+                    <div class="goods-img"><img th:src="${board.thumbnail}" alt="">굿즈 이미지</div>
+                    <!-- 제품명 -->
+                    <div class="goods-name text-size-16 medium-text" th:text="${board.boardTitle}">굿즈 이름</div>
+                    <!-- 가격 -->
+                    <div class="goods-price" th:text="${board.goodsPrice}">가격</div>
+                </a>
+                
+            </th:block>
         </div>
 
     </section>
