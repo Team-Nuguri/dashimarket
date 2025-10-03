@@ -13,7 +13,7 @@ public class Image {
 	private String imagePath;
 	private String imageRename;
 	private int imageOrder;
-	private int boardNo;
+	private String boardNo;
 	
 
 }
