@@ -23,7 +23,7 @@ body{
     z-index: 500;
     margin: auto;
     position: fixed;
-    top: 100px;
+    top: 80px;
     right: 180px;
     display: flex;
     flex-flow: column;

@@ -4,53 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>채팅방-팝업</title>
+    <title>채팅방</title>
 
     <!-- 폰트 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../../static/css/chatting/chatting.css">
+    <link rel="stylesheet" th:href="@{/css/chatting/chatting.css}">
 
     <script src="https://kit.fontawesome.com/1c15543e3e.js" crossorigin="anonymous"></script>
 
-    <style>
-        .img-area {
-            position: fixed;
-            right: 50px;
-            bottom: 50px;
-        }
-
-        .img-box {
-            background-color: #166549;
-            border-radius: 50%;
-            width: 100px;
-            height: 100px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 10px;
-            cursor: pointer;
-        }
-
-        .img-box>img {
-            width: 50px;
-            height: 50px;
-        }
-    </style>
 </head>
 
 <body>
-    <!-- floating 버튼 -->
-    <section class="img-area">
-        <div class="img-box">
-            <img src="../../static/images/svg/chatting.svg">
-        </div>
-        <div class="img-box">
-            <img src="../../static/images/svg/chatbot.svg">
-        </div>
-    </section>
+    <th:block th:replace="~{common/floatingBtn}">floatingBtn.html</th:block>
 
     <!-- 채팅 영역 -->
     <div class="chatting-popup">
@@ -73,7 +41,7 @@
                 <!-- 추가된 회원 채팅방 -->
                 <li class="chatting-item" chat-no="" target-no="">
                     <div class="item-header">
-                        <img src="../../static/images/member/짱구.jpg">
+                        <img th:src="@{/images/member/짱구.jpg}">
                     </div>
 
                     <div class="item-body">
@@ -92,7 +60,7 @@
                 <!-- 클릭된(입장) 채팅방 -->
                 <li class="chatting-item color" chat-no="" target-no="">
                     <div class="item-header">
-                        <img src="../../static/images/member/짱구.jpg">
+                        <img th:src="@{/images/member/짱구.jpg}">
                     </div>
 
                     <div class="item-body">
@@ -116,15 +84,15 @@
                     <p>너구리</p>
                     <div class="button-img-box">
                         <button id="reserve">
-                            <img src="../../static/images/svg/예약.svg" class="img-set">
+                            <img th:src="@{/images/svg/예약.svg}" class="img-set">
                             <p>예약</p>
                         </button>
                         <button id="complete">
-                            <img src="../../static/images/svg/거래완료.svg" class="img-set">
+                            <img th:src="@{/images/svg/거래완료.svg}" class="img-set">
                             <p>거래완료</p>
                         </button>
                         <button id="exit">
-                            <img src="../../static/images/svg/Menu Vertical.svg">
+                            <img th:src="@{/images/svg/Menu Vertical.svg}">
                         </button>
 
                         <!-- 드롭다운 -->
@@ -151,7 +119,7 @@
                     </li>
 
                     <li class="target-chat">
-                        <img src="../../static/images/member/짱구.jpg">
+                        <img th:src="@{/images/member/짱구.jpg}">
 
                         <div>
                             <b>다시맛</b>
@@ -163,9 +131,9 @@
                     </li>
                 </ul>
                 <div class="content-send">
-                    <button id="img-send"><img src="../../static/images/svg/image-btn.svg"></button>
+                    <button id="img-send"><img th:src="@{/images/svg/image-btn.svg}"></button>
                     <textarea id="inputChatting" rows="3"></textarea>
-                    <button id="send"><img src="../../static/images/svg/Send-Btn.svg"></button>
+                    <button id="send"><img th:src="@{/images/svg/Send-Btn.svg}"></button>
                 </div>
 
             </div>
@@ -174,9 +142,9 @@
     </div>
 
     <!----------- sockjs를 이용한 WebSocket 구현을 위해 라이브러리 추가 ------------->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script> -->
+    <!-- <script th:src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script> -->
 
-    <script src="../../static/js/chatting/chatting.js"></script>
+    <script th:src="@{/js/chatting/chatting.js}"></script>
 </body>
 
 </html>
