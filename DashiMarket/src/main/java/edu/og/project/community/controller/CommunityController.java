@@ -1,4 +1,4 @@
-package edu.og.project.community;
+package edu.og.project.community.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
