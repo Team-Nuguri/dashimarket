@@ -1,73 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>다시마켓 굿즈</title>
-    <link rel="stylesheet" href="../../static/css/goodsPage/goodsHome.css">
-    <link rel="stylesheet" href="../../static/css/common/font.css">
-    <link rel="stylesheet" href="../../static/css/common/header.css">
-    <link rel="stylesheet" href="../../static/css/common/footer.css">
+    <link rel="stylesheet" th:href="@{/css/goodsPage/goodsHome.css}">
+    <link rel="stylesheet" th:href="@{/css/common/font.css}">
+    <link rel="stylesheet" th:href="@{/css/common/header.css}">
+    <link rel="stylesheet" th:href="@{/css/common/footer.css}">
 </head>
 
 <body>
 
-    <header>
-        <section id="header-area">
-            <div>
-                <a href="@{/}">
-                    <img id="main-logo" src="../../static/images/logo.png">
-                </a>
-
-            </div>
-            <div>
-                <div>
-                    <a href="/joongo" class="noto-sans-kr-20">중고거래</a>
-                </div>
-                <div>
-                    <a href="/goods" class="noto-sans-kr-20">굿즈</a>
-                </div>
-                <div>
-                    <a href="/community" class="noto-sans-kr-20">커뮤니티</a>
-                </div>
-
-            </div>
-
-            <div id="icon-area">
-                <button>
-                    <img src="../../static/images/svg/하트.svg">
-                    <!-- <img src="@{/images/장바구니.svg}" > -->
-                    <!-- <img src="@{/images/사람.svg}" > -->
-                </button>
-
-                <button>
-                    <img src="../../static/images/svg/group.svg">
-                </button>
-                <button>
-                    <img src="../../static/images/svg/clarity_menu-line.svg">
-
-                </button>
-
-            </div>
-        </section>
-
-        <section id="search-area">
-            <form action="">
-                <fieldset>
-                    <img src="../../static/images/svg/돋보기.svg">
-                    <input type="search" name="query" id="query" placeholder="검색어를 입력해주세요." class="noto-sans-kr-20">
-
-                </fieldset>
-            </form>
-        </section>
-    </header>
-
+    <th:block th:replace="~{common/header}">header.html</th:block>
 
     <section class="body">
         <!-- 광고 배너 -->
         <div id="ad-banner">
-            <img src="../../static/images/goods/banner1.png" alt="">
+            <img th:src="@{/images/goods/banner1.png}" alt="">
         </div>
 
         <!-- 상품 정렬(가격순, 인기순), 상품등록 -->
@@ -76,19 +27,19 @@
             <!-- 상품 정렬 -->
             <div id="select-sort">
                 <div id="sort-text" class="text-size-16 medium-text">인기순</div>
-                <div id="drop-down-icon"><img src="../../static/images/svg/drop-down.svg"></div>
+                <div id="drop-down-icon"><img th:src="@{/images/svg/drop-down.svg}"></div>
             </div>
 
             <!-- 드롭다운 메뉴 -->
             <div id="select-sort-box">
-                <a href=""><div class="text-size-14">인기순</div></a>
-                <a href=""><div class="text-size-14">낮은 가격순</div></a>
-                <a href=""><div class="text-size-14">높은 가격순</div></a>
+                <a th:href="@{#}"><div class="text-size-14">인기순</div></a>
+                <a th:href="@{#}"><div class="text-size-14">낮은 가격순</div></a>
+                <a th:href="@{#}"><div class="text-size-14">높은 가격순</div></a>
             </div>
 
 
             <!-- 상품 등록(관리자한테만 보여줄 것) -->
-            <a href="" class="upload-goods-btn">
+            <a th:href="@{/goodsWrite}" class="upload-goods-btn">
                 <div id="upload-goods-text" class="text-size-16 medium-text">상품 등록</div>
             </a>
         </div>
@@ -97,126 +48,62 @@
         <div id="goods-container">
 
             <!-- 상품들 -->
-            <a href="" class="goods-detail-area">
+            <a th:href="@{#}" class="goods-detail-area">
                 <!-- 이미지 -->
-                <div class="goods-img"><img src="../../static/images/goods/tumbler.png" alt=""></div>
+                <div class="goods-img"><img th:src="@{/images/goods/tumbler.png}" alt=""></div>
                 <!-- 제품명 -->
                 <div class="goods-name text-size-16 medium-text">다시마 로고 텀블러</div>
                 <!-- 가격 -->
                 <div class="goods-price">25,000원</div>
             </a>
-            <a href="" class="goods-detail-area">
-                <div class="goods-img"><img src="../../static/images/goods/figures.png" alt=""></div>
+            <a th:href="@{#}" class="goods-detail-area">
+                <div class="goods-img"><img th:src="@{/images/goods/figures.png}" alt=""></div>
                 <div class="goods-name text-size-16 medium-text">다시마 피규어</div>
                 <div class="goods-price">18,000원</div>
             </a>
-            <a href="" class="goods-detail-area">
-                <div class="goods-img"><img src="../../static/images/goods/socks.png" alt=""></div>
+            <a th:href="@{#}" class="goods-detail-area">
+                <div class="goods-img"><img th:src="@{/images/goods/socks.png}" alt=""></div>
                 <div class="goods-name text-size-16 medium-text">다시마 캐릭터 양말</div>
                 <div class="goods-price">4,500원</div>
             </a>
-            <a href="" class="goods-detail-area">
-                <div class="goods-img"><img src="../../static/images/goods/cushion.png" alt=""></div>
+            <a th:href="@{#}" class="goods-detail-area">
+                <div class="goods-img"><img th:src="@{/images/goods/cushion.png}" alt=""></div>
                 <div class="goods-name text-size-16 medium-text">다시마 캐릭터 쿠션</div>
                 <div class="goods-price">28,000원</div>
             </a>
-            <a href="" class="goods-detail-area">
-                <div class="goods-img"><img src="../../static/images/goods/echo-bag.png" alt=""></div>
+            <a th:href="@{#}" class="goods-detail-area">
+                <div class="goods-img"><img th:src="@{/images/goods/echo-bag.png}" alt=""></div>
                 <div class="goods-name text-size-16 medium-text">다시마 로고 에코백</div>
                 <div class="goods-price">12,000원</div>
             </a>
-            <a href="" class="goods-detail-area">
-                <div class="goods-img"><img src="../../static/images/goods/key ring.png" alt=""></div>
+            <a th:href="@{#}" class="goods-detail-area">
+                <div class="goods-img"><img th:src="@{/images/goods/key-ring.png}" alt=""></div>
                 <div class="goods-name text-size-16 medium-text">다시마 캐릭터 키링</div>
                 <div class="goods-price">7,000원</div>
             </a>
-            <a href="" class="goods-detail-area">
-                <div class="goods-img"><img src="../../static/images/goods/blanket.png" alt=""></div>
+            <a th:href="@{#}" class="goods-detail-area">
+                <div class="goods-img"><img th:src="@{/images/goods/blanket.png}" alt=""></div>
                 <div class="goods-name text-size-16 medium-text">따끈따끈 다시마 캐릭터 담요</div>
                 <div class="goods-price">15,000원</div>
             </a>
-            <a href="" class="goods-detail-area">
-                <div class="goods-img"><img src="../../static/images/goods/note.png" alt=""></div>
+            <a th:href="@{#}" class="goods-detail-area">
+                <div class="goods-img"><img th:src="@{/images/goods/note.png}" alt=""></div>
                 <div class="goods-name text-size-16 medium-text">왕다시마 캐릭터 노트</div>
                 <div class="goods-price">9,000원</div>
             </a>
-            <a href="" class="goods-detail-area">
-                <div class="goods-img"><img src="../../static/images/goods/sticker.png" alt=""></div>
+            <a th:href="@{#}" class="goods-detail-area">
+                <div class="goods-img"><img th:src="@{/images/goods/sticker.png}" alt=""></div>
                 <div class="goods-name text-size-16 medium-text">다시마 캐릭터 스티커</div>
                 <div class="goods-price">9,000원</div>
             </a>
         </div>
 
     </section>
+    
 
-    
-    <nav aria-label="페이지네이션">
-        <ul class="pagination">
-            <li><button type="button" class="pagination-btn" aria-label="이전 페이지"><img src="../../static/images/pagination/pagn-previous-btn.svg"></button></li>
-            <li><button type="button" aria-current="page" aria-label="1페이지">1</button></li>
-            <li><button type="button" aria-label="2페이지">2</button></li>
-            <li><button type="button" aria-label="3페이지">3</button></li>
-            <li><button type="button" aria-label="4페이지">4</button></li>
-            <li><button type="button" aria-label="5페이지">5</button></li>
-            <li><button type="button" aria-label="6페이지">6</button></li>
-            <li><button type="button" aria-label="7페이지">7</button></li>
-            <li><button type="button" aria-label="8페이지">8</button></li>
-            <li><button type="button" aria-label="9페이지">9</button></li>
-            <li><button type="button" aria-label="10페이지">10</button></li>
-            <li><button type="button" class="pagination-btn" aria-label="다음 페이지"><img src="../../static/images/pagination/pagn-next-btn.svg"></button></li>
-        </ul>
-    </nav>
 
-    <footer>
-        <section>
-            <div class="footer-top">
-                <a th:href="@{#}"><img src="../../static/images/logo.png" width="100px" style="vertical-align: middle;"></a>
-                <a th:href="@{#}">회사 소개</a>
-                <span>|</span>
-                <a th:href="@{#}">서비스 소개</a>
-                <span>|</span>
-                <a th:href="@{#}">블로그</a>
-                <span>|</span>
-                <a th:href="@{#}">채용제휴 문의</a>
-                <span>|</span>
-                <a th:href="@{#}">광고 문의</a>
-            </div>
-    
-            <hr>
-    
-            <div class="footer-bottom">
-    
-                <div class="footer-left">
-                    (주) 다시마켓 <br>
-                    대표 너구리 <br>
-                    사업자번호 168-87-57386 <br>
-                    직업정보제공사업 신고번호J1200020200016 <br>
-                    통신판매신고번호 제2024-서울강남-06966호 <br>
-                    호스팅 사업자 Amazon Web Service(AWS)<br>
-                    주소 서울특별시 종로구 우정국로2길 21 9층, 903호 <br>
-                    전화 1877-9292 <br>
-                    고객문의 kelp@dasimacat.com
-                </div>
-                <div class="footer-right">
-                    <a href="#">공지사항</a>
-                    <a href="#">자주묻는 질문</a> <br><br>
-    
-                    <a href="#">이용약관</a>
-                    <a href="#">개인정보처리방침</a>
-    
-                    <a href="#">운영정책</a>
-    
-                    <a href="#">위치기반서비스 이용약관</a>
-    
-                    <a href="#">게시글</a>
-    
-                </div>
-    
-            </div>
-        </section>
-    </footer>
-
-    <script src="../../static/js/goodsPage/goodsHome.js"></script>
+    <th:block th:replace="~{common/footer}">footer.html</th:block>
+    <script th:src="@{/js/goodsPage/goodsHome.js}"></script>
 </body>
 
 </html>
