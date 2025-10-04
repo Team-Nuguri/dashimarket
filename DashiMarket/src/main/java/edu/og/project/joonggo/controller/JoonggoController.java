@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -104,6 +105,50 @@ public class JoonggoController {
 		
 		return service.deleteJoonggoItem(joonggoNo);
 	}
+	
+	
+	
+	// 중고 수정 화면 전환
+	@GetMapping("/{boardType}/{joonggoNo}/update")
+	public String joonggoUpdateForward(
+			@PathVariable("boardType") String BoardType,
+			@PathVariable("joonggoNo") String joonggoNo,
+			Model model) {
+		
+		Joonggo joonggo = service.selectJoonggoDetail(joonggoNo);
+		
+		model.addAttribute(joonggo);
+		
+		return "joonggoPage/joonggoUpdate"; 
+				
+	}
+	
+	// 중고 수정 처리
+	@PostMapping("/{boardType}/{joonggoNo}/update")
+	@ResponseBody
+	public String joonggoUpdate(
+			@PathVariable("boardType") String boardType
+			, @PathVariable("joonggoNo") String joonggoNo
+			, @RequestParam(value = "deleteList", required = false) String deleteList
+			, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp
+			, @ModelAttribute JoonggoWrite joonggoWrite) throws IllegalStateException, IOException{
+		
+		
+		
+		joonggoWrite.setJoonggoNo(joonggoNo);
+		
+		System.out.println(joonggoWrite.getImageList());
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("joonggoWrite", joonggoWrite);
+		map.put("deleteList", deleteList);
+		
+		String result = service.joonggoUpdate(map);
+		
+		return result;
+	}
+	
+	
 		
 	
 

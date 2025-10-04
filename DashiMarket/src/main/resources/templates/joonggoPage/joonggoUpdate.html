@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>중고 상품 수정</title>
+
+    <link rel="stylesheet" th:href="@{/css/common/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/common/font.css}">
+    <link rel="stylesheet" th:href="@{/css/joonggoPage/joonggoUpdate.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <th:block th:replace="~{/common/header}">header.html</th:block>
+
+    <div class="container">
+        <div class="header">
+            <h1>중고 상품 수정</h1>
+        </div>
+
+        <form id="updateForm" th:action="@{/joonggo/write}" method="POST" enctype="multipart/form-data">
+            <ul class="form-list">
+                <li class="form-item">
+                    <div class="label-area">
+                        <span class="required">*</span>
+                        <span class="form-label">상품명</span>
+                    </div>
+                    <div class="field-area">
+                        <input type="text" class="form-control" name="joonggoTitle" id="joonggoTitle"
+                            placeholder="상품명을 입력해주세요." required th:value="${joonggo.joonggoTitle}">
+                    </div>
+                </li>
+
+                <li class="form-item attachment-item">
+                    <div class="label-area">
+                        <span class="required">*</span>
+                        <span class="form-label">첨부파일</span>
+                    </div>
+                    <div class="field-area">
+                        <div class="attachment-container">
+                            <ul id="joonggo-img-list">
+                                <li>
+                                    <label for="joonggoImg">
+                                        <i class="fas fa-camera" style="font-size: 40px;"></i>
+                                    </label>
+                                    <input type="file" name="joonggoImg" id="joonggoImg" accept="image/*" multiple >
+                                </li>
+                                <li th:each="img : ${joonggo.imageList}">
+                                    <img th:src="${img.imagePath}+${img.imageRename}" class="imglist">
+                                    <span class="x-button text-size-14">x</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="form-item content-item">
+                    <div class="label-area">
+                        <span class="required">*</span>
+                        <span class="form-label">상품 설명</span>
+                    </div>
+                    <div class="field-area">
+                        <textarea class="form-control content-textarea" name="joonggoContent" id="joonggoContent" placeholder="내용을 입력하세요"
+                            required th:text="${joonggo.joonggoContent}">중고 상품 내용</textarea>
+                    </div>
+                </li>
+            
+                <li class="form-item">
+                    <div class="label-area">
+                        <span class="required">*</span>
+                        <span class="form-label">카테고리</span>
+                    </div>
+                    <div class="category-area">
+                        <ul id="mainCategory">
+                            <li>
+                                <button type="button" class="main-category" data-category="J100">가전제품</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="J200">의류</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="J300">스포츠/레저</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="J400">신발</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="J500">뷰티/미용</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="J600">게임</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="J700">생활</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="J800">차량/오토바이</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="J900">가구/인테리어</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="J1000">디지털</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="J1100">음반/악기</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="J1200">패션 액세서리</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="J1300">도서/문구</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="J1400">예술/희귀</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="J1500">공구/산업용품</button>
+                            </li>
+
+                            <input type="hidden" name="mainCategory" id="mainCategory" value="">
+
+                        </ul>
+
+                        <ul id="sub-category">
+                            
+                        </ul>
+                        <input type="hidden" name="categoryId" id="categoryId" value="">
+                    </div>
+
+                </li>
+
+
+
+                <li class="form-item">
+                    <div class="label-area">
+                        <span class="required">*</span>
+                        <span class="form-label">상품 가격</span>
+                    </div>
+                    <div class="price-area">
+                        <input type="text" class="form-control" name="joonggoPrice" id="joonggoPrice"
+                            placeholder="가격을 입력해주세요" required th:value="${joonggo.joonggoPrice}">
+                    </div>
+
+                </li>
+
+            </ul>
+
+            <div class="button-group">
+                <button type="button" class="btn btn-cancel">
+                    취소하기
+                </button>
+                <button type="submit" class="btn btn-submit">
+                    수정하기
+                </button>
+            </div>
+        </form>
+    </div>
+
+
+    <th:block th:replace="~{/common/footer}">footer.html</th:block>
+    <th:block th:replace="~{/common/floatingBtn}">floatingBtn.html</th:block>
+
+    <script th:inline="javascript">
+
+
+        const mainCategoryName = /*[[${joonggo.mainCategory}]]*/ '메인 카테도리 이름';
+        const subCategoryName = /*[[${joonggo.subCategory}]]*/ '서브 카테도리 이름';
+
+
+    </script>
+    
+
+    <script th:src="@{/js/joonggoPage/joonggoUpdate.js}"></script>
+</body>
+
+</html>

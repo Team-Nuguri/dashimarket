@@ -37,6 +37,27 @@ public interface JoonggoMapper {
 	
 	// 이미지 삽입 
 	int insertImage(List<Image> uploadImage);
+
+	
+	// 보드 내용 수정
+	int joonggoUpdate(JoonggoWrite joonggoWrite);
+	
+	
+	// 상푸 ㅁ가격 수정
+	int joonggoPriceUpdate(JoonggoWrite joonggoWrite);
+
+	
+	
+	// 이미지 삭제
+	int imageDelete(Map<String, Object> deleteMap);
+
+	
+	// 이미지 순서 재정렬
+	int sortImageOrder(String joonggoNo);
+
+	
+	// 시작 인덱스 조회
+	int selectImageOrder(String joonggoNo);
 	
 	
 
