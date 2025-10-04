@@ -37,4 +37,35 @@ public class GoodsServiceImpl implements GoodsService {
 		return map;
 	}
 
+	// 굿즈 정렬 목록 조회
+	@Override
+	public Map<String, Object> sortGoodsList(String boardType, int cp, String sortType) {
+		int listCount = mapper.getListCount(boardType);
+		
+		Pagination pagination = new Pagination(cp, listCount);
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		// 정렬 타입에 맞게 조회해오기
+		List<Goods> sortList = null;
+		
+		if(sortType != null) {
+			
+			// 인기순(기본)
+			if(sortType.equals("popular")) sortList = mapper.selectGoodsList(boardType, rowBounds);
+			
+			// 낮은 가격순
+			if(sortType.equals("lowPrice")) sortList = mapper.sortLowPrice(boardType, rowBounds);
+			
+			// 높은 가격순
+			if(sortType.equals("highPrice")) sortList = mapper.sortHighPrice(boardType, rowBounds);
+		}
+			
+		Map<String, Object> map = new HashMap<>();
+		map.put("pagination", pagination);
+		map.put("boardList", sortList);
+		
+		return map;
+	}
+
 }
