@@ -34,16 +34,20 @@
             </div>
             <div id="item-info">
                 <div id="image-area">
-                    <button id="left-btn"><img th:src="@{/images/svg/왼쪽.svg}"></button>
+                    <button id="left-btn" th:if="${#lists.size(joonggo.imageList) > 1}"><img th:src="@{/images/svg/왼쪽.svg}"></button>
                     <div id="imageSlide">
-                        <img th:each="img : ${joonggo.imageList}" th:src="@{${img.imagePath}}" >
+                        <img th:each="img : ${joonggo.imageList}" th:src="${img.imagePath}+${img.imageRename}" >
                         
 
                     </div>
-                    <button id="right-btn"><img th:src="@{/images/svg/오른쪽.svg}"></button>
-                    <div id="dot-area">
+                    <button id="right-btn" th:if="${#lists.size(joonggo.imageList) > 1}"><img th:src="@{/images/svg/오른쪽.svg}"></button>
+
+                    <div th:if="${#lists.size(joonggo.imageList) > 1}" id="dot-area">
                         <img th:src="@{/images/svg/dot.svg}" class="dot">
                         <img th:each="i : ${#numbers.sequence(1, #lists.size(joonggo.imageList)-1)}" th:src="@{/images/svg/dot.svg}" class="dot opacity">
+                    </div>
+                    <div th:unless="${#lists.size(joonggo.imageList) > 1}" id="dot-area">
+                        <img th:src="@{/images/svg/dot.svg}" class="dot">
                     </div>
 
                 </div>
@@ -58,7 +62,8 @@
                         </div>
                     </div>
                     <div id="item-price">
-                        <h1 th:text="${#numbers.formatDecimal(joonggo.joonggoPrice, 0, 'COMMA', 0, 'POINT')} + '원'"> 중고 상품 가격</h1>
+                        <h1 th:if="${joonggo.joonggoPrice!=0}" th:text="${#numbers.formatDecimal(joonggo.joonggoPrice, 0, 'COMMA', 0, 'POINT')} + '원'"> 중고 상품 가격</h1>
+                        <h1 th:unless="${joonggo.joonggoPrice!=0}" th:text="나눔"> 중고 상품 가격</h1>
                     </div>
                     <div class="flex" id="item-stats">
                         <div class="flex" id="stats-section">
@@ -134,11 +139,12 @@
                     <div th:each="list : ${similarList}" class="similar-items flex direction-column">
                         <a th:href="${list.joonggoNo}">
                             <div class="similar-image-container">
-                                <img th:src="${list.imagePath}" >
+                                <img th:src="${list.imagePath}+${list.imageRename}" >
                             </div>
                             <div class="similar-info-container flex direction-column">
                                 <p class="similar-name" th:text="${list.joonggoTitle}">상품 제목</p>
-                                <span class="similar-price" th:text="${#numbers.formatDecimal(list.joonggoPrice, 0, 'COMMA', 0, 'POINT')} + '원'">상품 가격</span>
+                                <span class="similar-price" th:if="${list.joonggoPrice!=0}" th:text="${#numbers.formatDecimal(list.joonggoPrice, 0, 'COMMA', 0, 'POINT')} + '원'">상품 가격</span>
+                                <span class="similar-price" th:unless="${list.joonggoPrice!=0}" th:text="나눔">상품 가격</span>
                             </div>
                         </a>
                     </div>
@@ -157,6 +163,7 @@
 
 
     <th:block th:replace="~{/common/footer}">footer.html</th:block>
+    <th:block th:replace="~{/common/floatingBtn}">footer.html</th:block>
 
 
 

@@ -12,7 +12,7 @@ const dots = document.getElementsByClassName("dot");
 
 
 /* 오른쪽 버튼 클릭 시 */
-document.getElementById("right-btn").addEventListener("click", e => {
+document.getElementById("right-btn")?.addEventListener("click", e => {
 
     if(currentIndex < imglength-1){
 
@@ -34,7 +34,7 @@ document.getElementById("right-btn").addEventListener("click", e => {
 })
 
 /* 왼쪽 버튼 클릭 시 */
-document.getElementById("left-btn").addEventListener("click", () => {
+document.getElementById("left-btn")?.addEventListener("click", () => {
 
     if(currentIndex > 0){
         currentIndex--;
