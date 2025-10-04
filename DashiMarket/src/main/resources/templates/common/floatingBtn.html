@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,10 +32,10 @@
 <body>
     <section class="img-area">
         <div class="img-box">
-            <img src="/src/main/resources/static/images/svg/chatting.svg">
+            <img th:src="@{/images/svg/chatting.svg}">
         </div>
         <div class="img-box">
-            <img src="/src/main/resources/static/images/svg/chatbot.svg">
+            <img th:src="@{/images/svg/chatbot.svg}">
         </div>
     </section>
 </body>
