@@ -218,6 +218,43 @@
 	</insert>
 	
 	
+	<!--중고 상품 수정-->
+	<update id="joonggoUpdate">
+		UPDATE BOARD SET
+		BOARD_TITLE = #{joonggoTitle},
+		BOARD_CONTENT = #{joonggoContent},
+		BOARD_UPDATE_DATE = SYSDATE,
+		CATEGORY_ID = #{categoryId}
+		WHERE BOARD_NO = #{joonggoNo}	
+			
+	</update>
 	
+	<!-- 상품 가격 수정-->
+	<update id="joonggoPriceUpdate">
+		UPDATE JOONGGO SET
+		JOONGGO_PRICE = #{joonggoPrice}
+		WHERE BOARD_NO = #{joonggoNo}
+		
+	</update>
+	
+	<!-- 이미지 삭제 -->
+	<delete id="imageDelete">
+		DELETE FROM IMAGE
+		WHERE BOARD_NO = #{joonggoNo}
+		AND IMG_ORDER IN (#{deleteList})	
+	</delete>
+	
+	<!-- 이미지 순서 재정렬 -->
+	<update id="sortImageOrder">
+		UPDATE IMAGE SET
+		IMG_ORDER =  ROWNUM-1
+		WHERE BOARD_NO = #{joonggoNo}
+	</update>
+	
+	<!-- 이미지 시작 인덱스 조회-->
+	<select id="selectImageOrder" resultType="_int">
+		SELECT NVL(MAX(IMG_ORDER), -1) FROM IMAGE
+		WHERE BOARD_NO = #{joonggoNo}
+	</select>
 	
 </mapper>

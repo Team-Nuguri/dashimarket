@@ -41,6 +41,16 @@ public interface JoonggoService {
 	 * @param joonggoWrite
 	 * @return 행 개수
 	 */
-	String joonggoInsert(JoonggoWrite joonggoWrite)  throws IllegalStateException, IOException;;
+	String joonggoInsert(JoonggoWrite joonggoWrite)  throws IllegalStateException, IOException;
+
+
+
+	/** 중고 상품 수정
+	 * @param map
+	 * @return 
+	 * @throws IOException 
+	 * @throws IllegalStateException 
+	 */
+	String joonggoUpdate(Map<String, Object> map) throws IllegalStateException, IOException;
 
 }
