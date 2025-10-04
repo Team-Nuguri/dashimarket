@@ -16,3 +16,19 @@ notificationBtn.addEventListener("click", ()=>{
         notificationList.classList.toggle("show")
     }
 })
+
+/* 페이지에 따른 아이콘 분류 */
+const iconImg = document.getElementsByClassName("icon-img")[0];
+const path = location.pathname; // 현재 경로
+
+if(path == "/joonggo") {
+    iconImg.setAttribute("src", "/images/svg/하트.svg");
+}
+
+if(path == "/goods") {
+    iconImg.setAttribute("src", "/images/svg/장바구니.svg");
+}
+
+if(path == "/community") {
+    iconImg.setAttribute("src", "/images/svg/사람.svg");
+}

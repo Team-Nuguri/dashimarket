@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이용자 수</title>
+
+    <!-- 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/adminPage/admin-style.css}">
+
+    <script src="https://kit.fontawesome.com/1c15543e3e.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <main>
+        <section class="admin-content">
+            <!-- 사이드 메뉴 -->
+            <th:block th:replace="~{admin/sideMenu}">admin-sideMenu.html</th:block>
+
+            <section class="admin-main">
+                
+                <div id="admin-user">
+                    <h1 class="admin-title">이용자 수</h1>
+                    <div class="admin-login">
+                        <img th:src="@{/images/admin/user.png}">
+                        <p>관리자 계정</p>
+                        <button id="logout">로그아웃</button>
+                    </div>
+                </div>
+
+                <div class="admin-group-top">
+                    <form id="search-area">
+                        <!-- 기간 검색 영역-->
+                        <div class="detail-search">
+                            <label>기간</label>
+                            <div>
+                                <button class="dateBtn button-default">1개월</button>
+                                <button class="dateBtn button-default">1년</button>
+                                <button class="dateBtn button-default">전체</button>
+                                <input type="date"> - <input type="date">
+                            </div>
+
+                            <!-- 초기화/검색 버튼 -->
+                            <div class="search-buttons">
+                                <button type="reset" class="basic-btn">초기화</button>
+                                <button type="submit" class="color-btn">검색</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- 데이터 통계 view -->
+                <div id="userCount-view">
+
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <th:block th:replace="~{common/pagination}">pagination.html</th:block>
+
+    <script th:src="@{/js/adminPage/admin.js}"></script>
+</body>
+
+</html>
