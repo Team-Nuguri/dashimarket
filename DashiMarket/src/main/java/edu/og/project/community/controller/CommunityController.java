@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class CommunityController {
 
-	@GetMapping("/community")
-	public String forwardComm() {
+	@GetMapping("/{boardType:c.*}")
+	public String selectCommunityList() {
 		return "communityPage/communityHome";
 	}
 }
