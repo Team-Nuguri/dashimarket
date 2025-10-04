@@ -1,5 +1,40 @@
 package edu.og.project.community.model.dto;
 
-public class Community {
+import java.util.List;
 
+import edu.og.project.common.dto.Comment;
+import edu.og.project.common.dto.Image;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+public class Community {
+	
+	// 기본 게시판 틀
+	private String boardNo;
+	private String boardTitle;
+	private String boardContent;
+	private String boardCreateDate;
+	private String boardUpdateDate;
+	private int postViews;
+	private int boardCode;
+	private String thumbnail;
+
+	// 회원
+	private String memberNickname;
+	
+	// 이미지
+	private List<Image> imgList;
+	
+	// 댓글
+	private List<Comment> commentList;
+	
+	// 댓글 수
+	private int commentCount;
+	
+	// 좋아요 수
+	private int likeCount;
 }

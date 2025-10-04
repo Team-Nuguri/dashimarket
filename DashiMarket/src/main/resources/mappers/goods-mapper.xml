@@ -16,7 +16,7 @@
         <result property="boardUpdateDate" column="BOARD_UPDATE_DATE"/>
         <result property="postViews"       column="POST_VIEWS"/>
         <result property="boardCode"       column="BOARD_CODE"/>
-		<result property="thumbnail" column="THUMBNAIL"/>
+		<result property="thumbnail" 	   column="THUMBNAIL"/>
         
         <result property="commentCount"    column="COMMENT_COUNT"/>
         <result property="likeCount"       column="LIKE_COUNT"/>

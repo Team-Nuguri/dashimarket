@@ -22,9 +22,6 @@ const sortLinks = document.querySelectorAll("#select-sort-box a");
 
 sortLinks.forEach(link => {
     link.addEventListener("click", (e) => {
-        /* 이거 나중에 풀어야 함! (쿠키 또는 세션에 유지) */
-        e.preventDefault();
-
         /* 선택한 정렬 반영하기 */
         sortText.innerText = link.innerText;
         sortBox.classList.remove("show");
