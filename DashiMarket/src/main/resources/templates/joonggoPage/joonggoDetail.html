@@ -36,9 +36,8 @@
                 <div id="image-area">
                     <button id="left-btn" th:if="${#lists.size(joonggo.imageList) > 1}"><img th:src="@{/images/svg/왼쪽.svg}"></button>
                     <div id="imageSlide">
-                        <img th:each="img : ${joonggo.imageList}" th:src="${img.imagePath}+${img.imageRename}" >
+                        <img th:each="img : ${joonggo.imageList}" th:src="${img.imagePath}+${img.imageRename}" class="images" >
                         
-
                     </div>
                     <button id="right-btn" th:if="${#lists.size(joonggo.imageList) > 1}"><img th:src="@{/images/svg/오른쪽.svg}"></button>
 
