@@ -11,6 +11,6 @@ public interface CommunityService {
 	 * @param category 
 	 * @return map
 	 */
-	Map<String, Object> selectCommunityList(String boardType, int cp, String category, String sortType);
+	Map<String, Object> selectCommunityList(String boardType, int cp, String category, String sort);
 
 }
