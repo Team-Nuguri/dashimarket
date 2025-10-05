@@ -638,3 +638,10 @@ nav {
     background-color: #166549;
     color: white;
 }
+
+/* 게시글이 없는 경우 */
+#no-post {
+    text-align: center;
+    color: rgb(173, 173, 173);
+    padding: 20px 0;
+}

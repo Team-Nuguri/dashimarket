@@ -10,7 +10,7 @@
     <link rel="stylesheet" th:href="@{/css/common/footer.css}">
 
 </head>
-<body th:with="pagination=${map.pagination}, boardList=${map.boardList}">
+<body th:with="pagination=${pagination}, boardList=${boardList}">
     
     <th:block th:replace="~{/common/header}">header.html</th:block>
 
@@ -66,47 +66,58 @@
         </div>
 
         <!-- 커뮤니티 게시판 목록 -->
-        <div id="community-list" th:if="${#lists.size(boardList) > 0}">
-
-            <th:block th:each="board : ${boardList}">
-
-                <!-- 하나의 게시글 -->
-                <a th:href="@{/{boardType}/{boardNo}(boardType=${boardType}, boardNo=${board.boardNo}, cp=${pagination.currentPage})}" class="community-post">
-                    <!-- 썸네일 영역 -->
-                    <div class="post-thumbnail" th:if="${board.thumbnail != null}">
-                        <img th:src="${board.thumbnail}" alt="">
-                    </div>
+        <div id="community-list">
+            
+            <!-- 게시글이 있는 경우 -->
+            <th:block th:if="${#lists.size(boardList) > 0}">
+                <th:block th:each="board : ${boardList}">
     
-                    <!-- 텍스트 영역 -->
-                    <div class="post-text">
-                        <!-- 제목 -->
-                        <div class="post-title text-size-20 bold-text" th:text="${board.boardTitle}">제목</div>
-    
-                        <div class="post-info">
-                            <!-- 닉네임 -->
-                            <span class="post-nick medium-text" th:text="${board.memberNickname}">닉네임</span>
+                    <!-- 하나의 게시글 -->
+                    <a th:href="@{/{boardType}/{boardNo}(boardType=${boardType}, boardNo=${board.boardNo}, cp=${pagination.currentPage})}" class="community-post">
+                        <!-- 썸네일 영역 -->
+                        <div class="post-thumbnail" th:if="${board.thumbnail != null}">
+                            <img th:src="${board.thumbnail}" alt="">
+                        </div>
         
-                            <span>•</span>
-                            <!-- 작성일 -->
-                            <span class="post-create-date" th:text="${board.boardCreateDate}">작성일</span>
-                        </div>
-    
-                        <!-- 좋아요, 댓글 -->
-                        <div class="post-icon">
-    
-                            <div class="post-like">
-                                <img th:src="@{/images/svg/postLike.svg}" alt="">
-                                <div th:text="${board.likeCount}">좋아요</div>
+                        <!-- 텍스트 영역 -->
+                        <div class="post-text">
+                            <!-- 제목 -->
+                            <div class="post-title text-size-20 bold-text" th:text="${board.boardTitle}">제목</div>
+        
+                            <div class="post-info">
+                                <!-- 닉네임 -->
+                                <span class="post-nick medium-text" th:text="${board.memberNickname}">닉네임</span>
+            
+                                <span>•</span>
+                                <!-- 작성일 -->
+                                <span class="post-create-date" th:text="${board.boardCreateDate}">작성일</span>
                             </div>
-    
-                            <div class="post-comment">
-                                <img th:src="@{/images/svg/comment.svg}" alt="">
-                                <div th:text="${board.commentCount}">댓글</div>
+        
+                            <!-- 좋아요, 댓글 -->
+                            <div class="post-icon">
+        
+                                <div class="post-like">
+                                    <img th:src="@{/images/svg/postLike.svg}" alt="">
+                                    <div th:text="${board.likeCount}">좋아요</div>
+                                </div>
+        
+                                <div class="post-comment">
+                                    <img th:src="@{/images/svg/comment.svg}" alt="">
+                                    <div th:text="${board.commentCount}">댓글</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-    
-                </a>
+        
+                    </a>
+                </th:block>
+            </th:block>
+
+            <!-- 게시글이 없는 경우 -->
+            <th:block th:if="${#lists.size(boardList) == 0}">
+                <div id="no-post" class="text-size-20 medium-text">
+                    등록된 게시글이 없습니다.<br>
+                    첫 게시글의 주인공이 되어보세요!
+                </div>
             </th:block>
         </div>
     </section>

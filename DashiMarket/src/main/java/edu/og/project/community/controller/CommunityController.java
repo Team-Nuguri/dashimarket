@@ -20,22 +20,48 @@ public class CommunityController {
 	@Autowired
 	private CommunityService service;
 
-	// 커뮤니티 목록 조회 (카테고리 및 정렬 비동기까지 한 번에 받아서 처리)
+	// 커뮤니티 목록 조회 (동기)
 	@GetMapping("/{boardType:c.*}")
 	public String selectCommunityList(@PathVariable("boardType") String boardType,
 									  @RequestParam(value="cp", required=false, defaultValue="1") int cp,
 									  @RequestParam(value="category", required=false) String category,
-									  @RequestParam(value="sortType", required=false, defaultValue="latest") String sortType,
+									  @RequestParam(value="sort", required=false, defaultValue="latest") String sort,
 									  Model model,
-									  HttpSession session, /* 동네 확인 */
-									  HttpServletRequest fetchHeader /* 비동기 요청에서 가져온 헤더값(비동기 여부 판단) */) {
+									  HttpSession session /* 동네 확인 */) {
 		
+		Map<String, Object> map = getData(boardType, cp, category, sort, session);
+		model.addAllAttributes(map);
+		
+		return "communityPage/communityHome";
+			
+	}
+	
+	// 커뮤니티 목록 조회 (비동기)
+	@GetMapping(value="/{boardType:c.*}/filter", produces="application/html; charset=UTF-8")
+	public String filterCommunityList(@PathVariable("boardType") String boardType,
+									  @RequestParam(value="cp", required=false, defaultValue="1") int cp,
+									  @RequestParam(value="category", required=false) String category,
+									  @RequestParam(value="sort", required=false, defaultValue="latest") String sort,
+									  Model model,
+									  HttpSession session /* 동네 확인 */) {
+		
+		Map<String, Object> map = getData(boardType, cp, category, sort, session);
+		model.addAllAttributes(map);
+		
+		// 프레그먼트 반환
+		return "communityPage/communityHome :: #community-list";
+		
+	}
+	
+	
+	// 동기, 비동기 요청 로직이 같으므로 한 메소드로 빼서 사용 (목록 조회 서비스 호출)
+	private Map<String, Object> getData(String boardType, int cp, String category, String sort, HttpSession session) {
 		// 세션에 저장된 회원 정보
 //		Member loginMember = session.getAttribute("loginMember");
 		
 		// 선택한 동네값 존재 여부
 //		String selectDong = (String) session.getAttribute("selectDong");
-		String finalDong = null;
+//		String finalDong = null;
 		
 		// 선택한 동네가 없는 경우 회원의 동네로 조회
 //		if(selectDong == null) {
@@ -46,9 +72,6 @@ public class CommunityController {
 		// ***************************************************************
 		// 회원가입 로그인 로직 구현 후 파라미터 추가 수정 필요
 		// ***************************************************************
-		Map<String, Object> map = service.selectCommunityList(boardType, cp, category, sortType);
-		model.addAttribute("map", map);
-		
-		return "communityPage/communityHome";
+		return service.selectCommunityList(boardType, cp, category, sort);
 	}
 }
