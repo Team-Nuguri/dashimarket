@@ -1,4 +1,4 @@
-console.log("joonggoWrite.js loaded . . .")
+console.log("joonggoUpdate.js loaded . . .")
 
 let allFiles = []; // 이미지 정볼르 담을 배열
 
@@ -56,6 +56,36 @@ joonggoImage.addEventListener("change", e => {
     }
 })  
 
+const deleteSet = new Set();
+
+const xBtn = document.getElementsByClassName("x-button"); 
+
+/* for (let i = 0; i < xBtn.length; i++) {
+    
+    xBtn[i].addEventListener("click", e => {
+
+        xBtn[i].parentElement.remove();
+        deleteSet.add(i);
+    })
+
+    
+    
+    
+} */
+
+Array.from(xBtn).forEach((btn, i) => {
+
+    btn.addEventListener("click", e=> {
+
+        e.currentTarget.parentElement.remove();
+
+        deleteSet.add(i);
+    })
+
+
+})
+
+
 
 
 /* ------------------------------------------------- */
@@ -66,6 +96,29 @@ const subcate = document.getElementById("sub-category");
 
 const mainCategory = document.getElementsByName("mainCategory")[0];
 const subCategory = document.getElementsByName("categoryId")[0];
+
+document.addEventListener("DOMContentLoaded", e => {
+
+    for (let main of mainBtn) {
+
+        if(main.innerText == mainCategoryName){
+            main.click();
+            
+        }
+        
+    }
+
+    for (let sub of document.getElementsByClassName("sub-category")) {
+
+        if(sub.innerText == subCategoryName){
+            sub.click();
+            return;
+        }
+        
+    }
+
+
+})
 
 
 const subcategory = {
@@ -235,11 +288,11 @@ const joonggoPrice = document.getElementById("joonggoPrice");
 
 /* form 태그 제출 시 기본 제출 막고 비동기로 allfiles 보낼 예정 */
 
-document.getElementById("writeForm").addEventListener("submit", e => {
+document.getElementById("updateForm").addEventListener("submit", e => {
 
     e.preventDefault();
 
-    if(allFiles.length == 0){
+    if(allFiles.length == 0 && document.getElementsByClassName("imglist").length == 0.){
         alert("이미지를 선택해주세요.");
         return ;
     }
@@ -268,6 +321,8 @@ document.getElementById("writeForm").addEventListener("submit", e => {
 
     const data = new FormData();
 
+    
+
     // 서버에 넘겨줄 데이터 FormData에 담아서
     data.append("joonggoTitle", joonggoTitle.value);
     data.append("joonggoContent", joonggoContent.value);
@@ -279,30 +334,37 @@ document.getElementById("writeForm").addEventListener("submit", e => {
         data.append("imageList", file);
     }
 
+    deleteList = Array.from(deleteSet);
+
+    for (let order of deleteList) {
+        data.append("deleteList", order);
+        
+    }
+
     
     // headers 작성 필요 x 알아서 설정해줌
-    fetch("/joonggo/write", {
+    fetch(location.pathname, {
         method : "POST",
         body : data
     })
     .then(resp => resp.text())
     .then(result => {
 
-        if(result =='false'){
-            alert("상품 등록에 실패하였습니다.");
+        if(result == location.pathname.split("/")[2]){
+            alert("수정이 완료되었습니다 !");
+            
             setTimeout(() => {
+                location.href="/joonggo/" + result;
+            },100)
+        }else{
+            alert("상품 수정을 실패했스니다.");
 
+            setTimeout(() => {
                 location.href = location.pathname;
             }, 100);
-            
-        }else{
-            alert("상품이 등록되었습니다.")
-            
-            setTimeout(() => {
 
-                location.href = result;
-            }, 100);
         }
+
 
         
 
@@ -311,4 +373,15 @@ document.getElementById("writeForm").addEventListener("submit", e => {
 
 
 
+})
+
+
+// 최소 버튼 클릭시 
+const cancleBtn = document.querySelector(".btn-cancel");
+
+cancleBtn.addEventListener("click", e => {
+
+    if(confirm("수정을 취소 하시겠습니까 ?")){
+        location.href= "/joonggo/" +location.pathname.split("/")[2];
+    }
 })

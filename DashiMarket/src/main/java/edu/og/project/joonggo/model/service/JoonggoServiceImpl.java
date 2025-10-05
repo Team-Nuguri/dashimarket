@@ -1,0 +1,261 @@
+package edu.og.project.joonggo.model.service;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.tomcat.util.http.fileupload.FileUploadException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import edu.og.project.common.dto.Image;
+import edu.og.project.common.utility.ImageResizer;
+import edu.og.project.common.utility.Util;
+import edu.og.project.joonggo.model.dao.JoonggoMapper;
+import edu.og.project.joonggo.model.dto.Joonggo;
+import edu.og.project.joonggo.model.dto.JoonggoWrite;
+import edu.og.project.joonggo.model.dto.SimilarItem;
+import edu.og.project.joonggo.model.exception.ImageDeleteException;
+import net.coobird.thumbnailator.resizers.Resizer;
+
+@Service
+@PropertySource("classpath:/config.properties")
+public class JoonggoServiceImpl implements JoonggoService {
+
+	@Autowired
+	JoonggoMapper mapper;
+
+	@Value("${my.joonggo.webpath}")
+	private String webPath;
+
+	@Value("${my.joonggo.location}")
+	private String filePath;
+
+
+
+
+	// 중고상품 상세 조회
+	@Override
+	public Joonggo selectJoonggoDetail(String joonggoNo) {
+
+
+		return mapper.selectJoonggoDetail(joonggoNo);
+	}
+
+
+
+	// 비슷한 상품 목록 조회
+	@Override
+	public List<SimilarItem> selectJonggoList(Map<String, Object> map) {
+		return mapper.selectJonggoList(map);
+	}
+
+
+
+	// 중고 상품 삭제
+	@Override
+	public int deleteJoonggoItem(String joonggoNo) {
+
+		return mapper.deleteJoonggoItem(joonggoNo);
+	}
+
+
+
+	// 중고 상품 삽입
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public String joonggoInsert(JoonggoWrite joonggoWrite) throws IllegalStateException, IOException {
+
+		joonggoWrite.setJoonggoTitle(Util.XSSHandling(joonggoWrite.getJoonggoTitle()));
+		joonggoWrite.setJoonggoContent(Util.XSSHandling(joonggoWrite.getJoonggoContent()));
+
+		String result = "false";
+
+		// 텍스트 먼저 삽입
+		int num = mapper.joonggoInsert(joonggoWrite);
+
+		if(num == 0) {
+
+			return result;
+		}
+
+		// 가격 삽입
+		num = mapper.joonggoPriceInsert(joonggoWrite);
+		if(num == 0)throw new RuntimeException();
+
+		if(num != 0) {
+			// 이미지 분류
+			List<Image> uploadImage = new ArrayList<>();
+
+
+			for (int i = 0; i < joonggoWrite.getImageList().size(); i++) {
+
+				Image img = new Image();
+
+				// 웹 접근 경로
+				img.setImagePath(webPath);
+
+				String orginalFileName = joonggoWrite.getImageList().get(i).getOriginalFilename();
+				String ext = orginalFileName.substring(orginalFileName.lastIndexOf("."));
+
+				img.setImageRename(joonggoWrite.getJoonggoNo()+(i+1)+ ext);
+
+				img.setImageOrder(i);
+
+				img.setBoardNo(joonggoWrite.getJoonggoNo());
+
+
+				uploadImage.add(img);	
+			}	
+
+
+			// 실제 서벙 ㅔ 저장
+			if(!uploadImage.isEmpty()){
+
+				num = mapper.insertImage(uploadImage);
+
+				// uploadImage 사이즈와 성공한 행의 개수가 같을 때
+				if(uploadImage.size() == num){
+
+					for (int i = 0; i < uploadImage.size(); i++) {
+
+						String rename = uploadImage.get(i).getImageRename();
+
+						joonggoWrite.getImageList().get(i).transferTo(new File(filePath+rename));
+
+					}
+					result = joonggoWrite.getJoonggoNo();
+
+				}else {
+
+					throw new FileUploadException();
+				}
+			}
+		}
+
+
+
+		return result;
+	}
+
+
+
+	// 중고 상품 수정
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public String joonggoUpdate(Map<String, Object> map) throws IllegalStateException, IOException {
+
+		JoonggoWrite joonggoWrite = (JoonggoWrite) map.get("joonggoWrite");
+		
+		String updateResult =null;
+
+		String deleteList = (String) map.get("deleteList");
+
+		joonggoWrite.setJoonggoTitle(Util.XSSHandling(joonggoWrite.getJoonggoTitle()));
+		joonggoWrite.setJoonggoContent(Util.XSSHandling(joonggoWrite.getJoonggoContent()));
+
+
+		int result1 = mapper.joonggoUpdate(joonggoWrite);
+		
+		if(result1 == 0) return updateResult;
+
+		int result2 = mapper.joonggoPriceUpdate(joonggoWrite);
+
+
+		if(result2==0) {
+
+			throw new RuntimeException(); 
+		}
+		
+		updateResult = joonggoWrite.getJoonggoNo();
+
+		// 이미지 삭제
+		if(deleteList != null && !deleteList.equals("")) {
+
+			Map<String, Object> deleteMap = new HashMap<>();
+			deleteMap.put("joonggoNo", joonggoWrite.getJoonggoNo());
+			deleteMap.put("deleteList", deleteList);
+
+			int result = mapper.imageDelete(deleteMap);
+
+			if(result == 0) {
+				
+				throw new ImageDeleteException();
+			}
+
+			// 이미지 정렬
+			result = mapper.sortImageOrder(joonggoWrite.getJoonggoNo());
+		}
+
+		List<Image> uploadImage = new ArrayList<>();
+
+		if(joonggoWrite.getImageList() != null) {
+
+			int startOrder = mapper.selectImageOrder(joonggoWrite.getJoonggoNo()) + 1;
+
+
+			for (int i = 0; i < joonggoWrite.getImageList().size(); i++) {
+
+				Image img = new Image();
+
+				// 웹 접근 경로
+				img.setImagePath(webPath);
+
+				String orginalFileName = joonggoWrite.getImageList().get(i).getOriginalFilename();
+				String ext = orginalFileName.substring(orginalFileName.lastIndexOf("."));
+
+				img.setImageRename(joonggoWrite.getJoonggoNo()+(i+startOrder)+ ext);
+
+				img.setImageOrder(i+startOrder);
+
+				img.setBoardNo(joonggoWrite.getJoonggoNo());
+
+
+				uploadImage.add(img);	
+			}	
+
+
+			// 실제 서벙 ㅔ 저장
+			if(!uploadImage.isEmpty()){
+
+				result1 = mapper.insertImage(uploadImage);
+
+				// uploadImage 사이즈와 성공한 행의 개수가 같을 때
+				if(uploadImage.size() == result1){
+
+					for (int i = 0; i < uploadImage.size(); i++) {
+
+						String rename = uploadImage.get(i).getImageRename();
+						
+						
+						// 이미지 리사이징
+						ImageResizer.resizeAndSave500x500(
+								joonggoWrite.getImageList().get(i), 
+								filePath, 
+								rename
+						);
+					}
+					
+
+				}else {
+
+					throw new FileUploadException();
+				}
+			}
+
+
+
+		}
+
+		return updateResult;
+	}
+
+}

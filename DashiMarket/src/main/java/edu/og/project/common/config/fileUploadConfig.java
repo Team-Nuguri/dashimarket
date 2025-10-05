@@ -67,8 +67,7 @@ public class fileUploadConfig implements WebMvcConfigurer {
 		// 실제로 자원이 저장되어있는 로컬 경로
 		String resourcePath = "file:///C:/dashimarketImg/"; 
 		
-		// /images/로 시작하는 요청이 오면 
-		// C:/uploadImages/와 연결 
+		
 		registry.addResourceHandler(webPath).addResourceLocations(resourcePath);
 		
 		

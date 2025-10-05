@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns="http:// www.thymeleaf.com">
+<html lang="en" xmlns="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +10,7 @@
     <link rel="stylesheet" th:href="@{/css/common/footer.css}">
 
 </head>
-<body>
+<body th:with="pagination=${map.pagination}, boardList=${map.boardList}">
     
     <th:block th:replace="~{/common/header}">header.html</th:block>
 
@@ -24,9 +24,8 @@
 
 
         <div id="category-container">
-            <!-- 카테고리 선택 드롭다운 -->
             <div id="category-drop-down-container">
-                <a th:href="@{#}"><div class="text-size-20 medium-text">전체</div></a>
+                <a th:href="@{#}" class="active-category"><div class="text-size-20 medium-text">전체</div></a>
                 <a th:href="@{#}"><div class="text-size-20 medium-text">음식/음료</div></a>
                 <a th:href="@{#}"><div class="text-size-20 medium-text">일상</div></a>
                 <a th:href="@{#}"><div class="text-size-20 medium-text">병원/약국</div></a>
@@ -51,15 +50,14 @@
 
             <!-- 정렬 -->
             <div id="select-sort">
-                <div id="sort-text" class="text-size-16 medium-text">인기순</div>
+                <div id="sort-text" class="text-size-16 medium-text">최신순</div>
                 <div id="sort-drop-down-icon"><img th:src="@{/images/svg/drop-down.svg}"></div>
             </div>
 
             <!-- 드롭다운 메뉴 -->
             <div id="select-sort-box">
-                <a th:href="@{#}"><div class="text-size-14">인기순</div></a>
-                <a th:href="@{#}"><div class="text-size-14">낮은 가격순</div></a>
-                <a th:href="@{#}"><div class="text-size-14">높은 가격순</div></a>
+                <a th:href="@{#}" onclick="fetchGoodsList('latest', event); return false;"><div class="text-size-14">최신순</div></a>
+                <a th:href="@{#}" onclick="fetchGoodsList('popular', event); return false;"><div class="text-size-14">인기순</div></a>
             </div>
 
             <!-- 글쓰기 -->
@@ -67,167 +65,51 @@
         </div>
 
         <!-- 커뮤니티 게시판 목록 -->
-        <div id="community-list">
+        <div id="community-list" th:if="${#lists.size(boardList) > 0}">
 
-            <!-- 하나의 게시글 -->
-            <div class="community-post">
-                <!-- 썸네일 영역 -->
-                <div class="post-thumbnail">
-                    <img th:src="@{/images/community/제발요.jpg}" alt="">
-                </div>
+            <th:block th:each="board : ${boardList}">
 
-                <!-- 텍스트 영역 -->
-                <div class="post-text">
-                    <!-- 제목 -->
-                    <div class="post-title text-size-20 bold-text">제 영혼을 갈았읍니다</div>
-
-                    <div class="post-info">
-                        <!-- 닉네임 -->
-                        <span class="post-nick medium-text">하멍멍</span>
+                <!-- 하나의 게시글 -->
+                <a th:href="@{/{boardType}/{boardNo}(boardType=${boardType}, boardNo=${board.boardNo}, cp=${pagination.currentPage})}" class="community-post">
+                    <!-- 썸네일 영역 -->
+                    <div class="post-thumbnail" th:if="${board.thumbnail != null}">
+                        <img th:src="${board.thumbnail}" alt="">
+                    </div>
     
-                        <span>•</span>
-                        <!-- 작성일 -->
-                        <span class="post-create-date">15분전</span>
-                    </div>
-
-                    <!-- 좋아요, 댓글 -->
-                    <div class="post-icon">
-
-                        <div class="post-like">
-                            <img th:src="@{/images/svg/postLike.svg}" alt="">
-                            <div>12</div>
-                        </div>
-
-                        <div class="post-comment">
-                            <img th:src="@{/images/svg/comment.svg}" alt="">
-                            <div>3</div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="community-post">
-
-                <!-- 텍스트 영역 -->
-                <div class="post-text">
-                    <!-- 제목 -->
-                    <div class="post-title text-size-20 bold-text">html 어려운 사람 드루와</div>
-
-                    <div class="post-info">
-                        <!-- 닉네임 -->
-                        <span class="post-nick medium-text">밤샘각</span>
+                    <!-- 텍스트 영역 -->
+                    <div class="post-text">
+                        <!-- 제목 -->
+                        <div class="post-title text-size-20 bold-text" th:text="${board.boardTitle}">제목</div>
     
-                        <span>•</span>
-                        <!-- 작성일 -->
-                        <span class="post-create-date">23분전</span>
-                    </div>
-
-                    <!-- 좋아요, 댓글 -->
-                    <div class="post-icon">
-
-                        <div class="post-like">
-                            <img th:src="@{/images/svg/postLike.svg}" alt="">
-                            <div>0</div>
+                        <div class="post-info">
+                            <!-- 닉네임 -->
+                            <span class="post-nick medium-text" th:text="${board.memberNickname}">닉네임</span>
+        
+                            <span>•</span>
+                            <!-- 작성일 -->
+                            <span class="post-create-date" th:text="${board.boardCreateDate}">작성일</span>
                         </div>
-
-                        <div class="post-comment">
-                            <img th:src="@{/images/svg/comment.svg}" alt="">
-                            <div>3</div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="community-post">
-
-                <!-- 텍스트 영역 -->
-                <div class="post-text">
-                    <!-- 제목 -->
-                    <div class="post-title text-size-20 bold-text">오버워치 잘 하고 싶은데 나 좀 도와줘봐</div>
-
-                    <div class="post-info">
-                        <!-- 닉네임 -->
-                        <span class="post-nick medium-text">즐겜러</span>
     
-                        <span>•</span>
-                        <!-- 작성일 -->
-                        <span class="post-create-date">25분전</span>
-                    </div>
-
-                    <!-- 좋아요, 댓글 -->
-                    <div class="post-icon">
-
-                        <div class="post-like">
-                            <img th:src="@{/images/svg/postLike.svg}" alt="">
-                            <div>25</div>
-                        </div>
-
-                        <div class="post-comment">
-                            <img th:src="@{/images/svg/comment.svg}" alt="">
-                            <div>32</div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="community-post">
-                <!-- 썸네일 영역 -->
-                <div class="post-thumbnail">
-                    <img th:src="@{/images/community/tired_cat.jpg}" alt="">
-                </div>
-
-                <!-- 텍스트 영역 -->
-                <div class="post-text">
-                    <!-- 제목 -->
-                    <div class="post-title text-size-20 bold-text">제가 지친 고양이로 보이시나요?</div>
-
-                    <div class="post-info">
-                        <!-- 닉네임 -->
-                        <span class="post-nick medium-text">고냥고냥</span>
+                        <!-- 좋아요, 댓글 -->
+                        <div class="post-icon">
     
-                        <span>•</span>
-                        <!-- 작성일 -->
-                        <span class="post-create-date">1시간전</span>
-                    </div>
-
-                    <!-- 좋아요, 댓글 -->
-                    <div class="post-icon">
-
-                        <div class="post-like">
-                            <img th:src="@{/images/svg/postLike.svg}" alt="">
-                            <div>1</div>
-                        </div>
-
-                        <div class="post-comment">
-                            <img th:src="@{/images/svg/comment.svg}" alt="">
-                            <div>2</div>
+                            <div class="post-like">
+                                <img th:src="@{/images/svg/postLike.svg}" alt="">
+                                <div th:text="${board.likeCount}">좋아요</div>
+                            </div>
+    
+                            <div class="post-comment">
+                                <img th:src="@{/images/svg/comment.svg}" alt="">
+                                <div th:text="${board.commentCount}">댓글</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-            </div>
-
+    
+                </a>
+            </th:block>
         </div>
     </section>
 
-    <nav aria-label="페이지네이션">
-        <ul class="pagination">
-            <li><button type="button" class="pagination-btn" aria-label="이전 페이지"><img th:src="@{/images/pagination/pagn-previous-btn.svg}"></button></li>
-            <li><button type="button" aria-current="page" aria-label="1페이지">1</button></li>
-            <li><button type="button" aria-label="2페이지">2</button></li>
-            <li><button type="button" aria-label="3페이지">3</button></li>
-            <li><button type="button" aria-label="4페이지">4</button></li>
-            <li><button type="button" aria-label="5페이지">5</button></li>
-            <li><button type="button" aria-label="6페이지">6</button></li>
-            <li><button type="button" aria-label="7페이지">7</button></li>
-            <li><button type="button" aria-label="8페이지">8</button></li>
-            <li><button type="button" aria-label="9페이지">9</button></li>
-            <li><button type="button" aria-label="10페이지">10</button></li>
-            <li><button type="button" class="pagination-btn" aria-label="다음 페이지"><img th:src="@{/images/pagination/pagn-next-btn.svg}"></button></li>
-        </ul>
-    </nav>
 
     <th:block th:replace="~{/common/footer}">footer.html</th:block>
   

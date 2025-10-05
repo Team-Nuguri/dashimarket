@@ -1,4 +1,4 @@
-package edu.og.project.common.dto;
+package edu.og.project.joonggo.model.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,13 +7,12 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Image {
+public class SimilarItem {
 	
-	private int imageNo;
+	private String joonggoNo;
+	private String joonggoTitle;
 	private String imagePath;
 	private String imageRename;
-	private int imageOrder;
-	private String boardNo;
-	
+	private int joonggoPrice;
 
 }

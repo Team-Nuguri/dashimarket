@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>중고 상품 등록</title>
+    <title>중고 상품 수정</title>
 
     <link rel="stylesheet" th:href="@{/css/common/footer.css}">
     <link rel="stylesheet" th:href="@{/css/common/font.css}">
-    <link rel="stylesheet" th:href="@{/css/joonggoPage/joonggoWrite.css}">
+    <link rel="stylesheet" th:href="@{/css/joonggoPage/joonggoUpdate.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
@@ -17,10 +17,10 @@
 
     <div class="container">
         <div class="header">
-            <h1>중고 상품 등록</h1>
+            <h1>중고 상품 수정</h1>
         </div>
 
-        <form id="writeForm" th:action="@{/joonggo/write}" method="POST" enctype="multipart/form-data">
+        <form id="updateForm" th:action="@{/joonggo/write}" method="POST" enctype="multipart/form-data">
             <ul class="form-list">
                 <li class="form-item">
                     <div class="label-area">
@@ -29,7 +29,7 @@
                     </div>
                     <div class="field-area">
                         <input type="text" class="form-control" name="joonggoTitle" id="joonggoTitle"
-                            placeholder="상품명을 입력해주세요." required>
+                            placeholder="상품명을 입력해주세요." required th:value="${joonggo.joonggoTitle}">
                     </div>
                 </li>
 
@@ -45,9 +45,12 @@
                                     <label for="joonggoImg">
                                         <i class="fas fa-camera" style="font-size: 40px;"></i>
                                     </label>
-                                    <input type="file" name="joonggoImg" id="joonggoImg" accept="image/*" multiple>
+                                    <input type="file" name="joonggoImg" id="joonggoImg" accept="image/*" multiple >
                                 </li>
-
+                                <li th:each="img : ${joonggo.imageList}">
+                                    <img th:src="${img.imagePath}+${img.imageRename}" class="imglist">
+                                    <span class="x-button text-size-14">x</span>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -60,7 +63,7 @@
                     </div>
                     <div class="field-area">
                         <textarea class="form-control content-textarea" name="joonggoContent" id="joonggoContent" placeholder="내용을 입력하세요"
-                            required></textarea>
+                            required th:text="${joonggo.joonggoContent}">중고 상품 내용</textarea>
                     </div>
                 </li>
             
@@ -138,7 +141,7 @@
                     </div>
                     <div class="price-area">
                         <input type="text" class="form-control" name="joonggoPrice" id="joonggoPrice"
-                            placeholder="가격을 입력해주세요" required>
+                            placeholder="가격을 입력해주세요" required th:value="${joonggo.joonggoPrice}">
                     </div>
 
                 </li>
@@ -150,7 +153,7 @@
                     취소하기
                 </button>
                 <button type="submit" class="btn btn-submit">
-                    등록하기
+                    수정하기
                 </button>
             </div>
         </form>
@@ -159,9 +162,18 @@
 
     <th:block th:replace="~{/common/footer}">footer.html</th:block>
     <th:block th:replace="~{/common/floatingBtn}">floatingBtn.html</th:block>
+
+    <script th:inline="javascript">
+
+
+        const mainCategoryName = /*[[${joonggo.mainCategory}]]*/ '메인 카테도리 이름';
+        const subCategoryName = /*[[${joonggo.subCategory}]]*/ '서브 카테도리 이름';
+
+
+    </script>
     
 
-    <script th:src="@{/js/joonggoPage/joonggoWrite.js}"></script>
+    <script th:src="@{/js/joonggoPage/joonggoUpdate.js}"></script>
 </body>
 
 </html>
