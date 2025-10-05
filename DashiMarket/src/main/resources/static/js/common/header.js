@@ -3,7 +3,7 @@ console.log("header.js loaded..")
 // 알림 버튼 클릭시 알림 리스트 보이게 하기
 const notificationBtn = document.getElementById("bell");
 
-notificationBtn.addEventListener("click", ()=>{
+notificationBtn?.addEventListener("click", ()=>{
 
     // 알림 목록
     const notificationList = document.querySelector(".notification-list");

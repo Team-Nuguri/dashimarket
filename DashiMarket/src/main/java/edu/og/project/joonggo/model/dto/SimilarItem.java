@@ -12,6 +12,7 @@ public class SimilarItem {
 	private String joonggoNo;
 	private String joonggoTitle;
 	private String imagePath;
+	private String imageRename;
 	private int joonggoPrice;
 
 }

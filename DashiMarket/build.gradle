@@ -59,6 +59,9 @@ dependencies {
    //GSON
    // https://mvnrepository.com/artifact/com.google.code.gson/gson
    implementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
+   
+   // 이미지 리사이징
+   implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.19'
 	
 }
 

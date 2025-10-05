@@ -1,9 +1,11 @@
 package edu.og.project.joonggo.model.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import edu.og.project.joonggo.model.dto.Joonggo;
+import edu.og.project.joonggo.model.dto.JoonggoWrite;
 import edu.og.project.joonggo.model.dto.SimilarItem;
 
 public interface JoonggoService {
@@ -32,5 +34,23 @@ public interface JoonggoService {
 	 * @return int 행 개수
 	 */
 	int deleteJoonggoItem(String joonggoNo);
+
+
+
+	/** 중고 상품 삽입
+	 * @param joonggoWrite
+	 * @return 행 개수
+	 */
+	String joonggoInsert(JoonggoWrite joonggoWrite)  throws IllegalStateException, IOException;
+
+
+
+	/** 중고 상품 수정
+	 * @param map
+	 * @return 
+	 * @throws IOException 
+	 * @throws IllegalStateException 
+	 */
+	String joonggoUpdate(Map<String, Object> map) throws IllegalStateException, IOException;
 
 }

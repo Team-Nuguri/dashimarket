@@ -1,3 +1,5 @@
+console.log("joonggoWrite.js loaded . . .")
+
 let allFiles = []; // 이미지 정볼르 담을 배열
 
 const joonggoImage = document.getElementById("joonggoImg");
@@ -63,7 +65,7 @@ const mainBtn = document.getElementsByClassName("main-category");
 const subcate = document.getElementById("sub-category");
 
 const mainCategory = document.getElementsByName("mainCategory")[0];
-const subCategory = document.getElementsByName("subCategory")[0];
+const subCategory = document.getElementsByName("categoryId")[0];
 
 
 const subcategory = {
@@ -203,8 +205,110 @@ for (let btn of mainBtn) {
 
 
 
+/* 
+        const data = new FormData();
+
+    for (let file of allFiles) {
+
+        data.append('images', file);
+        
+    }
+
+    FormData
+    - JavaScript의 내장 객체 웹폼의 데이터와 동일한 형식으로 key value 쌍을 쉽게 캡슐화하기 위해 설계
+    - 파일 데이터를 포함하여 텍스트 데이터와 함께 서버로 전송할 수 있도록 데이터 표준화
+
+    -FormData 객체는 append(키, 값) 메서드를 사용하여 필요한 모든 데이터를 추가
+    - 같은 key 값으로 여러개 append 하면 배열처럼 쌓임 
+    - 비동기 요청 보낼때 headers 따로 작성 x 자동으로 설정해줘서 
+    - key 값하고 서버에서 받을 변수명 일치 시키면 편함
 
 
+*/
+
+
+const joonggoTitle = document.getElementById("joonggoTitle");
+const joonggoContent = document.getElementById("joonggoContent");
+const joonggoPrice = document.getElementById("joonggoPrice");
+//joonggoImg
 
 
 /* form 태그 제출 시 기본 제출 막고 비동기로 allfiles 보낼 예정 */
+
+document.getElementById("writeForm").addEventListener("submit", e => {
+
+    e.preventDefault();
+
+    if(allFiles.length == 0){
+        alert("이미지를 선택해주세요.");
+        return ;
+    }
+
+    if(subCategory.value ==''){
+        alert("카테고리를 선택해주세요.");
+        return;
+    }
+
+
+    if (Number.isNaN(Number(joonggoPrice.value))) {
+        alert("가격은 숫자만 입력해야 합니다.");
+        joonggoPrice.value='';
+        joonggoPrice.focus;
+        return ; 
+    }
+
+    const price = Number(joonggoPrice.value);
+
+    if (price < 0) {
+        alert("가격은 0원 이상으로 입력해 주세요.");
+        joonggoPrice.value='';
+        joonggoPrice.focus;
+        return ; 
+    }
+
+    const data = new FormData();
+
+    // 서버에 넘겨줄 데이터 FormData에 담아서
+    data.append("joonggoTitle", joonggoTitle.value);
+    data.append("joonggoContent", joonggoContent.value);
+    data.append("joonggoPrice", price);
+    data.append("categoryId", subCategory.value);
+
+    // allFIles 파일 하나씩 꺼내서 같은 key 값으로 추가
+    for (let file of allFiles) {
+        data.append("imageList", file);
+    }
+
+    
+    // headers 작성 필요 x 알아서 설정해줌
+    fetch("/joonggo/write", {
+        method : "POST",
+        body : data
+    })
+    .then(resp => resp.text())
+    .then(result => {
+
+        if(result =='false'){
+            alert("상품 등록에 실패하였습니다.");
+            setTimeout(() => {
+
+                location.href = location.pathname;
+            }, 100);
+            
+        }else{
+            alert("상품이 등록되었습니다.")
+            
+            setTimeout(() => {
+
+                location.href = result;
+            }, 100);
+        }
+
+        
+
+    })
+    .catch(e => console.log(e))
+
+
+
+})

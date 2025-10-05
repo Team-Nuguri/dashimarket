@@ -12,7 +12,7 @@ const dots = document.getElementsByClassName("dot");
 
 
 /* 오른쪽 버튼 클릭 시 */
-document.getElementById("right-btn").addEventListener("click", e => {
+document.getElementById("right-btn")?.addEventListener("click", e => {
 
     if(currentIndex < imglength-1){
 
@@ -34,7 +34,7 @@ document.getElementById("right-btn").addEventListener("click", e => {
 })
 
 /* 왼쪽 버튼 클릭 시 */
-document.getElementById("left-btn").addEventListener("click", () => {
+document.getElementById("left-btn")?.addEventListener("click", () => {
 
     if(currentIndex > 0){
         currentIndex--;
@@ -90,34 +90,36 @@ const leftBtn = document.getElementById("left-out-btn");
 const rightBtn = document.getElementById("right-out-btn");
 const slideImage = document.getElementById("image-slide");
 
-const similarItem = document.getElementsByClassName("similar-items").length / 4;
+const totalItems = document.getElementsByClassName("similar-items").length;
+const itemsPerSlide = 5;
+const totalPages = Math.ceil(totalItems / itemsPerSlide); 
 let index = 0;
 
 
-rightBtn.addEventListener("click", () => {
-    index++;
-    if(index < similarItem-1){
+slideImage.style.transition = 'all 0.4s'; 
 
+rightBtn.addEventListener("click", () => {
+    if (index < totalPages - 1) {
+        index++;
+        
         slideImage.style.transform = `translateX(-${1200 * index}px)`;
-        slideImage.style.transition = 'all 0.4s'
         
     }
+});
 
 
-})
 leftBtn.addEventListener("click", () => {
-    if(index > 0){
+    // 0보다 클 때만 index를 감소시키고 이동
+    if (index > 0) {
         index--;
+        slideImage.style.transform = `translateX(-${1200 * index}px)`;
 
-        slideImage.style.transform = `translateX(-${1200 * index}px)`
-        slideImage.style.transition = 'all 0.4s'
     }
-
-
-})
+});
 
 
 
+// 삭제 버튼 클릭 시
 document.getElementById("deleteBtn")?.addEventListener("click", e => {
 
 
@@ -144,4 +146,12 @@ document.getElementById("deleteBtn")?.addEventListener("click", e => {
     }
     
 
+})
+
+
+
+// 수정하기 버튼 클릭 시
+document.getElementById("editBtn")?.addEventListener("click", e => {
+    
+    location.href=location.pathname+"/update";
 })
