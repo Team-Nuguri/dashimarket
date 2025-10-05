@@ -25,23 +25,24 @@
 
         <div id="category-container">
             <div id="category-drop-down-container">
-                <a th:href="@{#}" class="active-category"><div class="text-size-20 medium-text">전체</div></a>
-                <a th:href="@{#}"><div class="text-size-20 medium-text">음식/음료</div></a>
-                <a th:href="@{#}"><div class="text-size-20 medium-text">일상</div></a>
-                <a th:href="@{#}"><div class="text-size-20 medium-text">병원/약국</div></a>
-    
-                <a th:href="@{#}"><div class="text-size-20 medium-text">교육</div></a>
-                <a th:href="@{#}"><div class="text-size-20 medium-text">주거/부동산</div></a>
-                <a th:href="@{#}"><div class="text-size-20 medium-text">운동</div></a>
-                <a th:href="@{#}"><div class="text-size-20 medium-text">취미/오락</div></a>
-    
-                <a th:href="@{#}"><div class="text-size-20 medium-text">문화/예술</div></a>
-                <a th:href="@{#}"><div class="text-size-20 medium-text">음악/악기</div></a>
-                <a th:href="@{#}"><div class="text-size-20 medium-text">자기계발</div></a>
-                <a th:href="@{#}"><div class="text-size-20 medium-text">여행</div></a>
-    
-                <a th:href="@{#}"><div class="text-size-20 medium-text">반려동물</div></a>
-                <a th:href="@{#}"><div class="text-size-20 medium-text">가족/육아</div></a>
+                <a th:href="@{#}" class="active-category" data-category="all"><div class="text-size-20 medium-text">전체</div></a>
+                
+                <a th:href="@{#}" data-category="C100"><div class="text-size-20 medium-text">음식/음료</div></a>
+                <a th:href="@{#}" data-category="C200"><div class="text-size-20 medium-text">일상</div></a>
+                <a th:href="@{#}" data-category="C300"><div class="text-size-20 medium-text">병원/약국</div></a>
+                
+                <a th:href="@{#}" data-category="C400"><div class="text-size-20 medium-text">교육</div></a>
+                <a th:href="@{#}" data-category="C500"><div class="text-size-20 medium-text">주거/부동산</div></a>
+                <a th:href="@{#}" data-category="C600"><div class="text-size-20 medium-text">운동</div></a>
+                <a th:href="@{#}" data-category="C700"><div class="text-size-20 medium-text">취미/오락</div></a>
+                
+                <a th:href="@{#}" data-category="C800"><div class="text-size-20 medium-text">문화/예술</div></a>
+                <a th:href="@{#}" data-category="C900"><div class="text-size-20 medium-text">음악/악기</div></a>
+                <a th:href="@{#}" data-category="C1000"><div class="text-size-20 medium-text">자기계발</div></a>
+                <a th:href="@{#}" data-category="C1100"><div class="text-size-20 medium-text">여행</div></a>
+                
+                <a th:href="@{#}" data-category="C1200"><div class="text-size-20 medium-text">반려동물</div></a>
+                <a th:href="@{#}" data-category="C1300"><div class="text-size-20 medium-text">가족/육아</div></a>
             </div>
         </div>
 
@@ -56,8 +57,8 @@
 
             <!-- 드롭다운 메뉴 -->
             <div id="select-sort-box">
-                <a th:href="@{#}" onclick="fetchGoodsList('latest', event); return false;"><div class="text-size-14">최신순</div></a>
-                <a th:href="@{#}" onclick="fetchGoodsList('popular', event); return false;"><div class="text-size-14">인기순</div></a>
+                <a th:href="@{#}" data-sort-type="latest"><div class="text-size-14">최신순</div></a>
+                <a th:href="@{#}" data-sort-type="popular"><div class="text-size-14">인기순</div></a>
             </div>
 
             <!-- 글쓰기 -->
