@@ -19,14 +19,15 @@ public class CommunityServiceImpl implements CommunityService {
 	@Autowired
 	private CommunityMapper mapper;
 	
-	@Autowired
-	private GoodsMapper goodsMapper;
-
 	// 커뮤니티 목록 조회
 	@Override
-	public Map<String, Object> selectCommunityList(String boardType, int cp, String category, String sortType) {
-		// 특정 게시판의 삭제되지 않은 게시글 수 조회
-		int listCount = goodsMapper.getListCount(boardType);
+	public Map<String, Object> selectCommunityList(String boardType, int cp, String category, String sort) {
+		// 특정 게시판의 특정 카테고리에서 삭제되지 않은 게시글 수 조회
+		Map<String, Object> countParam = new HashMap<>();
+		countParam.put("boardType", boardType);
+		countParam.put("category", category);
+		
+		int listCount = mapper.getListCount(countParam);
 		
 		// 페이지네이션
 		Pagination pagination = new Pagination(cp, listCount);
@@ -37,7 +38,7 @@ public class CommunityServiceImpl implements CommunityService {
 		Map<String, Object> param = new HashMap<>();
 		param.put("boardType", boardType);
 		param.put("category", category);
-		param.put("sortType", category);
+		param.put("sort", sort);
 		
 		List<Community> boardList = mapper.selectCommunityList(param, rowBounds);
 		
