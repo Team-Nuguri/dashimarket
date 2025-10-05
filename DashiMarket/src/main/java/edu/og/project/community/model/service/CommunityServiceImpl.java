@@ -41,4 +41,11 @@ public class CommunityServiceImpl implements CommunityService {
 		return map;
 	}
 
+	// 커뮤니티 정렬
+	@Override
+	public Map<String, Object> sortCommunityList(String boardType, int cp, String sortType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
