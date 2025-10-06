@@ -1,98 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>굿즈 상품 등록</title>
 
-    <link rel="stylesheet" href="../../static/css/common/header.css">
-    <link rel="stylesheet" href="../../static/css/common/footer.css">
-    <link rel="stylesheet" href="../../static/css/common/font.css">
+    <link rel="stylesheet" th:href="@{/css/common/header.css}">
+    <link rel="stylesheet" th:href="@{/css/common/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/common/font.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="../../static/css/goodsPage/goodsWrite.css">
+    <link rel="stylesheet" th:href="@{/css/goodsPage/goodsWrite.css}">
 </head>
 
 <body>
-    <header>
-        <section id="header-area">
-            <!-- 다시마켓 로고 -->
-            <div>
-                <a href="@{/}">
-                    <img id="main-logo" src="../../static/images/logo.png">
-                </a>
-            </div>
-
-            <!-- 카테고리 박스 -->
-            <div>
-                <div>
-                    <a href="/joongo" class="noto-sans-kr-20">중고거래</a>
-                </div>
-                <div>
-                    <a href="/goods" class="noto-sans-kr-20">굿즈</a>
-                </div>
-                <div>
-                    <a href="/community" class="noto-sans-kr-20">커뮤니티</a>
-                </div>
-            </div>
-
-            <!-- 아이콘 영역 -->
-            <div id="icon-area">
-                <button>
-                    <img src="../../static/images/svg/하트.svg" class="icon-img">
-                    <!-- <img src="../../static/images/svg/장바구니.svg" > -->
-                    <!-- <img src="@{/images/사람.svg}" > -->
-                </button>
-
-                <!-- 알림 영역 -->
-                <section class="notification-container">
-
-                    <!-- 알림 버튼 -->
-                    <button class="notification-btn" id="bell">
-                        <img src="../../static/images/svg/Group.svg" class="icon-img">
-
-                        <!-- 알림 표시 -->
-                        <div class="notification-area"></div>
-                    </button>
-
-                    <!-- 알림 목록 -->
-                    <ul class="notification-list">
-                        <li class="notification-item">
-                            <div class="notification-div">
-                                <img src="/src/main/resources/static/images/admin/user.png">
-
-                                <div class="notification-content">
-                                    <p class="notification-title">관심 상품이 등록되었습니다.</p>
-                                    <p class="notification-text">알림 내용</p>
-                                    <span class="notification-date">알림 보낸 시간</span>
-                                    <span>X</span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-
-                </section>
-
-                <button>
-                    <img src="../../static/images/svg/clarity_menu-line.svg" class="icon-img">
-                </button>
-            </div>
-        </section>
-
-        <section id="search-area">
-
-            <form action="">
-                <fieldset>
-                    <input type="search" name="query" id="query" placeholder="검색어를 입력해주세요." class="noto-sans-kr-20">
-                    <img src="../../static/images/svg/돋보기.svg">
-                </fieldset>
-            </form>
-
-        </section>
-
-        <script src="/src/main/resources/static/js/common/header.js"></script>
-
-    </header>
+    
+    <th:block th:replace="~{common/header}">header.html</th:block>
 
     
     <div class="container">
@@ -100,14 +23,14 @@
             <h1>굿즈 상품 등록</h1>
         </div>
 
-        <form id="writeForm">
+        <form th:action="@{/goods/write}" id="writeForm" method="POST" enctype="multipart/form-data">
             <ul class="form-list">
                 <li class="form-item">
                     <div class="label-area">
                         <span class="form-label"><span class="required">*</span>상품명</span>
                     </div>
                     <div class="field-area">
-                        <input type="text" class="form-control" name="goodsName" id="goodsName"
+                        <input type="text" class="form-control" name="goodsTitle" id="goodsName"
                             placeholder="상품명을 입력해주세요." required>
                     </div>
                 </li>
@@ -116,12 +39,13 @@
                     <div class="label-area">
                         <span class="form-label"><span class="required">*</span>상품 설명</span>
                     </div>
-                    <div class="field-area">
+                    <div class="field-area" id="goods-info-area" >
                         <label for="goodsInfo">
                             <i class="fas fa-camera" style="font-size: 40px;"></i>
                         </label>
                         <input type="file" name="goodsInfo" id="goodsInfo" accept="image/*">
-                        <span style="margin-left: 40px;" id="goodsInfoName">선택된 파일이 없습니다.</span>
+                        
+                        
                     </div>
                 </li>
 
@@ -177,58 +101,10 @@
 
 
 
-    <footer>
-        <section>
+    <th:block th:replace="~{common/footer}">footer.html</th:block>
+    <th:block th:replace="~{common/floatingBtn}">floatingBtn.html</th:block>
 
-            <div class="footer-top">
-                <a th:href="@{#}"><img src="logo.png" width="100px" style="vertical-align: middle;"></a>
-                <a th:href="@{#}">회사 소개</a>
-                <span>|</span>
-                <a th:href="@{#}">서비스 소개</a>
-                <span>|</span>
-                <a th:href="@{#}">블로그</a>
-                <span>|</span>
-                <a th:href="@{#}">채용제휴 문의</a>
-                <span>|</span>
-                <a th:href="@{#}">광고 문의</a>
-            </div>
-
-            <hr>
-
-            <div class="footer-bottom">
-
-                <div class="footer-left">
-                    (주) 다시마켓 <br>
-                    대표 너구리 <br>
-                    사업자번호 168-87-57386 <br>
-                    직업정보제공사업 신고번호J1200020200016 <br>
-                    통신판매신고번호 제2024-서울강남-06966호 <br>
-                    호스팅 사업자 Amazon Web Service(AWS)<br>
-                    주소 서울특별시 종로구 우정국로2길 21 9층, 903호 <br>
-                    전화 1877-9292 <br>
-                    고객문의 kelp@dasimacat.com
-                </div>
-                <div class="footer-right">
-                    <a href="#">공지사항</a>
-                    <a href="#">자주묻는 질문</a> <br><br>
-
-                    <a href="#">이용약관</a>
-                    <a href="#">개인정보처리방침</a>
-
-                    <a href="#">운영정책</a>
-
-                    <a href="#">위치기반서비스 이용약관</a>
-
-                    <a href="#">게시글</a>
-
-                </div>
-
-            </div>
-        </section>
-
-    </footer>
-
-    <script src="../../static/js/goodsPage/goodsWrite.js"></script>
+    <script th:src="@{/js/goodsPage/goodsWrite.js}"></script>
 </body>
 
 </html>

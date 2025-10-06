@@ -1,10 +1,12 @@
 package edu.og.project.goods.model.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import edu.og.project.common.dto.Review;
 import edu.og.project.goods.model.dto.Goods;
+import edu.og.project.goods.model.dto.GoodsWrite;
 import edu.og.project.goods.model.dto.OtherGoods;
 
 public interface GoodsService {
@@ -63,5 +65,14 @@ public interface GoodsService {
 	 * @return int 행 개수
 	 */
 	int goodsDelete(String boardNo);
+	
+	
+	/** 굿즈 상품 등록
+	 * @param goodsWrite
+	 * @return 게시글 번호
+	 * @throws IOException 
+	 * @throws IllegalStateException 
+	 */
+	String goodsInsert(GoodsWrite goodsWrite) throws IllegalStateException, IOException;
 
 }

@@ -314,6 +314,46 @@
 	</update>
 	
 	
+	<!-- 굿즈 삽입-->
+	<insert id="goodsBoardInsert" useGeneratedKeys="true">
+		
+		<selectKey order="BEFORE" resultType="string" keyProperty="goodsNo">			
+			SELECT 'G' || TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS') || LPAD(SEQ_GOODS_NO.NEXTVAL, 5, '0') FROM DUAL		
+		</selectKey>
+		
+		INSERT INTO BOARD VALUES(
+		#{goodsNo},#{goodsTitle}, #{goodsContent}
+		, SYSDATE, null, default
+        ,(SELECT BOARD_CODE FROM BOARD_TYPE 
+        	WHERE BOARD_TYPE = #{boardType})
+    	,1, null, default)
+		
+		
+		
+	</insert>
+	
+	<!--굿즈 가격 수량 삽입-->
+	<insert id="goodsInsert">
+		INSERT INTO GOODS VALUES(
+		#{goodsNo}, ${goodsPrice}, ${goodsStock}
+		)
+		
+		
+	</insert>
+	
+	<!-- 이미지 삽입-->
+	<insert id="imageInsert">
+		
+		INSERT INTO IMAGE VALUES(
+		SEQ_IMAGE_NO.NEXTVAL,
+		#{imagePath},
+		#{imageRename},
+		#{imageOrder},
+		#{boardNo})
+				
+	</insert>
+	
+	
 	
 	
 </mapper>

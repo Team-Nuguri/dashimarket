@@ -162,6 +162,8 @@ public class JoonggoServiceImpl implements JoonggoService {
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public String joonggoUpdate(Map<String, Object> map) throws IllegalStateException, IOException {
+		
+		
 
 		JoonggoWrite joonggoWrite = (JoonggoWrite) map.get("joonggoWrite");
 		
