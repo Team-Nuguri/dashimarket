@@ -20,11 +20,16 @@ public class Community {
 	private String boardCreateDate;
 	private String boardUpdateDate;
 	private int postViews;
-	private int boardCode;
+	private int boardCode; // 게시판 코드 (커뮤니티: 3)
 	private String thumbnail;
 
+	// 카테고리
+	private String categoryName;
+	
 	// 회원
 	private String memberNickname;
+	private String profilePath;
+	private String defaultDong;
 	
 	// 이미지
 	private List<Image> imgList;
@@ -32,7 +37,7 @@ public class Community {
 	// 댓글
 	private List<Comment> commentList;
 	
-	// 댓글 수
+	// 전체 댓글 수
 	private int commentCount;
 	
 	// 좋아요 수
