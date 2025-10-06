@@ -37,6 +37,7 @@ public class JoonggoController {
 	public String selectJoonggoDetail(
 			@PathVariable("joonggoNo") String joonggoNo,
 			@PathVariable("boardType") String boardType,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
 			Model model
 			) {
 		
