@@ -46,5 +46,8 @@ public interface GoodsMapper {
 	
 	// 다른 굿즈 목록 조회
 	public List<OtherGoods> selectOtherGoodsList(String boardNo);
+	
+	// 굿즈 삭제
+	public int goodsDelete(String boardNo);
 
 }

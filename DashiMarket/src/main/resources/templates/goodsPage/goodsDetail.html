@@ -33,7 +33,7 @@
                             th:src="${goods.image.imagePath}+${goods.image.imageRename}">
                     </div>
                     <!-- soldout 이미지 -->
-                    <div class="sold-out" id="sold-out">
+                    <div th:classappend="${goods.goodsStock == 0 ? 'show' : ''}" class="sold-out" id="sold-out">
                         <img th:src="@{/images/goods/soldout.jpg}" style="width: 500px; height: 500px;">
                     </div>
 
@@ -47,8 +47,8 @@
 
                         <!-- 관리자만 볼 수 있게 -->
                         <div class="dropdown-menu">
-                            <button class="action-edit">수정하기</button>
-                            <button class="action-delete">삭제하기</button>
+                            <button id="editBtn">수정하기</button>
+                            <button id="deleteBtn">삭제하기</button>
                         </div>
                     </div>
                     <div id="item-price">
@@ -112,7 +112,7 @@
                             </div>
                             <div class="similar-info-container flex direction-column">
                                 <p class="similar-name" th:text="${gList.goodsTitle}">상품 이름</p>
-                                <span class="similar-price" th:text="${gList.goodsPrice}">상품 가격</span>
+                                <span class="similar-price" th:text="${#numbers.formatDecimal(goods.goodsPrice, 0, 'COMMA', 0, 'POINT')} + '원'">상품 가격</span>
                             </div>
                         </a>
                     </div>

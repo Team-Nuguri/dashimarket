@@ -296,6 +296,7 @@
 		        WHERE BOARD_NO != #{boardNo}
 		        AND DELETE_FL = 'N'
 		        AND IMG_ORDER = 0
+		        AND GOODS_STOCK != 0
 		        ORDER BY DBMS_RANDOM.VALUE)
 		 <![CDATA[
 		 	WHERE ROWNUM <= 20
@@ -303,7 +304,14 @@
 		
 		
 	</select>
-	
+
+
+	<!-- 굿즈 삭제 -->
+	<update id="goodsDelete">
+		UPDATE BOARD SET
+		DELETE_FL = 'Y'
+		WHERE BOARD_NO = #{boardNo}
+	</update>
 	
 	
 	
