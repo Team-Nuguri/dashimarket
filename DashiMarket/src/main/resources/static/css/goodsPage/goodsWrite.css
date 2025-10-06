@@ -268,3 +268,19 @@ i{
 }
 
 
+
+
+#goods-info-area>span{
+    position: relative;
+}
+
+#goods-info-area>span>span{
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    opacity: 0.5;
+}
+
+#goods-info-area>span>span:hover{
+    cursor: pointer;
+}

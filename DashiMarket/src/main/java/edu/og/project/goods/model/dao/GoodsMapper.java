@@ -6,8 +6,10 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
 import edu.og.project.common.dto.Comment;
+import edu.og.project.common.dto.Image;
 import edu.og.project.common.dto.Review;
 import edu.og.project.goods.model.dto.Goods;
+import edu.og.project.goods.model.dto.GoodsWrite;
 import edu.og.project.goods.model.dto.OtherGoods;
 
 @Mapper
@@ -49,5 +51,16 @@ public interface GoodsMapper {
 	
 	// 굿즈 삭제
 	public int goodsDelete(String boardNo);
+	
+	
+	// 굿즈 보드 insert
+	public int goodsBoardInsert(GoodsWrite goodsWrite);
+
+	// 이미지 삽입
+	public int imageInsert(Image image);
+	
+	
+	// 굿즈 가격, 재고 insert
+	public int goodsInsert(GoodsWrite goodsWrite);
 
 }

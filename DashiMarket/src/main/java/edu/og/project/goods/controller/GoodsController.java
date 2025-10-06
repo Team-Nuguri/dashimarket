@@ -1,5 +1,6 @@
 package edu.og.project.goods.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import edu.og.project.common.dto.Comment;
 import edu.og.project.common.dto.Review;
 import edu.og.project.goods.model.dto.Goods;
+import edu.og.project.goods.model.dto.GoodsWrite;
 import edu.og.project.goods.model.dto.OtherGoods;
 import edu.og.project.goods.model.service.GoodsService;
 
@@ -140,11 +143,44 @@ public class GoodsController {
 			path = "redirect:/goods/"+boardNo;
 			
 		}
-		
-		
-		
-		
+				
 		return path;	
+	}
+	
+	// 굿즈 상품 등록 페이지 전환
+	@GetMapping("/goods/goodsWrite")
+	public String goodsWriteForward() throws IllegalStateException, IOException {
+		
+		return "/goodsPage/goodsWrite";
+	}
+	
+	
+	
+	// 굿즈 상품 등록
+	@PostMapping("/{boardType:g.*}/write")
+	public String goodsWrite(GoodsWrite goodsWrite
+			, @PathVariable("boardType") String boardType
+			, RedirectAttributes ra
+			// 회원 번호 나중에 세션에서
+			) throws IllegalStateException, IOException {
+		
+		goodsWrite.setBoardType(boardType);
+		goodsWrite.setMemberNo(1);
+		
+		String result = service.goodsInsert(goodsWrite);
+		
+		String path = null;
+		
+		if(result != null) {
+			path = "redirect:/"+ boardType +"/" + result;
+			ra.addFlashAttribute("message", "상품이 등록되었습니다.");
+		}else {
+			path = "redirect:/goods/write";
+			ra.addFlashAttribute("message", "상품 등록 실패");
+		}
+		
+		return path;
+		
 	}
 
 
