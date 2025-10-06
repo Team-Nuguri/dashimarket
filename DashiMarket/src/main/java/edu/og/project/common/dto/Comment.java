@@ -13,6 +13,9 @@ public class Comment {
 	private String postNo; // 게시글 번호
 	private int parentCommentNo; // 부모 댓글 번호
 	
+	
+	private int childCommentCount; // 특정 댓글의 답글 수
+	
 	private String commentContent; // 댓글 내용
 	private String commentCreateDate; // 작성일
 	private String commentUpdateDate; // 수정일

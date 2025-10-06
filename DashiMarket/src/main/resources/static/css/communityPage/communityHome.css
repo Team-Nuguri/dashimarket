@@ -423,6 +423,7 @@ nav {
 .post-content-area {
     margin: 30px 0;
     width: 800px;
+    min-height: 200px;
     overflow-wrap: break-word;
 }
 

@@ -1,5 +1,6 @@
 package edu.og.project.community.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.og.project.community.model.dto.Community;
 import edu.og.project.community.model.service.CommunityService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -74,4 +77,32 @@ public class CommunityController {
 		// ***************************************************************
 		return service.selectCommunityList(boardType, cp, category, sort);
 	}
+	
+	// 커뮤니티 상세조회
+	@GetMapping("/{boardType:c.*}/{boardNo}")
+	public String communityDetail(@PathVariable("boardType") String boardType,
+								  @PathVariable("boardNo") String boardNo,
+								  @RequestParam(value="cp", required=false, defaultValue="1") int cp,
+								  Model model, RedirectAttributes ra) {
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("boardType", boardType);
+		map.put("boardNo", boardNo);
+		
+		Community community = service.communityDetail(map);
+		System.out.println(community);
+		model.addAttribute("community", community);
+
+		String path = null;
+		
+		if(community != null) {
+			path = "communityPage/communityDetail";
+			model.addAttribute("board", community);
+		} else {
+			path = "redirect:/community/" + boardType;
+			ra.addFlashAttribute("message", "게시글이 존재하지 않습니다.");
+		}
+		return path;
+	}
+	
 }

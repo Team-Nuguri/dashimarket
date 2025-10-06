@@ -17,5 +17,8 @@ public interface CommunityMapper {
 	// 커뮤니티 목록 조회
 	public List<Community> selectCommunityList(Map<String, Object> param, RowBounds rowBounds);
 
+	// 커뮤니티 상세조회
+	public Community communityDetail(Map<String, Object> map);
+
 
 }
