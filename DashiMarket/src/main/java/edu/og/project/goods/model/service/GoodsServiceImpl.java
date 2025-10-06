@@ -131,5 +131,13 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 	
 	
+	// 굿즈 삭제
+	@Override
+	public int goodsDelete(String boardNo) {
+		
+		return mapper.goodsDelete(boardNo);
+	}
+	
+	
 
 }

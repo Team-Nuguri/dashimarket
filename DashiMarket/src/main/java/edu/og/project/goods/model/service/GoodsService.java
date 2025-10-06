@@ -55,5 +55,13 @@ public interface GoodsService {
 	 * @return 굿즈 리스트
 	 */
 	List<OtherGoods> selectOtherGoodsList(String boardNo);
+	
+	
+	
+	/** 굿즈 상품 삭제
+	 * @param boardNo
+	 * @return int 행 개수
+	 */
+	int goodsDelete(String boardNo);
 
 }

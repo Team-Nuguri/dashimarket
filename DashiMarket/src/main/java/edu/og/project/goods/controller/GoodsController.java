@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.og.project.common.dto.Comment;
 import edu.og.project.common.dto.Review;
@@ -116,6 +117,34 @@ public class GoodsController {
 
 		return "/goodsPage/goodsDetail :: #qna-list";
 
+	}
+	
+	
+	
+	// 굿즈 상품 삭제
+	@GetMapping("/goods/delete")
+	public String goodsDelete(String boardNo
+			, RedirectAttributes ra) {
+		
+		
+		int result = service.goodsDelete(boardNo);
+		
+		String path = null;
+		
+		if(result != 0) {
+			ra.addFlashAttribute("message", boardNo + "번 상품이 삭제되었습니다.");
+			path = "redirect:/goods";
+		}else {
+			
+			ra.addFlashAttribute("message", "삭제 실패하였습니다.");
+			path = "redirect:/goods/"+boardNo;
+			
+		}
+		
+		
+		
+		
+		return path;	
 	}
 
 

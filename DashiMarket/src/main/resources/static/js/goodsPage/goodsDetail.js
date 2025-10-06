@@ -281,6 +281,15 @@ cartBtn.addEventListener("click", e => {
 
 
 
+document.getElementById("deleteBtn")?.addEventListener("click", e => {
+
+    if(confirm("정말 삭제하시겠습니까 ?")){
+        location.href= "/" + location.pathname.split("/")[1] +"/delete?boardNo="+boardNo;
+    }
+    
+})
+
+
 
 
 
