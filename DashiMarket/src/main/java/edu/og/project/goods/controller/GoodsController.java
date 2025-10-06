@@ -59,7 +59,7 @@ public class GoodsController {
 	}
 
 	// 굿즈 상세 조회
-	@GetMapping("/{boardType}/{boardNo}")
+	@GetMapping("/{boardType}/{boardNo:G.*}")
 	public String selectGoodsDetail(@PathVariable("boardType") String boardType,
 			@PathVariable("boardNo") String boardNo,
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
