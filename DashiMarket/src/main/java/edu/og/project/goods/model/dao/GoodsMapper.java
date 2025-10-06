@@ -62,5 +62,14 @@ public interface GoodsMapper {
 	
 	// 굿즈 가격, 재고 insert
 	public int goodsInsert(GoodsWrite goodsWrite);
+	
+	// 보드 업데이트
+	public int goodsBoardUpdate(GoodsWrite goods);
+	
+	// 굿즈 수량 재고
+	public int goodsUpdate(GoodsWrite goods);
+	
+	// 굿즈 이미지 수정
+	public int goodsImageUpdate(Image image);
 
 }
