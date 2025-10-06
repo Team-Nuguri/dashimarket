@@ -178,23 +178,6 @@ for (let btn of mainBtn) {
 
         if(subCategoryList){
 
-           /*  for (let sub of subCategoryList) {
-    
-                const li = document.createElement("li");
-                const button = document.createElement("button");
-                button.classList.add("sub-category");
-                button.setAttribute('type', 'button');
-                
-                
-                button.innerText = sub;
-                li.append(button);
-    
-                subcate.append(li);
-                
-                
-    
-                
-            } */
 
             for(let i = 0; i < subCategoryList.length; i++){
                 
@@ -258,26 +241,7 @@ for (let btn of mainBtn) {
 
 
 
-/* 
-        const data = new FormData();
 
-    for (let file of allFiles) {
-
-        data.append('images', file);
-        
-    }
-
-    FormData
-    - JavaScript의 내장 객체 웹폼의 데이터와 동일한 형식으로 key value 쌍을 쉽게 캡슐화하기 위해 설계
-    - 파일 데이터를 포함하여 텍스트 데이터와 함께 서버로 전송할 수 있도록 데이터 표준화
-
-    -FormData 객체는 append(키, 값) 메서드를 사용하여 필요한 모든 데이터를 추가
-    - 같은 key 값으로 여러개 append 하면 배열처럼 쌓임 
-    - 비동기 요청 보낼때 headers 따로 작성 x 자동으로 설정해줘서 
-    - key 값하고 서버에서 받을 변수명 일치 시키면 편함
-
-
-*/
 
 
 const joonggoTitle = document.getElementById("joonggoTitle");
@@ -318,6 +282,19 @@ document.getElementById("updateForm").addEventListener("submit", e => {
         joonggoPrice.focus;
         return ; 
     }
+
+    /* 
+    FormData
+    - JavaScript의 내장 객체 웹폼의 데이터와 동일한 형식으로 key value 쌍을 쉽게 캡슐화하기 위해 설계
+    - 파일 데이터를 포함하여 텍스트 데이터와 함께 서버로 전송할 수 있도록 데이터 표준화
+
+    -FormData 객체는 append(키, 값) 메서드를 사용하여 필요한 모든 데이터를 추가
+    - 같은 key 값으로 여러개 append 하면 배열처럼 쌓임 
+    - 비동기 요청 보낼때 headers 따로 작성 x 자동으로 설정해줘서 
+    - key 값하고 서버에서 받을 변수명 일치 시키면 편함
+
+
+*/
 
     const data = new FormData();
 
