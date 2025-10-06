@@ -1,48 +1,12 @@
 
 const goodsImage = document.getElementById("goodsImg");
+const imageList = document.getElementById('goods-img-list');
 
-goodsImage.addEventListener("change", e => {
+const preview1 = document.getElementById('preview1');
+const preview2 = document.getElementById('preview2');
 
-
-
-    const imageList = document.getElementById('goods-img-list');
-
-    const file = e.target.files[0];
-
-    // concat() 메서드의 중요한 특징은 바로 원본 배열을 건드리지 않고 새로운 배열을 반환
-    // 파일이 추가 될 때마다 allFiles에 담아줌
-    if(file != undefined){
-
-        // 파일이 선택된 경우
-        const reader = new FileReader();
-
-        reader.readAsDataURL(file);
-        // 지정된 파일을 읽은 후 result 속성에 url 형식으로 저장
-
-        reader.onload = e => {
-            const li = document.createElement("li");
-            const img = document.createElement('img');
-            const span = document.createElement('span');
-            span.innerText = 'x';
-
-            span.classList.add('x-button');
-            span.classList.add('text-size-14');
-
-            img.classList.add('imglist')
-            img.setAttribute('src', e.target.result);
-            li.append(img, span);
-            imageList.append(li);
-
-            // x 버튼 클릭 이벤트 리스너
-            span.addEventListener('click', () => {
-                    goodsImage.value='';
-                    li.remove(); // 미리보기 삭제
-            });
-        }
-
-    }
-})  
-
+const oldInfo = document.getElementById("oldInfo");
+const oldImage = document.getElementById("oldImage");
 
 
 document.getElementById("goodsInfo").addEventListener("change", e => {
@@ -61,30 +25,57 @@ document.getElementById("goodsInfo").addEventListener("change", e => {
         // 지정된 파일을 읽은 후 result 속성에 url 형식으로 저장
 
         reader.onload = e => {
-            const img = document.createElement('img');
-            const span1 = document.createElement('span');
-            const span2 = document.createElement('span');
-            span2.innerText = 'x';
+            
 
-            span2.classList.add('x-button');
-            span2.classList.add('text-size-14');
-            span1.style.marginLeft = '40px';
-
-            img.classList.add('imglist')
-            img.setAttribute('src', e.target.result);
-            span1.append(img, span2);
-            infoarea.append(span1);
+            preview1.setAttribute('src', e.target.result);
 
             // x 버튼 클릭 이벤트 리스너
-            span2.addEventListener('click', () => {
+            document.getElementById("imgInfoDelete").addEventListener('click', () => {
                     goodsContent.value='';
-                    span1.remove(); // 미리보기 삭제
+                    preview1.setAttribute('src', '/images/common/AddImage.png'); // 미리보기 삭제
             });
         }
 
     }
 
 })
+
+
+
+goodsImage.addEventListener("change", e => {
+
+
+
+
+    const file = e.target.files[0];
+
+    
+    if(file != undefined){
+
+        // 파일이 선택된 경우
+        const reader = new FileReader();
+
+        reader.readAsDataURL(file);
+        // 지정된 파일을 읽은 후 result 속성에 url 형식으로 저장
+
+        reader.onload = e => {
+
+            
+            preview2.setAttribute('src', e.target.result);
+
+            // x 버튼 클릭 이벤트 리스너
+            document.getElementById("imgDelete").addEventListener('click', () => {
+                    goodsImage.value='';
+                    preview2.setAttribute('src', '/images/common/AddImage.png');// 미리보기 삭제
+            });
+        }
+
+    }
+})  
+
+
+
+
 
 
 
