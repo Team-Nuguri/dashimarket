@@ -129,13 +129,18 @@ public class JoonggoServiceImpl implements JoonggoService {
 
 				// uploadImage 사이즈와 성공한 행의 개수가 같을 때
 				if(uploadImage.size() == num){
-
+			
 					for (int i = 0; i < uploadImage.size(); i++) {
 
 						String rename = uploadImage.get(i).getImageRename();
-
-						joonggoWrite.getImageList().get(i).transferTo(new File(filePath+rename));
-
+						
+						
+						// 이미지 리사이징 500 500 으로 리사이징 후 서버에 저장
+						ImageResizer.resizeAndSave500x500(
+								joonggoWrite.getImageList().get(i), 
+								filePath, 
+								rename
+						);
 					}
 					result = joonggoWrite.getJoonggoNo();
 
