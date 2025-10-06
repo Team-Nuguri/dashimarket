@@ -74,5 +74,15 @@ public interface GoodsService {
 	 * @throws IllegalStateException 
 	 */
 	String goodsInsert(GoodsWrite goodsWrite) throws IllegalStateException, IOException;
+	
+	
+	
+	/** 중고 상품 수정
+	 * @param goods
+	 * @return 행 개수
+	 * @throws IOException 
+	 * @throws IllegalStateException 
+	 */
+	int goodsUpdate(GoodsWrite goods) throws IllegalStateException, IOException;
 
 }

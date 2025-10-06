@@ -354,6 +354,41 @@
 	</insert>
 	
 	
+	<!--굿즈 게시판 업데이트-->
+	<update id="goodsBoardUpdate">
+		UPDATE BOARD SET
+		BOARD_TITLE =#{goodsTitle},
+		BOARD_UPDATE_DATE = SYSDATE
+		 <choose>
+	        <when test="goodsContent != null and goodsContent != ''">
+	            , BOARD_CONTENT = #{goodsContent}
+	        </when>
+	        <otherwise>
+	            <!-- goodsContent가 null이거나 비어있으면 아무것도 하지 않음 -->
+	        </otherwise>
+    	</choose>
+		WHERE BOARD_NO = #{goodsNo}
+				
+	</update>
+	
+	
+	<!--굿즈 재고 수량-->
+	<update id="goodsUpdate">
+		UPDATE GOODS SET
+		GOODS_PRICE=${goodsPrice},
+		GOODS_STOCK=${goodsStock}
+		WHERE BOARD_NO = #{goodsNo}
+	</update>
+	
+	<!--굿즈 이미지 수정-->
+	<update id="goodsImageUpdate">
+		UPDATE IMAGE SET
+		IMG_PATH = #{imagePath},
+		IMG_RENAME=#{imageRename}
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
+	
 	
 	
 </mapper>

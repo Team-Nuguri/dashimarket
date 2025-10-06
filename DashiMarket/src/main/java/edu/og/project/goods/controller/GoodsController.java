@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -182,6 +183,53 @@ public class GoodsController {
 		return path;
 		
 	}
+	
+	// 굿즈 수정 화면 전환
+	@GetMapping("/goods/update")
+	public String goodsUpdateForward(String boardNo
+			, Model model) {
+		
+		
+		Goods goods = service.selectGoodsDetail(boardNo);
+		
+		model.addAttribute("goods", goods);
+		
+		
+		return "/goodsPage/goodsUpdate";
+		
+	}
+	
+	// 굿즈 수정
+	@PostMapping("/{boardType:g.*}/update")
+	public String goodsUpdate(
+			@PathVariable("boardType") String boardType,
+			@ModelAttribute GoodsWrite goods,
+			RedirectAttributes ra
+			) throws IllegalStateException, IOException {
+		
+		System.out.println(goods.getGoodsInfo().getSize());
+		System.out.println(goods.getGoodsImg().getSize());
+		
+		goods.setBoardType(boardType);
+		
+		int result = service.goodsUpdate(goods);
+		
+		String path= null;
+		
+		if(result != 0) {
+			ra.addFlashAttribute("message", "수정되었습니다.");
+			path = "redirect:/goods/"+goods.getGoodsNo();
+			
+		}else {
+			ra.addFlashAttribute("message", "수정 실패하였습니다.");
+			path = "redirect:/goods/"+goods.getGoodsNo();
+		}
+		
+		
+		return path;
+		
+	}
+	
 
 
 	

@@ -28,15 +28,15 @@ public class GoodsServiceImpl implements GoodsService {
 
 	@Autowired
 	private GoodsMapper mapper;
-	
+
 	// info 웹 패스
 	@Value("${my.goodsInfo.webpath}")
 	private String iWebPath;
-	
+
 	// info 파일 패스
 	@Value("${my.goodsInfo.location}")
 	private String iFilePath;
-	
+
 	@Value("${my.goods.webpath}")
 	private String webPath;
 
@@ -204,7 +204,7 @@ public class GoodsServiceImpl implements GoodsService {
 
 
 			if(result != 0) {
-				
+
 				// 파일 리사이징 후 등록
 				ImageResizer.resizeAndSave500x500(
 						goodsWrite.getGoodsImg(), 
@@ -220,6 +220,66 @@ public class GoodsServiceImpl implements GoodsService {
 
 		return goodsWrite.getGoodsNo();
 	}
+
+
+
+	// 굿즈 수정
+	@Override
+	@Transactional(rollbackFor = Exception.class) // 에러 발생 시 전체 롤백
+	public int goodsUpdate(GoodsWrite goods) throws IllegalStateException, IOException {
+
+		goods.setGoodsTitle(Util.XSSHandling(goods.getGoodsTitle()));
+
+		// 상품 설명 이미지 변경사항 있을 경우
+		if(goods.getGoodsInfo().getSize() > 0) {
+			goods.setGoodsContent(iWebPath+goods.getGoodsInfo().getOriginalFilename());
+
+		}
+
+		int result = mapper.goodsBoardUpdate(goods);
+
+		if(result == 0) {
+			return 0;
+		}
+
+		// 굿즈 재고 수량 업데이트
+		result = mapper.goodsUpdate(goods);
+
+
+		if(result == 0) throw new RuntimeException();
+
+
+		if(goods.getGoodsImg().getSize()>0) {
+
+			Image image = new Image();
+
+			image.setImagePath(webPath);
+			image.setBoardNo(goods.getGoodsNo());
+			image.setImageOrder(0);
+			image.setImageRename(Util.fileRename(goods.getGoodsImg().getOriginalFilename()));
+
+			 result = mapper.goodsImageUpdate(image);
+
+			if(result !=0) {
+				// 파일 리사이징 후 등록
+				ImageResizer.resizeAndSave500x500(
+						goods.getGoodsImg(), 
+						filePath, 
+						image.getImageRename()
+						);
+			}else {
+				throw new FileUploadException();
+			}
+
+		}
+
+
+
+		return result;
+	}
+
+
+
 
 
 

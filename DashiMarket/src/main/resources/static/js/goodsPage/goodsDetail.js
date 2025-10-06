@@ -280,13 +280,21 @@ cartBtn.addEventListener("click", e => {
 
 
 
-
+// 삭제버튼 클릭 시
 document.getElementById("deleteBtn")?.addEventListener("click", e => {
 
     if(confirm("정말 삭제하시겠습니까 ?")){
         location.href= "/" + location.pathname.split("/")[1] +"/delete?boardNo="+boardNo;
     }
     
+})
+
+
+
+// 수정 버튼 클릭 시 수정화면 전환
+document.getElementById("editBtn")?.addEventListener("click", e => {
+
+    location.href="/goods/update?boardNo=" + boardNo;
 })
 
 
