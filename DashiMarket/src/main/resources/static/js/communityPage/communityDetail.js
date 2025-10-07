@@ -9,12 +9,19 @@ sort.forEach(link => {
     link.addEventListener("click", (e) => {
     e.preventDefault();
 
+    /* 정렬 데이터 가져오기 ex) data-sortType = "latest" */
+    let sortType = link.dataset.sortType;
+
     if(isSort) {
         isSort.classList.remove("bold-text");
     }
 
     link.classList.add("bold-text");
     isSort = link;
+
+    /* 비동기 요청 */
+    selectCommentList("sort", sortType, e);
+
     })
 })
 
@@ -134,3 +141,67 @@ const replyBtn = document.querySelectorAll(".reply-btn");
             alert("답글 등록!");
         })
     })
+
+
+/* 비동기 댓글 목록 조회 함수 */
+function selectCommentList(type, value, e) {
+
+    const url = "/comment?boardNo=" + boardNo + "&" + type + "=" + value;
+    
+    fetch(url)
+    .then(resp => resp.text())
+    .then(commentList => {
+        document.getElementsByClassName('comment-area')[0].innerHTML = commentList;
+    })
+    .catch(e => console.log(e))
+}
+
+console.log("comment.js");
+
+
+/* 댓글 등록 */
+const commentArea = document.getElementsByName("write-comment-area")[0];
+const commentBtn = document.getElementsByClassName("comment-button-area")[0];
+
+commentBtn.addEventListener("click", e => {
+
+    /* 로그인 안 한 경우 댓글 작성 X */
+    // if(loginMemberNo == "") {
+    //     alert("로그인 후 이용해주세요.");
+    //     return;
+    // }
+
+    /* 댓글 미작성인 경우 */
+    if(commentArea.value.trim().length == 0) {
+        alert("댓글 작성 후 버튼을 클릭해주세요.");
+
+        commentArea.value = "";
+        commentArea.focus();
+        return;
+    }
+
+    /* 댓글 작성 비동기 요청 */
+    const data = {
+    "commentContent" : commentArea.values,
+    memberNo : 2,
+    "boardNo" : boardNo
+    }
+
+    fetch("/comment/write", {
+        method: "POST",
+        headers: {"Content-Type" : "application/json"},
+        body: JSON.stringify(data)
+    })
+    .then(resp => resp.text())
+    .then(result => {
+        if(result > 0) {
+            alert("댓글이 등록 되었습니다.");
+            commentArea.value = "";
+
+            /* 가본 최신순 정렬로 조회하기 */
+            selectCommentList("sort", "latest", e);
+        }
+    })
+    .catch(e => console.log(e))
+})
+

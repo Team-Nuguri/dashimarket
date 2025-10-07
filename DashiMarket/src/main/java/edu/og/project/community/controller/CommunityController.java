@@ -1,7 +1,10 @@
 package edu.og.project.community.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import javax.print.DocFlavor.STRING;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.og.project.common.dto.Comment;
 import edu.og.project.community.model.dto.Community;
 import edu.og.project.community.model.service.CommunityService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -90,8 +94,6 @@ public class CommunityController {
 		map.put("boardNo", boardNo);
 		
 		Community community = service.communityDetail(map);
-		System.out.println(community);
-		model.addAttribute("community", community);
 
 		String path = null;
 		
@@ -103,6 +105,28 @@ public class CommunityController {
 			ra.addFlashAttribute("message", "게시글이 존재하지 않습니다.");
 		}
 		return path;
+	}
+	
+	/************************************************************************************************************/
+	/************************************************************************************************************/
+	
+	// 비동기 댓글 조회
+	@GetMapping(value="/comment", produces = "application/html; charset=UTF-8")
+	public String selectComment(String boardNo, String sort, Model model) {
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("boardNo", boardNo);
+		map.put("sort", sort);
+		
+		List<Comment> commentList = service.selectComment(map);
+		
+		// 동기식과 데이터 타입을 맞추기 위함
+		Community community = new Community();
+		community.setCommentList(commentList);
+		
+		model.addAttribute("board", community);
+		
+		return "/communityPage/communityDetail :: #comment-list-area";
 	}
 	
 }

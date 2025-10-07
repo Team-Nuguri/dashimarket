@@ -65,7 +65,7 @@
 	    <!-- 회원 정보 -->
 	    <result property="memberNo" column="MEMBER_NO" />
 	    <result property="memberNickname" column="MEMBER_NICKNAME" />
-	    <result property="profileImage" column="PROFILE_IMAGE" />
+	    <result property="profileImage" column="PROFILE_PATH" />
 	    
 	    <!-- 계층 정보 -->
 	    <result property="level" column="LEVEL" />
@@ -200,7 +200,21 @@
 		AND POST_NO = #{boardNo}
 		START WITH C.PARENT_COMMENT_NO IS NULL 
 		CONNECT BY PRIOR C.COMMENT_NO = C.PARENT_COMMENT_NO
-		ORDER SIBLINGS BY C.COMMENT_NO
+		
+		ORDER SIBLINGS BY 
+		
+		<choose>
+			<!-- 인기순 -->
+			<when test="sort == 'popular'">
+				CHILD_COMMENT_COUNT DESC
+			</when>
+			
+			<!-- 최신순 -->
+			<otherwise>
+				C.COMMENT_NO DESC
+			</otherwise>
+		</choose>
+		
 	</select>
 	
 </mapper>
