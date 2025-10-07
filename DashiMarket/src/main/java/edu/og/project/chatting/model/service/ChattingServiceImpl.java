@@ -13,6 +13,34 @@ import edu.og.project.common.utility.Util;
 
 @Service
 public class ChattingServiceImpl implements ChattingService{
+	
+	@Autowired
+	private ChattingMapper mapper;
+
+	// 채팅방 입장(없으면 생성
+	@Override
+	public int checkChattingNo(Map<String, Integer> map) {
+		
+		// 채팅방 번호 조회
+		int chattingNo = mapper.checkChattingNo(map);
+		
+		// 기존에 채팅방이 없을 경우
+		if(chattingNo == 0) {
+			// 채팅방 생성
+			chattingNo = mapper.createChattingRoom(map);
+			
+			if(chattingNo > 0) chattingNo = map.get("chattingNo");
+		}
+		
+		return chattingNo;
+	}
+
+	// 채팅방 목록 조회
+	@Override
+	public List<ChattingRoom> selectRoomList(int memberNo) {
+		
+		return mapper.selectRoomList(memberNo);
+	}
 
 	
 

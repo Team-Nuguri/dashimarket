@@ -13,7 +13,7 @@ public class ChattingRoom {
 	private String lastMessage;
 	private String sendTime;
 	private int targetNo;
-	private String targetNickName;
+	private String targetNickname;
 	private String targetProfile;
 	private int notReadCount;
 	
