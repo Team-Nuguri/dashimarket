@@ -8,7 +8,9 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import edu.og.project.common.dto.Comment;
 import edu.og.project.common.dto.Pagination;
+import edu.og.project.common.utility.Util;
 import edu.og.project.community.model.dao.CommunityMapper;
 import edu.og.project.community.model.dto.Community;
 import edu.og.project.goods.model.dao.GoodsMapper;
@@ -55,5 +57,29 @@ public class CommunityServiceImpl implements CommunityService {
 	public Community communityDetail(Map<String, Object> map) {
 		return mapper.communityDetail(map);
 	}
+
+	// 댓글 조회
+	@Override
+	public List<Comment> selectComment(Map<String, Object> map) {
+		return mapper.selectCommentList(map);
+	}
+
+	// 댓글 등록
+	@Override
+	public int insertComment(Comment comment) {
+		// XSS 방지 처리
+		comment.setCommentContent(Util.XSSHandling(comment.getCommentContent()));
+		
+		int result = mapper.insertComment(comment);
+		
+		// 댓글 등록 성공시 댓글 번호 반환
+		if(result > 0) {
+			result = comment.getCommentNo();
+			System.out.println(result);
+		}
+		
+		return result;
+	}
+
 
 }
