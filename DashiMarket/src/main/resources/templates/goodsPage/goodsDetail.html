@@ -113,7 +113,7 @@
                             <div class="similar-info-container flex direction-column">
                                 <p class="similar-name" th:text="${gList.goodsTitle}">상품 이름</p>
                                 <span class="similar-price"
-                                    th:text="${#numbers.formatDecimal(goods.goodsPrice, 0, 'COMMA', 0, 'POINT')} + '원'">상품
+                                    th:text="${#numbers.formatDecimal(gList.goodsPrice, 0, 'COMMA', 0, 'POINT')} + '원'">상품
                                     가격</span>
                             </div>
                         </a>
@@ -173,9 +173,9 @@
             </div>
 
             <div class="flex">
-                <a th:href="@{#}" class="text-deco medium-text">최신순</a> <span>|</span>
-                <a th:href="@{#}" class="text-deco text-opacity medium-text">평점 높은순</a> <span>|</span>
-                <a th:href="@{#}" class="text-deco text-opacity medium-text">평점 낮은순</a>
+                <a  class="text-deco medium-text pointer" th:attr="onclick=|goodsReviewList('${goods.boardNo}', 1, true, 'basic')|">최신순</a> <span>|</span>
+                <a  class="text-deco text-opacity medium-text pointer" th:attr="onclick=|goodsReviewList('${goods.boardNo}', 1, true, 'topRate')|">평점 높은순</a> <span>|</span>
+                <a  class="text-deco text-opacity medium-text pointer" th:attr="onclick=|goodsReviewList('${goods.boardNo}', 1, true, 'underRate')|">평점 낮은순</a>
             </div>
 
             <!-- 리뷰 목록 -->

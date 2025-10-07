@@ -39,9 +39,10 @@ public interface GoodsService {
 	/** 굿즈 리뷰 목록 조회
 	 * @param boardNo
 	 * @param cp 
+	 * @param sort 
 	 * @return List
 	 */
-	Map<String, Object> selectReviewList(String boardNo, int cp);
+	Map<String, Object> selectReviewList(String boardNo, int cp, String sort);
 
 	/** 굿즈 qna 목록 조회
 	 * @param boardNo

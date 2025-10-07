@@ -86,11 +86,12 @@ public class GoodsController {
 	@GetMapping(value = "/{boardType}/review", produces="application/html; charset=UTF-8") 
 	public String selectReviewList(@RequestParam String boardNo 
 			,@RequestParam(value="cp",required = false, defaultValue = "1") int cp 
+			,@RequestParam(value="sort", required = false, defaultValue = "basic") String sort
 			, @PathVariable("boardType")String boardType 
 			,Model model) {
 
-		Map<String, Object> map = service.selectReviewList(boardNo, cp); Goods goods
-		= service.selectGoodsDetail(boardNo);
+		Map<String, Object> map = service.selectReviewList(boardNo, cp, sort); 
+		Goods goods = service.selectGoodsDetail(boardNo);
 
 
 		model.addAttribute("pagination", map.get("pagination"));

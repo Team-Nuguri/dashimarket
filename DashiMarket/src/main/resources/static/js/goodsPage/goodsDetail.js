@@ -113,9 +113,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-function goodsReviewList(boardNo, cp, canScroll = false) {
+function goodsReviewList(boardNo, cp, canScroll = false, sort = 'basic') {
 
-    const url = "/goods/review?boardNo=" + boardNo + "&cp=" + cp;
+    const url = "/goods/review?boardNo=" + boardNo + "&cp=" + cp +"&sort=" + sort;
 
     fetch(url)
         .then(resp => resp.text())
