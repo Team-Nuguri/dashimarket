@@ -8,4 +8,17 @@ import edu.og.project.chatting.model.dto.ChattingMessage;
 
 public interface ChattingService {
 
+	/** 채팅방 입장
+	 * @param map
+	 * @return chattingNo
+	 */
+	int checkChattingNo(Map<String, Integer> map);
+
+	
+	/** 채팅방 목록 조회
+	 * @param memberNo
+	 * @return roomList
+	 */
+	List<ChattingRoom> selectRoomList(int memberNo);
+
 }
