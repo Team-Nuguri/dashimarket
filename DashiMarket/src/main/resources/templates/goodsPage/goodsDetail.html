@@ -112,7 +112,9 @@
                             </div>
                             <div class="similar-info-container flex direction-column">
                                 <p class="similar-name" th:text="${gList.goodsTitle}">상품 이름</p>
-                                <span class="similar-price" th:text="${#numbers.formatDecimal(goods.goodsPrice, 0, 'COMMA', 0, 'POINT')} + '원'">상품 가격</span>
+                                <span class="similar-price"
+                                    th:text="${#numbers.formatDecimal(goods.goodsPrice, 0, 'COMMA', 0, 'POINT')} + '원'">상품
+                                    가격</span>
                             </div>
                         </a>
                     </div>
@@ -285,9 +287,10 @@
                 <span>구매하시려는 상품에 대해 궁금한 점이 있으신 경우 문의해주세요.</span>
                 <button class="medium-text " id="qna-write-btn">상품 QnA 작성하기</button>
                 <form action="" id="qna-frm" class="display-none">
-                    <textarea class="qna-write-area text-size-20 medium-text"></textarea>
+                    <textarea class="qna-write-area text-size-20 medium-text" name="commentContent"
+                        id="commentContent"></textarea>
                     <label for="secretCheck">비밀글</label>
-                    <input type="checkbox" name="secretCheck" id="secretCheck">
+                    <input type="checkbox" id="secretCheck">
                     <button id="commit-btn">등록</button>
                     <button id="cancel-btn">취소</button>
 
@@ -307,22 +310,51 @@
 
                 <li class="qna-item" th:each="com : ${qnaList}">
 
-                    <div class="qna-header" th:if="${com.level == 1}" th:id="${com.commentNo}">
+                    <div class="qna-header" th:if="${com.level == 1}" th:data-comment-no="${com.commentNo}">
 
-                        <span style="width: 15%;" th:if="${com.commentStatus == 'PUBLISHED'}"
-                            class="status-completed">답변완료</span>
-                        <span style="width: 15%;" th:if="${com.commentStatus == 'PENDING'}"
-                            class="status-pending">미답변</span>
-                        <span style="width: 15%;" th:if="${com.commentStatus == 'SECRET'}"
-                            class="status-secret">비밀글</span>
 
-                        <!-- 비밀글 x -->
-                        <th:block th:if="${com.commentStatus != 'SECRET'}">
+                        <!-- 로그인 추가 시 다시 활성화 -->
+                        <!-- <th:block th:with =" isLogin = ${session.loginMember != null}
+                                            ,isPermision = ${isLogin && (session.loginMember.memberNo == com.memberNo || session.loginMember.isAdmin == 'Y')}">
+                        <th:block > -->
+
+                        
+                        
+                        <!-- 관리자 / 작성유저 조건   -->
+                        <span style="width: 15%;">
+                            <!-- 1. 비밀글인 경우 isSecret == 'Y' -->
+                            <th:block th:unless="${com.isSecret == 'N'}">
+                                <!--  th:unless="${isPermision}" -->
+                                <span class="status-secret">
+                                    <!--  비밀글 && 답변 완료 -->
+                                    <th:block th:if="${com.commentStatus == 'PUBLISHED'}">답변완료 🔒</th:block>
+                                    <!-- 비밀글 && 미답변 -->
+                                    <th:block th:if="${com.commentStatus == 'PENDING'}">미답변 🔒</th:block>
+                                </span>
+
+                                <th:block th:if="${isPermision}">
+                                    <span th:if="${com.commentStatus == 'PUBLISHED'}" class="status-completed">답변완료</span>
+                                    <span th:if="${com.commentStatus == 'PENDING'}" class="status-pending">미답변</span>
+                                </th:block>
+                            </th:block>
+
+                            <!-- 2. 공개글인 경우 isSecret == 'N' -->
+                            <th:block th:if="${com.isSecret == 'N'}">
+                                <!-- 공개글 && 답변 완료 -->
+                                <span th:if="${com.commentStatus == 'PUBLISHED'}" class="status-completed">답변완료</span>
+                                <!-- 공개글 && 미답변 -->
+                                <span th:if="${com.commentStatus == 'PENDING'}" class="status-pending">미답변</span>
+                            </th:block>
+                        </span>
+
+
+                        <!-- 비밀글 x 전부 볼 수 있게-->
+                        <th:block th:if="${com.isSecret != 'Y'}">
                             <span style="width: 50%; font-weight: bold;" class="pointer"
                                 th:text="${com.commentContent}">질문내용</span>
                         </th:block>
 
-                        <th:block th:unless="${com.commentStatus != 'SECRET'}">
+                        <th:block th:unless="${com.isSecret != 'Y'}">
                             <span style="width: 50%;" class="pointer status-secret">비밀글입니다. 🔒</span>
                             <!-- <span style="width: 50%;" th:if="${com.memberNo == session.loginMember.memberNo || session.loginMember.isAdmin == 'Y'}"  class="pointer status-secret" th:text="${com.commnetContent}">작성자 or 관리자 내용 볼 수 있음 </span> -->
                         </th:block>
@@ -337,16 +369,26 @@
 
 
                     <!-- 이걸 ㅈ건을 pending 이면서 관리자일때만 뜨게 ? -->
-                    <form action="" th:if="${com.commentStatus == 'PENDING'}" class="answer-write-form">
-                        <textarea name="commentAns" id=""></textarea>
+                    <form action="" th:if="${com.commentStatus == 'PENDING'}" class="answer-write-form" id="answer-write-form">
+                        <textarea name="commentAnswer" id="commentAnswer"></textarea>
                         <div class="flex">
-                            <button id="comment-commit-btn" class="pointer">등록</button>
-                            <button id="comment-cancel-btn" class="pointer">취소</button>
+                            <button type="button" id="comment-commit-btn" class="pointer">등록</button>
+                            <button type="button" id="comment-cancel-btn" class="pointer">취소</button>
                         </div>
                     </form>
 
+                    <!-- th:with=" viewPermission  = ${com.memberNo == session.loginMember.memberNo || session.loginMember.isAdmin == 'Y'}" -->
                     <div th:if="${com.level==2}" class="qna-answer">
-                        <div style="margin-bottom: 5px;">ㄴ 답변 <span th:text="${com.commentContent}"> 답글 내용</span></div>
+
+                        <th:block th:if="${com.isSecret != 'Y'}">
+                            <div style="margin-bottom: 5px;">ㄴ 답변 <span th:text="${com.commentContent}"> 답글 내용</span>
+                            </div>
+                        </th:block>
+
+                        <th:block th:unless="${com.isSecret != 'Y'}">
+                            <div style="margin-bottom: 5px;" class="status-secret">ㄴ 답변: 비밀글에 대한 답변입니다. 🔒</div>
+                        </th:block>
+
                         <div class="qna-info">
                             <span th:text="${com.memberNickname}">관리자</span>
                             <span style="margin-left: 10px;" th:text="${com.commentCreateDate}">2025.09.23</span>

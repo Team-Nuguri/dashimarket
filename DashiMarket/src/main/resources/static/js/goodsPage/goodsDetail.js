@@ -30,21 +30,20 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             };
 
-            const statusElement = qnaItem.querySelector('.qna-header > span:first-child');
+            const status = qnaItem.querySelector('.qna-header > span:first-child>span');
             const writeForm = qnaItem.querySelector('.answer-write-form');
 
-
-            if (statusElement) {
-                if (statusElement.classList.contains('status-pending') && writeForm) {
+            if (status) {
+                if (status.classList.contains('status-pending') && writeForm) {
                     writeForm.classList.toggle('active');
                     closeOthers(writeForm);
-
-                } else if (statusElement.classList.contains('status-secret')) {
+                } else if (status.classList.contains('status-secret')) {
                     alert("비밀글입니다. 작성자 및 관리자만 내용을 확인할 수 있습니다.");
                 }
-            }
-        }
 
+            }
+
+        }
         // 취소버튼 클릭 시 답글 등록 영역 닫히게
         const cancelBtn = event.target.closest('#comment-cancel-btn');
         if (cancelBtn) {
@@ -61,6 +60,52 @@ document.addEventListener("DOMContentLoaded", function () {
         if (commitBtn) {
             event.preventDefault();
             console.log("Q&A 답변 등록 버튼 클릭됨. AJAX 처리 필요.");
+
+            // 제출 폼태그 찾음
+            const answerFrm = commitBtn.closest('.answer-write-form');
+            console.log(answerFrm);
+
+            if (!answerFrm) return;
+
+            // textarea 답글 내용 얻어오기
+            const commentContent = answerFrm.querySelector('#commentAnswer').value;
+            console.log(commentContent);
+            if (commentContent.trim() == '') {
+                alert("내용을 입력해주세요.");
+                return;
+            }
+
+            // 부모 댓글 번호
+            const commentNo = answerFrm.previousElementSibling.getAttribute('data-comment-no');
+            console.log(commentNo);
+            if (!commentNo) {
+                alert("부모 댓글 못 찾음");
+                return;
+            }
+
+            const data = {
+                postNo: boardNo,
+                commentContent: commentContent,
+                parentCommentNo: commentNo
+            }
+
+            fetch("/comment/insert", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            })
+                .then(resp => resp.text())
+                .then(result => {
+
+                    if (result == 1) {
+                        alert("답글이 등록되었습니다.")
+                        goodsQnaList(boardNo)
+                    } else {
+                        alert("답글 등록 실패")
+                    }
+                })
+                .catch(e => console.log(e))
+
         }
 
     });
@@ -96,7 +141,7 @@ function goodsReviewList(boardNo, cp, canScroll = false) {
 
 }
 
-function goodsQnaList(boardNo, cp, canScroll = false) {
+function goodsQnaList(boardNo, cp = 1, canScroll = false) {
 
     const url = "/goods/qna?boardNo=" + boardNo + "&cp=" + cp;
 
@@ -187,18 +232,18 @@ const slideImage = document.getElementById("image-slide");
 
 const totalItems = document.getElementsByClassName("similar-items").length;
 const itemsPerSlide = 5;
-const totalPages = Math.ceil(totalItems / itemsPerSlide); 
+const totalPages = Math.ceil(totalItems / itemsPerSlide);
 let index = 0;
 
 
-slideImage.style.transition = 'all 0.4s'; 
+slideImage.style.transition = 'all 0.4s';
 
 rightBtn.addEventListener("click", () => {
     if (index < totalPages - 1) {
         index++;
-        
+
         slideImage.style.transform = `translateX(-${1200 * index}px)`;
-        
+
     }
 });
 
@@ -283,10 +328,10 @@ cartBtn.addEventListener("click", e => {
 // 삭제버튼 클릭 시
 document.getElementById("deleteBtn")?.addEventListener("click", e => {
 
-    if(confirm("정말 삭제하시겠습니까 ?")){
-        location.href= "/" + location.pathname.split("/")[1] +"/delete?boardNo="+boardNo;
+    if (confirm("정말 삭제하시겠습니까 ?")) {
+        location.href = "/" + location.pathname.split("/")[1] + "/delete?boardNo=" + boardNo;
     }
-    
+
 })
 
 
@@ -294,10 +339,72 @@ document.getElementById("deleteBtn")?.addEventListener("click", e => {
 // 수정 버튼 클릭 시 수정화면 전환
 document.getElementById("editBtn")?.addEventListener("click", e => {
 
-    location.href="/goods/update?boardNo=" + boardNo;
+    location.href = "/goods/update?boardNo=" + boardNo;
 })
 
 
 
+
+
+
+// -------------------------------------------
+
+const commentContent = document.getElementById("commentContent");
+const secretCheck = document.getElementById("secretCheck");
+
+// 체크 상태 변수
+let isSecret = 'N';
+
+
+//qna 제출 시
+document.getElementById("qna-frm")?.addEventListener("submit", e => {
+    e.preventDefault();
+
+    console.log(commentContent.value);
+    console.log(secretCheck.checked);
+
+    if (secretCheck.checked) {
+        isSecret = 'Y';
+    } else {
+        isSecret = 'N';
+    }
+
+    if (commentContent.value.trim() == '') {
+        commentContent.value = ''
+        alert("문의 내용을 작성해주세요.")
+        commentContent.focus();
+        return;
+    }
+
+    const data = {
+        postNo: boardNo,
+        commentContent: commentContent.value,
+        isSecret: isSecret
+    }
+
+    fetch("/comment/insert", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    })
+        .then(resp => resp.text())
+        .then(result => {
+
+            console.log(result)
+
+            if (result == 1) {
+                alert("문의가 등록되었습니다.")
+                commentContent.value = '';
+                secretCheck.checked = false;
+                qnaFrm.classList.toggle("display-none");
+                goodsQnaList(boardNo)
+            } else {
+                alert("문의 등록 실패")
+            }
+        })
+        .catch(e => console.log(e))
+
+
+})
 
 
