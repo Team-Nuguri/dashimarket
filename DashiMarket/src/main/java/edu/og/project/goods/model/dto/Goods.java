@@ -4,6 +4,7 @@ import java.util.List;
 
 import edu.og.project.common.dto.Comment;
 import edu.og.project.common.dto.Image;
+import edu.og.project.common.dto.Review;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -29,13 +30,19 @@ public class Goods {
 	private String thumbnail;
 	
 	// 이미지
-	private List<Image> imgList;
+	private Image image;
 	
-	// 후기 목록 리스트
+	// qna 목록 리스트
 	private List<Comment> commentList;
 	
-	// 후기 수
-	private int commentCount;
+	// 굿즈 리뷰 리스트
+	private List<Review> reviewList;
+	
+	// 리뷰 수
+	private int reviewCount;
+	
+	// 평점
+	private double avgRating;
 	
 	// 장바구니 수(좋아요 수)
 	private int likeCount;

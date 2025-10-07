@@ -100,6 +100,18 @@
 
 
 
+  <!-- javascript 영역에서 타임리프 해석 / 적용 -->
+  <script th:inline="javascript">
+
+    /* Natural Template : Thymeleaf에서 HTML 파일을 브라우저로 바로 열어도 정상적인 HTML 처럼 보이고 작동함 */
+    const message = /*[[${message}]]*/ "전달 받은 message";
+    // 타임리프 해석  값(자료형 알아서 해석)   사라짐(설명)
+
+    if (message != null)
+      alert(message);
+
+  </script>
+
 </body>
 
 </html>

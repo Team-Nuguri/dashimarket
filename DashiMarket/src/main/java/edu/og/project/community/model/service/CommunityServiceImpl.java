@@ -50,4 +50,10 @@ public class CommunityServiceImpl implements CommunityService {
 		return map;
 	}
 
+	// 커뮤니티 상세조회
+	@Override
+	public Community communityDetail(Map<String, Object> map) {
+		return mapper.communityDetail(map);
+	}
+
 }

@@ -24,6 +24,15 @@ public class Pagination {
 
 		calculatePagination(); // 계산 메소드 호출
 	}
+	
+	// 10개 말고 
+	public Pagination(int currentPage, int listCount, int limit) {
+		this.currentPage = currentPage;
+		this.listCount = listCount;
+		this.limit = limit;
+		
+		calculatePagination(); // 계산 메소드 호출
+	}
 
 	public int getCurrentPage() {
 		return currentPage;
