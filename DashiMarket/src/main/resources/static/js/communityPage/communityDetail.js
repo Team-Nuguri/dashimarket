@@ -94,53 +94,100 @@ for (let i = 0; i < imgLength; i++) {
     
 }
 
-/* 답글 */
-const replyBtn = document.querySelectorAll(".reply-btn");
+/* 답글 달기 */
+const replyForm = document.querySelector(".reply-form");
 
-    replyBtn.forEach(button => {
-        button.addEventListener('click', e => {
-            /* 버튼이 속한 댓글 찾기 */
-            const parentComment = e.target.closest('.parent-comment');
+const replyBtns = document.querySelectorAll(".reply-btn");
 
-            /* 해당 댓글 아래의 답글 작성란  */
-            const replyForm = parentComment.nextElementSibling; 
+replyBtns.forEach(button => {
+    button.addEventListener('click', e => {
 
-            if (replyForm) {
-                const currentDisplay = replyForm.style.display;
-                
-                if (currentDisplay == 'none' || currentDisplay === '') {
-                    replyForm.style.display = 'block';
-                } else {
-                    replyForm.style.display = 'none';
-                }
-            }
-        });
+        const clickedBtn = e.currentTarget;
+        /* 버튼이 속한 댓글 요소(.parent-comment) 찾기 */
+        const parentComment = clickedBtn.closest('.parent-comment');
+
+        /* 이미 답글 폼이 열려있고, 그것이 현재 댓글 아래에 있는지 확인 */
+        if (replyForm.style.display === 'block' && replyForm.previousElementSibling === parentComment) {
+            // 이미 열려있다면 -> 닫기 (토글)
+            replyForm.style.display = 'none';
+            return;
+        }
+
+        /* 다른 댓글의 답글 클릭시 해당 댓글 아래로 답글폼 이동 */
+        parentComment.after(replyForm); 
+        replyForm.style.display = 'block';
+
+        /* 부모 댓글 번호 가져오기 */
+        const parentCommentNo = parentComment.dataset.commentNo;
+
+        /* 답글 폼에 부모 댓글 번호 세팅 (답글 insert문에서 필요) */
+        replyForm.setAttribute('data-parent-no', parentCommentNo);
+
+        const replyTextarea = replyForm.querySelector(".reply-textarea");
+        replyTextarea.value = '';
+        replyTextarea.focus();
     });
+});
 
-    /* 답글 취소 */
-    const replyCancelBtns = document.querySelectorAll('.reply-cancel-btn');
 
-    replyCancelBtns.forEach(cancelBtn => {
-        cancelBtn.addEventListener('click', e => {
-            const replyForm = e.target.closest('.reply-form');
-            if (replyForm) {
-                replyForm.style.display = 'none';
+/* 답글 취소 */
+const replyCancelBtn = replyForm.querySelector(".reply-cancel-btn");
+replyCancelBtn.addEventListener("click", () => {
+    // 폼 숨기기
+    replyForm.style.display = 'none';
+});
 
-                const replyBtn = document.querySelector(".reply-btn");
-                if (replyBtn) {
-                    replyBtn.textContent = '답글';
-                }
-            }
-        });
-    });
+/* 답글 등록시 */
+const replySubmitBtn = document.querySelectorAll(".reply-submit-btn");
+const replyContent = document.getElementsByClassName("reply-textarea")[0];
+replySubmitBtn.forEach(submit => {
+    submit.addEventListener("click", e => {
 
-    /* 답글 등록시 */
-    const replySubmitBtn = document.querySelectorAll(".reply-submit-btn");
-    replySubmitBtn.forEach(submit => {
-        submit.addEventListener("click", e => {
-            alert("답글 등록!");
-        })
+        /* 세팅된 부모 댓글 번호 */
+        const parentNo = replyForm.getAttribute('data-parent-no'); 
+
+        
+        /* 답글 미작성인 경우 */
+        if(replyContent.value.trim().length == 0) {
+            alert("답글 작성 후 버튼을 클릭해주세요.");
+
+            replyContent.value = "";
+            replyContent.focus();
+            return;
+        }
+
+        /* 답글 작성 비동기 요청 */
+        const data = {
+        "commentContent" : replyContent.value,
+        memberNo : 2,
+        "postNo" : boardNo,
+        "parentCommentNo": parentNo
+        }
+
+        fetch("/comment/write", {
+        method: "POST",
+        headers: {"Content-Type" : "application/json"},
+        body: JSON.stringify(data)
     })
+    .then(resp => resp.text())
+    .then(result => {
+        console.log(result);
+
+        if(result != 0) {
+            alert("답글이 등록 되었습니다.");
+            commentArea.value = "";
+
+            /* 댓글 비동기 조회 */
+            selectCommentList("sort", "latest");
+        } else {
+            alert("답글 등록에 실패했습니다");
+        }
+
+    })
+    .catch(e => console.log(e))
+
+    })
+})
 
 
 /* 비동기 댓글 목록 조회 함수 */

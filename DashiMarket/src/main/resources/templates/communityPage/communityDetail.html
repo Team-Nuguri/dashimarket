@@ -130,7 +130,9 @@
                 <th:block th:each="comment : ${board.commentList}">
 
                     <!-- 댓글 하나 -->
-                    <div th:class="|parent-comment ${comment.parentCommentNo != 0 ? 'child-comment' : ''}|"> 
+                    <div th:class="|parent-comment ${comment.parentCommentNo != 0 ? 'child-comment' : ''}|"
+                         th:data-comment-no="${comment.commentNo}">
+
                         <!-- 프로필 사진 -->
                         <div class="comment-profile-img">
                             <!-- 프로필 사진 없는 경우 -->
