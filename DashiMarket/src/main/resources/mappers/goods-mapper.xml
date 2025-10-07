@@ -85,6 +85,7 @@
       <result property="memberNo" column="MEMBER_NO"/>   
       <result property="memberNickname" column="MEMBER_NICKNAME"/>   
       <result property="level" column="LEVEL"/>   
+      <result property="isSecret" column="SECRET_YN"/>   
       
    </resultMap>
    
@@ -264,6 +265,7 @@
 	</select>
 	
 	
+	<!--qna 수 조회-->
 	<select id="getQnaListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM "COMMENT"
@@ -276,7 +278,7 @@
 	<select id="selectCommentList" resultMap="comment_rm">
 		SELECT LEVEL, C.*
 		FROM (SELECT COMMENT_NO, POST_NO, PARENT_COMMENT_NO, COMMENT_CONTENT,
-		        COMMENT_CREATE_DATE, COMMENT_STATUS, MEMBER_NO, MEMBER_NICKNAME
+		        COMMENT_CREATE_DATE, COMMENT_STATUS, MEMBER_NO, MEMBER_NICKNAME, SECRET_YN
 		        FROM "COMMENT"
 		        JOIN MEMBER USING(MEMBER_NO)
 		        WHERE POST_NO = #{boardNo}) C
