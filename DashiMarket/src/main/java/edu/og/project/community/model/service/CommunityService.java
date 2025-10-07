@@ -29,4 +29,10 @@ public interface CommunityService {
 	 */
 	List<Comment> selectComment(Map<String, Object> map);
 
+	/** 댓글 등록
+	 * @param comment
+	 * @return result
+	 */
+	int insertComment(Comment comment);
+
 }

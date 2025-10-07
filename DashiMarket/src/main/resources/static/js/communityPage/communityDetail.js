@@ -20,7 +20,7 @@ sort.forEach(link => {
     isSort = link;
 
     /* 비동기 요청 */
-    selectCommentList("sort", sortType, e);
+    selectCommentList("sort", sortType);
 
     })
 })
@@ -144,7 +144,7 @@ const replyBtn = document.querySelectorAll(".reply-btn");
 
 
 /* 비동기 댓글 목록 조회 함수 */
-function selectCommentList(type, value, e) {
+function selectCommentList(type, value) {
 
     const url = "/comment?boardNo=" + boardNo + "&" + type + "=" + value;
     
@@ -182,9 +182,9 @@ commentBtn.addEventListener("click", e => {
 
     /* 댓글 작성 비동기 요청 */
     const data = {
-    "commentContent" : commentArea.values,
+    "commentContent" : commentArea.value,
     memberNo : 2,
-    "boardNo" : boardNo
+    "postNo" : boardNo
     }
 
     fetch("/comment/write", {
@@ -194,13 +194,18 @@ commentBtn.addEventListener("click", e => {
     })
     .then(resp => resp.text())
     .then(result => {
-        if(result > 0) {
+        console.log(result);
+
+        if(result != 0) {
             alert("댓글이 등록 되었습니다.");
             commentArea.value = "";
 
             /* 가본 최신순 정렬로 조회하기 */
-            selectCommentList("sort", "latest", e);
+            selectCommentList("sort", "latest");
+        } else {
+            alert("댓글 등록에 실패했습니다");
         }
+
     })
     .catch(e => console.log(e))
 })

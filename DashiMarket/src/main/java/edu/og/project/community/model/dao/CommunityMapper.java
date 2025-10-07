@@ -24,5 +24,8 @@ public interface CommunityMapper {
 	// 커뮤니티 댓글 조회(비동기)
 	public List<Comment> selectCommentList(Map<String, Object> map);
 
+	// 댓글 등록
+	public int insertComment(Comment comment);
+
 
 }
