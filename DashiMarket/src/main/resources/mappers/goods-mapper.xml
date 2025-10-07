@@ -230,7 +230,19 @@
             WHERE R2.REVIEW_NO = R1.REVIEW_NO) RATING
 		FROM REVIEW R1
 		WHERE BOARD_NO=#{boardNo}
-		ORDER BY REVIEW_NO DESC		
+		
+		<choose>
+			<when test="sort == 'topRate'">
+				ORDER BY RATING DESC
+			</when>
+			<when test="sort == 'underRate'">
+				ORDER BY RATING
+			</when>
+			<otherwise>
+				
+				ORDER BY REVIEW_NO DESC		
+			</otherwise>
+		</choose>
 	</select>
 	
 	
