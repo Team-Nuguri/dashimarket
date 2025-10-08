@@ -212,10 +212,19 @@ minusBtn.addEventListener("click", () => {
 
 plusBtn.addEventListener("click", () => {
     let quantity = parseInt(quantityInput.value);
-    quantity++;
-    quantityInput.value = quantity;
-    totalPriceElement.innerText = formatPrice(quantity * unitPrice);
-    inputPrice.value = totalPriceElement.innerText;
+
+    const maxStock = quantityInput.getAttribute('max');
+
+    if(quantity < maxStock){
+        quantity++;
+        quantityInput.value = quantity;
+        totalPriceElement.innerText = formatPrice(quantity * unitPrice);
+        inputPrice.value = totalPriceElement.innerText;
+
+    }else{
+        alert(`현재 재고가 ${maxStock}개 남아 있습니다.`);
+    }
+
 
 });
 
@@ -282,17 +291,6 @@ for (let c of sortcate) {
 
 
 /* ------------------------------------------- */
-/* qna */
-const qnaWriteBtn = document.getElementById("qna-write-btn");
-const qnaFrm = document.getElementById("qna-frm");
-
-qnaWriteBtn.addEventListener("click", e => {
-
-    qnaWriteBtn.classList.toggle("btn-click")
-    qnaFrm.classList.toggle("display-none");
-
-
-})
 
 
 
@@ -349,8 +347,31 @@ document.getElementById("editBtn")?.addEventListener("click", e => {
 
 // -------------------------------------------
 
+/* qna */
+const qnaWriteBtn = document.getElementById("qna-write-btn");
+const qnaFrm = document.getElementById("qna-frm");
 const commentContent = document.getElementById("commentContent");
 const secretCheck = document.getElementById("secretCheck");
+
+qnaWriteBtn.addEventListener("click", e => {
+
+    qnaWriteBtn.classList.toggle("btn-click")
+    qnaFrm.classList.toggle("display-none");
+
+
+})
+
+
+/* 취소 폼 태그 닫기 */
+document.getElementById("cancel-btn")?.addEventListener("click", e=> {
+    commentContent.value = '';
+    secretCheck.checked = false;
+    qnaFrm.classList.toggle("display-none");
+})
+
+
+
+
 
 // 체크 상태 변수
 let isSecret = 'N';
@@ -408,3 +429,50 @@ document.getElementById("qna-frm")?.addEventListener("submit", e => {
 })
 
 
+
+
+// 목록으로 이동 클릭 시
+
+document.getElementById("goToList").addEventListener("click", e => {
+
+    e.preventDefault();
+
+    location.href = "/goods"+location.search;
+})
+
+
+
+// 장바구니 담기 버튼 클릭 시 장바구니 insert
+
+
+    
+
+document.getElementById("shopping-cart").addEventListener("click", e=>{
+    
+    const cartQuantity = document.getElementById("quantity").value;
+    const data= {
+        boardNo : boardNo,
+        quantity : cartQuantity
+    }
+
+    console.log(cartQuantity);
+
+    fetch("/shoppingcart", {
+        method : "POST",
+        headers : {"Content-Type" : "application/json"},
+        body : JSON.stringify(data)
+    })
+    .then(resp => resp.text())
+    .then(result => {
+
+        if(result != 0){
+            alert("장바구니에 상품이 추가되었습니다 ! ");
+        }else{
+            alert("장바구니에 상품 추가 실패했습니다. 다시 시도해 주세요 ㅠ");
+        }
+
+    })
+    .catch()
+
+    
+})

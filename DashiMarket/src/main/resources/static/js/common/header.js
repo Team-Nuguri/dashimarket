@@ -27,8 +27,15 @@ if(path == "/joonggo") {
 
 if(path == "/goods") {
     iconImg.setAttribute("src", "/images/svg/장바구니.svg");
+    iconImg.setAttribute("id", "cartListBtn");
 }
 
 if(path == "/community") {
     iconImg.setAttribute("src", "/images/svg/사람.svg");
 }
+
+
+document.getElementById("cartListBtn")?.addEventListener("click", e=> {
+
+    location.href="/goods/shoppingcart"
+})

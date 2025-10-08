@@ -22,7 +22,7 @@
         <section class="center" id="item-detail">
             <div class="noto-sans-kr flex">
                 <div>
-                    <a th:href="@{#}"><span>목록으로</span></a>
+                    <a th:href="@{#}" id="goToList"><span>목록으로</span></a>
                 </div>
             </div>
             <!-- 상품 정보 영역 -->
@@ -55,10 +55,12 @@
                         <h1 th:text="${#numbers.formatDecimal(goods.goodsPrice, 0, 'COMMA', 0, 'POINT')} + '원'">굿즈 가격
                         </h1>
                     </div>
+
+                    <!--  상품 수량에 따른 가격 변화 -->
                     <div class="flex" id="count-price">
                         <div class="number-input">
                             <button class="minus">-</button>
-                            <input type="number" id="quantity" value="1" min="1" max="10" readonly>
+                            <input type="number" id="quantity" value="1" min="1" th:max="${goods.goodsStock}" >
                             <button class="plus">+</button>
                         </div>
 
@@ -70,9 +72,11 @@
                         </div>
                     </div>
                     <div id="cart-buy" class="flex">
+                        <!-- 장바구니 버튼 -->
                         <button id="shopping-cart" class="pointer">
                             <img th:src="@{/images/svg/Shopping Cart.svg}" style="width: 100px; height: 60px;">
                         </button>
+                        <!-- 줌누 버튼 -->
                         <button class="flex pointer" id="buy">
                             <img th:src="@{/images/svg/Won.svg}" style="width: 100px; height: 60px;">
                             <h2>구매하기</h2>
@@ -292,7 +296,7 @@
                     <label for="secretCheck">비밀글</label>
                     <input type="checkbox" id="secretCheck">
                     <button id="commit-btn">등록</button>
-                    <button id="cancel-btn">취소</button>
+                    <button type="button" id="cancel-btn">취소</button>
 
                 </form>
 
