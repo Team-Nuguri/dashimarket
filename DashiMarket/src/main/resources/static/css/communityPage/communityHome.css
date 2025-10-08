@@ -432,6 +432,32 @@ nav {
     padding: 10px 0;
     margin: 30px 0;
     border-bottom: 1px solid gray;
+    justify-content: space-between;
+}
+
+.count-area {
+    display: flex;
+}
+
+/* 수정 삭제 */
+.retouch-area {
+    display: flex;
+}
+
+.post-del-btn {
+    margin-left: 10px;
+}
+
+.post-update-btn, .post-del-btn {
+    background-color: #166549;
+    border-radius: 10px;
+    padding: 5px 10px;
+    color: white;
+}
+
+.post-update-btn:hover, .post-del-btn:hover {
+    background-color: #298C69;
+    cursor: pointer;
 }
 
 /* 댓글 정렬 */
@@ -523,7 +549,11 @@ nav {
 
 .comment-content {
     width: 400px;
+}
 
+/* 삭제된 댓글 */
+.del-comment {
+    color: #828282;
 }
 
 /* 아이콘 */
@@ -567,6 +597,21 @@ nav {
 
 .del-update-area button:hover {
     cursor: pointer;
+}
+
+/* 댓글 수정창 */
+.update-textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    height: 60px;
+    resize: none;
+    border: 2px solid #298C69;
+}
+
+.update-textarea:focus {
+    outline: none;
+    border: 2px solid #166549;
 }
 
 /* 답글인 경우 부모 댓글보다 안으로 들어가게 */

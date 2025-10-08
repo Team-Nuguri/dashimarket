@@ -1,7 +1,10 @@
 package edu.og.project.community.model.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import edu.og.project.common.dto.Comment;
 import edu.og.project.community.model.dto.Community;
@@ -34,5 +37,25 @@ public interface CommunityService {
 	 * @return result
 	 */
 	int insertComment(Comment comment);
+
+	/** 커뮤니티 글쓰기
+	 * @param community
+	 * @param images 
+	 * @return result
+	 * @throws IOException 
+	 */
+	String communityWrite(Community community, List<MultipartFile> images) throws IllegalStateException, IOException;
+
+	/** 댓글 수정
+	 * @param comment
+	 * @return result
+	 */
+	int updateComment(Comment comment);
+
+	/** 댓글 삭제
+	 * @param comment
+	 * @return result
+	 */
+	int deleteComment(Comment comment);
 
 }

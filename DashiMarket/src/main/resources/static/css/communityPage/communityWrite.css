@@ -1,0 +1,295 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.required{
+    color: red;
+    padding: 0 5px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* 새 게시글 작성  */
+.header {
+    text-align: left;
+    margin-bottom: 50px;
+}
+
+/* 새 게시글 작성 텍스트 */
+.header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    
+    color: #166449;
+}
+
+/* 카테고리 전체 레이아웃(게시판 종류, 제목, 내용, 첨부파일)  */
+.form-list {
+    list-style: none;
+    border: 0.5px solid #ddd;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 40px;
+}
+
+/* 게시판 종류 */
+.form-item {
+    display: flex;
+    border-bottom: 0.5px solid #ddd;
+    min-height: 130px;
+}
+
+
+/* 카테고리 디테일 (게시판 종류, 제목, 내용, 첨부파일) */
+.label-area {
+    width: 120px;
+    background-color: #f0f0f0;
+    padding: 20px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 0.5px solid #ddd;
+}
+
+/* 각 카테고리의 div */
+.field-area {
+    flex: 1;
+    display: flex;
+    padding: 20px 30px;
+    background-color: #fff;
+    align-items: center;
+}
+
+.form-label {
+    font-size: 14px;
+    color: #666;
+    font-weight: normal;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    font-size: 14px;
+    background-color: #fff;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #999;
+}
+
+.form-select {
+    background: white url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill="none" stroke="%23666" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 6 7 7 7-7"/></svg>') no-repeat right 12px center;
+    background-size: 12px;
+    appearance: none;
+}
+
+.content-textarea {
+    min-height: 120px;
+    resize: none;
+    font-family: inherit;
+    border-radius: 15px;
+}
+
+.attachment-container {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+/* 첨부파일명 나오는 div */
+.attachment-area {
+    flex: 1;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    padding: 0px 10px;
+    background-color: #ffffff;
+    text-align: center;
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 첨부파일 버튼 */
+.attachment-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.price-area{
+    display: flex;
+    align-items: center;
+    gap: 50px;
+
+}
+
+.attachment-btn {
+    padding: 8px 16px;
+    border: none;
+    background: #F7F7F7;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #2C2C2C;
+    min-width: 80px;
+
+}
+
+.attachment-btn:hover {
+    background: #f3f3f3;
+}
+
+.attachment-description {
+    font-size: 12px;
+    color: #a5a5a5;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 40px;
+}
+
+.btn {
+    padding: 12px 30px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-cancel {
+    background: white;
+    color: #666;
+    border-radius: 25px;
+}
+
+.btn-cancel:hover {
+    background: #f5f5f5;
+}
+
+.btn-submit {
+    background: #ffd700;
+    color: #333;
+    border-color: #ffd700;
+    font-weight: 500;
+    border-radius: 25px;
+
+}
+
+.btn-submit:hover {
+    background: #ffe600;
+}
+
+
+#communityImg{
+    display: none;
+}
+
+
+#community-img-list{
+    list-style: none;
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+i{
+    text-align: center;
+    margin-top: 10px;
+}
+
+#community-img-list  i,img{
+    width: 60px;
+    height: 60px;
+}
+
+#community-img-list>li:not(:nth-child(1)){
+    position: relative;
+    border: 1px solid #eee;
+}
+
+#community-img-list>li>span{
+    position: absolute;
+    top: -20px;
+    left: 100%;
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+#community-img-list label:hover{
+    cursor: pointer;
+}
+
+
+.content-item img{
+    width: 70px;
+    height: 70px;
+}
+
+.content-item input{
+    display: none;
+}
+
+.content-item>div:last-child{
+    display: flex;
+    align-items: center;
+} 
+
+.category-area{
+    border: 1px solid #52B291;
+    display: flex;
+}
+
+.category-area ul{
+    width: 200px;
+    height: 200px;
+    overflow-y: scroll;
+    list-style: none; /* 목록의 점 제거 */
+    background-color: white;
+    padding: 0;
+    border-radius: 10px;
+}
+
+.category-area li{
+
+    padding: 0;      /* 내부 여백 제거 */
+    margin: 0;       /* 외부 여백 제거 */
+}
+
+.category-area button{
+    padding: 0;      /* 내부 여백 제거 */
+    margin: 0;       /* 외부 여백 제거 */
+    width: 100%;
+    background-color: white;
+    border: none;
+    text-align: center;
+    cursor: pointer;
+}
+
+
+#categoryName button:hover{
+
+    background-color: #298C69;
+
+}
+
+.text-green{
+
+    color: #52B291;
+    
+}
