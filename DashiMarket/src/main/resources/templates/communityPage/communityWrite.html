@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글쓰기</title>
+
+    <link rel="stylesheet" th:href="@{/css/common/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/common/font.css}">
+    <link rel="stylesheet" th:href="@{/css/joonggoPage/joonggoWrite.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <th:block th:replace="~{/common/header}">header.html</th:block>
+
+    <div class="container">
+        <div class="header">
+            <h1>커뮤니티 글쓰기</h1>
+        </div>
+
+        <form id="writeForm" th:action="@{/community/write}" method="POST" enctype="multipart/form-data">
+            <ul class="form-list">
+                <li class="form-item">
+                    <div class="label-area">
+                        <span class="required">*</span>
+                        <span class="form-label">제목</span>
+                    </div>
+                    <div class="field-area">
+                        <input type="text" class="form-control" name="joonggoTitle" id="joonggoTitle"
+                            placeholder="제목을 입력해주세요." required>
+                    </div>
+                </li>
+
+                <li class="form-item attachment-item">
+                    <div class="label-area">
+                        <span class="required">*</span>
+                        <span class="form-label">첨부파일</span>
+                    </div>
+                    <div class="field-area">
+                        <div class="attachment-container">
+                            <ul id="joonggo-img-list">
+                                <li>
+                                    <label for="joonggoImg">
+                                        <i class="fas fa-camera" style="font-size: 40px;"></i>
+                                    </label>
+                                    <input type="file" name="communityImg" id="communityImg" accept="image/*" multiple>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="form-item content-item">
+                    <div class="label-area">
+                        <span class="required">*</span>
+                        <span class="form-label">내용</span>
+                    </div>
+                    <div class="field-area">
+                        <textarea class="form-control content-textarea" name="joonggoContent" id="joonggoContent" placeholder="내용을 입력해주세요."
+                            required></textarea>
+                    </div>
+                </li>
+            
+                <li class="form-item">
+                    <div class="label-area">
+                        <span class="required">*</span>
+                        <span class="form-label">카테고리</span>
+                    </div>
+                    <div class="category-area">
+                        <ul id="mainCategory">
+                            <li>
+                                <button type="button" class="main-category" data-category="C100">음식/음료</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="C200">일상</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="C300">병원/약국</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="C400">교육</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="C500">주거/부동산</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="C600">운동</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="C700">취미/오락</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="C800">문화/예술</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="C900">음악/악기</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="C1000">자기계발</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="C1100">여행</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="C1200">반려동물</button>
+                            </li>
+                            <li>
+                                <button type="button" class="main-category" data-category="C1300">가족/육아</button>
+                            </li>
+
+                            <input type="hidden" name="mainCategory" id="mainCategory" value="">
+
+                        </ul>
+                    </div>
+
+                </li>
+            </ul>
+
+            <div class="button-group">
+                <button type="button" class="btn btn-cancel">
+                    취소하기
+                </button>
+                <button type="submit" class="btn btn-submit">
+                    등록하기
+                </button>
+            </div>
+        </form>
+    </div>
+
+
+    <th:block th:replace="~{/common/footer}">footer.html</th:block>
+    <th:block th:replace="~{/common/floatingBtn}">floatingBtn.html</th:block>
+    
+
+    <script th:src="@{/js/communityPage/communityWrite.js}"></script>
+</body>
+
+</html>

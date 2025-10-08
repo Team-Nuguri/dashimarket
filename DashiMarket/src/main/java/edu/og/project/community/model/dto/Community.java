@@ -21,13 +21,16 @@ public class Community {
 	private String boardUpdateDate;
 	private int postViews;
 	private int boardCode; // 게시판 코드 (커뮤니티: 3)
+	private String boardType; // 게시판 이름(community)
 	private String thumbnail;
 
 	// 카테고리
+	private String categoryId;
 	private String categoryName;
 	
 	// 회원
 	private String memberNickname;
+	private int memberNo;
 	private String profilePath;
 	private String defaultDong;
 	
