@@ -49,7 +49,14 @@ public class GoodsCartController {
 		
 		List<Goods> cartGoodsList = service.selectCartGoodsList(1);
 		
-		model.addAttribute("cartGoodsList", cartGoodsList);
+		System.out.println(cartGoodsList.size());
+		
+		if(cartGoodsList.size() != 0) {
+			
+			model.addAttribute("cartGoodsList", cartGoodsList);
+		} else {
+			model.addAttribute("cartGoodsList", 0);
+		}
 		
 		return "/cartPage/cart";
 	}
