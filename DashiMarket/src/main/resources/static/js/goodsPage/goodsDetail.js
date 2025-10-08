@@ -228,6 +228,9 @@ plusBtn.addEventListener("click", () => {
 
 });
 
+
+
+
 /* 한국 원화 형식으로 바꿔주는 함수 */
 function formatPrice(number) {
     return number.toLocaleString('ko-KR') + ' 원';
@@ -299,6 +302,7 @@ const buyBtn = document.getElementById("buy");
 const cartBtn = document.getElementById("shopping-cart");
 const soldOut = document.getElementById("sold-out");
 
+// 구매 버튼 클릭
 buyBtn.addEventListener("click", e => {
 
     if (soldOut.classList.contains('show')) {
@@ -308,8 +312,19 @@ buyBtn.addEventListener("click", e => {
     }
 
     /* 구매 버튼 클릭 시 서버 ~ */
+    const cartQuantity = document.getElementById("quantity").value;
+    const data= {
+        boardNo : boardNo,
+        quantity : cartQuantity,
+        totalPrice : inputPrice.value
+    }
+
+    fetch("/order", )
+    
 })
 
+
+// 장바구니 버튼 클릭
 cartBtn.addEventListener("click", e => {
 
     if (soldOut.classList.contains('show')) {
@@ -319,6 +334,32 @@ cartBtn.addEventListener("click", e => {
     }
 
     /* 장바구니 버튼 클릭 시 비동기로 장바구니 테이블 insert ~ */
+
+    const cartQuantity = document.getElementById("quantity").value;
+    const data= {
+        boardNo : boardNo,
+        quantity : cartQuantity
+    }
+
+    console.log(cartQuantity);
+
+    fetch("/shoppingcart", {
+        method : "POST",
+        headers : {"Content-Type" : "application/json"},
+        body : JSON.stringify(data)
+    })
+    .then(resp => resp.text())
+    .then(result => {
+
+        if(result != 0){
+            alert("장바구니에 상품이 추가되었습니다 ! ");
+        }else{
+            alert("장바구니에 상품 추가 실패했습니다. 다시 시도해 주세요 ㅠ");
+        }
+
+    })
+    .catch()
+
 })
 
 
@@ -442,37 +483,3 @@ document.getElementById("goToList").addEventListener("click", e => {
 
 
 
-// 장바구니 담기 버튼 클릭 시 장바구니 insert
-
-
-    
-
-document.getElementById("shopping-cart").addEventListener("click", e=>{
-    
-    const cartQuantity = document.getElementById("quantity").value;
-    const data= {
-        boardNo : boardNo,
-        quantity : cartQuantity
-    }
-
-    console.log(cartQuantity);
-
-    fetch("/shoppingcart", {
-        method : "POST",
-        headers : {"Content-Type" : "application/json"},
-        body : JSON.stringify(data)
-    })
-    .then(resp => resp.text())
-    .then(result => {
-
-        if(result != 0){
-            alert("장바구니에 상품이 추가되었습니다 ! ");
-        }else{
-            alert("장바구니에 상품 추가 실패했습니다. 다시 시도해 주세요 ㅠ");
-        }
-
-    })
-    .catch()
-
-    
-})
