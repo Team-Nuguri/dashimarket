@@ -69,19 +69,23 @@ public class JoonggoServiceImpl implements JoonggoService {
 
 
 
-	// 중고 상품 삽입
+	// 중고 상품 등록
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public String joonggoInsert(JoonggoWrite joonggoWrite) throws IllegalStateException, IOException {
-
+		
+		// xss 방지 처리
 		joonggoWrite.setJoonggoTitle(Util.XSSHandling(joonggoWrite.getJoonggoTitle()));
 		joonggoWrite.setJoonggoContent(Util.XSSHandling(joonggoWrite.getJoonggoContent()));
-
+		
+		
+		
 		String result = "false";
 
 		// 텍스트 먼저 삽입
 		int num = mapper.joonggoInsert(joonggoWrite);
-
+		
+		// 반환 결과 0이면 메소드 종료 
 		if(num == 0) {
 
 			return result;
@@ -95,7 +99,8 @@ public class JoonggoServiceImpl implements JoonggoService {
 			// 이미지 분류
 			List<Image> uploadImage = new ArrayList<>();
 
-
+			// 비어있는 이미지 없으니 조건문 없이 그냥 바로 하나씩 꺼내서 Image DTO에 값 세팅후
+			// uploadImage에 추가
 			for (int i = 0; i < joonggoWrite.getImageList().size(); i++) {
 
 				Image img = new Image();
@@ -124,13 +129,18 @@ public class JoonggoServiceImpl implements JoonggoService {
 
 				// uploadImage 사이즈와 성공한 행의 개수가 같을 때
 				if(uploadImage.size() == num){
-
+			
 					for (int i = 0; i < uploadImage.size(); i++) {
 
 						String rename = uploadImage.get(i).getImageRename();
-
-						joonggoWrite.getImageList().get(i).transferTo(new File(filePath+rename));
-
+						
+						
+						// 이미지 리사이징 500 500 으로 리사이징 후 서버에 저장
+						ImageResizer.resizeAndSave500x500(
+								joonggoWrite.getImageList().get(i), 
+								filePath, 
+								rename
+						);
 					}
 					result = joonggoWrite.getJoonggoNo();
 
@@ -152,6 +162,8 @@ public class JoonggoServiceImpl implements JoonggoService {
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public String joonggoUpdate(Map<String, Object> map) throws IllegalStateException, IOException {
+		
+		
 
 		JoonggoWrite joonggoWrite = (JoonggoWrite) map.get("joonggoWrite");
 		
@@ -192,13 +204,15 @@ public class JoonggoServiceImpl implements JoonggoService {
 			}
 
 			// 이미지 정렬
+			// 이미지 order 재정렬
 			result = mapper.sortImageOrder(joonggoWrite.getJoonggoNo());
 		}
 
 		List<Image> uploadImage = new ArrayList<>();
 
 		if(joonggoWrite.getImageList() != null) {
-
+			
+			// 해당 게시글 가장 큰 이미지 order 번호 조회
 			int startOrder = mapper.selectImageOrder(joonggoWrite.getJoonggoNo()) + 1;
 
 
@@ -210,6 +224,8 @@ public class JoonggoServiceImpl implements JoonggoService {
 				img.setImagePath(webPath);
 
 				String orginalFileName = joonggoWrite.getImageList().get(i).getOriginalFilename();
+				
+				// 확장자 추출
 				String ext = orginalFileName.substring(orginalFileName.lastIndexOf("."));
 
 				img.setImageRename(joonggoWrite.getJoonggoNo()+(i+startOrder)+ ext);
@@ -236,7 +252,7 @@ public class JoonggoServiceImpl implements JoonggoService {
 						String rename = uploadImage.get(i).getImageRename();
 						
 						
-						// 이미지 리사이징
+						// 이미지 리사이징 500 500 으로 리사이징 후 서버에 저장
 						ImageResizer.resizeAndSave500x500(
 								joonggoWrite.getImageList().get(i), 
 								filePath, 

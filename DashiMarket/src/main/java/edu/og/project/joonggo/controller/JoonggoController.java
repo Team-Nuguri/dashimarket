@@ -37,6 +37,7 @@ public class JoonggoController {
 	public String selectJoonggoDetail(
 			@PathVariable("joonggoNo") String joonggoNo,
 			@PathVariable("boardType") String boardType,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
 			Model model
 			) {
 		
@@ -71,7 +72,7 @@ public class JoonggoController {
 	
 	
 	// 중고 상품 등록
-	@PostMapping("/{boardType}/write")
+	@PostMapping("/{boardType:j.*}/write")
 	@ResponseBody
 	public String joonggoInsert(JoonggoWrite joonggoWrite,
 			@PathVariable("boardType") String boardType
@@ -109,7 +110,7 @@ public class JoonggoController {
 	
 	
 	// 중고 수정 화면 전환
-	@GetMapping("/{boardType}/{joonggoNo}/update")
+	@GetMapping("/{boardType}/{joonggoNo:J.*}/update")
 	public String joonggoUpdateForward(
 			@PathVariable("boardType") String BoardType,
 			@PathVariable("joonggoNo") String joonggoNo,
@@ -124,7 +125,7 @@ public class JoonggoController {
 	}
 	
 	// 중고 수정 처리
-	@PostMapping("/{boardType}/{joonggoNo}/update")
+	@PostMapping("/{boardType}/{joonggoNo:J.*}/update")
 	@ResponseBody
 	public String joonggoUpdate(
 			@PathVariable("boardType") String boardType

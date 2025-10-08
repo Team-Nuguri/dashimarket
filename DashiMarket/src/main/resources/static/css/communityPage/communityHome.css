@@ -423,6 +423,7 @@ nav {
 .post-content-area {
     margin: 30px 0;
     width: 800px;
+    min-height: 200px;
     overflow-wrap: break-word;
 }
 
@@ -637,4 +638,11 @@ nav {
 .reply-submit-btn {
     background-color: #166549;
     color: white;
+}
+
+/* 게시글이 없는 경우 */
+#no-post {
+    text-align: center;
+    color: rgb(173, 173, 173);
+    padding: 20px 0;
 }

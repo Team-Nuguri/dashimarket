@@ -1,25 +1,22 @@
-let allFiles = []; // 이미지 정볼르 담을 배열
 
 const goodsImage = document.getElementById("goodsImg");
+const imageList = document.getElementById('goods-img-list');
 
-goodsImage.addEventListener("change", e => {
+const preview1 = document.getElementById('preview1');
+const preview2 = document.getElementById('preview2');
+
+const oldInfo = document.getElementById("oldInfo");
+const oldImage = document.getElementById("oldImage");
 
 
-    /* 파일 10개 제한 */
-    if (e.target.files.length + document.getElementsByClassName('imglist').length > 10) {
-        alert('업로드 가능한 이미지는 10장입니다.')
-        goodsImage.value = '';
-        return;
-    }
+document.getElementById("goodsInfo").addEventListener("change", e => {
 
-    const imageList = document.getElementById('goods-img-list');
+    const file = e.target.files[0];
 
-    const file = Array.from(e.target.files);
+    const infoarea = document.getElementById("goods-info-area");
 
-    // concat() 메서드의 중요한 특징은 바로 원본 배열을 건드리지 않고 새로운 배열을 반환
-    // 파일이 추가 될 때마다 allFiles에 담아줌
-    allFiles = allFiles.concat(file);
-    for (let file of e.target.files) {
+
+    if(file != undefined){
 
         // 파일이 선택된 경우
         const reader = new FileReader();
@@ -28,26 +25,48 @@ goodsImage.addEventListener("change", e => {
         // 지정된 파일을 읽은 후 result 속성에 url 형식으로 저장
 
         reader.onload = e => {
-            const li = document.createElement("li");
-            const img = document.createElement('img');
-            const span = document.createElement('span');
-            span.innerText = 'x';
+            
 
-            span.classList.add('x-button');
-            span.classList.add('text-size-14');
-
-            img.classList.add('imglist')
-            img.setAttribute('src', e.target.result);
-            li.append(img, span);
-            imageList.append(li);
+            preview1.setAttribute('src', e.target.result);
 
             // x 버튼 클릭 이벤트 리스너
-            span.addEventListener('click', () => {
-                const fileIndex = allFiles.indexOf(file); // 배열에서 파일의 인덱스를 찾음
-                if (fileIndex > -1) {
-                    allFiles.splice(fileIndex, 1); // 해당 인덱스의 파일 제거
-                    li.remove(); // 미리보기 삭제
-                }
+            document.getElementById("imgInfoDelete").addEventListener('click', () => {
+                    goodsContent.value='';
+                    preview1.setAttribute('src', '/images/common/AddImage.png'); // 미리보기 삭제
+            });
+        }
+
+    }
+
+})
+
+
+
+goodsImage.addEventListener("change", e => {
+
+
+
+
+    const file = e.target.files[0];
+
+    
+    if(file != undefined){
+
+        // 파일이 선택된 경우
+        const reader = new FileReader();
+
+        reader.readAsDataURL(file);
+        // 지정된 파일을 읽은 후 result 속성에 url 형식으로 저장
+
+        reader.onload = e => {
+
+            
+            preview2.setAttribute('src', e.target.result);
+
+            // x 버튼 클릭 이벤트 리스너
+            document.getElementById("imgDelete").addEventListener('click', () => {
+                    goodsImage.value='';
+                    preview2.setAttribute('src', '/images/common/AddImage.png');// 미리보기 삭제
             });
         }
 
@@ -55,24 +74,45 @@ goodsImage.addEventListener("change", e => {
 })  
 
 
-const infoText = document.getElementById("goodsInfoName");
 
-document.getElementById("goodsInfo").addEventListener("change", e => {
 
-    const file = e.target.files;
 
-    if(file.length > 0){
 
-        goodsInfoName.innerText = file[0].name;
-    }else{
-        goodsInfoName.innerText = '선택된 파일이 없습니다.'
+
+// 폼 태그 제출 시
+const goodsContent = document.getElementById("goodsInfo");
+const goodsPrice = document.getElementById("goodsPrice");
+const goodsImg = document.getElementById("goodsImg");
+
+document.getElementById("writeForm").addEventListener("submit", e=> {
+
+    if (Number.isNaN(Number(goodsPrice.value))) {
+        alert("가격은 숫자만 입력해야 합니다.");
+        goodsPrice.value='';
+        goodsPrice.focus;
+        e.preventDefault();
+        return ; 
     }
 
+    const price = Number(goodsPrice.value);
 
+    if (price < 0) {
+        alert("가격은 0원 이상으로 입력해 주세요.");
+        goodsPrice.value='';
+        goodsPrice.focus;
+        e.preventDefault();
+        return ; 
+    }
+
+    if(goodsContent.value ==''){
+        alert("상품 설명 이미지를 선택해주세요.");
+        e.preventDefault();
+        return ; 
+    }
+
+    if(goodsImg.value == ''){
+        alert("상품 이미지를 선택해주세요.");
+        e.preventDefault();
+        return ; 
+    }
 })
-
-
-
-
-
-/* form 태그 제출 시 기본 제출 막고 비동기로 allfiles 보낼 예정 */

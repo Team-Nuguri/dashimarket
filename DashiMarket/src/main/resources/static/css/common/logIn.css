@@ -1,0 +1,167 @@
+/*로그인 페이지*/
+body {
+
+  margin: 0;
+
+  display: flex;
+  min-height: 100vh;
+
+  justify-content: center;
+  align-items: center;
+
+}
+
+/*로그인 메인프레임*/ 
+.logIn-content{
+
+  width: 600px;  
+  padding: 20px;
+
+  border: 1px solid rgb(204, 202, 202);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); 
+}
+
+
+/* 로고 */
+
+.logIn-logo {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+#main-logo {
+  width: 200px;
+}
+
+.logIn-field {
+  display: flex;  
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-left: 70px;
+  margin-right: 70px;
+
+  height: 50px;
+  
+  border-bottom: 1px solid black;
+
+}  
+
+.logIn-field label {
+  width: 100px; 
+  padding: 20px;  
+
+}
+
+.logIn-field input {
+  flex-grow: 1;
+  height: 45px;
+  width: 300px;
+  border-radius: 10px;
+  padding-left: 10px;
+  box-sizing: border-box;
+  border: none;
+}
+
+.logIn-subTitle {
+  margin-left: 5px;
+}
+
+
+.logIn-button {
+  
+  width: 500px;
+  height: 50px;
+  border-radius: 10px;
+
+  margin-top: 50px;
+
+  background-color: #166549;
+
+  color: white;
+
+}
+
+.extra-options {
+  
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-around;
+
+}
+
+.extra-options a {
+  text-decoration: none;
+  color: black;
+}
+
+.divider {
+  
+  margin-top: 20px;
+  margin-left: 70px;
+  margin-right: 70px;
+  border-bottom: 1px solid black;
+}
+
+.social-logIn {
+  position: relative;
+}
+
+.social-logIn-id img {
+  text-decoration: none; 
+  position: absolute;
+  left: 80px;
+
+  width: 25px; 
+}
+
+.social-logIn-title {
+
+  margin-left: 70px;
+  margin-right: 70px;
+  margin-top: 50px;
+
+}
+
+.social-logIn-id {
+
+  margin-left: 70px;
+  margin-right: 70px;
+  margin-top: 20px;
+  margin-bottom: 0px;
+
+  height: 40px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.social-logIn a {
+  text-decoration: none;
+}
+
+.kakao-logIn-color {
+  background-color: yellow;
+}
+
+.google-logIn-color {
+  background-color: rgb(76, 111, 226);  
+}
+
+.google-logIn-color a { 
+  color: white;
+}
+
+
+#signUp{
+    text-decoration: none;
+    color: black;
+}
+
+#signUp:hover{
+  text-decoration: underline;
+}
+
+
