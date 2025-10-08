@@ -12,9 +12,11 @@ public class ChattingMessage {
 	private int messageNo;
 	private String messageContent;
 	private String readFlag;
-	private int senderMember;
+	private int sendMember;
 	private int targetNo; 
 	private int chattingNo;
 	private String sendTime;
 	private String sendImg;
+	private String sendNickname;
+	private String targetNickname;
 }
