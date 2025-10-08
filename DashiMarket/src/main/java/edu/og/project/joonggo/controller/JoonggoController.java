@@ -39,6 +39,7 @@ public class JoonggoController {
 			@PathVariable("boardType") String boardType,
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
 			Model model
+			// 세션에서 로그인 번호 얻어와야 함
 			) {
 		
 		Map<String, Object> map = new HashMap<>();
@@ -55,11 +56,42 @@ public class JoonggoController {
 			
 			model.addAttribute("joonggo", joonggo);
 			model.addAttribute("similarList", similarList);
+			
+			// 유저가 좋아요 했는지 확인
+			// loginMember.getMemberNo() 이러식으로 바꾸기
+			map.put("memberNo", 1);
+			
+			int likeSelect = service.likeSelect(map);
+			
+			if(likeSelect != 0) {
+				model.addAttribute("likeCheck", "like");
+			}
 		}
 		
 		
 		return "joonggoPage/joonggoDetail";
 	}
+	
+	
+	// 중고 찜 상품
+	@PostMapping("/joonggo/like")
+	@ResponseBody
+	public int joonggoLike(
+			@RequestBody Map<String, Object> paramMap
+			// 세션에서 로그인 멤버 번호까지 얻어올 예정 일단은 1로
+			) {
+		
+		paramMap.put("memberNo", 1);
+		
+		System.out.println(paramMap);
+		
+		
+		return service.joonggoLike(paramMap);
+	}
+	
+	
+	
+	
 	
 	
 	//중고 상품 등록 페이지 전환
