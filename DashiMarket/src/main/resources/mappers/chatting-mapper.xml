@@ -33,6 +33,7 @@
 										<!-- 참여자          개설자  -->		
 	</insert>
 	
+	
 	<!-- 채팅방 목록 조회 -->
 	<select id="selectRoomList" resultType="ChattingRoom">
 		SELECT CHATTING_NO, 
@@ -84,6 +85,44 @@
 	</select>
 	
 	
+	<!-- 채팅 상대 검색(조회) -->
+	<select id="selectTarget" resultType="Member">
+		SELECT MEMBER_NO, MEMBER_EMAIL, MEMBER_NICKNAME, PROFILE_PATH
+		FROM MEMBER
+		WHERE (MEMBER_NICKNAME LIKE '%${query}%' OR MEMBER_EMAIL LIKE '%${query}%')
+		AND SECESSIONFL = 'N'
+		AND MEMBER_NO != ${memberNo}
+	</select>
+	
+	
+	<!-- 채팅 읽음 표시 -->
+	<update id="updateReadFlag">
+		UPDATE CHATTING_MESSAGE SET
+		READ_FL = 'Y'
+		WHERE CHATTING_NO = ${chattingNo}
+		AND SEND_MEMBER != ${memberNo}
+	</update>
+	
+	<!-- 채팅 메세지 내용 목록 조회 -->
+	<select id="selectMessageList" resultType="ChattingMessage">
+		SELECT 
+		    C.MESSAGE_NO, C.MESSAGE_CONTENT, C.READ_FL, C.SEND_IMG,
+		    C.CHATTING_NO, C.SEND_MEMBER,
+		    TO_CHAR(C.SEND_TIME, 'YYYY.MM.DD HH24:MI') SEND_TIME,
+		    P.MEMBER_NICKNAME AS TARGET_NICKNAME
+		FROM CHATTING_MESSAGE C
+		JOIN CHATTING_ROOM R ON C.CHATTING_NO = R.CHATTING_NO
+		JOIN MEMBER P ON C.SEND_MEMBER = P.MEMBER_NO
+		WHERE C.CHATTING_NO = ${chattingNo}
+		ORDER BY C.MESSAGE_NO
+	</select>
+	
+	
+	<!-- 메세지 삽입 -->
+	<insert id="insertMessage">
+		INSERT INTO CHATTING_MESSAGE
+		VALUES(SEQ_MESSAGE_NO.NEXTVAL, #{messageContent}, DEFAULT, DEFAULT, DEFAULT, ${chattingNo}, ${sendMember})
+	</insert>
 	
 	
 </mapper>
