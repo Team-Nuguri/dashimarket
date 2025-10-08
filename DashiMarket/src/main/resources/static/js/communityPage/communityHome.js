@@ -116,3 +116,10 @@ function fetchCommunityList(type, value, e, currentCategory = null) {
     })
     .catch(error => console.log(error))
 }
+
+/* 글쓰기 버튼 */
+const writeBtn = document.getElementsByClassName("write-btn")[0];
+
+writeBtn.addEventListener("click", () => {
+    location.href = "/community/write";
+})

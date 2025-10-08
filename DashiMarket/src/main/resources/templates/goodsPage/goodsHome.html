@@ -55,7 +55,7 @@
                     <!-- 제품명 -->
                     <div class="goods-name text-size-16 medium-text" th:text="${board.boardTitle}">굿즈 이름</div>
                     <!-- 가격 -->
-                    <div class="goods-price" th:text="${board.goodsPrice}">가격</div>
+                    <div class="goods-price" th:text="${#numbers.formatDecimal(board.goodsPrice , 0, 'COMMA', 0, 'POINT')} + '원'">가격</div>
                 </a>
                 
             </th:block>
