@@ -10,9 +10,11 @@ import javax.print.DocFlavor.STRING;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -90,7 +92,7 @@ public class CommunityController {
 	}
 	
 	// 커뮤니티 상세조회
-	@GetMapping("/{boardType:c.*}/{boardNo:c.*}")
+	@GetMapping("/{boardType:c.*}/{boardNo:C.*}")
 	public String communityDetail(@PathVariable("boardType") String boardType,
 								  @PathVariable("boardNo") String boardNo,
 								  @RequestParam(value="cp", required=false, defaultValue="1") int cp,
@@ -143,6 +145,20 @@ public class CommunityController {
 		return service.insertComment(comment);
 	}
 	
+	// 댓글 수정
+	@PutMapping("/comment/update")
+	@ResponseBody
+	public int updateComment(@RequestBody Comment comment) {
+		return service.updateComment(comment);
+	}
+	
+	// 댓글 삭제
+	@DeleteMapping("/comment/delete")
+	@ResponseBody
+	public int deleteComment(@RequestBody Comment comment) {
+		return service.deleteComment(comment);
+	}
+	
 	// 커뮤니티 글쓰기 화면 이동
 	@GetMapping("/{boardType:c.*}/write")
 	public String communityWriteFoward() {
@@ -154,8 +170,7 @@ public class CommunityController {
 	@ResponseBody
 	public String communityWrite(Community community,
 								 @PathVariable("boardType") String boardType,
-								 @RequestParam(value="communityImg", required=false) List<MultipartFile> images,
-								 RedirectAttributes ra
+								 @RequestParam(value="communityImg", required=false) List<MultipartFile> images
 								 //@SessionAttribute("loginMember") Member member 나중에 로그인 완성되면 추가
 								) throws IllegalStateException, IOException {
 		

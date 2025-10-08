@@ -1,20 +1,20 @@
 console.log("communityWrite.js loaded . . .")
 
-let allFiles = []; // 이미지 정볼르 담을 배열
+let allFiles = []; // 이미지 정보를 담을 배열
 
 const communityImg = document.getElementById("communityImg");
 
 communityImg.addEventListener("change", e => {
 
 
-    /* 파일 10개 제한 */
+    /* 파일 5개 제한 */
     if (e.target.files.length + document.getElementsByClassName('imglist').length > 5) {
         alert('업로드 가능한 이미지는 5장입니다.')
         communityImg.value = '';
         return;
     }
 
-    const imageList = document.getElementById('joonggo-img-list');
+    const imageList = document.getElementById('community-img-list');
 
     const file = Array.from(e.target.files);
 
@@ -62,7 +62,7 @@ communityImg.addEventListener("change", e => {
 /* 카테고리 */
 
 const mainBtn = document.getElementsByClassName("main-category");
-const mainCategory = document.getElementById("mainCategory"); 
+const mainCategory = document.getElementById("categoryName"); 
 
 for (let btn of mainBtn) {
 
@@ -71,8 +71,6 @@ for (let btn of mainBtn) {
         for (let b of mainBtn) {
             b.classList.remove("text-green");
         }
-
-
 
         const categoryId = e.target.dataset.category
         console.log(categoryId)
@@ -109,10 +107,8 @@ for (let btn of mainBtn) {
 */
 
 
-const joonggoTitle = document.getElementById("joonggoTitle");
-const joonggoContent = document.getElementById("joonggoContent");
-//joonggoImg
-
+const communityTitle  = document.getElementById("communityTitle");
+const communityContent  = document.getElementById("communityContent");
 
 /* form 태그 제출 시 기본 제출 막고 비동기로 allfiles 보낼 예정 */
 
@@ -129,18 +125,18 @@ document.getElementById("writeForm").addEventListener("submit", e => {
     const data = new FormData();
 
     // 서버에 넘겨줄 데이터 FormData에 담아서
-    data.append("joonggoTitle", joonggoTitle.value);
-    data.append("joonggoContent", joonggoContent.value);
+    data.append("communityTitle", communityTitle.value);
+    data.append("communityContent", communityContent.value);
     data.append("categoryId", mainCategory.value);
 
     // allFIles 파일 하나씩 꺼내서 같은 key 값으로 추가
     for (let file of allFiles) {
-        data.append("imageList", file);
+        data.append("communityImg", file);
     }
 
     
     // headers 작성 필요 x 알아서 설정해줌
-    fetch("/joonggo/write", {
+    fetch("/community/write", {
         method : "POST",
         body : data
     })

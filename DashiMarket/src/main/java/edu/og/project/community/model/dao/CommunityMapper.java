@@ -34,5 +34,11 @@ public interface CommunityMapper {
 	// 이미지 업로드
 	public int insertImageList(List<Image> uploadList);
 
+	// 댓글 수정
+	public int updateComment(Comment comment);
+
+	// 댓글 삭제
+	public int deleteComment(Comment comment);
+
 
 }

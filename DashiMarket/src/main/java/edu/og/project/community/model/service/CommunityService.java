@@ -46,4 +46,16 @@ public interface CommunityService {
 	 */
 	String communityWrite(Community community, List<MultipartFile> images) throws IllegalStateException, IOException;
 
+	/** 댓글 수정
+	 * @param comment
+	 * @return result
+	 */
+	int updateComment(Comment comment);
+
+	/** 댓글 삭제
+	 * @param comment
+	 * @return result
+	 */
+	int deleteComment(Comment comment);
+
 }

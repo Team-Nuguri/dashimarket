@@ -98,18 +98,18 @@ public class CommunityServiceImpl implements CommunityService {
 	@Transactional(rollbackFor = Exception.class)
 	public String communityWrite(Community community, List<MultipartFile> images) throws IllegalStateException, IOException {
 		// XSS 방지
-		community.setBoardTitle(Util.XSSHandling(community.getBoardTitle()));
-		community.setBoardContent(Util.XSSHandling(community.getBoardContent()));
+		community.setCommunityTitle(Util.XSSHandling(community.getCommunityTitle()));
+		community.setCommunityContent(Util.XSSHandling(community.getCommunityContent()));
 		
 		
 		// 게시판 테이블에 이미지 제외 텍스트 삽입
 		int result = mapper.communityWrite(community);
 		
 		// 삽입 실패시 종료
-		if(result == 0) return null;
+		if(result == 0) return "false";
 		
 		// 시퀀스로 생성된 게시글 번호 가져오기
-		String communityNo = community.getBoardNo();
+		String communityNo = community.getCommunityNo();
 		
 		// 게시글 삽입 성공시 업로드된 이미지가 있다면 이미지 테이블에 삽입
 		if(communityNo != null) {
@@ -127,11 +127,11 @@ public class CommunityServiceImpl implements CommunityService {
 					String fileName = images.get(i).getOriginalFilename(); // 원본명
 					String ext = fileName.substring(fileName.lastIndexOf("."));
 
-					img.setImageRename(community.getBoardNo()+(i+1)+ ext);
+					img.setImageRename(community.getCommunityNo()+(i+1)+ ext);
 
 					img.setImageOrder(i);
 
-					img.setBoardNo(community.getBoardNo());
+					img.setBoardNo(community.getCommunityNo());
 
 
 					uploadList.add(img);	
@@ -163,6 +163,20 @@ public class CommunityServiceImpl implements CommunityService {
 		
 		// 게시글 번호
 		return communityNo;
+	}
+
+	// 댓글 수정
+	@Override
+	public int updateComment(Comment comment) {
+		// XSS 방지
+		comment.setCommentContent(Util.XSSHandling(comment.getCommentContent()));
+		return mapper.updateComment(comment);
+	}
+
+	// 댓글 삭제
+	@Override
+	public int deleteComment(Comment comment) {
+		return mapper.deleteComment(comment);
 	}
 
 

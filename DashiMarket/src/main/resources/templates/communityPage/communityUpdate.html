@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>글쓰기</title>
+    <title>커뮤니티 수정</title>
 
     <link rel="stylesheet" th:href="@{/css/common/footer.css}">
     <link rel="stylesheet" th:href="@{/css/common/font.css}">
@@ -17,7 +17,7 @@
 
     <div class="container">
         <div class="header">
-            <h1>글쓰기</h1>
+            <h1>커뮤니티 수정</h1>
         </div>
 
         <form id="writeForm" th:action="@{/community/write}" method="POST" enctype="multipart/form-data">
@@ -135,7 +135,7 @@
     <th:block th:replace="~{/common/floatingBtn}">floatingBtn.html</th:block>
     
 
-    <script th:src="@{/js/communityPage/communityWrite.js}"></script>
+    <script th:src="@{/js/communityPage/communityUpdate.js}"></script>
 </body>
 
 </html>
