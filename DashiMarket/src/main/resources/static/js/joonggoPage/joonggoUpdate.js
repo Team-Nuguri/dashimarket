@@ -334,7 +334,7 @@ document.getElementById("updateForm").addEventListener("submit", e => {
                 location.href="/joonggo/" + result;
             },100)
         }else{
-            alert("상품 수정을 실패했스니다.");
+            alert("상품 수정을 실패했습니다.");
 
             setTimeout(() => {
                 location.href = location.pathname;

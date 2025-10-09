@@ -40,5 +40,23 @@ public interface CommunityMapper {
 	// 댓글 삭제
 	public int deleteComment(Comment comment);
 
+	// 게시글 수정
+	public int communityUpdate(Community community);
+	
+	// 수정시 필요 - 이미지 목록 조회
+	public List<Image> selectImageList(String communityNo);
+
+	// 이미지 삭제
+	public int imageDelete(Map<String, Object> deleteMap);
+
+	// 이미지 순서 재정렬
+	public int sortImageOrder(String communityNo);
+
+	// 특정 게시글에서 마지막 이미지 order 조회
+	public int selectImageOrder(String communityNo);
+
+	// 게시글 삭제
+	public int communityDelete(String boardNo);
+
 
 }

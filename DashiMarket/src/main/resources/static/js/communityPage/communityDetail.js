@@ -82,15 +82,18 @@ if(leftBtn != null) {
 /* dot 클릭 시 이미지 이동 */
 for (let i = 0; i < imgLength; i++) {
     
-    dots[i].addEventListener("click", () => {
-        for (let j = 0; j < imgLength; j++) {
-            dots[j].classList.add("opacity");
-        }
+    if(dots.length != 0) {
 
-        imageSlide.style.transform = `translateX(-${width * i}px)`
-        imageSlide.style.transition = "0.5s"
-        dots[i].classList.remove("opacity");
-    })
+        dots[i].addEventListener("click", () => {
+            for (let j = 0; j < imgLength; j++) {
+                dots[j].classList.add("opacity");
+            }
+    
+            imageSlide.style.transform = `translateX(-${width * i}px)`
+            imageSlide.style.transition = "0.5s"
+            dots[i].classList.remove("opacity");
+        })
+    }
     
 }
 
@@ -399,4 +402,10 @@ document.getElementsByClassName("post-update-btn")[0].addEventListener("click", 
 })
 
 
+
 /* 게시글 삭제 */
+document.getElementsByClassName("post-del-btn")[0].addEventListener("click", () => {
+    if(confirm("게시글을 삭제하시겠습니까?")) {
+        location.href = location.pathname + "/delete";
+    }
+})
