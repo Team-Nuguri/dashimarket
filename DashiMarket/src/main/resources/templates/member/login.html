@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/myPage/login.css}">
+    <link rel="stylesheet" th:href="@{/css/common/font.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <title>로그인</title>
+</head>
+<body>    
+
+    <section class="logIn-content">
+
+                <div class="logIn-logo">
+                    <a th:href="@{/}"><img id="main-logo" th:src="@{/images/logo.png}"></a>
+                    <h4 class="logIn-Title">
+                        다시마켓과 함께하는 착한 소비              
+                    </h4>
+                </div>
+
+            <form th:action="@{/member/login}" method="post" class="logIn-form">      
+
+                <div class="logIn-field">
+                    <label class="logIn-subTitle text-size-16">아이디</label>
+                    <input class="logIn-input" name="memberEmail" type="text" placeholder="abc@abc.co.kr" th:value="${saveId}">
+                </div>
+                <div class="logIn-field">
+                    <label class="logIn-subTitle text-size-16">비밀번호</label>
+                    <input class="logIn-input" type="password" name="memberPw" placeholder="12%ddf">
+                </div>  
+
+                <div class="logIn-field">
+                <button class="logIn-button text-size-16" type="submit">로그인</button>            
+                </div>
+                
+            <div class="extra-options">     
+                <label for="saveId">
+                    <input type="checkbox" name="saveId" id="saveId" value="on" 
+                        th:checked="${saveId != null}">
+                    아이디 저장
+                </label>   
+                <div>계정이 없으신가요? <a th:href="@{/member/signUp}" id="signUp">회원가입</a></div>
+            </div>
+            </form>
+
+
+            <div class="divider"></div>
+
+            <div class="social-logIn">
+
+                <div class="social-logIn-title">소셜로그인</div>                
+                <div class="social-logIn-id kakao-logIn-color"><img th:src="@{/images/svg/kakao.svg}" alt=""><a href="">카카오로 3초만에 시작하기</a></div>          
+                <div class="social-logIn-id google-logIn-color"><img th:src="@{/images/svg/google.svg}" alt=""><a href="">Google로 시작하기</a></div>
+                
+            </div>
+
+    </section>
+
+
+    <script th:inline="javascript">
+
+    /* Natural Template : Thymeleaf에서 HTML 파일을 브라우저로 바로 열어도 정상적인 HTML 처럼 보이고 작동함 */
+    const message = /*[[${message}]]*/ "전달 받은 message";
+    // 타임리프 해석  값(자료형 알아서 해석)   사라짐(설명)
+
+    if (message != null)
+      alert(message);
+
+  </script>
+
+</body>
+</html>
