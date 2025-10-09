@@ -50,7 +50,7 @@ const sortLinks = document.querySelectorAll("#select-sort-box a");
 sortLinks.forEach(link => {
     link.addEventListener("click", (e) => {
 
-        /* 카테고리 데이터 가져오기 ex) data-category = "C100" */
+        /* 정렬 데이터 가져오기 ex) data-sortType = "latest" */
         let sortType = link.dataset.sortType;
 
         /* 선택한 정렬 반영하기 */
@@ -116,3 +116,10 @@ function fetchCommunityList(type, value, e, currentCategory = null) {
     })
     .catch(error => console.log(error))
 }
+
+/* 글쓰기 버튼 */
+const writeBtn = document.getElementsByClassName("write-btn")[0];
+
+writeBtn.addEventListener("click", () => {
+    location.href = "/community/write";
+})

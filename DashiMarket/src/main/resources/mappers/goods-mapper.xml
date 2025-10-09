@@ -18,7 +18,7 @@
         <result property="boardCode"       column="BOARD_CODE"/>
         
         <result property="commentCount"    column="COMMENT_COUNT"/>
-        <result property="likeCount"       column="LIKE_COUNT"/>
+        <result property="quantity"       column="QUANTITY"/>
         <result property="reviewCount"       column="REVIEW_COUNT"/>
         <result property="avgRating"       column="AVG_RATING"/>
         
@@ -112,7 +112,7 @@
 	
 	<!-- 굿즈 목록 조회 -->
 	<select id="selectGoodsList">
-		SELECT B.BOARD_NO, BOARD_TITLE, MEMBER_NICKNAME, POST_VIEWS, TO_CHAR(GOODS_PRICE, '999,999,999,999')||'원' GOODS_PRICE, GOODS_STOCK,
+		SELECT B.BOARD_NO, BOARD_TITLE, MEMBER_NICKNAME, POST_VIEWS, GOODS_PRICE, GOODS_STOCK,
 		
 		   <![CDATA[     
 		    CASE  
@@ -147,7 +147,7 @@
 	
 	<!-- 낮은 가격순 조회 -->
 	<select id="sortLowPrice">
-		SELECT B.BOARD_NO, BOARD_TITLE, MEMBER_NICKNAME, POST_VIEWS, TO_CHAR(GOODS_PRICE, '999,999,999,999')||'원' GOODS_PRICE, GOODS_STOCK,
+		SELECT B.BOARD_NO, BOARD_TITLE, MEMBER_NICKNAME, POST_VIEWS, GOODS_PRICE, GOODS_STOCK,
 		
 		   <![CDATA[     
 		    CASE  
@@ -182,7 +182,7 @@
 	
 	<!-- 높은 가격순 조회 -->
 	<select id="sortHighPrice">
-		SELECT B.BOARD_NO, BOARD_TITLE, MEMBER_NICKNAME, POST_VIEWS, TO_CHAR(GOODS_PRICE, '999,999,999,999')||'원' GOODS_PRICE, GOODS_STOCK,
+		SELECT B.BOARD_NO, BOARD_TITLE, MEMBER_NICKNAME, POST_VIEWS,  GOODS_PRICE, GOODS_STOCK,
 		
 		   <![CDATA[     
 		    CASE  
@@ -230,7 +230,19 @@
             WHERE R2.REVIEW_NO = R1.REVIEW_NO) RATING
 		FROM REVIEW R1
 		WHERE BOARD_NO=#{boardNo}
-		ORDER BY REVIEW_NO DESC		
+		
+		<choose>
+			<when test="sort == 'topRate'">
+				ORDER BY RATING DESC
+			</when>
+			<when test="sort == 'underRate'">
+				ORDER BY RATING
+			</when>
+			<otherwise>
+				
+				ORDER BY REVIEW_NO DESC		
+			</otherwise>
+		</choose>
 	</select>
 	
 	
@@ -391,6 +403,15 @@
 	</update>
 	
 	
+	
+	<!-- 장바구니 굿즈 목록 조회-->
+	<select id="selectCartGoodsList" resultMap="goodsResultMap">
+		SELECT B.*, GOODS_PRICE, S.QUANTITY
+		FROM BOARD B
+		JOIN GOODS G ON(B.BOARD_NO = G.BOARD_NO)
+		JOIN SHOPPING_CART S ON(B.BOARD_NO = S.BOARD_NO)
+		WHERE S.MEMBER_NO = ${memberNo}
+	</select>
 	
 	
 </mapper>

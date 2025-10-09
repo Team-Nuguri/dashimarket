@@ -53,4 +53,14 @@ public interface JoonggoService {
 	 */
 	String joonggoUpdate(Map<String, Object> map) throws IllegalStateException, IOException;
 
+
+	
+	// 좋아요 삽입 or 삭제
+	int joonggoLike(Map<String, Object> paramMap);
+
+
+	
+	// 현재 로그인 중인 유저가 좋아요 눌렀는지 확인
+	int likeSelect(Map<String, Object> map);
+
 }

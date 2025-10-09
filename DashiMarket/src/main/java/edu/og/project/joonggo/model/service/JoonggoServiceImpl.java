@@ -274,4 +274,40 @@ public class JoonggoServiceImpl implements JoonggoService {
 		return updateResult;
 	}
 
+
+	
+	// 중고 삽입 or 삭제
+	@Override
+	public int joonggoLike(Map<String, Object> paramMap) {
+		
+		int result = 0;
+		
+		if(paramMap.get("likeCheck") == (Integer)1) {
+			
+			result = mapper.likeInsert(paramMap);
+		} else {
+			
+			result = mapper.deleteInsert(paramMap);
+		}
+		
+		// insert or delete 실패시 임의 숫자 반환
+		if(result == 0) {
+			return -1;
+		}
+		
+		result = mapper.countLike(paramMap.get("joonggoNo"));
+		
+		
+		return result;
+	}
+
+
+	
+	// 좋아요 확인
+	@Override
+	public int likeSelect(Map<String, Object> map) {
+		
+		return mapper.likeSelect(map);
+	}
+
 }

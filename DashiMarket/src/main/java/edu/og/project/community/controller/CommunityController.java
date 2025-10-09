@@ -1,22 +1,35 @@
 package edu.og.project.community.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import javax.print.DocFlavor.STRING;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.og.project.common.dto.Comment;
 import edu.og.project.community.model.dto.Community;
 import edu.og.project.community.model.service.CommunityService;
+import edu.og.project.joonggo.model.dto.JoonggoWrite;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 public class CommunityController {
@@ -79,7 +92,7 @@ public class CommunityController {
 	}
 	
 	// 커뮤니티 상세조회
-	@GetMapping("/{boardType:c.*}/{boardNo}")
+	@GetMapping("/{boardType:c.*}/{boardNo:C.*}")
 	public String communityDetail(@PathVariable("boardType") String boardType,
 								  @PathVariable("boardNo") String boardNo,
 								  @RequestParam(value="cp", required=false, defaultValue="1") int cp,
@@ -90,8 +103,6 @@ public class CommunityController {
 		map.put("boardNo", boardNo);
 		
 		Community community = service.communityDetail(map);
-		System.out.println(community);
-		model.addAttribute("community", community);
 
 		String path = null;
 		
@@ -103,6 +114,76 @@ public class CommunityController {
 			ra.addFlashAttribute("message", "게시글이 존재하지 않습니다.");
 		}
 		return path;
+	}
+	
+	/************************************************************************************************************/
+	/************************************************************************************************************/
+	
+	// 비동기 댓글 조회
+	@GetMapping(value="/comment", produces = "application/html; charset=UTF-8")
+	public String selectComment(String boardNo, String sort, Model model) {
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("boardNo", boardNo);
+		map.put("sort", sort);
+		
+		List<Comment> commentList = service.selectComment(map);
+		
+		// 동기식과 데이터 타입을 맞추기 위함
+		Community community = new Community();
+		community.setCommentList(commentList);
+		
+		model.addAttribute("board", community);
+		
+		return "/communityPage/communityDetail :: #comment-list-area";
+	}
+	
+	// 댓글 등록
+	@PostMapping("/comment/write")
+	@ResponseBody
+	public int insertComment(@RequestBody Comment comment) {
+		return service.insertComment(comment);
+	}
+	
+	// 댓글 수정
+	@PutMapping("/comment/update")
+	@ResponseBody
+	public int updateComment(@RequestBody Comment comment) {
+		return service.updateComment(comment);
+	}
+	
+	// 댓글 삭제
+	@DeleteMapping("/comment/delete")
+	@ResponseBody
+	public int deleteComment(@RequestBody Comment comment) {
+		return service.deleteComment(comment);
+	}
+	
+	// 커뮤니티 글쓰기 화면 이동
+	@GetMapping("/{boardType:c.*}/write")
+	public String communityWriteFoward() {
+		return "/communityPage/communityWrite";
+	}
+	
+	// 커뮤니티 글쓰기
+	@PostMapping("/{boardType:c.*}/write")
+	@ResponseBody
+	public String communityWrite(Community community,
+								 @PathVariable("boardType") String boardType,
+								 @RequestParam(value="communityImg", required=false) List<MultipartFile> images
+								 //@SessionAttribute("loginMember") Member member 나중에 로그인 완성되면 추가
+								) throws IllegalStateException, IOException {
+		
+		// 임시 회원번호
+		community.setMemberNo(3);
+		community.setBoardType(boardType);
+		
+		String result = service.communityWrite(community, images);
+		
+		System.out.println(result);
+		
+		result = "/"+ boardType + "/" + result;
+		return result;
 	}
 	
 }

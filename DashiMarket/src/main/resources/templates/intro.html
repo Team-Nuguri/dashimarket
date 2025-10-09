@@ -20,14 +20,8 @@
 
         <!-- 상단 로그인 버튼 -->
         <div id="header-login">
-            <th:block th:if="${session.loginMember}">
-                <span th:text="${session.loginMember.memberNickname} + '님 환영합니다!'" class="text-size-14" style="margin-right: 15px;">닉네임님 환영합니다!</span>
-                <a th:href="@{/member/logout}">로그아웃</a>
-            </th:block>
-            
-            <th:block th:unless="${session.loginMember}">
-                 <a th:href="@{/member/login}">로그인</a>
-            </th:block>
+            <a th:href="@{/login}" th:unless="${session.loginMember}">로그인</a>
+            <a th:href="@{/logout}" th:if="${session.loginMember}">로그아웃</a>
         </div>
 
 

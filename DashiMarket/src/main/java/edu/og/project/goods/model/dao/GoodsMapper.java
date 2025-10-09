@@ -1,6 +1,7 @@
 package edu.og.project.goods.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
@@ -33,7 +34,7 @@ public interface GoodsMapper {
 	
 	
 	// 굿즈 리뷰 목록 조회
-	public List<Review> selectReviewList(String boardNo, RowBounds rowBounds);
+	public List<Review> selectReviewList(Map<String, Object> paramMap, RowBounds rowBounds);
 	
 	// 특정 게시판 리뷰 수 조회
 	public int getReviewListCount(String boardNo);
@@ -71,5 +72,10 @@ public interface GoodsMapper {
 	
 	// 굿즈 이미지 수정
 	public int goodsImageUpdate(Image image);
+	
+	
+	
+	// 장바구니 굿즈 목록 조회
+	public List<Goods> selectCartGoodsList(int i);
 
 }

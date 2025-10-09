@@ -68,11 +68,11 @@
                         <div class="flex" id="stats-section">
                             <span id="like-count">
                                 <img th:src="@{/images/svg/Heart.svg}">
-                                <span th:text="${joonggo.likeCount}">관심수</span>
+                                <span th:text="${joonggo.likeCount}" id="likeCount">관심수</span>
                             </span>
                             <span id="view-count">
                                 <img th:src="@{/images/svg/Eye.svg}">
-                                <span th:text="${joonggo.readCount}">조회수</span>
+                                <span th:text="${joonggo.readCount}" id="viewCount">조회수</span>
                             </span>
                             <span id="time-ago">
                                 <img th:src="@{/images/svg/Clock.svg}">
@@ -121,7 +121,10 @@
 
                 </div>
                 <div id="heart-chatting" class="flex">
-                    <i class="fa-regular fa-heart" id="like-heart"></i>
+                    <!-- 좋아요 -->
+                    <i class="fa-regular fa-heart" th:unless="${likeCheck == 'like'}" id="like-heart"></i>
+                    <i class="fa-regular fa-heart fa-solid" th:if="${likeCheck == 'like'}" id="like-heart"></i>
+                    <!-- 채팅하기 -->
                     <button id="chatting-btn">채팅하기</button>
                 </div>
             </div>

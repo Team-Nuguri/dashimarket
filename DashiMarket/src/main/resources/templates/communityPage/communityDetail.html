@@ -14,10 +14,10 @@
     
     <th:block th:replace="~{common/header}"></th:block>
 
-    <section class="body" th:object="${community}">
+    <section class="body">
 
         <div id="post-category-header">
-            <div class="text-size-24 bold-text" th:text="*{categoryName}">일상</div>
+            <div class="text-size-24 bold-text" th:text="${board.categoryName}">카테고리명</div>
             <div><a href="#" class="text-size-16 medium-text">목록</a></div>
         </div>
 
@@ -29,16 +29,16 @@
                 <!-- 프로필 사진 -->
                 <div class="profile-img">
                     <!-- 프로필 사진 없는 경우 -->
-                    <img th:unless="*{profilePath}" th:src="@{/images/svg/just-dashima.svg}">
+                    <img th:unless="${board.profilePath}" th:src="@{/images/svg/just-dashima.svg}">
 
                     <!-- 프로필 사진 있는 경우 -->
-                    <img th:if="*{profilePath}" th:src="*{profilePath}">
+                    <img th:if="${board.profilePath}" th:src="${board.profilePath}">
                 </div>
                 <div class="info-text">
-                    <div class="user-nick-name bold-text text-size-20" th:text="*{memberNickname}">닉네임</div>
-                    <span class="user-dong medium-text text-size-16" th:text="*{defaultDong}">동네명</span>
+                    <div class="user-nick-name bold-text text-size-20" th:text="${board.memberNickname}">닉네임</div>
+                    <span class="user-dong medium-text text-size-16" th:text="${board.defaultDong}">동네명</span>
                     <span>•</span>
-                    <span class="post-date text-size-15" th:text="*{boardCreateDate}">작성일</span>
+                    <span class="post-date text-size-15" th:text="${board.communityCreateDate}">작성일</span>
                 </div>
             </div>
 
@@ -51,12 +51,12 @@
 
         <!-- 제목 -->
         <div class="row2">
-            <div class="post-detail-title text-size-24 bold-text" th:text="*{boardTitle}">제목</div>
+            <div class="post-detail-title text-size-24 bold-text" th:text="${board.communityTitle}">제목</div>
 
             <!-- 조회수 -->
             <div class="views-area">
                 <div><img th:src="@{/images/svg/Eye.svg}" alt=""></div>
-                <div class="text-size-14" th:text="*{postViews}">조회수</div>
+                <div class="text-size-14" th:text="${board.postViews}">조회수</div>
             </div>
         </div>
 
@@ -64,7 +64,7 @@
         <div class="row3">
             
             <!-- 본문 이미지 슬라이드 -->
-            <div id="image-area" th:if="${#lists.size(board.imgList) > 1}">
+            <div id="image-area" th:if="${#lists.size(board.imgList) > 0}">
 
                 <!-- 왼쪽 버튼 (이미지가 2장 이상일 경우)-->
                 <button id="left-btn" th:if="${#lists.size(board.imgList) > 1}"><img th:src="@{/images/svg/왼쪽.svg}"></button>
@@ -80,36 +80,41 @@
                     <img th:src="@{/images/svg/dot.svg}" class="dot">
                     <img th:each="i : ${#numbers.sequence(1, #lists.size(board.imgList)-1)}" th:src="@{/images/svg/dot.svg}" class="dot opacity">
                 </div>
-                <div th:unless="${#lists.size(board.imgList) > 1}" id="dot-area">
-                    <img th:src="@{/images/svg/dot.svg}" class="dot">
-                </div>
             </div>
 
             <div class="post-content-area">
-                <div class="text-size-16 medium-text" th:text="*{boardContent}">내용</div>
+                <div class="text-size-16 medium-text" th:text="${board.communityContent}">내용</div>
             </div>
         </div>
 
         <!-- 아이콘 영역 -->
         <div class="row4 post-icon">
 
-            <div class="post-like">
-                <img th:src="@{/images/svg/community-liked.svg}" alt="">
-                <div th:text="*{likeCount}">좋아요 수</div>
+            <div class="count-area">
+                <div class="post-like">
+                    <img th:src="@{/images/svg/community-liked.svg}" alt="">
+                    <div th:text="${board.likeCount}">좋아요 수</div>
+                </div>
+    
+                <div class="post-comment">
+                    <img th:src="@{/images/svg/comment.svg}" alt="">
+                    <div th:text="${board.commentCount}">댓글 수</div>
+                </div>
             </div>
 
-            <div class="post-comment">
-                <img th:src="@{/images/svg/comment.svg}" alt="">
-                <div th:text="*{commentCount}">댓글 수</div>
+            <!-- 로그인한 회원의 게시글인 경우 -->
+            <div class="retouch-area">
+                <div class="post-update-btn">수정</div>
+                <div class="post-del-btn">삭제</div>
             </div>
         </div>
 
         <!-- 댓글 정렬 -->
         <div class="row5">
             <div class="sort-area">
-                <a href="#" class="text-size-16 bold-text">최신순</a>
+                <a href="#" class="text-size-16 bold-text" data-sort-type="latest">최신순</a>
                 <span>|</span>
-                <a href="#" class="text-size-16">인기순</a>
+                <a href="#" class="text-size-16" data-sort-type="popular">인기순</a>
             </div>
         </div>
 
@@ -122,21 +127,24 @@
         </div>
 
         <!-- 댓글 목록 -->
-        <div class="comment-area">
+        <div class="comment-area" id="comment-list-area">
 
             <!-- 댓글 있는 경우 -->
             <th:block th:if="${#lists.size(board.commentList) > 0}">
 
                 <th:block th:each="comment : ${board.commentList}">
+
                     <!-- 댓글 하나 -->
-                    <div th:class="|parent-comment ${comment.parentCommentNo != 0 ? 'child-comment' : ''}|"> 
+                    <div th:class="|parent-comment ${comment.parentCommentNo != 0 ? 'child-comment' : ''}|"
+                         th:data-comment-no="${comment.commentNo}">
+
                         <!-- 프로필 사진 -->
                         <div class="comment-profile-img">
                             <!-- 프로필 사진 없는 경우 -->
-                            <img th:unless="*{profilePath}" th:src="@{/images/svg/just-dashima.svg}">
+                            <img th:unless="${comment.profileImage}" th:src="@{/images/svg/just-dashima.svg}">
         
                             <!-- 프로필 사진 있는 경우 -->
-                            <img th:if="*{profilePath}" th:src="*{profilePath}">
+                            <img th:if="${comment.profileImage}" th:src="${comment.profileImage}">
                         </div>
         
                         <div class="comment-info-area">
@@ -144,13 +152,13 @@
                             <div class="comment-info">
                                 <span class="bold-text">[[${comment.memberNickname}]]</span>
                                 <span>•</span>
-                                <span>[[${comment.commentCreateDate}]]</span>
+                                <span class="text-size-14">[[${comment.commentCreateDate}]]</span>
                             </div>
             
                             <!-- 댓글 내용 -->
-                            <div class="comment-content">
-                                [[${comment.commentContent}]]
-                            </div>
+                            <!-- 삭제되지 않은 댓글 -->
+                            <div class="comment-content" th:if="${comment.commentStatus != 'DEL'}">[[${comment.commentContent}]]</div>
+                            <div class="comment-content del-comment" th:unless="${comment.commentStatus != 'DEL'}">(삭제된 댓글입니다.)</div>
         
                             <!-- 아이콘 영역 -->
                             <div class="comment-icon">
@@ -168,10 +176,11 @@
         
                         <!-- 수정 삭제 버튼 -->
                         <div class="del-update-area">
-                            <button class="update-btn medium-text">수정</button>
+                                                                             <!-- commentNo는 문자열이기 때문에 대괄호로 감싸서 따옴표 붙여준 후 보내야 함 -->
+                            <button class="update-btn medium-text" th:onclick="showUpdateComment('[[${comment.commentNo}]]', this)">수정</button>
                             <!-- 부모 댓글인 경우에만 답글 버튼 보임 -->
                             <button class="reply-btn medium-text" th:if="${comment.parentCommentNo == 0}">답글</button>
-                            <button class="delete-btn medium-text">삭제</button>
+                            <button class="delete-btn medium-text" th:onclick="deleteComment('[[${comment.commentNo}]]')">삭제</button>
                         </div>
         
                     </div>
@@ -202,13 +211,22 @@
             </div>
         </div>
 
-        </div>
 
     </section>
 
     <th:block th:replace="~{common/footer}"></th:block>
 
+    <script th:inline="javascript">
+        // const loginMemberNo = /*[[${session.loginMember?.memberNo}]]*/ "로그인한 회원 번호";
+        // const memberNickname = /*[[${session.loginMember?.memberNickname}]]*/ "로그인한 회원 닉네임";
+        
+        // if(loginMemberNo == null) loginMemberNo = ""; // 빈칸 처리
 
+        const boardNo = /*[[${board.communityNo}]]*/ "게시글 번호";
+        const boardTitle = /*[[${board.communityTitle}]]*/ "게시글 제목";
+    </script>
+
+    <th:block th:replace="~{common/floatingBtn}">floatingBtn.html</th:block>
     <script th:src="@{/js/communityPage/communityDetail.js}"></script>
 </body>
 </html>
