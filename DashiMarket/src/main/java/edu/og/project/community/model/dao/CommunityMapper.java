@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
 import edu.og.project.common.dto.Comment;
+import edu.og.project.common.dto.Image;
 import edu.og.project.community.model.dto.Community;
 
 @Mapper
@@ -26,6 +27,36 @@ public interface CommunityMapper {
 
 	// 댓글 등록
 	public int insertComment(Comment comment);
+
+	// 커뮤니티 글쓰기
+	public int communityWrite(Community community);
+
+	// 이미지 업로드
+	public int insertImageList(List<Image> uploadList);
+
+	// 댓글 수정
+	public int updateComment(Comment comment);
+
+	// 댓글 삭제
+	public int deleteComment(Comment comment);
+
+	// 게시글 수정
+	public int communityUpdate(Community community);
+	
+	// 수정시 필요 - 이미지 목록 조회
+	public List<Image> selectImageList(String communityNo);
+
+	// 이미지 삭제
+	public int imageDelete(Map<String, Object> deleteMap);
+
+	// 이미지 순서 재정렬
+	public int sortImageOrder(String communityNo);
+
+	// 특정 게시글에서 마지막 이미지 order 조회
+	public int selectImageOrder(String communityNo);
+
+	// 게시글 삭제
+	public int communityDelete(String boardNo);
 
 
 }

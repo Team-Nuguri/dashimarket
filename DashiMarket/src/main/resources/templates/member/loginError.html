@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인 오류</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding-top: 50px; }
+        .error-box { max-width: 400px; margin: 0 auto; padding: 20px; border: 1px solid #ffdddd; background-color: #fff0f0; border-radius: 8px; }
+        .error-icon { color: #dc3545; font-size: 40px; margin-bottom: 10px; }
+        .error-message { color: #dc3545; font-size: 1.1em; font-weight: bold; margin-bottom: 20px; }
+        .back-link { display: inline-block; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
+        .back-link:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="error-box">
+        <div class="error-icon">❌</div>
+        <h2>로그인에 실패했습니다.</h2>
+        
+        <p th:if="${message}" class="error-message">
+            [[${message}]]
+        </p>
+        
+        <p th:unless="${message}" class="error-message">
+            오류가 발생했습니다. 잠시 후 다시 시도해주세요.
+        </p>
+
+        <a th:href="@{/member/login}" class="back-link">
+            로그인 페이지로 돌아가기
+        </a>
+    </div>
+</body>
+</html>

@@ -11,7 +11,7 @@ import net.coobird.thumbnailator.Thumbnails; // Thumbnailator 라이브러리 �
 public class ImageResizer {
 
     private static final int TARGET_SIZE = 500; // 목표 너비와 높이 (500px)
-
+    
     
     public static void resizeAndSave500x500(MultipartFile file, String filePath, String rename) throws IOException {
 

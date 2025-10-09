@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.og.project.goods.model.dao.CartMapper">
+
+	
+	<!-- 현재 장바구니에 담긴 상품인지 조회-->
+	<select id="selectCart" resultType="_int">
+		
+		SELECT COUNT(*) FROM SHOPPING_CART
+		WHERE BOARD_NO = #{boardNo}
+		AND MEMBER_NO = ${memberNo}
+		
+		
+	</select>
+	
+	<!-- 장바구니 추가-->
+	<insert id="insertCart">
+		INSERT INTO SHOPPING_CART
+		VALUES (#{boardNo}, ${memberNo}, ${quantity})
+		
+	</insert>
+	
+	<!-- 장바구니 수정 -->
+	<update id="updateCart">
+		UPDATE SHOPPING_CART SET 
+		QUANTITY = ${quantity}
+		WHERE BOARD_NO = #{boardNo}
+		AND MEMBER_NO = ${memberNo}
+		
+	</update>
+	
+	
+	<delete id="cartItemDelete">
+		DELETE FROM SHOPPING_CART
+		WHERE BOARD_NO = #{boardNo}
+		AND MEMBER_NO = ${memberNo}
+		
+	</delete>
+	
+	
+	
+</mapper>

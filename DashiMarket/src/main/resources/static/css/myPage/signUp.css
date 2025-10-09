@@ -43,7 +43,8 @@
     margin-top: 10px;
 
     display: block;
-    justify-content: center;  
+    justify-content: center;
+    color: #166549;
 }
 
 .signUp-subtitle {
@@ -51,8 +52,8 @@
 }
 
 /* 프로필 변경 버튼 hover 효과 */
-.signUp-actionButton:hover {
-    background-color: aqua;    
+.signUp-actionButton1:hover {
+    background-color: #298C69;    
 }
 
 .signUp-infoField {
@@ -71,17 +72,17 @@
 
 }
 
-#nameMessage, #emailMessage, #pwMessage, #nickMessage, #telMessage {    
+#nameMessage, #emailMessage, #pwMessage, #nickMessage, #telMessage, #authMessage {    
     margin-left: 220px;  
     margin-bottom: 30px;
 }
 
 .is-error {
-    color: red;
+    color: rgb(215, 75, 75);
 }
 
 .is-success {
-    color: green;
+    color: #166549;
 }
 
 
@@ -113,6 +114,13 @@
 
     padding-left: 40px;
 
+    border: 1px solid #166549;
+
+}
+
+.signUp-input:focus {
+    outline: none;
+    border: 2px solid #298C69;
 }
 
 .signUp-pwConfirm {
@@ -121,7 +129,7 @@
 }
 
 /*회원가입 변경 버튼*/
-.signUp-actionButton {
+.signUp-actionButton1 {
 
     background-color: #166549;
     color: white;
@@ -130,7 +138,7 @@
     border-radius: 10px;
     cursor: pointer;
     margin-left: 15px;
-    width: 80px;
+    width: 90px;
     height: 40px;
 }
 
@@ -162,6 +170,13 @@
     margin-left: 50px;
     padding-left: 30px;
     border-radius: 10px;
+
+    border: 1px solid #166549;
+}
+
+.signUp-postinput:focus {
+    outline: none;
+    border: 2px solid #298C69;
 }
 
 /* 우편번호 검색 */
@@ -177,6 +192,7 @@
     width: 50px;
     height: 40px;
 }
+
 
 /* 프로필 상세주소 */
 .signUp-addinput {
@@ -201,9 +217,16 @@
     padding-left: 5px;
     width: 630px;
     height: 40px;
-    margin-left: 100px;
+    margin-left: 102px;
     margin-bottom: 10px;
     padding-left: 30px;
+
+    border: 1px solid #166549;
+}
+
+.myPage-addinputDongDetail1:focus {
+    outline: none;
+    border: 2px solid #298C69;
 }
 
 .myPage-addinputDongInside {
@@ -218,9 +241,16 @@
     padding-left: 5px;
     width: 500px;
     height: 40px;
-    margin-left: 100px;
+    margin-left: 102px;
     margin-bottom: 10px;
     padding-left: 30px;
+
+    border: 1px solid #166549;
+}
+
+.myPage-addinputDongDetail2:focus {
+    outline: none;
+    border: 2px solid #298C69;
 }
 
 .myPage-addinputDongDetail3 {
@@ -231,6 +261,13 @@
     margin-left: 10px;
     margin-bottom: 10px;
     padding-left: 30px;
+
+    border: 1px solid #166549;
+}
+
+.myPage-addinputDongDetail3:focus {
+    outline: none;
+    border: 2px solid #298C69;
 }
 
 /* 수정하기 버튼 */
@@ -255,12 +292,14 @@
     background-color: #166549;
     color: white;
 
+    border: none;
+
 }
 
-/* 수정하기 버튼 input hover */
+/* 가입하기 버튼 hover */
 .signUp-submit:hover {
     
-    background-color: rgba(79, 14, 230, 0.829);
+    background-color: #298C69;
 
 }
 

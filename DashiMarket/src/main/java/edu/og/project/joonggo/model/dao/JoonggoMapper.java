@@ -58,6 +58,22 @@ public interface JoonggoMapper {
 	
 	// 시작 인덱스 조회
 	int selectImageOrder(String joonggoNo);
+
+	
+	// 좋아요 삽입
+	int likeInsert(Map<String, Object> paramMap);
+
+	
+	// 좋아요 삭제
+	int deleteInsert(Map<String, Object> paramMap);
+
+	
+	// 좋아요 개수 확인
+	int countLike(Object object);
+
+	
+	// 좋아요 확인
+	int likeSelect(Map<String, Object> map);
 	
 	
 

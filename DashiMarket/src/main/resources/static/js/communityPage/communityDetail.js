@@ -82,52 +82,61 @@ if(leftBtn != null) {
 /* dot 클릭 시 이미지 이동 */
 for (let i = 0; i < imgLength; i++) {
     
-    dots[i].addEventListener("click", () => {
-        for (let j = 0; j < imgLength; j++) {
-            dots[j].classList.add("opacity");
-        }
+    if(dots.length != 0) {
 
-        imageSlide.style.transform = `translateX(-${width * i}px)`
-        imageSlide.style.transition = "0.5s"
-        dots[i].classList.remove("opacity");
-    })
+        dots[i].addEventListener("click", () => {
+            for (let j = 0; j < imgLength; j++) {
+                dots[j].classList.add("opacity");
+            }
+    
+            imageSlide.style.transform = `translateX(-${width * i}px)`
+            imageSlide.style.transition = "0.5s"
+            dots[i].classList.remove("opacity");
+        })
+    }
     
 }
 
 /* 답글 달기 */
 const replyForm = document.querySelector(".reply-form");
 
-const replyBtns = document.querySelectorAll(".reply-btn");
+function initReplyBtn() {
 
-replyBtns.forEach(button => {
-    button.addEventListener('click', e => {
-
-        const clickedBtn = e.currentTarget;
-        /* 버튼이 속한 댓글 요소(.parent-comment) 찾기 */
-        const parentComment = clickedBtn.closest('.parent-comment');
-
-        /* 이미 답글 폼이 열려있고, 그것이 현재 댓글 아래에 있는지 확인 */
-        if (replyForm.style.display === 'block' && replyForm.previousElementSibling === parentComment) {
-            // 이미 열려있다면 -> 닫기 (토글)
-            replyForm.style.display = 'none';
-            return;
-        }
-
-        /* 다른 댓글의 답글 클릭시 해당 댓글 아래로 답글폼 이동 */
-        parentComment.after(replyForm); 
-        replyForm.style.display = 'block';
-
-        /* 부모 댓글 번호 가져오기 */
-        const parentCommentNo = parentComment.dataset.commentNo;
-
-        /* 답글 폼에 부모 댓글 번호 세팅 (답글 insert문에서 필요) */
-        replyForm.setAttribute('data-parent-no', parentCommentNo);
-
-        const replyTextarea = replyForm.querySelector(".reply-textarea");
-        replyTextarea.value = '';
-        replyTextarea.focus();
+    /* 화면에 있는 모든 답글 버튼 */
+    const replyBtns = document.querySelectorAll(".reply-btn");
+    
+    replyBtns.forEach(button => {
+        button.addEventListener('click', e => {
+    
+            const clickedBtn = e.currentTarget;
+            /* 버튼이 속한 댓글 요소(.parent-comment) 찾기 */
+            const parentComment = clickedBtn.closest('.parent-comment');
+    
+            /* 이미 답글 폼이 열려있고, 그것이 현재 댓글 아래에 있는지 확인 */
+            if (replyForm.style.display === 'block' && replyForm.previousElementSibling === parentComment) {
+                // 이미 열려있다면 -> 닫기 (토글)
+                replyForm.style.display = 'none';
+                return;
+            }
+    
+            /* 다른 댓글의 답글 클릭시 해당 댓글 아래로 답글폼 이동 */
+            parentComment.after(replyForm); 
+            replyForm.style.display = 'block';
+    
+            /* 부모 댓글 번호 가져오기 */
+            const parentCommentNo = parentComment.dataset.commentNo;
+    
+            /* 답글 폼에 부모 댓글 번호 세팅 (답글 insert문에서 필요) */
+            replyForm.setAttribute('data-parent-no', parentCommentNo);
+    
+            const replyTextarea = replyForm.querySelector(".reply-textarea");
+            replyTextarea.value = '';
+            replyTextarea.focus();
+        });
     });
-});
+}
+
+initReplyBtn();
 
 
 /* 답글 취소 */
@@ -158,7 +167,7 @@ replySubmitBtn.forEach(submit => {
 
         /* 답글 작성 비동기 요청 */
         const data = {
-        "commentContent" : replyContent.value,
+        "commentContent" : replyContent.value.trim(),
         memberNo : 2,
         "postNo" : boardNo,
         "parentCommentNo": parentNo
@@ -199,6 +208,7 @@ function selectCommentList(type, value) {
     .then(resp => resp.text())
     .then(commentList => {
         document.getElementsByClassName('comment-area')[0].innerHTML = commentList;
+        initReplyBtn();
     })
     .catch(e => console.log(e))
 }
@@ -229,9 +239,9 @@ commentBtn.addEventListener("click", e => {
 
     /* 댓글 작성 비동기 요청 */
     const data = {
-    "commentContent" : commentArea.value,
-    memberNo : 2,
-    "postNo" : boardNo
+        "commentContent" : commentArea.value,
+        memberNo : 2,
+        "postNo" : boardNo
     }
 
     fetch("/comment/write", {
@@ -257,3 +267,145 @@ commentBtn.addEventListener("click", e => {
     .catch(e => console.log(e))
 })
 
+
+// safety function: 작은따옴표(')를 이스케이프하여 자바스크립트 구문 오류를 방지합니다.
+const escapeQuotes = (str) => {
+    if (str == null) return '';
+    // 작은따옴표를 \'(역슬래시 + 작은따옴표)로 이스케이프 처리
+    return str.replace(/'/g, "\\'"); 
+}
+
+/* 댓글 수정 */
+/* 수정 중인 댓글의 원래 내용과 버튼 영역 HTML 저장할 전역 변수 */
+let originalCommentContent = "";
+let originalDelUpdateAreaHtml = "";
+
+function showUpdateComment(commentNo, btn) {
+
+    /* 이미 수정 중인 댓글이 있는 경우 */
+    if(document.querySelector(".save-update-btn")) {
+        alert("다른 댓글이 수정 중입니다. 수정 완료 또는 취소해주세요.");
+        return;
+    }
+
+    /* 댓글 부모 요소 */
+    const parentComment = btn.closest(".parent-comment");
+
+    /* 댓글의 내용과 버튼 영역 찾기 */
+    const contentArea = parentComment.querySelector(".comment-content");
+    const delUpdateArea = parentComment.querySelector(".del-update-area");
+
+    /* 원래 내용과 HTML을 저장 (취소시 이거로 복구) */
+    originalCommentContent = contentArea.innerText.trim();
+    originalDelUpdateAreaHtml = delUpdateArea.innerHTML;
+
+    /* 댓글 내용 영역을 textarea로 교체 */
+    const textareaHtml = `<textarea class="update-textarea">${originalCommentContent}</textarea>`;
+    
+    contentArea.innerHTML = textareaHtml;
+    
+    const safeContent = escapeQuotes(originalCommentContent);
+
+    /* 버튼 영역을 저장/취소로 교체 */
+    const buttonHtml = `<button class="save-update-btn medium-text" 
+                            onclick="updateComment('${commentNo}', this)">저장</button>
+                        <button class="cancel-update-btn medium-text" 
+                            onclick="cancelUpdateComment(this)">취소</button>`;
+
+    delUpdateArea.innerHTML = buttonHtml;
+
+    contentArea.querySelector(".update-textarea").focus();
+
+}
+
+/* 댓글 수정 취소시 화면 복구 */
+const cancelUpdateComment = (btn) => {
+    const parentComment = btn.closest('.parent-comment');
+    const contentArea = parentComment.querySelector('.comment-content');
+    const delUpdateArea = parentComment.querySelector('.del-update-area');
+
+    // 댓글 내용 영역을 원래 텍스트로 복구
+    contentArea.innerText = originalCommentContent; 
+    
+    // 버튼 영역을 원래 HTML로 복구
+    delUpdateArea.innerHTML = originalDelUpdateAreaHtml;
+
+    // 전역 변수 초기화
+    originalCommentContent = '';
+    originalDelUpdateAreaHtml = '';
+    initReplyBtn();
+}
+
+/* 댓글 수정 비동기 */
+const updateComment = (commentNo, btn) => {
+    const parentComment = btn.closest(".parent-comment");
+
+    /* 수정한 댓글 내용 가져오기 */
+    const textarea = parentComment.querySelector(".update-textarea");
+
+    if(textarea.value.trim().length == 0) {
+        alert("수정할 내용을 입력해주세요.");
+        textarea.focus();
+        return;
+    }
+
+    fetch("/comment/update", {
+        method: "PUT",
+        headers: {"Content-Type" : "application/json"},
+        body: JSON.stringify({
+            commentNo: commentNo,
+            commentContent: textarea.value.trim(),
+            memberNo : 3
+        })
+    })
+    .then(resp => resp.text())
+    .then(result => {
+        if(result > 0) {
+            alert("댓글이 수정되었습니다.");
+
+            /* 댓글 목록 다시 조회 (최신순) */
+            selectCommentList("sort", "latest");
+        } else {
+            alert("댓글 수정 실패");
+        }
+    })
+    .catch(e => console.log(e))
+}
+
+/* 댓글 삭제 */
+function deleteComment(commentNo) {
+    if(confirm("삭제 하시겠습니까?")) {
+        fetch("/comment/delete", {
+            method: "DELETE",
+            headers: {"Content-Type" : "application/json"},
+            body: JSON.stringify({commentNo: commentNo})
+        })
+        .then(resp => resp.text())
+        .then(result => {
+            if(result > 0) {
+                alert("삭제 되었습니다.");
+                selectCommentList("sort", "latest");
+            } else {
+                alert("댓글 삭제 실패");
+            }
+        })
+        .catch(e => console.log(e))
+    }
+
+}
+
+/* 게시글 수정 */
+document.getElementsByClassName("post-update-btn")[0].addEventListener("click", () => {
+    /* /community/게시글번호 -> /community/게시글번호/update?cp=1 */
+    location.href = location.pathname + '/update' + location.search;
+
+})
+
+
+
+/* 게시글 삭제 */
+document.getElementsByClassName("post-del-btn")[0].addEventListener("click", () => {
+    if(confirm("게시글을 삭제하시겠습니까?")) {
+        location.href = location.pathname + "/delete";
+    }
+})

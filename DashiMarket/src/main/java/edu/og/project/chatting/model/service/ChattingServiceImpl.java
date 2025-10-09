@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import edu.og.project.chatting.model.dao.ChattingMapper;
 import edu.og.project.chatting.model.dto.ChattingRoom;
 import edu.og.project.chatting.model.dto.ChattingMessage;
+import edu.og.project.common.dto.Member;
 import edu.og.project.common.utility.Util;
 
 @Service
@@ -38,8 +39,37 @@ public class ChattingServiceImpl implements ChattingService{
 	// 채팅방 목록 조회
 	@Override
 	public List<ChattingRoom> selectRoomList(int memberNo) {
-		
 		return mapper.selectRoomList(memberNo);
+	}
+
+	// 채팅 상대 검색(조회)
+	@Override
+	public List<Member> selectTarget(Map<String, Object> map) {
+		return mapper.selectTarget(map);
+	}
+
+	// 채팅 읽음 표시(업데이트)
+	@Override
+	public int updateReadFlag(Map<String, Object> paramMap) {
+		return mapper.updateReadFlag(paramMap);
+	}
+
+	// 채팅 메세지 내용 목록 조회
+	@Override
+	public List<ChattingMessage> selectMessageList(Map<String, Object> paramMap) {
+		
+		List<ChattingMessage> messageList = mapper.selectMessageList(Integer.parseInt(String.valueOf(paramMap.get("chattingNo"))));
+		
+		if(!messageList.isEmpty()) mapper.updateReadFlag(paramMap);
+		
+		return messageList;
+	}
+
+	// 메세지 삽입
+	@Override
+	public int insertMessage(ChattingMessage msg) {
+		msg.setMessageContent(Util.XSSHandling(msg.getMessageContent()));
+		return mapper.insertMessage(msg);
 	}
 
 	

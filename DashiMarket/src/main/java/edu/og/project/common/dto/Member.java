@@ -1,4 +1,4 @@
-package edu.og.project.temp.model;
+package edu.og.project.common.dto;
 
 import lombok.Getter;
 import lombok.Setter;

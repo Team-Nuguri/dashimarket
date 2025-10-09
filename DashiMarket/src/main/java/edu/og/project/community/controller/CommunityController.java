@@ -1,5 +1,6 @@
 package edu.og.project.community.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,19 +10,23 @@ import javax.print.DocFlavor.STRING;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.og.project.common.dto.Comment;
 import edu.og.project.community.model.dto.Community;
 import edu.og.project.community.model.service.CommunityService;
+import edu.og.project.joonggo.model.dto.JoonggoWrite;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import oracle.jdbc.proxy.annotation.Post;
@@ -87,7 +92,7 @@ public class CommunityController {
 	}
 	
 	// 커뮤니티 상세조회
-	@GetMapping("/{boardType:c.*}/{boardNo}")
+	@GetMapping("/{boardType:c.*}/{boardNo:C.*}")
 	public String communityDetail(@PathVariable("boardType") String boardType,
 								  @PathVariable("boardNo") String boardNo,
 								  @RequestParam(value="cp", required=false, defaultValue="1") int cp,
@@ -110,6 +115,7 @@ public class CommunityController {
 		}
 		return path;
 	}
+	
 	
 	/************************************************************************************************************/
 	/************************************************************************************************************/
@@ -137,8 +143,119 @@ public class CommunityController {
 	@PostMapping("/comment/write")
 	@ResponseBody
 	public int insertComment(@RequestBody Comment comment) {
-		System.out.println(comment);
 		return service.insertComment(comment);
+	}
+	
+	// 댓글 수정
+	@PutMapping("/comment/update")
+	@ResponseBody
+	public int updateComment(@RequestBody Comment comment) {
+		return service.updateComment(comment);
+	}
+	
+	// 댓글 삭제
+	@DeleteMapping("/comment/delete")
+	@ResponseBody
+	public int deleteComment(@RequestBody Comment comment) {
+		return service.deleteComment(comment);
+	}
+	
+	// 커뮤니티 글쓰기 화면 이동
+	@GetMapping("/{boardType:c.*}/write")
+	public String communityWriteFoward() {
+		return "/communityPage/communityWrite";
+	}
+	
+	// 커뮤니티 글쓰기
+	@PostMapping("/{boardType:c.*}/write")
+	@ResponseBody
+	public String communityWrite(Community community,
+								 @PathVariable("boardType") String boardType,
+								 @RequestParam(value="communityImg", required=false) List<MultipartFile> images
+								 //@SessionAttribute("loginMember") Member member 나중에 로그인 완성되면 추가
+								) throws IllegalStateException, IOException {
+		
+		// 임시 회원번호
+		community.setMemberNo(3);
+		community.setBoardType(boardType);
+		
+		String result = service.communityWrite(community, images);
+		
+		result = "/"+ boardType + "/" + result;
+		return result;
+	}
+	
+	// 커뮤니티 게시글 수정 화면 전환
+	@GetMapping("/{boardType:c.*}/{boardNo:C.*}/update")
+	public String communityUpdate(@PathVariable("boardType") String boardType,
+			  					  @PathVariable("boardNo") String boardNo,
+			  					  Model model) {
+		
+		// 상세조회 그대로 갖다 쓰기
+		Map<String, Object> map = new HashMap<>();
+		map.put("boardType", boardType);
+		map.put("boardNo", boardNo);
+		
+		Community community = service.communityDetail(map);
+		
+		// forward로 상세 조회 넘기기
+		model.addAttribute("community", community);
+		
+		return "/communityPage/communityUpdate";
+	}
+	
+	// 커뮤니티 게시글 수정 처리
+	@PostMapping("/{boardType:c.*}/{boardNo:C.*}/update")
+	@ResponseBody
+	public String communityUpdate(@PathVariable("boardType") String boardType,
+								  @PathVariable("boardNo") String boardNo,
+								  @RequestParam(value="cp", required=false, defaultValue="1") String cp,
+								  @RequestParam(value="deleteList", required=false) String deleteList,
+								  @RequestParam(value="communityImg", required=false) List<MultipartFile> images,
+								  Community community,
+								  RedirectAttributes ra,
+								  HttpSession session,
+								  Model model) throws IllegalStateException, IOException {
+		
+		// 게시글 번호 세팅(커멘트에는 제목과 내용, 카테고리만 담겨있음)
+		community.setCommunityNo(boardNo);
+		
+		return service.communityUpdate(community, deleteList, images);
+	}
+	
+	// 커뮤니티 게시글 삭제
+	@GetMapping("/{boardType:c.*}/{boardNo:C.*}/delete")
+	public String communityDelete(@PathVariable("boardType") String boardType,
+			  					  @PathVariable("boardNo") String boardNo,
+			  					  @RequestParam(value="cp", required=false, defaultValue="1") String cp,
+								  RedirectAttributes ra,
+								  @RequestHeader("referer") String referer /*이전요청주소*/) {
+		
+		int result = service.communityDelete(boardNo);
+		
+		String message = "";
+		String path = "redirect:";
+		
+		// 삭제 성공시
+		if(result > 0) {
+			message = "게시글이 삭제 되었습니다!";
+			path += "/" + boardType;
+		} else {
+			
+			message = "게시글 삭제에 실패했습니다.";
+			path += referer;
+		}
+		
+		ra.addFlashAttribute("message", message);
+		return path;
+	}
+	
+	// 좋아하는 게시글 목록 조회
+	@GetMapping("/{boardType:c.*}/likeLists")
+	public String selectLikePost(@PathVariable("boardType") String boardType,
+			  					 @RequestParam(value="cp", required=false, defaultValue="1") int cp,
+			  					 Model model) {
+		return null;
 	}
 	
 }

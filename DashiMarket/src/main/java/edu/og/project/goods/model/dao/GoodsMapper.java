@@ -72,5 +72,10 @@ public interface GoodsMapper {
 	
 	// 굿즈 이미지 수정
 	public int goodsImageUpdate(Image image);
+	
+	
+	
+	// 장바구니 굿즈 목록 조회
+	public List<Goods> selectCartGoodsList(int i);
 
 }
