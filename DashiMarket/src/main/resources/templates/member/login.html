@@ -15,7 +15,7 @@
     <section class="logIn-content">
 
                 <div class="logIn-logo">
-                    <a th:href="@{/}"><img id="main-logo" th:src="@{/images/logo.png}"></a>
+                    <a th:href="@{/}"><img id="main-logo" th:src="@{/images/common/logo.png}"></a>
                     <h4 class="logIn-Title">
                         다시마켓과 함께하는 착한 소비              
                     </h4>
@@ -25,11 +25,11 @@
 
                 <div class="logIn-field">
                     <label class="logIn-subTitle text-size-16">아이디</label>
-                    <input class="logIn-input" name="memberEmail" type="text" placeholder="abc@abc.co.kr" th:value="${saveId}">
+                    <input class="logIn-input" name="memberEmail" type="text" placeholder="이메일을 입력해주세요" th:value="${saveId}">
                 </div>
                 <div class="logIn-field">
                     <label class="logIn-subTitle text-size-16">비밀번호</label>
-                    <input class="logIn-input" type="password" name="memberPw" placeholder="12%ddf">
+                    <input class="logIn-input" type="password" name="memberPw" placeholder="비밀번호를 입력해주세요.">
                 </div>  
 
                 <div class="logIn-field">
@@ -52,7 +52,7 @@
             <div class="social-logIn">
 
                 <div class="social-logIn-title">소셜로그인</div>                
-                <div class="social-logIn-id kakao-logIn-color"><img th:src="@{/images/svg/kakao.svg}" alt=""><a href="">카카오로 3초만에 시작하기</a></div>          
+                <div class="social-logIn-id kakao-logIn-color"><img th:src="@{/images/svg/kakao.svg}" alt=""><a href="/oauth2/authorization/kakao" id="kakaoLogin">카카오로 3초만에 시작하기</a></div>          
                 <div class="social-logIn-id google-logIn-color"><img th:src="@{/images/svg/google.svg}" alt=""><a href="">Google로 시작하기</a></div>
                 
             </div>
@@ -69,7 +69,9 @@
     if (message != null)
       alert(message);
 
-  </script>
+    </script>
+
+    <script th:src="@{/js/social/socialLogin.js}"></script>
 
 </body>
 </html>
