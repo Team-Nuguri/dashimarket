@@ -38,7 +38,7 @@
             PROFILE_PATH, ENROLL_DATE, SECESSIONFL, IS_ADMIN
         )
 		VALUES(
-            SQ_MEMBER_NO.NEXTVAL,
+            SEQ_MEMBER_NO.NEXTVAL,
 		    #{memberEmail},
 		    #{memberPw},
 		    #{memberName},
