@@ -20,7 +20,7 @@
             <h1>커뮤니티 수정</h1>
         </div>
 
-        <form id="writeForm" th:action="@{/community/write}" method="POST" enctype="multipart/form-data">
+        <form id="writeForm" th:action="@{/community/update}" method="POST" enctype="multipart/form-data">
             <ul class="form-list">
                 <li class="form-item">
                     <div class="label-area">
@@ -28,7 +28,7 @@
                         <span class="form-label">제목</span>
                     </div>
                     <div class="field-area">
-                        <input type="text" class="form-control" name="communityTitle" id="communityTitle"
+                        <input type="text" class="form-control" name="communityTitle" id="communityTitle" th:value="${community.communityTitle}"
                             placeholder="제목을 입력해주세요." required>
                     </div>
                 </li>
@@ -47,6 +47,11 @@
                                     </label>
                                     <input type="file" name="communityImg" id="communityImg" accept="image/*" multiple>
                                 </li>
+                                <!-- 이미지 리스트 불러오기 -->
+                                <li th:each="img : ${community.imgList}">
+                                    <img th:src="${img.imagePath}+${img.imageRename}" class="imglist">
+                                    <span class="x-button text-size-14">x</span>
+                                </li>
 
                             </ul>
                         </div>
@@ -60,7 +65,7 @@
                     </div>
                     <div class="field-area">
                         <textarea class="form-control content-textarea" name="communityContent" id="communityContent" placeholder="내용을 입력해주세요."
-                            required></textarea>
+                            th:text="${community.communityContent}" required></textarea>
                     </div>
                 </li>
             
@@ -111,7 +116,7 @@
                                 <button type="button" class="main-category" data-category="C1300">가족/육아</button>
                             </li>
 
-                            <input type="hidden" name="categoryName" id="categoryName" value="">
+                            <input type="hidden" name="categoryId" id="categoryId" th:value="${community.categoryId}">
 
                         </ul>
                     </div>
@@ -124,7 +129,7 @@
                     취소하기
                 </button>
                 <button type="submit" class="btn btn-submit">
-                    등록하기
+                    수정하기
                 </button>
             </div>
         </form>
@@ -133,6 +138,13 @@
 
     <th:block th:replace="~{/common/footer}">footer.html</th:block>
     <th:block th:replace="~{/common/floatingBtn}">floatingBtn.html</th:block>
+
+    <!-- 카테고리명 넘겨주기 -->
+    <script th:inline="javascript">
+
+        const initCategoryId = /*[[${community.categoryId}]]*/ "카테고리 코드";
+
+    </script>
     
 
     <script th:src="@{/js/communityPage/communityUpdate.js}"></script>

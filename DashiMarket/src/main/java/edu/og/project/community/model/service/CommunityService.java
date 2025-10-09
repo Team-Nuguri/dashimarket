@@ -58,4 +58,21 @@ public interface CommunityService {
 	 */
 	int deleteComment(Comment comment);
 
+	/** 게시글 수정
+	 * @param community
+	 * @param deleteList
+	 * @param images
+	 * @return return
+	 * @throws IOException 
+	 * @throws IllegalStateException 
+	 */
+	String communityUpdate(Community community, String deleteList, List<MultipartFile> images) throws IllegalStateException, IOException;
+
+	/** 게시글 삭제
+	 * @param boardNo
+	 * @return result
+	 */
+	int communityDelete(String boardNo);
+
+
 }
