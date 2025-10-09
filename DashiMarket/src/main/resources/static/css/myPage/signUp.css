@@ -51,7 +51,7 @@
 }
 
 /* 프로필 변경 버튼 hover 효과 */
-.signUp-actionButton:hover {
+.signUp-actionButton1:hover {
     background-color: aqua;    
 }
 
@@ -71,7 +71,7 @@
 
 }
 
-#nameMessage, #emailMessage, #pwMessage, #nickMessage, #telMessage {    
+#nameMessage, #emailMessage, #pwMessage, #nickMessage, #telMessage, #authMessage {    
     margin-left: 220px;  
     margin-bottom: 30px;
 }
@@ -121,7 +121,7 @@
 }
 
 /*회원가입 변경 버튼*/
-.signUp-actionButton {
+.signUp-actionButton1 {
 
     background-color: #166549;
     color: white;
@@ -130,7 +130,7 @@
     border-radius: 10px;
     cursor: pointer;
     margin-left: 15px;
-    width: 80px;
+    width: 90px;
     height: 40px;
 }
 

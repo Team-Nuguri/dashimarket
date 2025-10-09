@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/myPage/signUp.css}">
+    <link rel="stylesheet" th:href="@{/css/common/header.css}">
+    <link rel="stylesheet" th:href="@{/css/common/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/common/font.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <title>회원 가입</title>
+</head>
+<body>
+
+    <th:block th:replace="~{common/header}"></th:block>
+
+
+<main class="signUp-content">
+
+<!--프로필 관리-->
+   <section class="signUp-main">
+        
+            <span class="signUp-title text-size-24 bold-text" >회원 가입</span>
+            <span class="signUp-subtitle text-size-14">국내 1위 중고거래 온라인 거래 
+                (주)다시마켓 회원가입을 환영합니다. </span>
+ 
+            <form th:action="@{/member/signUp}" method="post" id="signUpFrm" class="signUp">
+
+              <div class="signUp-infoField">
+
+                <div class="signUp-row">
+                
+                    <label class="signUp-label text-size-16 bold-text">이름</label>
+                    <input type="text" id="signUp-name-input" name="memberName" class="signUp-input text-size-16" placeholder="김영웅">                            
+                </div>
+                <span class="text-size-12" id="nameMessage"></span>
+
+                <div class="signUp-row">
+                    <label class="signUp-label text-size-16 bold-text">아이디/이메일</label>
+                    <input type="text" id="signUp-email-input" name="memberEmail" class="signUp-input text-size-16"  placeholder="dashmarket@dashmarket.com">                            
+                    <button type="button" class="signUp-actionButton1 text-size-14" id="sendAuthKeyBtn">인증번호 받기</button>
+                </div>
+                <span class="text-size-12" id="emailMessage"></span>
+
+                <div class="signUp-row">
+                    <label class="signUp-label text-size-16 bold-text">인증번호</label>
+                    <input type="text" class="signUp-input text-size-16" id="signUp-veri-input">
+                    <button type="button" class="signUp-actionButton1 text-size-14" id="confirmAuthKeyBtn">인증하기</button>
+                </div>
+                <span class="text-size-12" id="authMessage"></span>
+
+                <div class="signUp-row">
+                    <label class="signUp-label text-size-16 bold-text">비밀번호</label>
+                    <input type="text" id="signUp-passWord-input" name="memberPw" class="signUp-input text-size-16" placeholder="비밀번호">                                
+                </div>
+
+                <div class="signUp-row">                    
+                    <label class="signUp-label"></label>
+                    <input type="text" id="signUp-passwordConfirm-input" class="signUp-input text-size-16" placeholder="비밀번호 재확인">                                
+                </div>
+                <span class="text-size-12" id="pwMessage"></span>
+
+                <div class="signUp-row">
+                <label class="signUp-label text-size-16 bold-text">닉네임</label>
+                <input type="text" id="signUp-nickInput" name="memberNickname" class="signUp-input text-size-16" placeholder="닉네임"> 
+                </div>
+                <span class="text-size-12" id="nickMessage"></span>
+
+                <div class="signUp-row">
+                    <label class="signUp-label text-size-16 bold-text">전화번호</label>
+                    <input type="text" id="signUp-telInput" name="memberTel" class="signUp-input text-size-16" placeholder="전화번호"> 
+                </div>
+                <span class="text-size-12" id="telMessage"></span>
+
+                <div class="signUp-addressSection">
+                    <span class="signUp-label text-size-16 bold-text">주 소</span>                                   
+                        <div class="signUp-addpost">
+                            <input type="text" id="sample6_postcode" name="postCode" class="signUp-postinput text-size-16" placeholder="우편번호"> 
+                            <button type="button" onclick="sample6_execDaumPostcode()" class="signUp-addactionButton text-size-16" value="우편번호 찾기">검색</button>
+                        </div>
+
+                        <div class="myPage-addinputDong">
+                            <input type="text" id="sample6_address" name="loadAddress" class="myPage-addinputDongDetail1 text-size-16" placeholder="도로명/지번 주소">
+                            <div class="myPage-addinputDongInside">
+                            <input type="text" id="sample6_detailAddress" name="detailAddress" class="myPage-addinputDongDetail2 text-size-16" placeholder="상세주소">
+                            <input type="text" id="sample6_extraAddress" name="defaultDong" class="myPage-addinputDongDetail3 text-size-16" placeholder="참고항목">
+                            </div>
+                        </div>   
+                
+                </div>
+              </div>
+
+                <div class="signUp-buttons">
+                <button type="submit" class="signUp-submit text-size-20">가입하기</button>
+                </div>
+              
+            </form>
+
+    </section>
+    
+</main>
+
+    
+<!--footer-->
+
+    <th:block th:replace="~{common/footer}"></th:block>
+        
+<!-- 주소 Daum API -->
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+<script th:src="@{/js/signUp.js}"></script>
+
+</body>
+</html>

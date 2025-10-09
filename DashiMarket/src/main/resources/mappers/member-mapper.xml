@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.og.project.member.model.dao.MemberMapper">
+
+	<resultMap type="Member" id="member_rm">
+		<id property="memberNo" column="MEMBER_NO"/>
+		<result property="memberEmail" column="MEMBER_EMAIL"/>
+		<result property="memberPw" column="MEMBER_PW"/>
+		<result property="memberName" column="MEMBER_NAME"/>
+		<result property="memberNickname" column="MEMBER_NICKNAME"/>
+        <result property="memberTel" column="MEMBER_TEL"/>
+		<result property="postCode" column="POST_CODE"/>
+		<result property="loadAddress" column="LOAD_ADDRESS"/>
+		<result property="detailAddress" column="DETAIL_ADDRESS"/>
+		<result property="defaultDong" column="DEFAULT_DONG"/>
+		<result property="profilePath" column="PROFILE_PATH" />
+		<result property="enrollDate" column="ENROLL_DATE" />
+		<result property="secessionFl" column="SECESSIONFL"/>
+		<result property="isAdmin" column="IS_ADMIN"/>
+	</resultMap>
+		
+	
+		<select id="login" resultMap="member_rm">
+		SELECT 
+            MEMBER_NO, MEMBER_EMAIL, MEMBER_NAME, MEMBER_NICKNAME, MEMBER_PW, 
+		    MEMBER_TEL, POST_CODE, LOAD_ADDRESS, DETAIL_ADDRESS, DEFAULT_DONG, 
+            PROFILE_PATH, IS_ADMIN, SECESSIONFL, 
+			TO_CHAR(ENROLL_DATE, 'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"') AS ENROLL_DATE
+		FROM MEMBER
+		WHERE SECESSIONFL ='N'  AND MEMBER_EMAIL = #{memberEmail}
+	</select>
+	
+	<insert id="signUp" parameterType="Member">
+		INSERT INTO MEMBER (
+            MEMBER_NO, MEMBER_EMAIL, MEMBER_PW, MEMBER_NAME, MEMBER_NICKNAME, MEMBER_TEL, 
+            POST_CODE, LOAD_ADDRESS, DETAIL_ADDRESS, DEFAULT_DONG,
+            PROFILE_PATH, ENROLL_DATE, SECESSIONFL, IS_ADMIN
+        )
+		VALUES(
+            SQ_MEMBER_NO.NEXTVAL,
+		    #{memberEmail},
+		    #{memberPw},
+		    #{memberName},
+		    #{memberNickname},
+		    #{memberTel},
+            #{postCode},  #{loadAddress},
+            #{detailAddress},
+            #{defaultDong},
+		    NULL, 
+            SYSDATE,  DEFAULT, 
+            DEFAULT
+        )
+	</insert>
+	
+		
+</mapper>
