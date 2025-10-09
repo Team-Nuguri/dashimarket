@@ -116,6 +116,14 @@ public class CommunityController {
 		return path;
 	}
 	
+	// 커뮤니티 게시글 수정
+	@GetMapping("/{boardType:c.*}/{boardNo:C.*}/update")
+	public String communityUpdate(@PathVariable("boardType") String boardType,
+								  @PathVariable("boardNo") String boardNo,
+								  Model model) {
+		return null;
+	}
+	
 	/************************************************************************************************************/
 	/************************************************************************************************************/
 	

@@ -394,7 +394,8 @@ function deleteComment(commentNo) {
 /* 게시글 수정 */
 document.getElementsByClassName("post-update-btn")[0].addEventListener("click", () => {
     /* /community/게시글번호 -> /community/게시글번호/update?cp=1 */
-    location.href = location.
+    location.href = location.pathname + '/update' + location.search;
+
 })
 
 
