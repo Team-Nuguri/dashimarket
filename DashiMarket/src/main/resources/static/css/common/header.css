@@ -127,7 +127,7 @@ header>section> div:nth-child(2)>div>a:hover{
     position: absolute;
     width: 350px;
     height: 500px;
-    top: 16px;
+    top: 30px;
     right: 25px;
     padding: 10px;
     list-style: none;
@@ -168,6 +168,7 @@ header>section> div:nth-child(2)>div>a:hover{
     border-radius: 10px;
     padding: 10px;
     margin: 5px 0;
+    cursor: pointer;
 }
 
 .notification-div img{
@@ -179,7 +180,7 @@ header>section> div:nth-child(2)>div>a:hover{
     border: none;
 }
 
-.box-background{
+.not-read{
     background-color: #65dbb2d6;
     border: none;
 }
@@ -197,23 +198,14 @@ header>section> div:nth-child(2)>div>a:hover{
     margin: 0;
 }
 
-.notification-text{
-    margin: 0;
-    font-size: 14px;
-    margin-top: 5px;
-}
-
 
 .notification-date{
     font-size: 11px;
-    position: absolute;
-    top: 10px;
-    right: 5px;
     color: #5e5e5e;
 }
 
 /* X 버튼 */
-.notification-content > span:nth-of-type(2){
+.notice-deleteBtn{
     position: absolute;
     top: -15px;
     right: 0;

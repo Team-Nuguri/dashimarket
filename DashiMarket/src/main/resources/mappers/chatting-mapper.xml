@@ -99,7 +99,7 @@
 	<update id="updateReadFlag">
 		UPDATE CHATTING_MESSAGE SET
 		READ_FL = 'Y'
-		WHERE CHATTING_NO = ${chattingNo}
+		WHERE CHATTING_NO = #{chattingNo}
 		AND SEND_MEMBER != ${memberNo}
 	</update>
 	

@@ -1,20 +1,5 @@
 console.log("chatting.js")
 
-// floating버튼 클릭시 채팅방 화면 보여주기
-const chattingBtn = document.getElementById("chattingBtn");
-const chattingPopup = document.querySelector(".chatting-popup")
-
-chattingBtn.addEventListener("click", ()=>{
-    chattingPopup.classList.toggle("show")
-})
-
-// X 버튼 클릭시 채팅창 숨기기
-const closeBtn = document.getElementById("closeBtn")
-
-closeBtn.addEventListener("click", ()=>{
-    chattingPopup.classList.toggle("show")
-})
-
 let selectChattingNo; // 선택한 채팅방 번호
 let selectTargetNo; // 현재 채팅 대상
 let selectTargetName; // 채팅 상대 이름
@@ -34,6 +19,9 @@ function roomListAddEvent(){
             selectTargetProfile = item.children[0].children[0].getAttribute("src");
 
             // 알림이 존재하는 경우 지우기
+            if(item.children[1].children[1].children[1] != undefined){
+                item.children[1].children[1].children[1].remove();
+            }
 
             // 모든 채팅방에서 select 클래스 제거
             for(let it of chattingItemList) it.classList.remove("select")
@@ -61,13 +49,30 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
     // 채팅 알림을 클릭해서 채팅 페이지로 이동한 경우
 
+    // floating버튼 클릭시 채팅방 화면 보여주기
+    const chattingBtn = document.getElementById("chattingBtn");
+    const chattingPopup = document.querySelector(".chatting-popup")
+
+    chattingBtn?.addEventListener("click", ()=>{
+        chattingPopup.classList.toggle("show")
+        selectRoomList();
+        selectMessage();
+    })
+
+    // X 버튼 클릭시 채팅창 숨기기
+    const closeBtn = document.getElementById("closeBtn")
+    
+    closeBtn?.addEventListener("click", ()=>{
+        chattingPopup.classList.toggle("show")
+    })
+
 })
 
 // 채팅방 상대(닉네임) 검색 시
 const targetSearch = document.getElementById("name-search")
 const resultArea = document.getElementById("resultArea");
 
-targetSearch.addEventListener("input", e => {
+targetSearch?.addEventListener("input", e => {
     const targetQuery = e.target.value.trim();
 
     // 입력값이 없을 경우
@@ -104,7 +109,7 @@ targetSearch.addEventListener("input", e => {
             const img = document.createElement("img");
             img.classList.add("result-row-img");
 
-            if(member.profilePath == null) img.setAttribute("src", "/images/admin/user.png")
+            if(member.profilePath == null) img.setAttribute("src", "/images/common/user.png")
             else img.setAttribute("src", member.profilePath);
 
             let nickname = member.memberNickname;
@@ -271,18 +276,11 @@ function selectMessage() {
         // 채팅화면에 출력
         for(let msg of messageList){
 
-            // 날짜줄 표시
-            // msg.sendTime: "2025.10.07 19:39"
-            const msgDateStr = msg.sendTime.split(" ")[0]; // "2025.10.07"
-            const msgDate = new Date(msgDateStr.replace(/\./g, "-")); // "2025-10-07" → Date 객체
-            const today = new Date();
-
-            // 시분초 제거 (자정 기준 비교)
-            today.setHours(0, 0, 0, 0);
-            msgDate.setHours(0, 0, 0, 0);
-
-            // 오늘보다 이전 날짜이고, 아직 같은 날짜줄이 표시되지 않았으면 표시
-            if (msgDate < today && msgDateStr !== lastShownDate) {
+            // --- 날짜 처리 ---
+            // msg.sendTime 예: "2025.10.09 13:45"
+            const msgDateStr = msg.sendTime.split(" ")[0]; // "2025.10.09"
+            
+            if (msgDateStr !== lastShownDate) {
                 const li = document.createElement("li");
                 li.classList.add("chat-date-line");
 
@@ -293,12 +291,13 @@ function selectMessage() {
 
                 const chatDate = document.createElement("span");
                 chatDate.classList.add("chat-date-text");
-                chatDate.innerText = msgDateStr; // 예: 2025.10.07
+                chatDate.innerText = msgDateStr; // "2025.10.09"
 
                 li.append(hr1, chatDate, hr2);
                 ul.append(li);
 
-                lastShownDate = msgDateStr; // 중복 표시 방지
+                // 날짜 갱신
+                lastShownDate = msgDateStr;
             }
 
             // 실제 메세지 내용 출력
@@ -440,6 +439,8 @@ let chattingSock;
 // 연결하기 위한 기본 세팅
 if(loginMemberNo != ""){
     chattingSock = new SockJS("/chattingSock");
+    
+    // WebSocket 연결 되었는지 확인
     // WebSocket 연결이 성공했을 때 실행
     chattingSock.onopen = () => {
         console.log("✅ WebSocket 연결 성공!");
@@ -479,13 +480,16 @@ const sendMessage = () => {
             messageContent : inputChatting.value
         }
 
-        console.log(obj)
-
         // JS 객체 -> JSON 문자열로 변환하여 전송
         chattingSock.send(JSON.stringify(obj));
 
         // 채팅 알림 보내기
+        const url = `${location.pathname}?chat-no=${selectChattingNo}`;
+        const content = `${memberNickname}님이 채팅을 보냈습니다.<br>${inputChatting.value}`;
 
+        sendNotification("chatting", url, selectTargetNo, content);
+
+        // 기존 메세지 내용 삭제
         inputChatting.value = "";
     }
 }
@@ -502,7 +506,6 @@ inputChatting.addEventListener("keyup", e => {
 chattingSock.onmessage = e => {
     // 전달 받은 객체를 JS 객체로 변환해서 저장
     const msg = JSON.parse(e.data);
-    console.log("새 메시지 수신:", msg);
     
     // 현재 채팅방을 보고있는 경우
     if(selectChattingNo == msg.chattingNo){
@@ -511,7 +514,30 @@ chattingSock.onmessage = e => {
 
         const selectNickname = document.getElementById("selectTargetName");
         selectNickname.innerText = selectTargetName
+
+        // --- 날짜 처리 ---
+        // msg.sendTime 예: "2025.10.09 13:45"
+        const msgDateStr = msg.sendTime.split(" ")[0]; // "2025.10.09"
         
+        if (msgDateStr !== lastShownDate) {
+            const li = document.createElement("li");
+            li.classList.add("chat-date-line");
+
+            const hr1 = document.createElement("hr");
+            hr1.classList.add("line");
+            const hr2 = document.createElement("hr");
+            hr2.classList.add("line");
+
+            const chatDate = document.createElement("span");
+            chatDate.classList.add("chat-date-text");
+            chatDate.innerText = msgDateStr; // "2025.10.09"
+
+            li.append(hr1, chatDate, hr2);
+            ul.append(li);
+
+            // 날짜 갱신
+            lastShownDate = msgDateStr;
+        }
 
         // 실제 메세지 내용 출력
         const msgLi = document.createElement("li"); 
@@ -519,7 +545,7 @@ chattingSock.onmessage = e => {
         // 보낸 시간
         const span = document.createElement("span");
         span.classList.add("chat-date")
-        span.innerText = msg.sendTime;
+        span.innerText = msg.sendTime.split(" ")[1];
 
         // 메세지 내용
         const p = document.createElement("p")
@@ -552,7 +578,6 @@ chattingSock.onmessage = e => {
 
             div.append(b, p, span);
             msgLi.append(img, div)
-            console.log("보내기 성공 화면 출력?!?")
         }
 
         ul.append(msgLi)
