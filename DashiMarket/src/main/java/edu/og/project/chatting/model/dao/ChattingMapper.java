@@ -6,7 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import edu.og.project.chatting.model.dto.ChattingRoom;
-import edu.og.project.temp.model.Member;
+import edu.og.project.common.dto.Member;
 import edu.og.project.chatting.model.dto.ChattingMessage;
 
 @Mapper
