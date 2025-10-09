@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import edu.og.project.chatting.model.dto.ChattingRoom;
-import edu.og.project.temp.model.Member;
+import edu.og.project.common.dto.Member;
 import edu.og.project.chatting.model.dto.ChattingMessage;
 
 public interface ChattingService {

@@ -459,27 +459,6 @@ if(loginMemberNo != ""){
             console.warn('🔌 WebSocket 연결이 비정상적으로 끊어짐');
         }
     };
-
-    chattingSock.onclose = (event) => {
-    // 'event'는 CloseEvent 객체입니다.
-    const closeCode = event.code;
-    const wasClean = event.wasClean; // true: 정상적인 종료(1000), false: 비정상적인 종료(1006 등)
-
-    console.log(`WebSocket 연결이 닫혔습니다.`);
-    console.log(`Close Code: ${closeCode}`);
-    console.log(`정상적인 종료 여부: ${wasClean}`);
-
-    if (closeCode === 1006) {
-        console.error('⚠️ 비정상적인 연결 끊김 (Abnormal Closure). 재연결을 시도합니다...');
-        // 여기에 재연결 로직 구현
-    } else if (closeCode === 1000) {
-        console.log('✅ 정상 종료 (Normal Closure).');
-    }
-};
-
-chattingSock.onerror = (error) => {
-    console.error('WebSocket 오류 발생:', error);
-};
 }
 
 // 채팅 입력시
@@ -497,8 +476,7 @@ const sendMessage = () => {
             sendMember : loginMemberNo,
             targetNo : selectTargetNo,
             chattingNo : selectChattingNo,
-            messageContent : inputChatting.value,
-            sendTime : lastShownDate
+            messageContent : inputChatting.value
         }
 
         console.log(obj)
@@ -525,9 +503,7 @@ chattingSock.onmessage = e => {
     // 전달 받은 객체를 JS 객체로 변환해서 저장
     const msg = JSON.parse(e.data);
     console.log("새 메시지 수신:", msg);
-    console.log(`채팅방 번호 비교 -> 현재방:${selectChattingNo}, 수신된 메시지방:${msg.chattingNo}`);
-    console.log(`타입 비교 -> 현재방:${typeof selectChattingNo}, 수신된 메시지방:${typeof msg.chattingNo}`);
-
+    
     // 현재 채팅방을 보고있는 경우
     if(selectChattingNo == msg.chattingNo){
         
@@ -536,34 +512,6 @@ chattingSock.onmessage = e => {
         const selectNickname = document.getElementById("selectTargetName");
         selectNickname.innerText = selectTargetName
         
-        // 날짜줄 표시
-        const msgDateStr = msg.sendTime.split(" ")[0]; // "2025.10.07"
-        const msgDate = new Date(msgDateStr.replace(/\./g, "-")); // "2025-10-07" → Date 객체
-        const today = new Date();
-
-        // 시분초 제거 (자정 기준 비교)
-        today.setHours(0, 0, 0, 0);
-        msgDate.setHours(0, 0, 0, 0);
-
-        // 오늘보다 이전 날짜이고, 아직 같은 날짜줄이 표시되지 않았으면 표시
-        if (msgDate < today && msgDateStr !== lastShownDate) {
-            const li = document.createElement("li");
-            li.classList.add("chat-date-line");
-
-            const hr1 = document.createElement("hr");
-            hr1.classList.add("line");
-            const hr2 = document.createElement("hr");
-            hr2.classList.add("line");
-
-            const chatDate = document.createElement("span");
-            chatDate.classList.add("chat-date-text");
-            chatDate.innerText = msgDateStr; // 예: 2025.10.07
-
-            li.append(hr1, chatDate, hr2);
-            ul.append(li);
-
-            lastShownDate = msgDateStr; // 중복 표시 방지
-        }
 
         // 실제 메세지 내용 출력
         const msgLi = document.createElement("li"); 
@@ -571,7 +519,7 @@ chattingSock.onmessage = e => {
         // 보낸 시간
         const span = document.createElement("span");
         span.classList.add("chat-date")
-        span.innerText = msg.sendTime.split(" ")[1];
+        span.innerText = msg.sendTime;
 
         // 메세지 내용
         const p = document.createElement("p")

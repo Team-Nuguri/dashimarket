@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import edu.og.project.chatting.model.dao.ChattingMapper;
 import edu.og.project.chatting.model.dto.ChattingRoom;
 import edu.og.project.chatting.model.dto.ChattingMessage;
+import edu.og.project.common.dto.Member;
 import edu.og.project.common.utility.Util;
-import edu.og.project.temp.model.Member;
 
 @Service
 public class ChattingServiceImpl implements ChattingService{

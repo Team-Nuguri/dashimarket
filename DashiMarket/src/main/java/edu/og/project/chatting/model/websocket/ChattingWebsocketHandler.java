@@ -18,7 +18,7 @@ import com.google.gson.Gson;
 
 import edu.og.project.chatting.model.dto.ChattingMessage;
 import edu.og.project.chatting.model.service.ChattingService;
-import edu.og.project.temp.model.Member;
+import edu.og.project.common.dto.Member;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 

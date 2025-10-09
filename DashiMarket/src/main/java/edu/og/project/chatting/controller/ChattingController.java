@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import edu.og.project.chatting.model.dto.ChattingMessage;
 import edu.og.project.chatting.model.dto.ChattingRoom;
 import edu.og.project.chatting.model.service.ChattingService;
-import edu.og.project.temp.model.Member;
+import edu.og.project.common.dto.Member;
 
 @Controller
 public class ChattingController {
