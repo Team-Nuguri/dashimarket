@@ -223,17 +223,18 @@ const notReadCheck = ()=>{
 const iconImg = document.getElementsByClassName("icon-img")[0];
 const path = location.pathname; // 현재 경로
 
-if(path == "/joonggo") {
+if(path.includes("/joonggo")) {
     iconImg.setAttribute("src", "/images/svg/하트.svg");
 }
 
-if(path == "/goods") {
+if(path.includes("/goods")) {
     iconImg.setAttribute("src", "/images/svg/장바구니.svg");
     iconImg.setAttribute("id", "cartListBtn");
 }
 
-if(path == "/community") {
+if(path.includes("/community")) {
     iconImg.setAttribute("src", "/images/svg/사람.svg");
+    iconImg.setAttribute("id", "communityLikeBtn");
 }
 
 
@@ -242,6 +243,9 @@ document.getElementById("cartListBtn")?.addEventListener("click", e=> {
     location.href="/goods/shoppingcart"
 })
 
+document.getElementById("communityLikeBtn")?.addEventListener("click", () => {
+    location.href = "/community/likeLists";
+})
 
 // 페이지 로딩 완료 후 수행
 document.addEventListener("DOMContentLoaded", ()=>{

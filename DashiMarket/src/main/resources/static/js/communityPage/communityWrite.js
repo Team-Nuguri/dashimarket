@@ -62,7 +62,7 @@ communityImg.addEventListener("change", e => {
 /* 카테고리 */
 
 const mainBtn = document.getElementsByClassName("main-category");
-const mainCategory = document.getElementById("categoryName"); 
+const mainCategory = document.getElementById("categoryId"); // 인풋 히든
 
 for (let btn of mainBtn) {
 
@@ -116,11 +116,10 @@ document.getElementById("writeForm").addEventListener("submit", e => {
 
     e.preventDefault();
 
-    if(allFiles.length == 0){
-        alert("이미지를 선택해주세요.");
-        return ;
+    if(mainCategory.value == "") {
+        alert("카테고리를 선택해주세요.");
+        return;
     }
-
 
     const data = new FormData();
 
@@ -142,28 +141,31 @@ document.getElementById("writeForm").addEventListener("submit", e => {
     })
     .then(resp => resp.text())
     .then(result => {
+        console.log(result);
 
         if(result =='false'){
-            alert("상품 등록에 실패하였습니다.");
+            alert("게시글 등록에 실패하였습니다.");
             setTimeout(() => {
 
                 location.href = location.pathname;
             }, 100);
             
         }else{
-            alert("상품이 등록되었습니다.")
+            alert("게시글이 등록되었습니다.")
             
             setTimeout(() => {
 
-                location.href = result;
+                location.href = result; // 게시글 번호로 이동
             }, 100);
         }
 
-        
-
     })
     .catch(e => console.log(e))
+})
 
-
-
+const cancelBtn = document.getElementsByClassName("btn-cancel")[0];
+cancelBtn.addEventListener("click", () => {
+    if(confirm("작성을 취소 하시겠습니까?")) {
+        location.href = location.pathname.replace("/write", "");
+    }
 })
