@@ -20,8 +20,8 @@
 
         <!-- 상단 로그인 버튼 -->
         <div id="header-login">
-            <a th:href="@{/login}" th:unless="${session.loginMember}">로그인</a>
-            <a th:href="@{/logout}" th:if="${session.loginMember}">로그아웃</a>
+            <a th:href="@{/member/login}" th:unless="${session.loginMember}">로그인</a>
+            <a th:href="@{/member/logout}" th:if="${session.loginMember}">로그아웃</a>
         </div>
 
 
