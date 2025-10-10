@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/myPage/FraudService.css}">
+    <link rel="stylesheet" th:href="@{/css/common/header.css}">
+    <link rel="stylesheet" th:href="@{/css/common/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/common/font.css}">   
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <title>사기이력조회</title>
+</head>
+<body>
+
+    <!--header-->
+
+    <th:block th:replace="~{common/header}"></th:block>
+
+
+
+
+<main class="fraud-content">
+
+<!--사기조회 관리-->
+   <section class="fraud-main">
+        
+        <div class="fraud-topTitle">
+            <div class="text-size-28 bold-text">다시마켓 사기예방 서비스</div>
+            <div class="text-size-14 bold-text">사기이력 조회로 안심 거래하세요</div>
+        </div>
+
+        <div class="divider"></div>
+
+            <form th:action="@{/myPage/fraud}"> 
+                
+                <fieldset>
+                
+                    <img th:src="@{/images/svg/돋보기.svg}" alt=""><legend class="text-size-28 bold-text">통합사기조회</legend>
+                    <input type="text">
+
+                </fieldset>
+
+            </form>
+
+            <section class="fraud-count">
+                <div class="fraud-countToday">
+                    <img th:src="@{/images/svg/todaySearch.svg}" alt="">
+                    <div class="text-size-14 bold-text"><a href="">오늘 조회수</a></div>
+                    <div>3,420</div>
+                </div>
+                <div class="fraud-countTotal">
+                    <img th:src="@{/images/svg/TotalSearch.svg}" alt="">
+                    <div class="text-size-14 bold-text"><a href="">누적 조회수</a></div>
+                    <div>133,420</div>
+                </div>
+
+            </section>
+
+            <div class="fraud-exTitle">
+                <h3 class="text-size-18 bold-text">실시간 사기 모니터링 현황</h3>
+                <h3 class="text-size-18 bold-text">기타 예방 방법</h3>
+            </div>
+
+
+            <div class="fraud-info">
+                <table class="fraud-infoTable">
+                    <thead>
+                        <tr>
+                            <th>일시</th>
+                            <th>사기 정보</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2025-09-21 17:42:59</td>
+                            <td>010-****-****</td>
+                        </tr>
+                        <tr>
+                            <td>2025-09-21 17:42:59</td>
+                            <td>010-****-****</td>
+                        </tr>
+                        <tr>
+                            <td>2025-09-21 17:42:59</td>
+                            <td>010-****-****</td>
+                        </tr>
+                        <tr>
+                            <td>2025-09-21 17:42:59</td>
+                            <td>010-****-****</td>
+                        </tr>
+                        <tr>
+                            <td>2025-09-21 17:42:59</td>
+                            <td>010-****-****</td>
+                        </tr>
+                        <tr>
+                            <td>2025-09-21 17:42:59</td>
+                            <td>010-****-****</td>
+                        </tr>
+                        <tr>
+                            <td>2025-09-21 17:42:59</td>
+                            <td>010-****-****</td>
+                        </tr>
+                        <tr>
+                            <td>2025-09-21 17:42:59</td>
+                            <td>010-****-****</td>
+                        </tr>
+
+                    </tbody>
+             
+                </table>
+                <div class="fraud-prevention">
+                    <img th:src="@{/images/logo.png}" alt="">
+    
+                </div>
+
+            </div>
+
+
+
+
+
+    </section>
+    
+</main>
+
+    
+    <!--footer-->
+
+    <th:block th:replace="~{common/footer}"></th:block>
+        
+
+        
+
+
+</body>
+</html>
