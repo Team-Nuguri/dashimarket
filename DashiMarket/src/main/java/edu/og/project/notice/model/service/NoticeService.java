@@ -9,5 +9,9 @@ public interface NoticeService {
 	// 공지사항 목록 조회
 	List<Notice> selectNoticeList(String boardType);
 	
+	// 공지사항 글 등록
+	int insertNotice(Notice notice);
+	
+	
 
 }
