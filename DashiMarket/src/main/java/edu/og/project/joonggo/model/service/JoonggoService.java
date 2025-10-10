@@ -11,6 +11,23 @@ import edu.og.project.joonggo.model.dto.SimilarItem;
 public interface JoonggoService {
 	
 	
+	/** 중고 상품 목록 조회 (KJK)
+	 * @param boardType
+	 * @param cp
+	 * @return map
+	 */
+	Map<String, Object> selectJoonggoList(String boardType, int cp);
+	
+	
+	/** 중고상품 목록 정렬  (KJK)
+	 * @param boardType
+	 * @param cp
+	 * @param sortType
+	 * @return map
+	 */
+	Map<String, Object> sortJoonggoList(String boardType, int cp, String sortType);
+
+	
 	
 	/** 중고 상세 조회
 	 * @param map
@@ -52,5 +69,6 @@ public interface JoonggoService {
 	 * @throws IllegalStateException 
 	 */
 	String joonggoUpdate(Map<String, Object> map) throws IllegalStateException, IOException;
+
 
 }

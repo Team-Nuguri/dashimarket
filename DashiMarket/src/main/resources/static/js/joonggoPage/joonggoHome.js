@@ -1,4 +1,4 @@
-//console.log("communityHome.js");
+console.log("communityHome3333.js");
 
 const selectCity = document.getElementById("select-city");
 const cityBox = document.getElementById("select-city-box");
