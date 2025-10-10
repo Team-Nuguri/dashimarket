@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/FraudResult.css}">
+    <link rel="stylesheet" th:href="@{/css/common/header.css}">
+    <link rel="stylesheet" th:href="@{/css/common/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/common/font.css}">  
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <title>사기이력조회 결과</title>
+</head>
+<body>
+
+     <!--header-->
+
+    <th:block th:replace="~{common/header}"></th:block>
+
+
+<main class="fraudResult-content">
+
+<!--사기조회 관리-->
+   <section class="fraudResult-main">
+
+        <div class="fraudResult-topTitle">
+            <div class="text-size-28 bold-text">다시마켓 사기예방 서비스</div>
+            <div class="text-size-14 bold-text">사기이력 조회로 안심 거래하세요</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="fraudResult-title text-size-28 bold-text">통합사기조회 결과</div>
+
+        <div class="fraudResult-field">
+            <div class="fraudResult-fieldMain">
+                <div class="text-size-16 bold-text">신고내용</div>
+                <div class="text-size-16 bold-text">신고내용 없음</div>
+            </div>
+            <div class="fraudResult-fieldExtra">
+                <span>(이력조회결과로 신규 거래의 안심 거래를 보장하지 않습니다. 안심결재를 이용해주세요.)</span>
+            </div>
+
+            <div class="fraudResult-button">
+                <button>다시 조회하기</button>
+                <button>이의 제기하기</button>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+        
+        <div class="fraudResult-policeLink">
+            <label for=""></label>
+            <div><a href="">경찰청 사이버국 바로가기</a></div>
+        </div>
+
+    </section>
+    
+</main>
+
+    
+    <!--footer-->
+
+    <th:block th:replace="~{common/footer}"></th:block>
+        
+
+
+</body>
+</html>

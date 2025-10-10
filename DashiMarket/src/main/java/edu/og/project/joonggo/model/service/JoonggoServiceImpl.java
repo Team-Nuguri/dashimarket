@@ -80,7 +80,8 @@ public class JoonggoServiceImpl implements JoonggoService {
 		
 		
 		
-		String result = "false";
+		String result = null;
+		
 
 		// 텍스트 먼저 삽입
 		int num = mapper.joonggoInsert(joonggoWrite);
@@ -157,7 +158,7 @@ public class JoonggoServiceImpl implements JoonggoService {
 	}
 
 
-
+	
 	// 중고 상품 수정
 	@Override
 	@Transactional(rollbackFor = Exception.class)

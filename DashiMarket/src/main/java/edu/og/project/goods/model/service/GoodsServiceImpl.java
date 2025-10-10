@@ -185,7 +185,7 @@ public class GoodsServiceImpl implements GoodsService {
 		int result = mapper.goodsBoardInsert(goodsWrite);
 
 		if(result == 0) {
-			return null;
+			return "fail";
 		}
 
 		// 굿즈 가격 재고 insert

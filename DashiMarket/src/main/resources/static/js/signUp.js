@@ -51,7 +51,7 @@ const memberEmail = document.getElementById('signUp-email-input');
 const emailMessage = document.getElementById('emailMessage');
 
 memberEmail.addEventListener("input", ()=>{
-    const reExp = /^[\w-]{2,10}@[a-zA-Z0-9]+(\.[a-zA-Z]{2,}){1,2}$/;
+    const reExp = /^[\w-]{2,30}@[a-zA-Z0-9]+(\.[a-zA-Z]{2,}){1,2}$/;
     
     // 이메일 입력창이 비었을 때
     if(memberEmail.value.trim() === ""){

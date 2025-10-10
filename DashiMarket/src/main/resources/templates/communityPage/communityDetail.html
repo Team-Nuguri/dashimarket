@@ -8,7 +8,7 @@
     <link rel="stylesheet" th:href="@{/css/common/font.css}">
     <link rel="stylesheet" th:href="@{/css/communityPage/communityHome.css}">
     <link rel="stylesheet" th:href="@{/css/common/footer.css}">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     
@@ -92,8 +92,10 @@
 
             <div class="count-area">
                 <div class="post-like">
-                    <img th:src="@{/images/svg/community-liked.svg}" alt="">
-                    <div th:text="${board.likeCount}">좋아요 수</div>
+                    <!-- 좋아요 -->
+                    <i class="fa-regular fa-heart" style="font-size: 23px;" th:unless="${likeCheck == 'yes'}" id="like-heart"></i>
+                    <i class="fa-solid fa-heart" style="font-size: 23px;" th:if="${likeCheck == 'yes'}" id="like-heart"></i>
+                    <div th:text="${board.likeCount}" id="like-count">좋아요 수</div>
                 </div>
     
                 <div class="post-comment">
@@ -176,7 +178,7 @@
         
                         <!-- 수정 삭제 버튼 -->
                         <div class="del-update-area">
-                                                                             <!-- commentNo는 문자열이기 때문에 대괄호로 감싸서 따옴표 붙여준 후 보내야 함 -->
+                                                                     <!-- commentNo는 문자열이기 때문에 대괄호로 감싸서 따옴표 붙여준 후 보내야 함 -->
                             <button class="update-btn medium-text" th:onclick="showUpdateComment('[[${comment.commentNo}]]', this)">수정</button>
                             <!-- 부모 댓글인 경우에만 답글 버튼 보임 -->
                             <button class="reply-btn medium-text" th:if="${comment.parentCommentNo == 0}">답글</button>
@@ -217,10 +219,10 @@
     <th:block th:replace="~{common/footer}"></th:block>
 
     <script th:inline="javascript">
-        // const loginMemberNo = /*[[${session.loginMember?.memberNo}]]*/ "로그인한 회원 번호";
-        // const memberNickname = /*[[${session.loginMember?.memberNickname}]]*/ "로그인한 회원 닉네임";
+        let loginMemberNo = /*[[${session.loginMember?.memberNo}]]*/ "로그인한 회원 번호";
+        let memberNickname = /*[[${session.loginMember?.memberNickname}]]*/ "로그인한 회원 닉네임";
         
-        // if(loginMemberNo == null) loginMemberNo = ""; // 빈칸 처리
+        if(loginMemberNo == null) loginMemberNo = ""; // 빈칸 처리
 
         const boardNo = /*[[${board.communityNo}]]*/ "게시글 번호";
         const boardTitle = /*[[${board.communityTitle}]]*/ "게시글 제목";

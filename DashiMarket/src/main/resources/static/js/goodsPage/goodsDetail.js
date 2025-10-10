@@ -1,5 +1,6 @@
 console.log("goodsDetail.js loda . . .")
 
+console.log(loginMember)
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -180,7 +181,7 @@ function goodsQnaList(boardNo, cp = 1, canScroll = false) {
 
 
 /* 수정 삭제 */
-document.getElementById("ud-menu").addEventListener("click", () => {
+document.getElementById("ud-menu")?.addEventListener("click", () => {
 
     document.querySelector(".dropdown-menu").classList.toggle("show");
 
@@ -206,7 +207,7 @@ minusBtn.addEventListener("click", () => {
         quantity--;
         quantityInput.value = quantity;
         totalPriceElement.innerText = formatPrice(quantity * unitPrice);
-        inputPrice.value = totalPriceElement.innerText;
+        inputPrice.value = unitPrice * quantity;
     }
 });
 
@@ -219,7 +220,7 @@ plusBtn.addEventListener("click", () => {
         quantity++;
         quantityInput.value = quantity;
         totalPriceElement.innerText = formatPrice(quantity * unitPrice);
-        inputPrice.value = totalPriceElement.innerText;
+        inputPrice.value = unitPrice * quantity;
 
     }else{
         alert(`현재 재고가 ${maxStock}개 남아 있습니다.`);
@@ -303,7 +304,7 @@ const cartBtn = document.getElementById("shopping-cart");
 const soldOut = document.getElementById("sold-out");
 
 // 구매 버튼 클릭
-buyBtn.addEventListener("click", e => {
+/* buyBtn.addEventListener("click", e => {
 
     if (soldOut.classList.contains('show')) {
 
@@ -311,7 +312,6 @@ buyBtn.addEventListener("click", e => {
         return;
     }
 
-    /* 구매 버튼 클릭 시 서버 ~ */
     const cartQuantity = document.getElementById("quantity").value;
     const data= {
         boardNo : boardNo,
@@ -319,13 +319,34 @@ buyBtn.addEventListener("click", e => {
         totalPrice : inputPrice.value
     }
 
-    fetch("/order", )
     
-})
+    fetch("/order", {
+        method : "POST",
+        headers : {"Content-Type" : "application/json"},
+        body : JSON.stringify(data)
+    })
+    .then(resp => {
+
+        if(resp.ok){
+            console.log("성공");
+        }else{
+            console.log("실패");
+        }
+    })
+    .catch(e => console.log(e))
+    
+}) */
 
 
 // 장바구니 버튼 클릭
 cartBtn.addEventListener("click", e => {
+
+    e.preventDefault();
+
+    if(loginMember == null){
+        alert("로그인 후 이용해주세요.");
+        return;
+    }
 
     if (soldOut.classList.contains('show')) {
 
@@ -351,6 +372,7 @@ cartBtn.addEventListener("click", e => {
     .then(resp => resp.text())
     .then(result => {
 
+        console.log(result);
         if(result != 0){
             alert("장바구니에 상품이 추가되었습니다 ! ");
         }else{
@@ -395,6 +417,10 @@ const commentContent = document.getElementById("commentContent");
 const secretCheck = document.getElementById("secretCheck");
 
 qnaWriteBtn.addEventListener("click", e => {
+        if(loginMember == null){
+        alert("로그인 후 이용해주세요.");
+        return;
+    }
 
     qnaWriteBtn.classList.toggle("btn-click")
     qnaFrm.classList.toggle("display-none");
