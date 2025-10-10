@@ -32,16 +32,25 @@
 
             <!-- 드롭다운 메뉴 -->
             <div id="select-sort-box">
-                <a th:href="@{#}" onclick="fetchGoodsList('popular', event); return false;"><div class="text-size-14">인기순</div></a>
-                <a th:href="@{#}" onclick="fetchGoodsList('lowPrice', event); return false;"><div class="text-size-14">낮은 가격순</div></a>
-                <a th:href="@{#}" onclick="fetchGoodsList('highPrice', event); return false;"><div class="text-size-14">높은 가격순</div></a>
+                <a th:href="@{#}" onclick="fetchGoodsList('popular', event); return false;">
+                    <div class="text-size-14">인기순</div>
+                </a>
+                <a th:href="@{#}" onclick="fetchGoodsList('lowPrice', event); return false;">
+                    <div class="text-size-14">낮은 가격순</div>
+                </a>
+                <a th:href="@{#}" onclick="fetchGoodsList('highPrice', event); return false;">
+                    <div class="text-size-14">높은 가격순</div>
+                </a>
             </div>
 
 
             <!-- 상품 등록(관리자한테만 보여줄 것) -->
-             <a th:href="@{/goods/goodsWrite}" class="upload-goods-btn">
-                <div id="upload-goods-text" class="text-size-16 medium-text">상품 등록</div>
-            </a> 
+            <th:block th:if="${session.loginMember}">
+                <a th:if="${session.loginMember.isAdmin =='Y'}" th:href="@{/goods/goodsWrite}" class="upload-goods-btn">
+                    <div id="upload-goods-text" class="text-size-16 medium-text">상품 등록</div>
+                </a>
+
+            </th:block>
         </div>
 
         <!-- 제품 보여지는 전체 컨테이너(조회 결과가 있는 경우) -->
@@ -49,57 +58,58 @@
 
             <th:block th:each="board : ${boardList}">
 
-                <a th:href="@{/{boardType}/{boardNo}(boardType=${boardType}, boardNo=${board.boardNo}, cp=${pagination.currentPage})}" class="goods-detail-area">
+                <a th:href="@{/{boardType}/{boardNo}(boardType=${boardType}, boardNo=${board.boardNo}, cp=${pagination.currentPage})}"
+                    class="goods-detail-area">
                     <!-- 이미지 -->
                     <div class="goods-img"><img th:src="${board.thumbnail}" alt="">굿즈 이미지</div>
                     <!-- 제품명 -->
                     <div class="goods-name text-size-16 medium-text" th:text="${board.boardTitle}">굿즈 이름</div>
                     <!-- 가격 -->
-                    <div class="goods-price" th:text="${#numbers.formatDecimal(board.goodsPrice , 0, 'COMMA', 0, 'POINT')} + '원'">가격</div>
+                    <div class="goods-price"
+                        th:text="${#numbers.formatDecimal(board.goodsPrice , 0, 'COMMA', 0, 'POINT')} + '원'">가격</div>
                 </a>
-                
+
             </th:block>
         </div>
 
         <!-- 게시글이 있을 때만 페이지네이션 보이기! -->
         <div th:if="${#lists.size(boardList) > 0}" class="pagination">
-        
-                <!-- 첫 페이지로 이동 -->
-                <!-- boardCode : @PathVariable로 request scope에 세팅된 값 -->
-                <li><a th:href="@{/{boardType}(boardType=${boardType}, cp=1)}">&lt;&lt;</a></li>
 
-                <!-- 이전 목록 마지막 번호로 이동 -->
-                <li><a th:href="@{/{boardType}(boardType=${boardType}, cp=${pagination.prevPage})}">&lt;</a></li>
+            <!-- 첫 페이지로 이동 -->
+            <!-- boardCode : @PathVariable로 request scope에 세팅된 값 -->
+            <li><a th:href="@{/{boardType}(boardType=${boardType}, cp=1)}">&lt;&lt;</a></li>
 
-                
-                <!-- 특정 페이지로 이동 -->
-                <!-- #numbers.sequence(시작, 끝 [, step]) -->
-                <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
+            <!-- 이전 목록 마지막 번호로 이동 -->
+            <li><a th:href="@{/{boardType}(boardType=${boardType}, cp=${pagination.prevPage})}">&lt;</a></li>
 
-                    <!-- 현재 보고있는 페이지 -->
-                    <li th:if="${pagination.currentPage == i}">
-                        <a class="current" th:text="${i}">현재 페이지</a>
-                    </li>
-                    
-                    <!-- 현재 페이지를 제외한 나머지 -->
-                    <li th:unless="${pagination.currentPage == i}">
-                        <a th:href="@{/{boardType}(boardType=${boardType}, cp=${i})}" 
-                            th:text="${i}">나머지 페이지</a>
-                    </li>
-                </th:block>
 
-                
-                <!-- 다음 목록 시작 번호로 이동 -->
-                <li><a th:href="@{/{boardType}(boardType=${boardType}, cp=${pagination.nextPage})}">&gt;</a></li>
+            <!-- 특정 페이지로 이동 -->
+            <!-- #numbers.sequence(시작, 끝 [, step]) -->
+            <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
 
-                <!-- 끝 페이지로 이동 -->
-                <li><a th:href="@{/{boardType}(boardType=${boardType}, cp=${pagination.maxPage})}">&gt;&gt;</a></li>
+                <!-- 현재 보고있는 페이지 -->
+                <li th:if="${pagination.currentPage == i}">
+                    <a class="current" th:text="${i}">현재 페이지</a>
+                </li>
+
+                <!-- 현재 페이지를 제외한 나머지 -->
+                <li th:unless="${pagination.currentPage == i}">
+                    <a th:href="@{/{boardType}(boardType=${boardType}, cp=${i})}" th:text="${i}">나머지 페이지</a>
+                </li>
+            </th:block>
+
+
+            <!-- 다음 목록 시작 번호로 이동 -->
+            <li><a th:href="@{/{boardType}(boardType=${boardType}, cp=${pagination.nextPage})}">&gt;</a></li>
+
+            <!-- 끝 페이지로 이동 -->
+            <li><a th:href="@{/{boardType}(boardType=${boardType}, cp=${pagination.maxPage})}">&gt;&gt;</a></li>
             </ul>
 
         </div>
 
     </section>
-    
+
 
 
     <th:block th:replace="~{common/footer}">footer.html</th:block>

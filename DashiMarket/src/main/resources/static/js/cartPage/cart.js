@@ -13,9 +13,9 @@ if(cartItem && cartItem.length > 0){
         const plusBtn = item.querySelector(".plus");
         const quantityInput = item.querySelector('.quantity');
         const totalPrice = item.querySelector(".total-price");
-        const inputPrice = item.querySelector('[name="inputPrice"]');
+        const inputPrice = item.querySelector('[name="totalPrice"]');
         const selectedGoods = item.querySelector('.selectedGoods');
-        const goodsNo = item.querySelector('#goodsNo');
+        const goodsNo = item.querySelector('[name="boardNo"]');
         const deleteBtn = item.querySelector('.cartDeletebtn');
     
     
@@ -173,7 +173,7 @@ function updateTotalPrice() {
 
     document.querySelectorAll('.cart-item-row').forEach(item => {
         const checkbox = item.querySelector('.selectedGoods');
-        const inputPrice = item.querySelector('[name="inputPrice"]');
+        const inputPrice = item.querySelector('[name="totalPrice"]');
         const totalPrice = item.querySelector('.total-price');
 
         // 처음 문서가 로드될 때 수량에 맞는 가격 반영해서 보여주기
@@ -239,6 +239,11 @@ document.getElementById("purchaseBtn")?.addEventListener("click", e => {
         e.preventDefault();
         return;
     }
+
+
+
+
+
 
 })
 

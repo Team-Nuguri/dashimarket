@@ -34,7 +34,7 @@
         <!-- 장바구니 상품 o -->
         <section th:unless="${cartGoodsList == 0}" class="center cart-not-empty">
             <!-- 장바구니 상품 목록 -->
-            <form th:action="@{#}" method="POST">
+            <form th:action="@{/goods/order}" method="POST">
                 <div class="cart-container">
                     <div th:each="list : ${cartGoodsList}" class="cart-item-row">
                         <!-- 체크박스 -->
@@ -82,7 +82,7 @@
                             <div class="count-price">
                                 <div class="number-input">
                                     <button type="button" class="minus">-</button>
-                                    <input type="number" class="quantity" th:value="${list.quantity}" min="1"
+                                    <input type="number" name="quantity" class="quantity" th:value="${list.quantity}" min="1"
                                         th:max="${list.goodsStock}" readonly>
                                     <button type="button" class="plus">+</button>
                                 </div>
@@ -90,9 +90,9 @@
                             </div>
                         </div>
                         <!-- 해당 굿즈 상품 번호 -->
-                        <input type="hidden" name="goodsNo" id="goodsNo" th:value="${list.boardNo}">
+                        <input type="hidden" name="boardNo"  th:value="${list.boardNo}">
                         <!-- 수량이랑 계산해서 초기 값 설정 -->
-                        <input type="hidden" name="inputPrice" id="inputPrice" th:value="${list.goodsPrice*list.quantity}">
+                        <input type="hidden" name="totalPrice"  th:value="${list.goodsPrice*list.quantity}">
 
                         <!-- 삭제 -->
                         <div class="item-delete medium-text">

@@ -241,7 +241,7 @@
 	<delete id="imageDelete">
 		DELETE FROM IMAGE
 		WHERE BOARD_NO = #{joonggoNo}
-		AND IMG_ORDER IN (#{deleteList})	
+		AND IMG_ORDER IN (${deleteList})	
 	</delete>
 	
 	<!-- 이미지 순서 재정렬 -->
