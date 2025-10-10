@@ -62,7 +62,7 @@
             </div>
 
             <!-- 글쓰기 -->
-            <button class="write-btn bold-text text-size-16">글쓰기</button>
+            <button class="write-btn bold-text text-size-16" th:if="${session.loginMember}">글쓰기</button>
         </div>
 
         <!-- 커뮤니티 게시판 목록 -->
@@ -73,7 +73,7 @@
                 <th:block th:each="board : ${boardList}">
     
                     <!-- 하나의 게시글 -->
-                    <a th:href="@{/{boardType}/{boardNo}(boardType=${boardType}, boardNo=${board.boardNo}, cp=${pagination.currentPage})}" class="community-post">
+                    <a th:href="@{/{boardType}/{communityNo}(boardType=${boardType}, communityNo=${board.communityNo}, cp=${pagination.currentPage})}" class="community-post">
                         <!-- 썸네일 영역 -->
                         <div class="post-thumbnail" th:if="${board.thumbnail != null}">
                             <img th:src="${board.thumbnail}" alt="">
@@ -82,7 +82,7 @@
                         <!-- 텍스트 영역 -->
                         <div class="post-text">
                             <!-- 제목 -->
-                            <div class="post-title text-size-20 bold-text" th:text="${board.boardTitle}">제목</div>
+                            <div class="post-title text-size-20 bold-text" th:text="${board.communityTitle}">제목</div>
         
                             <div class="post-info">
                                 <!-- 닉네임 -->
@@ -90,7 +90,7 @@
             
                                 <span>•</span>
                                 <!-- 작성일 -->
-                                <span class="post-create-date" th:text="${board.boardCreateDate}">작성일</span>
+                                <span class="post-create-date" th:text="${board.communityCreateDate}">작성일</span>
                             </div>
         
                             <!-- 좋아요, 댓글 -->
@@ -120,10 +120,49 @@
                 </div>
             </th:block>
         </div>
+
+
+                <!-- 게시글이 있을 때만 페이지네이션 보이기! -->
+        <div th:if="${#lists.size(boardList) > 0}" class="pagination">
+        
+                <!-- 첫 페이지로 이동 -->
+                <!-- boardCode : @PathVariable로 request scope에 세팅된 값 -->
+                <li><a th:href="@{/{boardType}(boardType=${boardType}, cp=1)}">&lt;&lt;</a></li>
+
+                <!-- 이전 목록 마지막 번호로 이동 -->
+                <li><a th:href="@{/{boardType}(boardType=${boardType}, cp=${pagination.prevPage})}">&lt;</a></li>
+
+                
+                <!-- 특정 페이지로 이동 -->
+                <!-- #numbers.sequence(시작, 끝 [, step]) -->
+                <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
+
+                    <!-- 현재 보고있는 페이지 -->
+                    <li th:if="${pagination.currentPage == i}">
+                        <a class="current" th:text="${i}">현재 페이지</a>
+                    </li>
+                    
+                    <!-- 현재 페이지를 제외한 나머지 -->
+                    <li th:unless="${pagination.currentPage == i}">
+                        <a th:href="@{/{boardType}(boardType=${boardType}, cp=${i})}" 
+                            th:text="${i}">나머지 페이지</a>
+                    </li>
+                </th:block>
+
+                
+                <!-- 다음 목록 시작 번호로 이동 -->
+                <li><a th:href="@{/{boardType}(boardType=${boardType}, cp=${pagination.nextPage})}">&gt;</a></li>
+
+                <!-- 끝 페이지로 이동 -->
+                <li><a th:href="@{/{boardType}(boardType=${boardType}, cp=${pagination.maxPage})}">&gt;&gt;</a></li>
+            </ul>
+
+        </div>
     </section>
 
 
     <th:block th:replace="~{/common/footer}">footer.html</th:block>
+    <!-- <th:block th:replace="~{/chatting/chatting}">floatingBtn.html</th:block> -->
   
     <script th:src="@{/js/communityPage/communityHome.js}"></script>
 </body>

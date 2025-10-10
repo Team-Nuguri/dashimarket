@@ -378,7 +378,7 @@
 			<foreach collection="list" item="img" separator="UNION ALL">
 				
 				SELECT #{img.imagePath} IMG_PATH
-						, #{img.imageRename} IMG_REMAE
+						, #{img.imageRename} IMG_RENMAE
 						, ${img.imageOrder} IMG_ORDER
 						, #{img.boardNo} BOARD_NO
 				FROM DUAL		
@@ -414,7 +414,7 @@
 	<delete id="imageDelete">
 		DELETE FROM IMAGE
 		WHERE BOARD_NO = #{joonggoNo}
-		AND IMG_ORDER IN (#{deleteList})	
+		AND IMG_ORDER IN (${deleteList})	
 	</delete>
 	
 	<!-- 이미지 순서 재정렬 -->
@@ -430,4 +430,38 @@
 		WHERE BOARD_NO = #{joonggoNo}
 	</select>
 	
+	
+	
+	<!-- 좋아요 추가 -->
+	<insert id="likeInsert">
+		INSERT INTO "LIKE"
+		VALUES(#{joonggoNo}, ${memberNo})
+		
+	</insert>
+	
+	<!--좋아요 삭제 -->
+	<delete id="deleteInsert">
+		DELETE FROM "LIKE"
+		WHERE POST_NO = #{joonggoNo}
+		AND MEMBER_NO = ${memberNo}
+		
+	</delete>
+	
+	
+	<!-- 좋아요 개수 확인;-->
+	<select id="countLike" resultType="_int">
+		SELECT COUNT(*) FROM "LIKE"
+		WHERE POST_NO = #{joonggoNo}
+		
+	</select>
+	
+	
+	<!--좋아여 여부 확인-->
+	<select id="likeSelect" resultType="_int">
+		
+		SELECT COUNT(*) FROM "LIKE"
+		WHERE POST_NO = #{boardNo}
+		AND MEMBER_NO = ${memberNo}
+		
+	</select>
 </mapper>

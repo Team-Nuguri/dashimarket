@@ -134,7 +134,8 @@ public class JoonggoServiceImpl implements JoonggoService {
 		
 		
 		
-		String result = "false";
+		String result = null;
+		
 
 		// 텍스트 먼저 삽입
 		int num = mapper.joonggoInsert(joonggoWrite);
@@ -211,7 +212,7 @@ public class JoonggoServiceImpl implements JoonggoService {
 	}
 
 
-
+	
 	// 중고 상품 수정
 	@Override
 	@Transactional(rollbackFor = Exception.class)
@@ -329,6 +330,43 @@ public class JoonggoServiceImpl implements JoonggoService {
 	}
 
 
+<<<<<<< HEAD
 
+=======
+	
+	// 중고 삽입 or 삭제
+	@Override
+	public int joonggoLike(Map<String, Object> paramMap) {
+		
+		int result = 0;
+		
+		if(paramMap.get("likeCheck") == (Integer)1) {
+			
+			result = mapper.likeInsert(paramMap);
+		} else {
+			
+			result = mapper.deleteInsert(paramMap);
+		}
+		
+		// insert or delete 실패시 임의 숫자 반환
+		if(result == 0) {
+			return -1;
+		}
+		
+		result = mapper.countLike(paramMap.get("joonggoNo"));
+		
+		
+		return result;
+	}
+
+
+	
+	// 좋아요 확인
+	@Override
+	public int likeSelect(Map<String, Object> map) {
+		
+		return mapper.likeSelect(map);
+	}
+>>>>>>> 75ecc543f402e34b055104d28c1a327ae3f46779
 
 }

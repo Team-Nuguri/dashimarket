@@ -76,11 +76,7 @@ document.getElementById("ud-menu").addEventListener("click", () => {
 })
 
 
-/* 하트 클릭 시  */
-document.getElementById("like-heart").addEventListener("click", e=>{
 
-    e.target.classList.toggle("fa-solid");
-})
 
 
 
@@ -154,4 +150,54 @@ document.getElementById("deleteBtn")?.addEventListener("click", e => {
 document.getElementById("editBtn")?.addEventListener("click", e => {
     
     location.href=location.pathname+"/update";
+})
+
+
+// 좋아요 버튼 클릭 시
+let likeCheck = 0;
+
+const likeCount = document.getElementById("likeCount");
+
+
+document.getElementById("like-heart").addEventListener("click", e=>{
+
+    if(loginMember ==null){
+        alert("로그인 후 이용해주세여");
+        return ; 
+    }
+
+    e.target.classList.toggle('fa-solid');
+
+    if(document.getElementById("like-heart").classList.contains("fa-solid")){
+        likeCheck = 1;
+        console.log(likeCheck)
+    }
+
+    if(!document.getElementById("like-heart").classList.contains("fa-solid")){
+        likeCheck = 0;
+        console.log(likeCheck)
+    }
+
+    // 좋아요 insert or delete
+
+    const data = {
+        joonggoNo : joonggoNo,
+        likeCheck : likeCheck
+    }
+
+    fetch("/joonggo/like", {
+        method :"POST",
+        headers : {"Content-Type" : "application/json"},
+        body : JSON.stringify(data)
+    })
+    .then(resp => resp.text())
+    .then(result => {
+
+        if(result == -1){
+            alert("좋아요 처리 실패했습니다.");
+        }else{
+            likeCount.innerText = result;
+        }
+    })
+    .catch(e => console.log(e))
 })

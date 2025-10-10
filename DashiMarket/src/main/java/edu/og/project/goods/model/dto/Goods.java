@@ -17,7 +17,7 @@ public class Goods {
 	private String boardNo; // 굿즈 상품 번호(게시글 번호)
 	
 	// 굿즈 테이블과 join
-	private String goodsPrice; // 굿즈 가격
+	private int goodsPrice; // 굿즈 가격
 	private int goodsStock; // 재고 수량
 	
 	// 기본 게시판 틀
@@ -44,6 +44,8 @@ public class Goods {
 	// 평점
 	private double avgRating;
 	
-	// 장바구니 수(좋아요 수)
-	private int likeCount;
+	// 상품 수량
+	private int quantity;
+	
+	
 }

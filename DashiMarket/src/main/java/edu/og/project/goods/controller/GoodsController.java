@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.og.project.common.dto.Comment;
+import edu.og.project.common.dto.Member;
 import edu.og.project.common.dto.Review;
 import edu.og.project.goods.model.dto.Goods;
 import edu.og.project.goods.model.dto.GoodsWrite;
@@ -86,11 +88,12 @@ public class GoodsController {
 	@GetMapping(value = "/{boardType}/review", produces="application/html; charset=UTF-8") 
 	public String selectReviewList(@RequestParam String boardNo 
 			,@RequestParam(value="cp",required = false, defaultValue = "1") int cp 
+			,@RequestParam(value="sort", required = false, defaultValue = "basic") String sort
 			, @PathVariable("boardType")String boardType 
 			,Model model) {
 
-		Map<String, Object> map = service.selectReviewList(boardNo, cp); Goods goods
-		= service.selectGoodsDetail(boardNo);
+		Map<String, Object> map = service.selectReviewList(boardNo, cp, sort); 
+		Goods goods = service.selectGoodsDetail(boardNo);
 
 
 		model.addAttribute("pagination", map.get("pagination"));
@@ -162,17 +165,17 @@ public class GoodsController {
 	public String goodsWrite(GoodsWrite goodsWrite
 			, @PathVariable("boardType") String boardType
 			, RedirectAttributes ra
-			// 회원 번호 나중에 세션에서
+			, @SessionAttribute("loginMember") Member loginMember
 			) throws IllegalStateException, IOException {
 		
 		goodsWrite.setBoardType(boardType);
-		goodsWrite.setMemberNo(1);
+		goodsWrite.setMemberNo(loginMember.getMemberNo());
 		
 		String result = service.goodsInsert(goodsWrite);
 		
 		String path = null;
 		
-		if(result != null) {
+		if(result != "fali") {
 			path = "redirect:/"+ boardType +"/" + result;
 			ra.addFlashAttribute("message", "상품이 등록되었습니다.");
 		}else {

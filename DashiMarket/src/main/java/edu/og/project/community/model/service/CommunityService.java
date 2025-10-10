@@ -1,7 +1,12 @@
 package edu.og.project.community.model.service;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import edu.og.project.common.dto.Comment;
 import edu.og.project.community.model.dto.Community;
 
 public interface CommunityService {
@@ -17,8 +22,83 @@ public interface CommunityService {
 
 	/** 커뮤니티 상세조회
 	 * @param map
-	 * @return
+	 * @return community
 	 */
 	Community communityDetail(Map<String, Object> map);
+
+	/** 커뮤니티 댓글 조회(비동기)
+	 * @param map
+	 * @return commentList
+	 */
+	List<Comment> selectComment(Map<String, Object> map);
+
+	/** 댓글 등록
+	 * @param comment
+	 * @return result
+	 */
+	int insertComment(Comment comment);
+
+	/** 커뮤니티 글쓰기
+	 * @param community
+	 * @param images 
+	 * @return result
+	 * @throws IOException 
+	 */
+	String communityWrite(Community community, List<MultipartFile> images) throws IllegalStateException, IOException;
+
+	/** 댓글 수정
+	 * @param comment
+	 * @return result
+	 */
+	int updateComment(Comment comment);
+
+	/** 댓글 삭제
+	 * @param comment
+	 * @return result
+	 */
+	int deleteComment(Comment comment);
+
+	/** 게시글 수정
+	 * @param community
+	 * @param deleteList
+	 * @param images
+	 * @return return
+	 * @throws IOException 
+	 * @throws IllegalStateException 
+	 */
+	String communityUpdate(Community community, String deleteList, List<MultipartFile> images) throws IllegalStateException, IOException;
+
+	/** 게시글 삭제
+	 * @param boardNo
+	 * @return result
+	 */
+	int communityDelete(String boardNo);
+
+	/** 좋아요 여부 확인
+	 * @param map
+	 * @return result
+	 */
+	int communityLikeCheck(Map<String, Object> map);
+
+	/** 좋아요 처리
+	 * @param paramMap
+	 * @return result
+	 */
+	int communityLike(Map<String, Object> paramMap);
+
+	/** 조회수 증가
+	 * @param boardNo
+	 * @return result
+	 */
+	int updateReadCount(String boardNo);
+
+	/** 좋아요한 게시글 조회
+	 * @param boardType 
+	 * @param memberNo
+	 * @param cp
+	 * @return communityList
+	 */
+	Map<String, Object> selectLikeCommunityList(String boardType, int memberNo, int cp);
+
 
 }

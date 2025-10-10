@@ -105,7 +105,7 @@ public class GoodsServiceImpl implements GoodsService {
 
 	// 굿즈 리뷰 목록 조회
 	@Override
-	public Map<String, Object> selectReviewList(String boardNo, int cp) {
+	public Map<String, Object> selectReviewList(String boardNo, int cp, String sort) {
 
 		int listCount = mapper.getReviewListCount(boardNo);
 
@@ -113,8 +113,14 @@ public class GoodsServiceImpl implements GoodsService {
 		Pagination pagination = new Pagination(cp, listCount,5);
 		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		
+		paramMap.put("boardNo", boardNo);
+		paramMap.put("sort", sort);
+		
 
-		List<Review> review = mapper.selectReviewList(boardNo, rowBounds);
+		List<Review> review = mapper.selectReviewList(paramMap, rowBounds);
 
 		Map<String, Object> map = new HashMap<>();
 
@@ -179,7 +185,7 @@ public class GoodsServiceImpl implements GoodsService {
 		int result = mapper.goodsBoardInsert(goodsWrite);
 
 		if(result == 0) {
-			return null;
+			return "fail";
 		}
 
 		// 굿즈 가격 재고 insert

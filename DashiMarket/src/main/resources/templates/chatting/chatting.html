@@ -29,59 +29,50 @@
         </div>
 
         <div class="chatting-body">
-            <!-- 채팅 목록 -->
-            <ul class="chatting-list">
-
+            <div class="search-and-list">
                 <!-- 검색 -->
                 <div class="search-box">
                     <p class="searchBtn fa-solid fa-magnifying-glass"></p>
-                    <input type="text" name="chat-query" id="name-search" placeholder="이름으로 검색하세요." autocomplete="off">
+                    <input type="text" id="name-search" placeholder="닉네임을 입력하세요." autocomplete="off">
                 </div>
-
-                <!-- 추가된 회원 채팅방 -->
-                <li class="chatting-item" chat-no="" target-no="">
-                    <div class="item-header">
-                        <img th:src="@{/images/member/짱구.jpg}">
-                    </div>
-
-                    <div class="item-body">
-
-                        <p>
-                            <span class="target-name">상대방 이름</span>
-                            <span class="recent-send-time">메세지 보낸 시간</span>
-                        </p>
-                        <div>
-                            <p class="recent-message">메세지 내용</p>
-                            <p class="not-read-count">2</p>
-                        </div>
-                    </div>
-                </li>
-
-                <!-- 클릭된(입장) 채팅방 -->
-                <li class="chatting-item color" chat-no="" target-no="">
-                    <div class="item-header">
-                        <img th:src="@{/images/member/짱구.jpg}">
-                    </div>
-
-                    <div class="item-body">
-                        <p>
-                            <span class="target-name">상대방 이름</span>
-                            <span class="recent-send-time">메세지 보낸 시간</span>
-                        </p>
-                        <div>
-                            <p class="recent-message">메세지 내용</p>
-                            <p class="not-read-count">1</p>
-                        </div>
-                    </div>
-                </li>
-
-            </ul>
+    
+                <ul id="resultArea" class="hidden">
+                    <li class="result-row">유저일번</li>
+                </ul>
+    
+                <!-- 채팅 목록 -->
+                <ul class="chatting-list">
+    
+                    <th:block th:each="room : ${roomList}">
+    
+                        <!-- 검색한 회원 추가 + 해당 채팅방 입장 -->
+                        <li class="chatting-item" th:chat-no="${room.chattingNo}" th:target-no="${room.targetNo}">
+                            <div class="item-header">
+                                <img th:unless="${room.targetProfile}" th:src="@{/images/common/user.png}">
+                                <img th:if="${room.targetProfile}" th:src="${room.targetProfile}">
+                            </div>
+        
+                            <div class="item-body">
+        
+                                <p>
+                                    <span class="target-name" th:text="${room.targetNickname}">상대방 이름</span>
+                                    <span class="recent-send-time">[[${room.sendTime}]]</span>
+                                </p>
+                                <div>
+                                    <p class="recent-message" th:text="${room.lastMessage}">메세지 내용</p>
+                                    <p th:if="${room.notReadCount > 0}" class="not-read-count">[[${room.notReadCount}]]</p>
+                                </div>
+                            </div>
+                        </li>
+    
+                    </th:block>
+                </ul>
+            </div>
 
             <!-- 채팅 내용 -->
             <div class="chatting-content">
-
                 <div class="content-header">
-                    <p>너구리</p>
+                    <p id="selectTargetName">너구리</p>
                     <div class="button-img-box">
                         <button id="reserve">
                             <img th:src="@{/images/svg/예약.svg}" class="img-set">
@@ -104,7 +95,7 @@
                 </div>
 
                 <ul class="display-chatting">
-                    <!-- 날짜 표시 -->
+                    <!-- 날짜 표시
                     <li>
                         <div class="chat-date-line">
                             <hr class="line">
@@ -124,11 +115,11 @@
                         <div>
                             <b>다시맛</b>
                             <div class="my-chat">
-                                <p class="chat target">안녕하세요 ㅎㅎ</p>
+                                <p class="target">안녕하세요 ㅎㅎ</p>
                                 <span class="chat-date">오후 5시30분</span>
                             </div>
                         </div>
-                    </li>
+                    </li> -->
                 </ul>
                 <div class="content-send">
                     <button id="img-send"><img th:src="@{/images/svg/image-btn.svg}"></button>
@@ -142,7 +133,12 @@
     </div>
 
     <!----------- sockjs를 이용한 WebSocket 구현을 위해 라이브러리 추가 ------------->
-    <!-- <script th:src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+
+    <script th:inline="javascript">
+        const loginMemberNo = /*[[${session.loginMember.memberNo}]]*/ "로그인한 회원 번호";
+        const memberNickname = /*[[${session.loginMember.memberNickname}]]*/ "로그인한 회원의 닉네임";
+    </script>
 
     <script th:src="@{/js/chatting/chatting.js}"></script>
 </body>

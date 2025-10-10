@@ -27,7 +27,6 @@ joonggoImage.addEventListener("change", e => {
         const reader = new FileReader();
 
         reader.readAsDataURL(file);
-        // 지정된 파일을 읽은 후 result 속성에 url 형식으로 저장
 
         reader.onload = e => {
             const li = document.createElement("li");
@@ -334,7 +333,7 @@ document.getElementById("updateForm").addEventListener("submit", e => {
                 location.href="/joonggo/" + result;
             },100)
         }else{
-            alert("상품 수정을 실패했스니다.");
+            alert("상품 수정을 실패했습니다.");
 
             setTimeout(() => {
                 location.href = location.pathname;

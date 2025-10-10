@@ -28,8 +28,8 @@
         <div id="icon-area">
             <button>
                 <img th:src="@{/images/svg/하트.svg}" class="icon-img">
-                <!-- <img th:src="../../static/images/svg/장바구니.svg" > -->
-                <!-- <img th:src="@{/images/사람.svg}" > -->
+                <!-- <img th:src="@{/images/svg/장바구니.svg}"  id="cartListBtn"> -->
+                <!-- <img th:src="@{/images/사람.svg}" id="communityLikeBtn"> -->
             </button>
 
             <!-- 알림 영역 -->
@@ -73,12 +73,19 @@
                 </ul>
             </section>
 
-            <button>
-                <img th:src="@{/images/svg/clarity_menu-line.svg}" class="icon-img">
+            <div class="dropdown-toggle">
+                <button class="dropdown" id="dropdown">
+                    <img th:src="@{/images/svg/clarity_menu-line.svg}" class="icon-img">                
+                </button>
 
-            </button>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a th:href="@{/myPage/profile}">마이페이지</a>
+                    <a th:href="@{/member/logout}">로그아웃</a>
+                    <a th:href="@{/myPage/fraud}">사기 이력 조회</a>
+                </div>
+            </div>    
 
-          <!--   <div id="login-area">
+            <!--   <div id="login-area">
                 <a th:href="@{login}" id="login">로그인</a>
 
             </div> -->
