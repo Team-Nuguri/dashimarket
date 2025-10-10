@@ -20,10 +20,12 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.og.project.common.dto.Comment;
+import edu.og.project.common.dto.Member;
 import edu.og.project.community.model.dto.Community;
 import edu.og.project.community.model.service.CommunityService;
 import edu.og.project.joonggo.model.dto.JoonggoWrite;
@@ -96,6 +98,7 @@ public class CommunityController {
 	public String communityDetail(@PathVariable("boardType") String boardType,
 								  @PathVariable("boardNo") String boardNo,
 								  @RequestParam(value="cp", required=false, defaultValue="1") int cp,
+								  @SessionAttribute(value="loginMember", required=false) Member loginMember,
 								  Model model, RedirectAttributes ra) {
 		
 		Map<String, Object> map = new HashMap<>();
@@ -171,12 +174,11 @@ public class CommunityController {
 	@ResponseBody
 	public String communityWrite(Community community,
 								 @PathVariable("boardType") String boardType,
-								 @RequestParam(value="communityImg", required=false) List<MultipartFile> images
-								 //@SessionAttribute("loginMember") Member member 나중에 로그인 완성되면 추가
+								 @RequestParam(value="communityImg", required=false) List<MultipartFile> images,
+								 @SessionAttribute("loginMember") Member member
 								) throws IllegalStateException, IOException {
 		
-		// 임시 회원번호
-		community.setMemberNo(3);
+		community.setMemberNo(member.getMemberNo());
 		community.setBoardType(boardType);
 		
 		String result = service.communityWrite(community, images);

@@ -62,7 +62,7 @@
             </div>
 
             <!-- 글쓰기 -->
-            <button class="write-btn bold-text text-size-16">글쓰기</button>
+            <button class="write-btn bold-text text-size-16" th:if="${session.loginMember}">글쓰기</button>
         </div>
 
         <!-- 커뮤니티 게시판 목록 -->
@@ -120,11 +120,49 @@
                 </div>
             </th:block>
         </div>
+
+
+                <!-- 게시글이 있을 때만 페이지네이션 보이기! -->
+        <div th:if="${#lists.size(boardList) > 0}" class="pagination">
+        
+                <!-- 첫 페이지로 이동 -->
+                <!-- boardCode : @PathVariable로 request scope에 세팅된 값 -->
+                <li><a th:href="@{/{boardType}(boardType=${boardType}, cp=1)}">&lt;&lt;</a></li>
+
+                <!-- 이전 목록 마지막 번호로 이동 -->
+                <li><a th:href="@{/{boardType}(boardType=${boardType}, cp=${pagination.prevPage})}">&lt;</a></li>
+
+                
+                <!-- 특정 페이지로 이동 -->
+                <!-- #numbers.sequence(시작, 끝 [, step]) -->
+                <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
+
+                    <!-- 현재 보고있는 페이지 -->
+                    <li th:if="${pagination.currentPage == i}">
+                        <a class="current" th:text="${i}">현재 페이지</a>
+                    </li>
+                    
+                    <!-- 현재 페이지를 제외한 나머지 -->
+                    <li th:unless="${pagination.currentPage == i}">
+                        <a th:href="@{/{boardType}(boardType=${boardType}, cp=${i})}" 
+                            th:text="${i}">나머지 페이지</a>
+                    </li>
+                </th:block>
+
+                
+                <!-- 다음 목록 시작 번호로 이동 -->
+                <li><a th:href="@{/{boardType}(boardType=${boardType}, cp=${pagination.nextPage})}">&gt;</a></li>
+
+                <!-- 끝 페이지로 이동 -->
+                <li><a th:href="@{/{boardType}(boardType=${boardType}, cp=${pagination.maxPage})}">&gt;&gt;</a></li>
+            </ul>
+
+        </div>
     </section>
 
 
     <th:block th:replace="~{/common/footer}">footer.html</th:block>
-    <th:block th:replace="~{/common/floatingBtn}">floatingBtn.html</th:block>
+    <!-- <th:block th:replace="~{/chatting/chatting}">floatingBtn.html</th:block> -->
   
     <script th:src="@{/js/communityPage/communityHome.js}"></script>
 </body>

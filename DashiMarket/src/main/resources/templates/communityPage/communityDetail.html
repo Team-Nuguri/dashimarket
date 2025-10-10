@@ -176,7 +176,7 @@
         
                         <!-- 수정 삭제 버튼 -->
                         <div class="del-update-area">
-                                                                             <!-- commentNo는 문자열이기 때문에 대괄호로 감싸서 따옴표 붙여준 후 보내야 함 -->
+                                                                     <!-- commentNo는 문자열이기 때문에 대괄호로 감싸서 따옴표 붙여준 후 보내야 함 -->
                             <button class="update-btn medium-text" th:onclick="showUpdateComment('[[${comment.commentNo}]]', this)">수정</button>
                             <!-- 부모 댓글인 경우에만 답글 버튼 보임 -->
                             <button class="reply-btn medium-text" th:if="${comment.parentCommentNo == 0}">답글</button>
