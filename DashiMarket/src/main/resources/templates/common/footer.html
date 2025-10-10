@@ -40,6 +40,12 @@
     .footer-top a:hover {
       text-decoration: underline;
     }
+
+    #footerLogoImg{
+      width: 100px;
+      vertical-align: middle;
+      height: 45px;
+    }
   </style>
 </head>
 
@@ -51,7 +57,7 @@
     <section>
 
       <div class="footer-top">
-        <a th:href="@{#}"><img th:src="@{/images/common/logo.png}" width="100px" style="vertical-align: middle;"></a>
+        <a th:href="@{#}"><img th:src="@{/images/common/logo.png}"  id="footerLogoImg"  ></a>
         <a th:href="@{#}">회사 소개</a>
         <span>|</span>
         <a th:href="@{#}">서비스 소개</a>
