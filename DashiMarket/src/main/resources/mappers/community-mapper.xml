@@ -144,6 +144,42 @@
 		
 	</select>
 	
+	<!-- 좋아요한 게시글 조회 -->
+	<select id="selectLikeCommunityList">
+		SELECT B.BOARD_NO, BOARD_TITLE, MEMBER_NICKNAME, POST_VIEWS,
+		    
+		    <![CDATA[     
+		    CASE  
+		       WHEN SYSDATE - BOARD_CREATE_DATE < 1/24/60
+		       THEN FLOOR( (SYSDATE - BOARD_CREATE_DATE) * 24 * 60 * 60 ) || '초 전'
+		       WHEN SYSDATE - BOARD_CREATE_DATE < 1/24
+		       THEN FLOOR( (SYSDATE - BOARD_CREATE_DATE) * 24 * 60) || '분 전'
+		       WHEN SYSDATE - BOARD_CREATE_DATE < 1
+		       THEN FLOOR( (SYSDATE - BOARD_CREATE_DATE) * 24) || '시간 전'
+		       ELSE TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD')
+		    END BOARD_CREATE_DATE,
+		    ]]>
+		    
+		        (SELECT COUNT(*) FROM "COMMENT" C
+		        WHERE C.POST_NO = B.BOARD_NO) COMMENT_COUNT,
+		        
+		        (SELECT COUNT(*) FROM "LIKE" L
+		        WHERE L.POST_NO = B.BOARD_NO) LIKE_COUNT,
+		        
+		        (SELECT IMG_PATH || IMG_RENAME FROM IMAGE I
+		        WHERE I.BOARD_NO = B.BOARD_NO
+		        AND IMG_ORDER = 0) THUMBNAIL
+		    
+		FROM "BOARD" B
+		JOIN "MEMBER" USING(MEMBER_NO)
+		JOIN "BOARD_TYPE" USING(BOARD_CODE)
+		JOIN "LIKE" L ON(L.POST_NO = B.BOARD_NO)
+		WHERE DELETE_FL = 'N'
+		AND BOARD_TYPE = #{boardType}
+		AND L.MEMBER_NO = ${memberNo}
+		ORDER BY BOARD_NO DESC
+	</select>
+	
 	<!-- 커뮤니티 상세조회 -->
 	<select id="communityDetail" resultMap="community_rm">
 		SELECT CATEGORY_NAME, B.BOARD_NO, BOARD_TITLE, BOARD_CONTENT, MEMBER_NICKNAME, PROFILE_PATH, TO_CHAR(POST_VIEWS, 'FM999,999,999,999') POST_VIEWS, CATEGORY_ID, DEFAULT_DONG,
@@ -324,5 +360,39 @@
 		DELETE_FL = 'Y'
 		WHERE BOARD_NO = #{communityNo}
 	</update>
-
+	
+	<!-- 좋아요 여부 확인 -->
+	<select id="communityLikeCheck">
+		SELECT COUNT(*)
+		FROM "LIKE"
+		WHERE POST_NO = #{boardNo}
+		AND MEMBER_NO = ${memberNo}
+	</select>
+	
+	<!-- 좋아요 삽입 -->
+	<insert id="insertCommunityLike">
+		INSERT INTO "LIKE"
+		VALUES(#{communityNo}, ${memberNo})
+	</insert>
+	
+	<!-- 좋아요 삭제 -->
+	<delete id="deleteCommunityLike">
+		DELETE FROM "LIKE"
+		WHERE POST_NO = #{communityNo}
+		AND MEMBER_NO = ${memberNo}
+	</delete>
+	
+	<!-- 좋아요 개수 -->
+	<select id="countCommunityLike" resultType="_int">
+		SELECT COUNT(*) FROM "LIKE"
+		WHERE POST_NO = #{communityNo}
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="updateReadCount">
+		UPDATE BOARD SET
+		POST_VIEWS = POST_VIEWS + 1
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
 </mapper>

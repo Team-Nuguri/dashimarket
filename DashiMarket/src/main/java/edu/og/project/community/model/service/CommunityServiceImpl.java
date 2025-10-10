@@ -293,4 +293,74 @@ public class CommunityServiceImpl implements CommunityService {
 		return mapper.communityDelete(boardNo);
 	}
 
+	// 좋아요 여부 확인
+	@Override
+	public int communityLikeCheck(Map<String, Object> map) {
+		return mapper.communityLikeCheck(map);
+	}
+
+	// 좋아요 처리
+	@Override
+	public int communityLike(Map<String, Object> paramMap) {
+		int result = 0;
+		
+		int likeCheck = (int) paramMap.get("check");
+		
+		String communityNo = (String) paramMap.get("communityNo");
+		
+		
+		// 좋아요 x이면 LIKE 테이블에 INSERT
+		if(likeCheck == 0) {
+			result = mapper.insertCommunityLike(paramMap);
+		} else {
+			// 좋아요 o이면 LIKE 테이블에 DELETE
+			result = mapper.deleteCommunityLike(paramMap);
+		}
+		
+		if(result == 0) return -1;
+		
+		// 현재 게시글의 좋아요 개수 반환
+		int count = mapper.countCommunityLike(communityNo);
+		System.out.println(communityNo);
+		System.out.println(count);
+		return count;
+	}
+
+	// 조회수 증가
+	@Override
+	public int updateReadCount(String boardNo) {
+		return mapper.updateReadCount(boardNo);
+	}
+
+	// 좋아요한 게시글 조회
+	@Override
+	public Map<String, Object> selectLikeCommunityList(String boardType, int memberNo, int cp) {
+		// 특정 게시판의 특정 카테고리에서 삭제되지 않은 게시글 수 조회
+		Map<String, Object> countParam = new HashMap<>();
+		countParam.put("boardType", boardType);
+		countParam.put("category", null); // 전체 조회를 위해 null
+
+		int listCount = mapper.getListCount(countParam);
+
+		// 페이지네이션
+		Pagination pagination = new Pagination(cp, listCount);
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		// 매퍼로 보낼 파라미터
+		Map<String, Object> param = new HashMap<>();
+		param.put("boardType", boardType);
+		param.put("memberNo", memberNo);
+
+		List<Community> boardList = mapper.selectLikeCommunityList(param, rowBounds);
+
+		// 조회 결과 return
+		Map<String, Object> map = new HashMap<>();
+		map.put("pagination", pagination);
+		map.put("boardList", boardList);
+
+		return map;
+
+	}
+
 }

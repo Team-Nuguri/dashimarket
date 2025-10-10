@@ -582,6 +582,14 @@ nav {
     margin-left: 3px;
 }
 
+/* 좋아요 */
+.fa-solid {
+    color: #52B291;
+}
+#like-heart:hover {
+    cursor: pointer;
+}
+
 /* 수정, 삭제 버튼 */
 .del-update-area {
     margin-left: auto;
