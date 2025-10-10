@@ -224,4 +224,45 @@ header>section> div:nth-child(2)>div>a:hover{
     align-items: baseline;
 }
 
+/* 햄버거 버튼 */
 
+.dropdown-toggle {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+
+    display: none;
+    
+    width: 140px;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 5px 0;        
+
+}
+
+.dropdown-menu.show {
+    display: block;
+    border: 1px solid black;
+    
+}
+
+.dropdown-menu a {
+    display: block;    
+    padding: 10px 15px;
+
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+
+    transition: background-color 0.2s;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f0f0f0;
+    color: #000;
+}

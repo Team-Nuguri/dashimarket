@@ -73,17 +73,17 @@
                 </ul>
             </section>
 
-            <button>
-                <img th:src="@{/images/svg/clarity_menu-line.svg}" class="icon-img">                
-            </button>
+            <div class="dropdown-toggle">
+                <button class="dropdown" id="dropdown">
+                    <img th:src="@{/images/svg/clarity_menu-line.svg}" class="icon-img">                
+                </button>
 
-            <div>
-            <a th:href="@{/myPage/myPage-profile}">마이페이지</a>
-            <a th:href="@{/member/logout}">로그아웃</a>
-            <a th:href="@{/member/fraudService}">사기 이력 조회</a>
-            </div>
-
-            <!-- 마이페이지, 로그아웃, 사기조회 -->
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a th:href="@{/myPage/profile}">마이페이지</a>
+                    <a th:href="@{/member/logout}">로그아웃</a>
+                    <a th:href="@{/myPage/fraud}">사기 이력 조회</a>
+                </div>
+            </div>    
 
             <!--   <div id="login-area">
                 <a th:href="@{login}" id="login">로그인</a>
