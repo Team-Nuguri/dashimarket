@@ -76,11 +76,7 @@ document.getElementById("ud-menu").addEventListener("click", () => {
 })
 
 
-/* 하트 클릭 시  */
-document.getElementById("like-heart").addEventListener("click", e=>{
 
-    e.target.classList.toggle("fa-solid");
-})
 
 
 
@@ -164,6 +160,13 @@ const likeCount = document.getElementById("likeCount");
 
 
 document.getElementById("like-heart").addEventListener("click", e=>{
+
+    if(loginMember ==null){
+        alert("로그인 후 이용해주세여");
+        return ; 
+    }
+
+    e.target.classList.toggle('fa-solid');
 
     if(document.getElementById("like-heart").classList.contains("fa-solid")){
         likeCheck = 1;

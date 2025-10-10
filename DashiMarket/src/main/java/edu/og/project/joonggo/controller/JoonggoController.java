@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.og.project.common.dto.Member;
 import edu.og.project.joonggo.model.dto.Joonggo;
 import edu.og.project.joonggo.model.dto.JoonggoWrite;
 import edu.og.project.joonggo.model.dto.SimilarItem;
@@ -38,6 +39,7 @@ public class JoonggoController {
 			@PathVariable("joonggoNo") String joonggoNo,
 			@PathVariable("boardType") String boardType,
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@SessionAttribute(value ="loginMember" , required = false) Member loginMember,
 			Model model
 			// 세션에서 로그인 번호 얻어와야 함
 			) {
@@ -59,12 +61,15 @@ public class JoonggoController {
 			
 			// 유저가 좋아요 했는지 확인
 			// loginMember.getMemberNo() 이러식으로 바꾸기
-			map.put("memberNo", 1);
-			
-			int likeSelect = service.likeSelect(map);
-			
-			if(likeSelect != 0) {
-				model.addAttribute("likeCheck", "like");
+			if(loginMember != null) {
+				
+				map.put("memberNo", loginMember.getMemberNo());
+				
+				int likeSelect = service.likeSelect(map);
+				
+				if(likeSelect != 0) {
+					model.addAttribute("likeCheck", "like");
+				}
 			}
 		}
 		
@@ -78,10 +83,10 @@ public class JoonggoController {
 	@ResponseBody
 	public int joonggoLike(
 			@RequestBody Map<String, Object> paramMap
-			// 세션에서 로그인 멤버 번호까지 얻어올 예정 일단은 1로
+			, @SessionAttribute("loginMember") Member loginMember
 			) {
 		
-		paramMap.put("memberNo", 1);
+		paramMap.put("memberNo", loginMember.getMemberNo());
 		
 		System.out.println(paramMap);
 		
@@ -107,20 +112,25 @@ public class JoonggoController {
 	@PostMapping("/{boardType:j.*}/write")
 	@ResponseBody
 	public String joonggoInsert(JoonggoWrite joonggoWrite,
-			@PathVariable("boardType") String boardType
-			//@SessionAttribute("loginMember") Member member 나중에 로그인 완성되면 추가		
+			@PathVariable("boardType") String boardType,
+			@SessionAttribute("loginMember") Member loginMember
 			) throws IllegalStateException, IOException {
 		
-		joonggoWrite.setMemberNo(1);
+		joonggoWrite.setMemberNo(loginMember.getMemberNo());
 		joonggoWrite.setBoardType(boardType);
 		
 		System.out.println("joonggoWrite :" + joonggoWrite);
 		String result = service.joonggoInsert(joonggoWrite);
 		
+		if(result == null) {
+			return "fail";
+		}else {
+			
+			result = "/"+ boardType + "/" + result;
+			System.out.println(result);
+			return result;
+		}
 		
-		result = "/"+ boardType + "/" + result;
-		System.out.println(result);
-		return result;
 	}
 	
 	
@@ -170,6 +180,7 @@ public class JoonggoController {
 		
 		joonggoWrite.setJoonggoNo(joonggoNo);
 		
+		System.out.println(deleteList);
 		System.out.println(joonggoWrite.getImageList());
 		
 		Map<String, Object> map = new HashMap<>();
