@@ -335,12 +335,12 @@ public class CommunityServiceImpl implements CommunityService {
 	// 좋아요한 게시글 조회
 	@Override
 	public Map<String, Object> selectLikeCommunityList(String boardType, int memberNo, int cp) {
-		// 특정 게시판의 특정 카테고리에서 삭제되지 않은 게시글 수 조회
+		// 특정 게시판의 특정 카테고리에서 삭제되지 않은, 좋아요한 게시글 수 조회
 		Map<String, Object> countParam = new HashMap<>();
 		countParam.put("boardType", boardType);
-		countParam.put("category", null); // 전체 조회를 위해 null
+		countParam.put("memberNo", memberNo);
 
-		int listCount = mapper.getListCount(countParam);
+		int listCount = mapper.getLikeListCount(countParam);
 
 		// 페이지네이션
 		Pagination pagination = new Pagination(cp, listCount);
@@ -351,6 +351,8 @@ public class CommunityServiceImpl implements CommunityService {
 		Map<String, Object> param = new HashMap<>();
 		param.put("boardType", boardType);
 		param.put("memberNo", memberNo);
+		
+		System.out.println("파라미터 : " + param);
 
 		List<Community> boardList = mapper.selectLikeCommunityList(param, rowBounds);
 
@@ -358,6 +360,8 @@ public class CommunityServiceImpl implements CommunityService {
 		Map<String, Object> map = new HashMap<>();
 		map.put("pagination", pagination);
 		map.put("boardList", boardList);
+		
+		System.out.println("임플: " + map);
 
 		return map;
 

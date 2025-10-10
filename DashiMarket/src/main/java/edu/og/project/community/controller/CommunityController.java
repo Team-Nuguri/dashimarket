@@ -91,7 +91,8 @@ public class CommunityController {
 		// 로그인한 회원의 번호
 		int memberNo = loginMember.getMemberNo();
 		Map<String, Object> map = service.selectLikeCommunityList(boardType, memberNo, cp);
-		model.addAttribute("board", map);
+		System.out.println(map);
+		model.addAttribute("map", map);
 		return "/communityPage/communityLike";
 	}
 	

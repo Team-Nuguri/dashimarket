@@ -76,6 +76,9 @@ public interface CommunityMapper {
 	// 좋아요한 게시글 조회
 	public List<Community> selectLikeCommunityList(Map<String, Object> param, RowBounds rowBounds);
 
+	// 좋아요한 게시글의 개수
+	public int getLikeListCount(Map<String, Object> countParam);
+
 
 
 }

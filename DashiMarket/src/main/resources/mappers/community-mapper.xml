@@ -87,6 +87,16 @@
 			AND CATEGORY_ID = #{category}
 		</if>
 	</select>
+	
+	<!-- 좋아요한 게시글 개수 -->
+	<select id="getLikeListCount" resultType="_int">
+		SELECT COUNT(*) FROM BOARD B
+		JOIN BOARD_TYPE USING(BOARD_CODE)
+		JOIN "LIKE" L ON (L.POST_NO = B.BOARD_NO)
+		WHERE BOARD_TYPE = #{boardType}
+		AND DELETE_FL = 'N'
+		AND L.MEMBER_NO = ${memberNo}
+	</select>
 		    
 	<!-- 커뮤니티 목록 조회 -->
 	<select id="selectCommunityList" resultMap="community_rm">
@@ -145,7 +155,7 @@
 	</select>
 	
 	<!-- 좋아요한 게시글 조회 -->
-	<select id="selectLikeCommunityList">
+	<select id="selectLikeCommunityList" resultMap="community_rm">
 		SELECT B.BOARD_NO, BOARD_TITLE, MEMBER_NICKNAME, POST_VIEWS,
 		    
 		    <![CDATA[     
@@ -168,7 +178,9 @@
 		        
 		        (SELECT IMG_PATH || IMG_RENAME FROM IMAGE I
 		        WHERE I.BOARD_NO = B.BOARD_NO
-		        AND IMG_ORDER = 0) THUMBNAIL
+		        AND IMG_ORDER = 0) THUMBNAIL,
+		        
+		        BOARD_TYPE
 		    
 		FROM "BOARD" B
 		JOIN "MEMBER" USING(MEMBER_NO)
