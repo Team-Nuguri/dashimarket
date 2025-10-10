@@ -223,7 +223,7 @@ replySubmitBtn.forEach(submit => {
         /* 답글 작성 비동기 요청 */
         const data = {
         "commentContent" : replyContent.value.trim(),
-        memberNo : 2,
+        memberNo : loginMemberNo,
         "postNo" : boardNo,
         "parentCommentNo": parentNo
         }
@@ -295,7 +295,7 @@ commentBtn.addEventListener("click", e => {
     /* 댓글 작성 비동기 요청 */
     const data = {
         "commentContent" : commentArea.value,
-        memberNo : 2,
+        memberNo : loginMemberNo,
         "postNo" : boardNo
     }
 
