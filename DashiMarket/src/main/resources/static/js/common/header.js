@@ -44,3 +44,9 @@ document.getElementById("cartListBtn")?.addEventListener("click", e=> {
 document.getElementById("communityLikeBtn")?.addEventListener("click", () => {
     location.href = "/community/likeLists";
 })
+
+// 햄버거 메뉴
+document.getElementById("dropdown").addEventListener("click", ()=>{
+    
+    document.getElementById('dropdownMenu').classList.toggle('show');
+});

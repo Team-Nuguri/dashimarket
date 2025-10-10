@@ -1,4 +1,4 @@
-package edu.og.project.goods.controller;
+	package edu.og.project.goods.controller;
 
 import java.util.List;
 import java.util.Map;
@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.og.project.common.dto.Member;
 import edu.og.project.goods.model.dto.Goods;
 import edu.og.project.goods.model.service.CartService;
 
@@ -27,11 +29,11 @@ public class GoodsCartController {
 	public int cartInsert(
 			@RequestBody Map<String, Object> paramMap
 			, RedirectAttributes ra
-			// 세션 로그인 번호
+			, @SessionAttribute("loginMember") Member loginMember
 			) {
 		
 		
-		paramMap.put("memberNo", 1);
+		paramMap.put("memberNo", loginMember.getMemberNo());
 		System.out.println(paramMap);
 		
 		
@@ -43,11 +45,11 @@ public class GoodsCartController {
 	// 장바구니 화면 전환
 	@GetMapping(value= "/goods/shoppingcart", produces="application/html; charset=UTF-8")
 	public String cartForward(
-			// 세션에서 로그인 멤버 번호 얻어오기
-			Model model
+			Model model,
+			@SessionAttribute("loginMember") Member loginMember
 			) {
 		
-		List<Goods> cartGoodsList = service.selectCartGoodsList(1);
+		List<Goods> cartGoodsList = service.selectCartGoodsList(loginMember.getMemberNo());
 		
 		System.out.println(cartGoodsList.size());
 		
@@ -65,11 +67,12 @@ public class GoodsCartController {
 	@DeleteMapping("/goods/shoppingcart/delete")
 	@ResponseBody
 	public int cartItemDelete(@RequestBody Map<String, Object> paramMap
-			// 세션에서 로그인 한 회원 번호 얻어오기
-					
+			,@SessionAttribute("loginMember") Member loginMember
 			) {
 		
-		paramMap.put("memberNo", 1);
+		System.out.println(paramMap);
+		
+		paramMap.put("memberNo", loginMember.getMemberNo());
 		
 		return service.cartItemDelete(paramMap);
 		
