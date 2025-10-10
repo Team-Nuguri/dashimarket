@@ -44,7 +44,7 @@ public class Goods {
 	// 평점
 	private double avgRating;
 	
-	// 장바구니 
+	// 상품 수량
 	private int quantity;
 	
 	

@@ -27,7 +27,6 @@ joonggoImage.addEventListener("change", e => {
         const reader = new FileReader();
 
         reader.readAsDataURL(file);
-        // 지정된 파일을 읽은 후 result 속성에 url 형식으로 저장
 
         reader.onload = e => {
             const li = document.createElement("li");
