@@ -1,6 +1,11 @@
 package edu.og.project.community.controller;
 
 import java.io.IOException;
+import java.net.http.HttpRequest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,14 +25,18 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.og.project.common.dto.Comment;
+import edu.og.project.common.dto.Member;
 import edu.og.project.community.model.dto.Community;
 import edu.og.project.community.model.service.CommunityService;
 import edu.og.project.joonggo.model.dto.JoonggoWrite;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import oracle.jdbc.proxy.annotation.Post;
 
@@ -45,10 +54,12 @@ public class CommunityController {
 									  Model model,
 									  HttpSession session /* 동네 확인 */) {
 		
+									// 공통 메소드
 		Map<String, Object> map = getData(boardType, cp, category, sort, session);
+		System.out.println(map);
 		model.addAllAttributes(map);
 		
-		return "communityPage/communityHome";
+		return "/communityPage/communityHome";
 			
 	}
 	
@@ -61,12 +72,28 @@ public class CommunityController {
 									  Model model,
 									  HttpSession session /* 동네 확인 */) {
 		
+									// 공통 메소드
 		Map<String, Object> map = getData(boardType, cp, category, sort, session);
 		model.addAllAttributes(map);
 		
 		// 프레그먼트 반환
 		return "communityPage/communityHome :: #community-list";
 		
+	}
+	
+	// 관심있는 게시글 조회
+	@GetMapping(value="/{boardType:c.*}/likeLists")
+	public String selectLikeCommunityList(@PathVariable("boardType") String boardType,
+										  @RequestParam(value="cp", required=false, defaultValue="1") int cp,
+										  @SessionAttribute("loginMember") Member loginMember,
+										  Model model) {
+		
+		// 로그인한 회원의 번호
+		int memberNo = loginMember.getMemberNo();
+		Map<String, Object> map = service.selectLikeCommunityList(boardType, memberNo, cp);
+		System.out.println(map);
+		model.addAttribute("map", map);
+		return "/communityPage/communityLike";
 	}
 	
 	
@@ -96,7 +123,12 @@ public class CommunityController {
 	public String communityDetail(@PathVariable("boardType") String boardType,
 								  @PathVariable("boardNo") String boardNo,
 								  @RequestParam(value="cp", required=false, defaultValue="1") int cp,
-								  Model model, RedirectAttributes ra) {
+								  @SessionAttribute(value="loginMember", required=false) Member loginMember,
+								  Model model, RedirectAttributes ra,
+								  
+								  /* 쿠키를 이용한 조회수 증가시 사용*/
+								  HttpServletRequest req,
+								  HttpServletResponse resp) throws ParseException {
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("boardType", boardType);
@@ -106,6 +138,97 @@ public class CommunityController {
 
 		String path = null;
 		
+		// 조회 결과가 있는 경우
+		if(community != null) {
+			
+			// 로그인한 경우 해당 게시글에 좋아요 클릭 여부
+			if(loginMember != null) {
+				map.put("memberNo", loginMember.getMemberNo());
+				
+				// 좋아요 여부 확인 서비스
+				int result = service.communityLikeCheck(map);
+				
+				// 좋아요 누른 적이 있는 경우
+				if(result > 0) model.addAttribute("likeCheck", "yes");
+			}
+			
+			// 쿠키를 이용한 조회수 처리
+			// 비회원 또는 현재 계정의 게시글이 아닌 경우
+			if(loginMember == null || loginMember.getMemberNo() != community.getMemberNo()) {
+				
+				// 쿠키 얻어오기
+				Cookie c = null;
+				
+				// 요청에 담겨있는 모든 쿠키
+				Cookie[] cookies = req.getCookies();
+				
+				// 순회하며 쿠키 찾기
+				for(Cookie cookie : cookies) {
+					if(cookie.getName().equals("readCommunityNo")) {
+						// readCommunityNo 쿠키를 찾아 대입
+						c = cookie;
+						break;
+					} // end of if
+				} // end of for
+				
+				// 기존에 쿠키가 없는 경우
+				// 또는 쿠키는 있지만 현재 보고 있는 게시글 번호가 쿠키에 저장되지 않은 경우
+				int result = 0;
+				
+				// 순회하며 readCommunityNo를 찾았을 때 없는 경우(기존 쿠키가 없는 경우)
+				// -> 새로 생성 + 조회수 증가
+				if(c == null) {
+					c = new Cookie("readCommunityNo", "|" + boardNo + "|");
+					
+					// 조회수 증가
+					result = service.updateReadCount(boardNo);
+					
+				} else { // 쿠키가 존재하는 경우
+					// 현재 게시글 번호가 쿠키에 있는지 확인
+					// 쿠키에 없다면 (-1 반환 받음)
+					if(c.getValue().indexOf("|" + boardNo + "|") == -1) {
+						// 기존 쿠키 값에 게시글 번호 추가(누적)해서 세팅
+						c.setValue(c.getValue() + "|" + boardNo + "|");
+						
+						// 조회수 증가
+						result = service.updateReadCount(boardNo);
+					}
+				}
+				
+				// 조회수 증가 성공시 쿠키 적용 경로 및 수명(당일 23시 59분 59초) 세팅
+				if(result == 1) {
+					// 조회된 게시글의 조회수와 DB의 조회수 동기화
+					community.setPostViews(community.getPostViews() + 1);
+					
+					// 쿠키 경로
+					c.setPath("/");
+					
+					// 수명
+					Calendar cal = Calendar.getInstance();
+					cal.add(Calendar.DATE, 1); // 1일
+					
+					// 날짜 표기법 변경
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+					
+					Date current = new Date(); // 현재 시간
+					Date temp = new Date(cal.getTimeInMillis()); // 24시간 후(내일
+					Date tmr = sdf.parse( sdf.format(temp) ); // 내일 0시 0분 0초
+					
+					// 내일 0시 0분 0초 - 현재 시간 = 쿠키 수명
+					long diff = (tmr.getTime() - current.getTime()) / 1000;
+					// 남은 시간을 초단위로 반환
+					
+					// 쿠키 수명 설정
+					c.setMaxAge((int)diff);
+					resp.addCookie(c);
+				}
+				
+				
+				
+			} // 조회수 처리 끝
+			
+		}
+		
 		if(community != null) {
 			path = "communityPage/communityDetail";
 			model.addAttribute("board", community);
@@ -114,6 +237,14 @@ public class CommunityController {
 			ra.addFlashAttribute("message", "게시글이 존재하지 않습니다.");
 		}
 		return path;
+	}
+	
+	// 좋아요 처리
+	@PostMapping("/community/like")
+	@ResponseBody
+	public int communityLike(@RequestBody Map<String, Object> paramMap) {
+		System.out.println(paramMap);
+		return service.communityLike(paramMap);
 	}
 	
 	
@@ -171,12 +302,11 @@ public class CommunityController {
 	@ResponseBody
 	public String communityWrite(Community community,
 								 @PathVariable("boardType") String boardType,
-								 @RequestParam(value="communityImg", required=false) List<MultipartFile> images
-								 //@SessionAttribute("loginMember") Member member 나중에 로그인 완성되면 추가
+								 @RequestParam(value="communityImg", required=false) List<MultipartFile> images,
+								 @SessionAttribute("loginMember") Member member
 								) throws IllegalStateException, IOException {
 		
-		// 임시 회원번호
-		community.setMemberNo(3);
+		community.setMemberNo(member.getMemberNo());
 		community.setBoardType(boardType);
 		
 		String result = service.communityWrite(community, images);
@@ -248,14 +378,6 @@ public class CommunityController {
 		
 		ra.addFlashAttribute("message", message);
 		return path;
-	}
-	
-	// 좋아하는 게시글 목록 조회
-	@GetMapping("/{boardType:c.*}/likeLists")
-	public String selectLikePost(@PathVariable("boardType") String boardType,
-			  					 @RequestParam(value="cp", required=false, defaultValue="1") int cp,
-			  					 Model model) {
-		return null;
 	}
 	
 }

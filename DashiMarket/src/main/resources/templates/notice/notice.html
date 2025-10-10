@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../../static/css/notice/notice.css">
-  <link rel="stylesheet" href="../../static/css/common/font.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" th:href="@{/css/notice/notice.css}" />
+  <link rel="stylesheet" th:href="@{/css/common/font.css}" />
   <title>공지사항</title>
 </head>
 
@@ -13,92 +13,48 @@
   <div class="container">
     <header>
       <h1>공지사항</h1>
-
       <section class="search-section">
         <form class="search-form" role="search">
-          <img src="../../static/images/svg/돋보기.svg">
-          <input type="search" id="search-input" placeholder="무엇을 찾고 계신가요?" aria-label="공지사항 검색" autocomplete="off">
+          <img th:src="@{/images/svg/돋보기.svg}" alt="검색 아이콘" />
+          <input type="search" id="search-input" placeholder="무엇을 찾고 계신가요?" aria-label="공지사항 검색" autocomplete="off" />
         </form>
-
-        <button type="button" id="admin-writeBtn">글쓰기</button>
-
+        <!-- 관리자로 로그인 했을 때만 글쓰기 버튼 노출 -->
+        <button th:if="${loginMember != null and loginMember.isAdmin()}" type="button" id="admin-writeBtn">글쓰기</button>
       </section>
-
     </header>
-
     <main>
       <section class="notice-list">
         <table class="notice-table">
           <thead>
             <tr>
-              <th scope="col">분류</th>
+              <th scope="col">번호</th>
               <th scope="col">제목</th>
               <th scope="col">날짜</th>
+              <th scope="col">조회수</th>
             </tr>
           </thead>
           <tbody>
-            <tr role="button">
-              <td class="category" id="">[공지]</td>
-              <td class="notice-title">개인정보 처리방침 개정안내</td>
-              <td class="notice-date">YYYY-MM-DD</td>
-            </tr>
-
-            <tr role="button">
-              <td class="category">[사기예방]</td>
-              <td class="notice-title">안전하게 직거래하는 3가지 꿀팁!</td>
-              <td class="notice-date">YYYY-MM-DD</td>
-            </tr>
-
-            <tr role="button">
-              <td class="category">[공지]</td>
-              <td class="notice-title">공지사항을 입력하세요</td>
-              <td class="notice-date">YYYY-MM-DD</td>
-            </tr>
-
-            <tr role="button">
-              <td class="category">[공지]</td>
-              <td class="notice-title">공지사항을 입력하세요</td>
-              <td class="notice-date">YYYY-MM-DD</td>
-            </tr>
-
-            <tr role="button">
-              <td class="category">[이벤트 관련]</td>
-              <td class="notice-title">이벤트 관련 사항을 입력하세요</td>
-              <td class="notice-date">YYYY-MM-DD</td>
-            </tr>
-
-            <tr role="button">
-              <td class="category">[공지]</td>
-              <td class="notice-title">공지사항을 입력하세요</td>
-              <td class="notice-date">YYYY-MM-DD</td>
-            </tr>
-
-            <tr role="button">
-              <td class="category">[정책변경]</td>
-              <td class="notice-title">공지사항을 입력하세요</td>
-              <td class="notice-date">YYYY-MM-DD</td>
-            </tr>
-
-            <tr role="button">
-              <td class="category">[사기예방]</td>
-              <td class="notice-title">안전하게 직거래하는 3가지 꿀팁!</td>
-              <td class="notice-date">YYYY-MM-DD</td>
-            </tr>
-
-            <tr role="button">
-              <td class="category">[이벤트 관련]</td>
-              <td class="notice-title">이벤트 관련 사항을 입력하세요</td>
-              <td class="notice-date">YYYY-MM-DD</td>
+            <tr role="button" th:each="notice : ${noticeList}">
+              <td class="notice-no" th:text="${notice.noticeNo}">No.00001</td>
+              <td class="notice-title" th:text="${notice.noticeTitle}">개인정보 처리방침 개정안내</td>
+              <td class="notice-date" th:text="${notice.noticeCreateDate}">2025-10-10</td>
+              <td class="notice-views">
+                <img th:src="@{/images/svg/조회수.svg}" alt="조회수" />
+                <span th:text="${notice.readCount}">125</span>
+              </td>
             </tr>
           </tbody>
         </table>
       </section>
     </main>
-
     <footer>
       <nav aria-label="페이지네이션">
         <ul class="pagination">
-          <li><button type="button" class="pagination-btn" aria-label="이전 페이지"><img src="/src/main/resources/static/images/pagination/pagn-previous-btn.svg"></button></li>
+          <li>
+            <button type="button" class="pagination-btn" aria-label="이전 페이지">
+              <img th:src="@{/images/pagination/pagn-previous-btn.svg}" alt="이전" />
+            </button>
+          </li>
           <li><button type="button" aria-current="page" aria-label="1페이지">1</button></li>
           <li><button type="button" aria-label="2페이지">2</button></li>
           <li><button type="button" aria-label="3페이지">3</button></li>
@@ -109,13 +65,16 @@
           <li><button type="button" aria-label="8페이지">8</button></li>
           <li><button type="button" aria-label="9페이지">9</button></li>
           <li><button type="button" aria-label="10페이지">10</button></li>
-          <li><button type="button" class="pagination-btn" aria-label="다음 페이지"><img src="/src/main/resources/static/images/pagination/pagn-next-btn.svg"></button></li>
+          <li>
+            <button type="button" class="pagination-btn" aria-label="다음 페이지">
+              <img th:src="@{/images/pagination/pagn-next-btn.svg}" alt="다음" />
+            </button>
+          </li>
         </ul>
       </nav>
     </footer>
-
-<script src="/src/main/resources/static/js/notice/notice.js"></script>
-
+    <script th:src="@{/js/notice/notice.js}"></script>
+  </div>
 </body>
 
 </html>

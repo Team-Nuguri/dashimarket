@@ -97,6 +97,61 @@ for (let i = 0; i < imgLength; i++) {
     
 }
 
+
+/* 좋아요 */
+const likeBtn = document.getElementById("like-heart");
+
+likeBtn.addEventListener("click", e => {
+    /* 로그인 하지 않은 회원인 경우 */
+    if(loginMemberNo == "") {
+        alert("로그인 후 이용해주세요.");
+        return;
+    }
+
+    /* 기존에 좋아요 x -> 빈 하트 = 0 */
+    /* 기존에 좋아요 o -> 꽉찬 하트 = 1 */
+    let check;
+
+    /* 좋아요 x */
+    if(e.target.classList.contains("fa-regular")) {
+        check = 0;
+    } else {
+        check = 1;
+    }
+
+    const data = {
+        memberNo: loginMemberNo,
+        communityNo: boardNo,
+        check: check
+    }
+
+    const likeCount = document.getElementById("like-count");
+    /* 좋아요 처리 요청 */
+    fetch("/community/like", {
+        method: "POST",
+        headers: {"Content-Type" : "application/json"},
+        body: JSON.stringify(data)
+    })
+    .then(resp => resp.text())
+    .then(count => {
+        console.log("카운트값" + count);
+
+        if(count == -1) {
+            alert("좋아요 처리에 실패했습니다.");
+            return;
+        }
+
+        e.target.classList.toggle("fa-regular");
+        e.target.classList.toggle("fa-solid");
+
+        /* 좋아요수 출력 */
+        likeCount.innerText = count;
+    })
+    .catch(err => {console.log(err)})
+
+    
+})
+
 /* 답글 달기 */
 const replyForm = document.querySelector(".reply-form");
 
@@ -168,7 +223,7 @@ replySubmitBtn.forEach(submit => {
         /* 답글 작성 비동기 요청 */
         const data = {
         "commentContent" : replyContent.value.trim(),
-        memberNo : 2,
+        memberNo : loginMemberNo,
         "postNo" : boardNo,
         "parentCommentNo": parentNo
         }
@@ -240,7 +295,7 @@ commentBtn.addEventListener("click", e => {
     /* 댓글 작성 비동기 요청 */
     const data = {
         "commentContent" : commentArea.value,
-        memberNo : 2,
+        memberNo : loginMemberNo,
         "postNo" : boardNo
     }
 

@@ -74,5 +74,31 @@ public interface CommunityService {
 	 */
 	int communityDelete(String boardNo);
 
+	/** 좋아요 여부 확인
+	 * @param map
+	 * @return result
+	 */
+	int communityLikeCheck(Map<String, Object> map);
+
+	/** 좋아요 처리
+	 * @param paramMap
+	 * @return result
+	 */
+	int communityLike(Map<String, Object> paramMap);
+
+	/** 조회수 증가
+	 * @param boardNo
+	 * @return result
+	 */
+	int updateReadCount(String boardNo);
+
+	/** 좋아요한 게시글 조회
+	 * @param boardType 
+	 * @param memberNo
+	 * @param cp
+	 * @return communityList
+	 */
+	Map<String, Object> selectLikeCommunityList(String boardType, int memberNo, int cp);
+
 
 }

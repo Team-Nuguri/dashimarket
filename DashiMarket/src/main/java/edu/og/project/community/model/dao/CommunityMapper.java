@@ -58,5 +58,27 @@ public interface CommunityMapper {
 	// 게시글 삭제
 	public int communityDelete(String boardNo);
 
+	// 좋아요 여부 확인
+	public int communityLikeCheck(Map<String, Object> map);
+
+	// 좋아요 삽입
+	public int insertCommunityLike(Map<String, Object> paramMap);
+
+	// 좋아요 삭제
+	public int deleteCommunityLike(Map<String, Object> paramMap);
+
+	// 좋아요 개수
+	public int countCommunityLike(String communityNo);
+
+	// 조회수 증가
+	public int updateReadCount(String boardNo);
+
+	// 좋아요한 게시글 조회
+	public List<Community> selectLikeCommunityList(Map<String, Object> param, RowBounds rowBounds);
+
+	// 좋아요한 게시글의 개수
+	public int getLikeListCount(Map<String, Object> countParam);
+
+
 
 }

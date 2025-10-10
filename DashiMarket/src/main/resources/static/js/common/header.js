@@ -247,6 +247,12 @@ document.getElementById("communityLikeBtn")?.addEventListener("click", () => {
     location.href = "/community/likeLists";
 })
 
+// 햄버거 메뉴
+document.getElementById("dropdown").addEventListener("click", ()=>{
+    
+    document.getElementById('dropdownMenu').classList.toggle('show');
+});
+
 // 페이지 로딩 완료 후 수행
 document.addEventListener("DOMContentLoaded", ()=>{
     
@@ -274,3 +280,4 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
     // 창 스크롤 -> URL 이동시 해당 창으로 이동??
 })
+

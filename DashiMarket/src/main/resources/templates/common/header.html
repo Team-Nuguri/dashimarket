@@ -78,12 +78,19 @@
                 </ul>
             </section>
 
-            <button>
-                <img th:src="@{/images/svg/clarity_menu-line.svg}" class="icon-img">
+            <div class="dropdown-toggle">
+                <button class="dropdown" id="dropdown">
+                    <img th:src="@{/images/svg/clarity_menu-line.svg}" class="icon-img">                
+                </button>
 
-            </button>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a th:href="@{/myPage/profile}">마이페이지</a>
+                    <a th:href="@{/member/logout}">로그아웃</a>
+                    <a th:href="@{/myPage/fraud}">사기 이력 조회</a>
+                </div>
+            </div>    
 
-          <!--   <div id="login-area">
+            <!--   <div id="login-area">
                 <a th:href="@{login}" id="login">로그인</a>
 
             </div> -->
@@ -96,7 +103,7 @@
 
         <form action="">
             <fieldset>
-                <img th:src="@{/images/svg/돋보기.svg}">
+                <img th:src="@{/images/svg/돋보기.svg}" id="header-search">
                 <input type="search" name="query" id="query" placeholder="검색어를 입력해주세요." class="noto-sans-kr-20">
             </fieldset>
         </form>

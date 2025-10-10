@@ -120,6 +120,8 @@ function fetchCommunityList(type, value, e, currentCategory = null) {
 /* 글쓰기 버튼 */
 const writeBtn = document.getElementsByClassName("write-btn")[0];
 
-writeBtn.addEventListener("click", () => {
-    location.href = "/community/write";
-})
+if(writeBtn != null) {
+    writeBtn.addEventListener("click", () => {
+        location.href = "/community/write";
+    })
+}

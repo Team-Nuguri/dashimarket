@@ -1,28 +1,5 @@
-// 게시판 종류별 카테고리 매핑
-const categoryMap = {
-    'notice': [
-        { value: 'notice-category', text: '[공지]' },
-        { value: 'event-category', text: '[이벤트 관련]' },
-        { value: 'fraud-category', text: '[사기예방]' },
-        { value: 'policy-category', text: '[정책변경]' }
-    ],
-    'qna': [
-        { value: 'trade-inquiry', text: '[거래문의]' },
-        { value: 'usage-inquiry', text: '[이용문의]' },
-        { value: 'account-inquiry', text: '[회원/계정]' },
-        { value: 'etc-inquiry', text: '[기타]' }
-    ],
-    'dummy1': [
-        { value: 'dummy1-category', text: '[더미1]' }
-    ],
-    'dummy2': [
-        { value: 'dummy2-category', text: '[더미2]' }
-    ]
-};
-
 // DOM 요소 가져오기
 const boardSelect = document.getElementById('boardSelect');
-const categorySelect = document.getElementById('categorySelect');
 const writeForm = document.getElementById('writeForm');
 const cancelBtn = document.querySelector('.btn-cancel');
 const attachmentBtn = document.querySelector('.attachment-btn');
@@ -30,31 +7,6 @@ const attachmentArea = document.querySelector('.attachment-area');
 
 // 선택된 파일을 저장할 변수
 let selectedFile = null;
-
-// 카테고리 옵션 업데이트 함수
-function updateCategoryOptions(boardType) {
-    // 기존 옵션 제거
-    categorySelect.innerHTML = '';
-    
-    // 선택된 게시판 종류에 맞는 카테고리 추가
-    const categories = categoryMap[boardType];
-    categories.forEach(category => {
-        const option = document.createElement('option');
-        option.value = category.value;
-        option.textContent = category.text;
-        categorySelect.appendChild(option);
-    });
-}
-
-// 게시판 종류 변경 이벤트
-boardSelect.addEventListener('change', function() {
-    updateCategoryOptions(this.value);
-});
-
-// 페이지 로드 시 초기 카테고리 설정
-document.addEventListener('DOMContentLoaded', function() {
-    updateCategoryOptions(boardSelect.value);
-});
 
 // 폼 제출 이벤트
 writeForm.addEventListener('submit', function(e) {
