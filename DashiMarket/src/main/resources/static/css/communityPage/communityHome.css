@@ -582,6 +582,14 @@ nav {
     margin-left: 3px;
 }
 
+/* 좋아요 */
+.fa-solid {
+    color: #52B291;
+}
+#like-heart:hover {
+    cursor: pointer;
+}
+
 /* 수정, 삭제 버튼 */
 .del-update-area {
     margin-left: auto;
@@ -690,4 +698,32 @@ nav {
     text-align: center;
     color: rgb(173, 173, 173);
     padding: 20px 0;
+}
+
+/* 페이지네이션 */
+.pagination{
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
+.pagination li{
+    width: 20px;
+    margin: 0 5px;
+    text-align: center;
+}
+
+.pagination a{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.current{
+    font-weight: bold;
+    background-color: #166549;
+    border-radius: 50%;
+    color: white !important;
+    letter-spacing: 0 !important;
 }
