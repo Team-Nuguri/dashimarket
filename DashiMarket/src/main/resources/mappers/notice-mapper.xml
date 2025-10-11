@@ -3,6 +3,7 @@
 
 <mapper namespace="edu.og.project.notice.model.dao.NoticeMapper">
 	
+	<!-- 공지사항 목록 조회 -->
 	<select id="selectNoticeList" resultType="edu.og.project.notice.model.dto.Notice" >
 	    SELECT 
 	        BOARD_NO AS noticeNo,
@@ -13,8 +14,28 @@
 	    WHERE BOARD_CODE = 4
 	    ORDER BY BOARD_CREATE_DATE DESC
 	</select>
-   
 	
-	
+	<!-- 공지사항 글 등록 -->
+	<insert id="insertNotice" parameterType="edu.og.project.notice.model.dto.Notice">
+		INSERT INTO BOARD (
+            	BOARD_NO, 
+	            BOARD_TITLE, 
+	            BOARD_CONTENT, 
+	            BOARD_CREATE_DATE, 
+	            POST_VIEWS, 
+	            BOARD_CODE, 
+	            MEMBER_NO, 
+	            DELETE_FL
+	        ) VALUES (
+	            SEQ_NOTICE_NO.NEXTVAL,
+	            #{noticeTitle},
+	            #{noticeContent},
+	            SYSDATE,
+	            0,
+	            #{boardCode},
+	            1,  <!-- 관리자 회원번호, 세션에서 가져오도록 수정 가능 -->
+	            'N'
+	        )
+	</insert>
 
 </mapper>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/src/main/resources/static/css/notice/noticeDetail.css" />
+    <link rel="stylesheet" href="/src/main/resources/static/css/common/font.css" />
+    <title>공지사항 상세 게시글</title>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>공지사항</h1>
+        </header>
+
+        <main>
+            <article class="notice-detail">
+                <!-- 게시글 헤더 -->
+                <div class="notice-header">
+                    <h2 class="notice-detail-title">개인정보 처리방침 개정안내</h2>
+                    <div class="notice-meta">
+                        <span class="notice-detail-date">2025-10-10</span>
+                        <span class="notice-detail-views">
+                            <img src="/src/main/resources/static/images/svg/readCount.svg" alt="조회수" />
+                            <span>125</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 게시글 내용 -->
+                <div class="notice-content">
+                    <p>안녕하세요 다시마켓입니다. 회원님의 소중한 개인정보를 보호하기 위해 개인정보 처리방침을 개정하게 되었습니다.</p>
+                    <p>주요 개정 내용은 다음과 같습니다:</p>
+                    <ul>
+                        <li>개인정보의 수집 및 이용 목적 명확화</li>
+                        <li>개인정보 보유 기간 및 파기 절차 구체화</li>
+                        <li>개인정보 제3자 제공 관련 내용 추가</li>
+                    </ul>
+                    <p>개정된 개인정보 처리방침은 2025년 10월 15일부터 시행됩니다.</p>
+                    <p>자세한 내용은 홈페이지 하단의 개인정보 처리방침을 참고해 주시기 바랍니다.</p>
+                    <p>감사합니다.</p>
+                </div>
+
+                <!-- 관리자 버튼 영역 (관리자만 표시) -->
+                <!-- <div class="admin-buttons">
+                <button type="button" class="btn-edit" id="editBtn">수정</button>
+                <button type="button" class="btn-delete" id="deleteBtn">삭제</button>
+                </div> -->
+
+                <!-- 목록으로 버튼 -->
+                <div class="action-buttons">
+                    <button type="button" class="btn-list" id="listBtn">목록으로</button>
+                </div>
+            </article>
+
+            <!-- 이전글/다음글 네비게이션 -->
+            <nav class="notice-navigation" aria-label="이전글 다음글">
+                <div class="nav-item">
+                    <span class="nav-label">이전글</span>
+                    <a href="/notice/detail/12" class="nav-title">서비스 이용약관 개정 안내</a>
+                </div>
+                <div class="nav-item">
+                    <span class="nav-label">다음글</span>
+                    <a href="/notice/detail/14" class="nav-title">정기 시스템 점검 안내</a>
+                </div>
+            </nav>
+        </main>
+
+        <script src="/src/main/resources/static/js/notice/noticeDetail.js"></script>
+    </div>
+</body>
+
+</html>

@@ -546,11 +546,12 @@
 
     </main>
 
-
-    <th:block th:replace="~{/common/floatingBtn}">floatingBtn.html</th:block>
     <th:block th:replace="~{common/footer}">footer.html</th:block>
 
-
+    <th:block th:if="${session.loginMember}">
+        <th:block th:replace="~{chatting/chatting}">chatting.html</th:block>
+        <script th:src="@{/js/chatting/chatting.js}"></script>
+    </th:block>
 
     <script th:inline="javascript">
 
@@ -558,9 +559,7 @@
 
         const boardNo = /*[[${goods.boardNo}]]*/ '게시글 번호';
 
-
     </script>
-
 
     <script th:src="@{/js/goodsPage/goodsDetail.js}"></script>
 

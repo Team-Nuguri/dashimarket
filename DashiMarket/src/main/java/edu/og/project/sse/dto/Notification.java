@@ -1,4 +1,4 @@
-package edu.og.project.chatting.model.dto;
+package edu.og.project.sse.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +15,7 @@ public class Notification {
 
 	private int notificationNo;
 	private String notificationContent;
-	private String ReadCheck;
+	private String readCheck;
 	private String notificationDate;
 	private String notificationUrl;
 	private int sendMemberNo; // 알림 보낸 사람

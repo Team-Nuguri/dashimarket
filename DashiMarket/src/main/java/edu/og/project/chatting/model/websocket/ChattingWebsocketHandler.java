@@ -1,8 +1,8 @@
 package edu.og.project.chatting.model.websocket;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -61,8 +61,9 @@ public class ChattingWebsocketHandler extends TextWebSocketHandler{
 		int result = service.insertMessage(msg);
 		
 		if(result > 0) {
-			SimpleDateFormat sdf = new SimpleDateFormat("YYYY.MM.DD");
-			msg.setSendTime(sdf.format(new Date()));
+			// 서버 기준 현재 시간 생성
+			String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
+			msg.setSendTime(now);
 			
 			for(WebSocketSession s : sessions) {
 				

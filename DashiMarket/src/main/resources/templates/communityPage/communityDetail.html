@@ -105,7 +105,7 @@
             </div>
 
             <!-- 로그인한 회원의 게시글인 경우 -->
-            <div class="retouch-area">
+            <div class="retouch-area" th:if="${session.loginMember?.memberNo == board.memberNo}">
                 <div class="post-update-btn">수정</div>
                 <div class="post-del-btn">삭제</div>
             </div>
@@ -136,6 +136,7 @@
 
                 <th:block th:each="comment : ${board.commentList}">
 
+
                     <!-- 댓글 하나 -->
                     <div th:class="|parent-comment ${comment.parentCommentNo != 0 ? 'child-comment' : ''}|"
                          th:data-comment-no="${comment.commentNo}">
@@ -154,7 +155,10 @@
                             <div class="comment-info">
                                 <span class="bold-text">[[${comment.memberNickname}]]</span>
                                 <span>•</span>
+                                <!-- 댓글 작성일 -->
                                 <span class="text-size-14">[[${comment.commentCreateDate}]]</span>
+                                <!-- 수정일이 있는 경우 -->
+                                <span class="text-size-14" style="color: gray;" th:if="${comment.commentUpdateDate}"> (수정됨) [[${comment.commentUpdateDate}]]</span>
                             </div>
             
                             <!-- 댓글 내용 -->
@@ -178,11 +182,13 @@
         
                         <!-- 수정 삭제 버튼 -->
                         <div class="del-update-area">
-                                                                     <!-- commentNo는 문자열이기 때문에 대괄호로 감싸서 따옴표 붙여준 후 보내야 함 -->
-                            <button class="update-btn medium-text" th:onclick="showUpdateComment('[[${comment.commentNo}]]', this)">수정</button>
                             <!-- 부모 댓글인 경우에만 답글 버튼 보임 -->
                             <button class="reply-btn medium-text" th:if="${comment.parentCommentNo == 0}">답글</button>
-                            <button class="delete-btn medium-text" th:onclick="deleteComment('[[${comment.commentNo}]]')">삭제</button>
+                                                                     <!-- commentNo는 문자열이기 때문에 대괄호로 감싸서 따옴표 붙여준 후 보내야 함 -->
+                            <button class="update-btn medium-text" th:if="${session.loginMember?.memberNo == comment.memberNo}"
+                                th:onclick="showUpdateComment('[[${comment.commentNo}]]', this)">수정</button>
+                            <button class="delete-btn medium-text" th:if="${session.loginMember?.memberNo == comment.memberNo}"
+                                th:onclick="deleteComment('[[${comment.commentNo}]]')">삭제</button>
                         </div>
         
                     </div>
@@ -202,7 +208,14 @@
             <!-- 답글 작성칸 -->
             <div class="reply-form">
                 <div class="reply-input-area">
-                    <div class="comment-profile-img"><img th:src="@{/images/community/우사기.jpg}" alt=""></div>
+                    <div class="comment-profile-img">
+                        <!-- 프로필 사진 없는 경우 -->
+                        <img th:unless="${board.profilePath}" th:src="@{/images/svg/just-dashima.svg}">
+
+                        <!-- 프로필 사진 있는 경우 -->
+                        <img th:if="${board.profilePath}" th:src="${board.profilePath}">
+                    </div>
+                    
                     <textarea class="reply-textarea" placeholder="답글을 입력하세요."></textarea>
                 </div>
 
@@ -228,7 +241,11 @@
         const boardTitle = /*[[${board.communityTitle}]]*/ "게시글 제목";
     </script>
 
-    <th:block th:replace="~{common/floatingBtn}">floatingBtn.html</th:block>
+    <th:block th:if="${session.loginMember}">
+        <th:block th:replace="~{chatting/chatting}">chatting.html</th:block>
+        <script th:src="@{/js/chatting/chatting.js}"></script>
+    </th:block>
+
     <script th:src="@{/js/communityPage/communityDetail.js}"></script>
 </body>
 </html>
