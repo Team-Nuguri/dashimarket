@@ -2,16 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="edu.og.project.chatting.model.dao.ChattingMapper">
-
-	<resultMap type="ChattingRoom" id="chattingRoom_rm">
-		<id property="chattingNo" column="CHATTING_NO"/>
-		<result property="lastMessage" column="LAST_MESSAGE" />
-		<result property="sendTime" column="SEND_TIME" />
-		<result property="targetNo" column="TARTGET_NO" />
-		<result property="targetNickName" column="TARGET_NICKNAME" />
-		<result property="targetProfile" column="TARGET_PROFILE" />
-		<result property="notReadCount" column="NOT_READ_COUNT" />
-	</resultMap>
 	
 
 	<!-- 채팅방 입장(채팅방 존재 여부 확인 -> 채팅방 번호 조회)  -->
@@ -28,7 +18,7 @@
 			SELECT SEQ_ROOM_NO.NEXTVAL FROM DUAL
 		</selectKey>
 		
-		INSERT INTO CHATTING_ROOM
+		INSERT INTO CHATTING_ROOM(CHATTING_NO, CAHTTING_DATE, PARTCIPANT, OPEN_MEMBER)
 		VALUES(${chattingNo}, DEFAULT, ${targetNo}, ${loginMemberNo})
 										<!-- 참여자          개설자  -->		
 	</insert>
@@ -122,6 +112,27 @@
 	<insert id="insertMessage">
 		INSERT INTO CHATTING_MESSAGE
 		VALUES(SEQ_MESSAGE_NO.NEXTVAL, #{messageContent}, DEFAULT, DEFAULT, DEFAULT, ${chattingNo}, ${sendMember})
+	</insert>
+	
+	<!-- 이미지 삽입 -->
+	
+	
+	<!-- 중고 채팅방 입장 -->
+	<select id="checkJoonggoChat" resultType="_int">
+		SELECT CHATTING_NO FROM CHATTING_ROOM
+		WHERE OPEN_MEMBER = #{buyerNo}
+		AND PARTCIPANT = #{sellerNo}
+		AND PRODUCT_NO = #{productNo}
+	</select>
+	
+	<!-- 중고 채팅 생성 -->
+	<insert id="createJoonggoRoom" parameterType="map" useGeneratedKeys="true">
+		<selectKey order="BEFORE" resultType="_int" keyProperty="chattingNo">
+			SELECT SEQ_ROOM_NO.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		INSERT INTO CHATTING_ROOM
+		VALUES(${chattingNo}, DEFAULT, #{sellerNo}, #{buyerNo}, #{productNo})
 	</insert>
 	
 	

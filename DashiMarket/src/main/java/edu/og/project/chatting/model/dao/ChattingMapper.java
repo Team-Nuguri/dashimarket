@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import edu.og.project.chatting.model.dto.ChattingRoom;
 import edu.og.project.common.dto.Member;
+import edu.og.project.chatting.model.dto.ChattingImg;
 import edu.og.project.chatting.model.dto.ChattingMessage;
 
 @Mapper
@@ -32,6 +33,15 @@ public interface ChattingMapper {
 	
 	// 메세지 삽입
 	public int insertMessage(ChattingMessage msg);
+
+	// 채팅 이미지 
+	public void insertChattingImg(ChattingImg chatImg);
+
+	// 중고 채팅방 입장
+	public int checkJoonggoChat(Map<String, Object> map);
+
+	// 중고 채팅방 생성
+	public int createJoonggoRoom(Map<String, Object> map);
 
 
 }

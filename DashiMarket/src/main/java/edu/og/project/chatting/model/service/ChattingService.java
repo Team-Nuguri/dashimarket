@@ -5,6 +5,7 @@ import java.util.Map;
 
 import edu.og.project.chatting.model.dto.ChattingRoom;
 import edu.og.project.common.dto.Member;
+import edu.og.project.chatting.model.dto.ChattingImg;
 import edu.og.project.chatting.model.dto.ChattingMessage;
 
 public interface ChattingService {
@@ -49,5 +50,16 @@ public interface ChattingService {
 	 * @return result
 	 */
 	int insertMessage(ChattingMessage msg);
+	
+
+	// 채팅 이미지 저장
+	void insertChattingImg(ChattingImg chatImg);
+
+
+	/** 중고상품번호로 채팅방 구분
+	 * @param map
+	 * @return chattingNo
+	 */
+	int checkJoonggoChat(Map<String, Object> map);
 
 }
