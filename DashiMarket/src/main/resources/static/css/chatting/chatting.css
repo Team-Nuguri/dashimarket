@@ -184,10 +184,15 @@ body{
     margin-top: 5px;
 }
 
-.button-img-box button{
+.button-img-box > button{
     border: none;
     background-color: transparent;
     cursor: pointer;
+}
+
+.img-set{
+    width: 30px;
+    height: 30px;
 }
 
 .button-img-box p{ font-size: 12px;}
@@ -383,9 +388,9 @@ body{
 
 /* floatingBtn - css */
 .img-area{
-        position: fixed;
-        right: 50px;
-        bottom: 40px;
+    position: fixed;
+    right: 50px;
+    bottom: 40px;
 }
 
 .img-box{
