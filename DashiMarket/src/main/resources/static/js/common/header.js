@@ -185,8 +185,8 @@ const selectNotificationList = ()=>{
             
             noticeList.append(noticeItem);
             noticeItem.append(noticeDiv);
-            noticeDiv.append(senderProfile, noticeContent);
-            noticeContent.append(noticeTitle, noticeDate, noticeDelete);
+            noticeDiv.append(senderProfile, noticeContent, noticeDelete);
+            noticeContent.append(noticeDate, noticeTitle);
 
         }
     })
@@ -251,7 +251,7 @@ document.getElementById("communityLikeBtn")?.addEventListener("click", () => {
 // 햄버거 메뉴
 document.getElementById("dropdown").addEventListener("click", ()=>{
     
-    document.getElementById('dropdownMenu').classList.toggle('show');
+    document.querySelector('.dropdown-menu').classList.toggle('show');
 });
 
 // 페이지 로딩 완료 후 수행

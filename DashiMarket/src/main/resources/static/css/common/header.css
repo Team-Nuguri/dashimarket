@@ -67,8 +67,8 @@ header>section> div:nth-child(2)>div>a:hover{
 #icon-area button{
     background-color: white;
     border: none;
-    margin-left: 10px;
-    padding-right: 20px;
+    margin-inline: 10px;
+    padding: 5px;
 }
 
 #icon-area button:hover{
@@ -139,7 +139,7 @@ header>section> div:nth-child(2)>div>a:hover{
     position: absolute;
     width: 350px;
     height: 500px;
-    top: 30px;
+    top: 35px;
     right: 25px;
     padding: 10px;
     list-style: none;
@@ -167,8 +167,8 @@ header>section> div:nth-child(2)>div>a:hover{
     border-radius: 50%;
     background: #52B291;
     position: absolute;
-    top: -5px;
-    right: 18px;
+    top: 0px;
+    left: 18px;
     display: none;
 }
 
@@ -210,18 +210,22 @@ header>section> div:nth-child(2)>div>a:hover{
     margin: 0;
 }
 
-
 .notification-date{
     font-size: 11px;
     color: #5e5e5e;
+    width: 100px;
 }
 
 /* X 버튼 */
 .notice-deleteBtn{
     position: absolute;
-    top: -15px;
-    right: 0;
+    top: 0px;
+    right: 5px;
+    font-weight: bold;
     cursor: pointer;
+    width: 25px;
+    height: 25px;
+    text-align: center;
 }
 
 #login{

@@ -199,7 +199,7 @@ body{
 }
 
 /* 드롭다운 */
-.dropdown {
+.chat-dropdown {
     position: absolute;
     right: 150px; 
     top: 130px;    
@@ -213,14 +213,14 @@ body{
 }
 
 /* 드롭다운 항목 */
-.dropdown p {
+.chat-dropdown p {
     margin: 0;
     padding: 10px 16px;
     cursor: pointer;
     font-size: 14px;
 }
 
-.dropdown p:hover {
+.chat-dropdown p:hover {
     background: #f5f5f5;
 }
 
@@ -380,3 +380,31 @@ body{
 .result-row:hover{ background-color: rgb(184, 183, 183);}
 
 .result-row-img{ width: 40px;}
+
+/* floatingBtn - css */
+.img-area{
+        position: fixed;
+        right: 50px;
+        bottom: 40px;
+}
+
+.img-box{
+    background-color: #166549;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;  
+    align-items: center;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.img-box > img{
+    width: 50px;
+    height: 50px;
+}
+
+#imageInput{display: none;}
+
+#img-send{cursor: pointer;}

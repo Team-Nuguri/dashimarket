@@ -85,7 +85,7 @@
                         </button>
 
                         <!-- 드롭다운 -->
-                        <div id="dropdown" class="dropdown hidden">
+                        <div id="chatDropdown" class="chat-dropdown hidden">
                             <p id="report-exit">신고후 나가기</p>
                             <p id="just-exit">나가기</p>
                         </div>
@@ -120,7 +120,8 @@
                     </li> -->
                 </ul>
                 <div class="content-send">
-                    <button id="img-send"><img th:src="@{/images/svg/image-btn.svg}"></button>
+                    <label for="imageInput" id="img-send"><img th:src="@{/images/svg/image-btn.svg}"></label>
+                    <input type="file" name="imgSend" id="imageInput" accept="image/*">
                     <textarea id="inputChatting" rows="3"></textarea>
                     <button id="send"><img th:src="@{/images/svg/Send-Btn.svg}"></button>
                 </div>
@@ -128,17 +129,16 @@
         </div>
     </div>
 
-    <th:block th:replace="~{common/floatingBtn}">floatingBtn.html</th:block>
-
     <!----------- sockjs를 이용한 WebSocket 구현을 위해 라이브러리 추가 ------------->
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 
     <script th:inline="javascript">
-        const loginMemberNo = /*[[${session.loginMember.memberNo}]]*/ "로그인한 회원 번호";
+        const loginMemberNo = /*[[${session.loginMember?.memberNo}]]*/ "로그인한 회원 번호";
         const memberNickname = /*[[${session.loginMember.memberNickname}]]*/ "로그인한 회원의 닉네임";
     </script>
 
     <script th:src="@{/js/chatting/chatting.js}"></script>
+
 </body>
 
 </html>
