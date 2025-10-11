@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/myPage/myPage-profile.css}">  
-    <link rel="stylesheet" href="@{/css/common/header.css}">
-    <link rel="stylesheet" href="@{/css/common/footer.css}">
-    <link rel="stylesheet" href="@{/css/common/font.css}">
+    <link rel="stylesheet" th:href="@{/css/common/header.css}">
+    <link rel="stylesheet" th:href="@{/css/common/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/common/font.css}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
@@ -84,24 +84,29 @@
 <!--프로필 관리-->
 
         <section class="myPage-main">
+            
+            <form th:action="@{/myPage/profile}" th:object="${session.loginMember}" method="post" class="myPage" name="myPageFrm"
+                enctype="multipart/form-data" id="profileFrm">
 
-            <span class="myPage-title text-size-24 bold-text" >프로필 관리</span> <br>
-            <span class="myPage-subtitle text-size-10">내 정보를 변경할 수 있습니다.</span>
+                <div class="myPage-profile"> 
+                    <div class="profile-image">
+                        <img th:if="*{profilePath}" th:src="*{profilePath}" alt="" id="profileImage">
+                        <img th:unless="*{profilePath}" th:src="@{/images/myPage/user.png}" alt="" id="profileImage">
+                    </div>
 
-            <form th:action="@{/myPage/profile}" method="post" class="myPage">
-
-              
-                <div class="myPage-profile">
-                    <a th:href="@{/}"></a>
-                    <button class="text-size-12">프로필 사진 변경</button>
+                    <label for="imageInput" class="profile-button text-size-12">사진 변경</label>
+                    <button type="button" class="delete-button" id="deleteImage">사진 삭제</button>
+                    <input type="file" id="imageInput" accept="image/*" style="display: none;">
                 </div>
+
+                
 
 
                 <div class="myPage-infoField">
 
                     <div class="myPage-row">
-                        <div class="myPage-label text-size-18 bold-text">아이디</div>
-                        <div class="myPage-display text-size-18">푸른바다의 전달</div>
+                        <div class="myPage-label text-size-18 bold-text">이름</div>
+                        <div class="myPage-display text-size-18" th:text="*{memberName}">푸른바다의 전달</div>
                         <div></div>                            
                     </div>
 
@@ -116,7 +121,7 @@
                     <div class="myPage-row">
                         <div class="myPage-label text-size-18 bold-text">닉네임</div>
                         <div>
-                            <input type="text" class="myPage-input text-size-18">
+                            <input type="text" th:field="*{memberNickname}" class="myPage-input text-size-18">
                             <button class="myPage-actionButton text-size-16">변경</button>
                         </div>
                     </div>
@@ -124,15 +129,15 @@
                     <div class="myPage-row">
                         <div class="myPage-label text-size-18 bold-text">전화번호</div>
                         <div>
-                            <input type="text" class="myPage-input text-size-18"> 
+                            <input type="text" th:field="*{memberTel}" class="myPage-input text-size-18">
                             <button class="myPage-actionButton text-size-16">변경</button>
                         </div>
                     </div>
 
                     <div class="myPage-row">
-                        <div class="myPage-label text-size-18 bold-text">이메일</div>
+                        <div class="myPage-label text-size-18 bold-text">아이디/이메일</div>
                         <div>
-                            <input type="text" class="myPage-input text-size-18">
+                             <input type="text" th:field="*{memberEmail}" class="myPage-input text-size-18">
                             <button class="myPage-actionButton text-size-16">변경</button>
                         </div>
                     </div>
@@ -146,15 +151,15 @@
                 <div class="myPage-addressSection">
                     <span class="myPage-label text-size-18 bold-text">주 소</span>                                   
                         <div class="myPage-addpost">
-                            <input type="text" class="myPage-postinput text-size-20" placeholder="우편번호"> 
+                            <input type="text" th:field="*{postCode}" class="myPage-postinput text-size-20" placeholder="우편번호">
                             <button class="myPage-addactionButton text-size-18">검색</button>
                         </div>
                                         
                         <div class="myPage-addinputDong">
-                            <input type="text" class="myPage-addinputDongDetail1 text-size-18" placeholder="도로명/지번 주소">
+                            <input type="text" th:field="*{loadAddress}" class="myPage-addinputDongDetail1 text-size-18" placeholder="도로명/지번 주소">
                             <div class="myPage-addinputDongInside">
-                            <input type="text" class="myPage-addinputDongDetail2 text-size-18" placeholder="상세주소">
-                            <input type="text" class="myPage-addinputDongDetail3 text-size-18" placeholder="동">
+                            <input type="text" th:field="*{detailAddress}" class="myPage-addinputDongDetail2 text-size-18" placeholder="상세주소">
+                            <input type="text" th:field="*{defaultDong}" class="myPage-addinputDongDetail3 text-size-18" placeholder="동">
                             </div>
                         </div>
                 </div>
@@ -177,8 +182,7 @@
 
     <th:block th:replace="~{common/footer}"></th:block>
 
-        
-
+    <script th:src="@{/js/myPage/myPage.js}"></script>
 
 </body>
 </html>
