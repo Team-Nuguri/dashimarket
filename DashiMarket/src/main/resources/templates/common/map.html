@@ -1,0 +1,196 @@
+<style>
+    .map_wrap {
+        position: relative;
+        width: 500px;
+        height: 500px;
+    }
+
+    .title {
+        font-weight: bold;
+        display: block;
+    }
+
+    .hAddr {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        border-radius: 2px;
+        background: #fff;
+        background: rgba(255, 255, 255, 0.8);
+        z-index: 1;
+        padding: 5px;
+    }
+
+    #centerAddr {
+        display: block;
+        margin-top: 2px;
+        font-weight: normal;
+    }
+
+    .bAddr {
+        padding: 5px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+</style>
+
+
+<!-- 지도 띄울 공간 -->
+<div class="map_wrap">
+    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+    <div class="hAddr">
+        <span class="title">행정동 주소정보</span>
+        <span id="centerAddr"></span>
+    </div>
+</div>
+
+
+
+<script type="text/javascript"
+    src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=4eadace8a189e8fb36d8ccf3d8aa6233&libraries=services"></script>
+<script>
+
+    /* 카카오맵 지도의 중심 좌표를 현재 위치 기반으로 하기 위해 현재 위치의 위도 경도 가져옴 */
+
+    const getSuccess = (position) => {
+        console.log(position);
+
+        let latitude = position.coords.latitude;
+        let longitude = position.coords.longitude;
+
+        console.log("위도 : " + latitude + " / 경도 : " + longitude);
+
+        /* 비동기 요청이므로 위도 및 경도를 가지고 온 후에 맵 띄우는 함수 실행 */
+        showMap(latitude, longitude);
+    };
+
+    const getError = () => {
+        console.log("geolocation api error");
+    };
+
+    const options = {
+        enableHighAccuracy: true, // 고정밀 위치 여부
+        timeout: 10000, // 5 seconds, 현재 위치를 가져오기 위한 시간 제한
+        maximumAge: 0, // 1 minute, 캐시된 위치 정보의 유효기간
+    };
+
+    window.navigator.geolocation.getCurrentPosition(getSuccess, getError, options);
+
+    /* ------------------------------------------------------------------------------------------------- */
+    /* ------------------------------------------------------------------------------------------------- */
+
+    /* 위도 경도를 가지고 온 후에 맵 띄워주기 */
+    function showMap(latitude, longitude) {
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+            mapOption = {
+                center: new kakao.maps.LatLng(latitude, longitude), // 지도의 중심좌표
+                level: 3 // 지도의 확대 레벨
+            };
+
+        // 지도를 생성합니다
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+        
+        // 주소-좌표 변환 객체를 생성합니다
+        var geocoder = new kakao.maps.services.Geocoder();
+
+        var marker = new kakao.maps.Marker(), // 클릭한 위치를 표시할 마커입니다
+            infowindow = new kakao.maps.InfoWindow({ zindex: 1 }); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
+
+        // 현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
+        searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+
+        // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
+        kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
+            // 좌표로 행정동 주소 정보를 먼저 요청합니다.
+            searchAddrFromCoords(mouseEvent.latLng, function (result, status) {
+                if (status === kakao.maps.services.Status.OK) {
+
+                    var legalDongAddress = '';
+
+                    for (var i = 0; i < result.length; i++) {
+
+                        // 행정동의 region_type 값은 'H' 이므로
+                        if (result[i].region_type === 'H') {
+                            // 행정동 가져오기
+                            legalDongAddress = result[i].address_name;
+                            break;
+                        }
+                    }
+
+                    // 변수에 저장된 행정동 주소 확인
+                    console.log("저장된 행정동 주소:" + legalDongAddress);
+
+                    let selectDong = legalDongAddress.split(" ")[2];
+
+                    console.log("행정동 : " + selectDong);
+
+                    /* 가져온 행정동을 서버 세션에 올리기 위해 비동기 요청 */
+                    fetch("/selectDong", {
+                        method: "POST",
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify( {selectDong: selectDong} )
+                    })
+                    .then(resp => {
+                        if(resp.OK) console.log("요청 성공")
+                    })
+                    .catch(err => console.log(e))
+
+                    // 인포윈도우에 상세 주소를 표시
+                    searchDetailAddrFromCoords(mouseEvent.latLng, function (detailResult, detailStatus) {
+                        if (detailStatus === kakao.maps.services.Status.OK) {
+                            var detailAddr = !!detailResult[0].road_address ? '<div>도로명주소 : ' + detailResult[0].road_address.address_name + '</div>' : '';
+                            detailAddr += '<div>지번 주소 : ' + detailResult[0].address.address_name + '</div>';
+
+                            var content = '<div class="bAddr">' +
+                                '<span class="title">법정동 주소정보 (' + legalDongAddress + ' 기준)</span>' + // 행정동을 같이 표시
+                                detailAddr +
+                                '</div>';
+
+                            // 마커 표시 및 인포윈도우 열기
+                            marker.setPosition(mouseEvent.latLng);
+                            marker.setMap(map);
+                            infowindow.setContent(content);
+                            infowindow.open(map, marker);
+                        }
+                    });
+                }
+            });
+        });
+
+        // 중심 좌표나 확대 수준이 변경됐을 때 지도 중심 좌표에 대한 주소 정보를 표시하도록 이벤트를 등록합니다
+        kakao.maps.event.addListener(map, 'idle', function () {
+            searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+        });
+
+        function searchAddrFromCoords(coords, callback) {
+            // 좌표로 행정동 주소 정보를 요청합니다
+            geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
+        }
+
+        function searchDetailAddrFromCoords(coords, callback) {
+            // 좌표로 법정동 상세 주소 정보를 요청합니다
+            geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+        }
+
+        // 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
+        function displayCenterInfo(result, status) {
+            if (status === kakao.maps.services.Status.OK) {
+                var infoDiv = document.getElementById('centerAddr');
+
+                for (var i = 0; i < result.length; i++) {
+                    // 행정동의 region_type 값은 'H' 이므로
+                    if (result[i].region_type === 'H') {
+                        infoDiv.innerHTML = result[i].address_name;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+
+</script>
+</body>
+
+</html>

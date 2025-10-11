@@ -1,33 +1,15 @@
 console.log("intro.js");
 
-const selectCity = document.getElementById("select-city");
-const cityBox = document.getElementById("select-city-box");
-const cityName = document.getElementById("city-name");
-const dropDownIcon = document.querySelector("#drop-down-icon img");
+/* 동네 검색 카카오맵 API 연동 */
+const selectDong = document.getElementById("select-city");
 
-/* 동네 선택창 토글 */
-selectCity.addEventListener("click", () => {
-    /* toggle의 리턴값: true = 열림, false = 닫힘 */
-    const isOpen = cityBox.classList.toggle("show");
+selectDong.addEventListener("click", e => {
+    const url = "/openMap"; // 팝업 띄울 url(요청주소): 스프링 부트니까 컨트롤러로 요청해서 컨트롤러가 찾아줘야 함!
+    const name = "동네 찾기"; // 팝업창 이름
+    
+    // 팝업 옵션 - location: 팝업창의 URL 입력란(주소창) Visible 여부 (없음으로 함)
+    const option = "width = 450, height = 450, top = 100, left = 200, location = no" 
 
-    if (isOpen) { // 드롭다운 펼쳐졌을 때
-        dropDownIcon.setAttribute("src", "../../resources/static/images/svg/drop-down-reverse.svg");
-    } else {
-        dropDownIcon.setAttribute("src", "../../resources/static/images/svg/drop-down.svg");
-    }
-});
-
-/* 동네 선택시 반영시키기 */
-const cityLinks = document.querySelectorAll("#select-city-box a");
-
-cityLinks.forEach(link => {
-    link.addEventListener("click", (e) => {
-        /* 이거 나중에 풀어야 함! (쿠키 또는 세션에 유지) */
-        e.preventDefault();
-
-        /* 선택한 동네 이름으로 반영하기 */
-        cityName.innerText = link.innerText;
-        cityBox.classList.remove("show");
-        dropDownIcon.setAttribute("src", "../../resources/static/images/svg/drop-down.svg");
-    })
+    // 팝업창 오픈
+    window.open(url, name, option);
 })
