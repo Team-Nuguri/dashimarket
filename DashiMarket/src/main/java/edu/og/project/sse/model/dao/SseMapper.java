@@ -25,5 +25,8 @@ public interface SseMapper {
 	// 알림 삭제
 	void delectNotification(int notificationNo);
 
+	// 알림 읽음 처리
+	void updateNotification(int notification);
+
 
 }
