@@ -74,6 +74,10 @@ public interface JoonggoMapper {
 	
 	// 좋아요 확인
 	int likeSelect(Map<String, Object> map);
+
+	
+	// 조회수 증가
+	int updateReadCount(String joonggoNo);
 	
 	
 
