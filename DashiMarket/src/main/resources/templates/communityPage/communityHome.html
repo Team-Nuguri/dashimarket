@@ -12,7 +12,7 @@
 </head>
 <body th:with="pagination=${pagination}, boardList=${boardList}">
     
-    <th:block th:replace="~{/common/header}">header.html</th:block>
+    <th:block th:replace="~{common/header}">header.html</th:block>
 
     <section class="body">
 
@@ -160,10 +160,13 @@
         </div>
     </section>
 
-
     <th:block th:replace="~{/common/footer}">footer.html</th:block>
-    <!-- <th:block th:replace="~{/chatting/chatting}">floatingBtn.html</th:block> -->
-  
+
+    <th:block th:if="${session.loginMember}">
+        <th:block th:replace="~{chatting/chatting}">chatting.html</th:block>
+        <script th:src="@{/js/chatting/chatting.js}"></script>
+    </th:block>
+
     <script th:src="@{/js/communityPage/communityHome.js}"></script>
 </body>
 </html>

@@ -136,7 +136,11 @@
     </div>
 
     <th:block th:replace="~{common/footer}"></th:block>
-    <!-- <th:block th:replace="~{/chatting/chatting}">floatingBtn.html</th:block> -->
+
+    <th:block th:if="${session.loginMember}">
+        <th:block th:replace="~{chatting/chatting}">chatting.html</th:block>
+        <script th:src="@{/js/chatting/chatting.js}"></script>
+    </th:block>
 
     <!-- 카테고리명 넘겨주기 -->
     <script th:inline="javascript">

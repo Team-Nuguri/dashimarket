@@ -12,8 +12,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
+<th:block th:replace="~{common/header}">header.html</th:block>
+
 <body>
-    <th:block th:replace="~{/common/header}">header.html</th:block>
 
     <div class="container">
         <div class="header">
@@ -131,8 +132,12 @@
     </div>
 
     <th:block th:replace="~{common/footer}"></th:block>
-    <!-- <th:block th:replace="~{/chatting/chatting}">floatingBtn.html</th:block> -->
     
+    <th:block th:if="${session.loginMember}">
+        <th:block th:replace="~{chatting/chatting}">chatting.html</th:block>
+        <script th:src="@{/js/chatting/chatting.js}"></script>
+    </th:block>
+
 
     <script th:src="@{/js/communityPage/communityWrite.js}"></script>
 </body>

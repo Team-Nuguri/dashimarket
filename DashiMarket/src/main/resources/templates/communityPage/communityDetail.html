@@ -241,7 +241,11 @@
         const boardTitle = /*[[${board.communityTitle}]]*/ "게시글 제목";
     </script>
 
-    <th:block th:replace="~{common/floatingBtn}">floatingBtn.html</th:block>
+    <th:block th:if="${session.loginMember}">
+        <th:block th:replace="~{chatting/chatting}">chatting.html</th:block>
+        <script th:src="@{/js/chatting/chatting.js}"></script>
+    </th:block>
+
     <script th:src="@{/js/communityPage/communityDetail.js}"></script>
 </body>
 </html>
