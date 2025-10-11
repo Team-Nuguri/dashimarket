@@ -1,5 +1,14 @@
 <link rel="stylesheet" th:href="@{/css/common/header.css}">
 
+<!-- 알림 관련 전역 변수 -->
+<script th:inline="javascript">
+    // 접속한 클라이언트가 로그인 상태인지 확인
+    const notificationLoginCheck = /*[[${session.loginMember} ? true : false]]*/ false;
+    
+    // 기본 이미지 - config.properties에서 얻어옴
+    const notificationDefaultImg = /*[[#{user.default.image}]]*/ "기본 이미지";
+</script>
+
 <header>
     <section id="header-area">
         <div>
@@ -10,8 +19,7 @@
         </div>
 
         <div>
-            
-            
+
             <div>
                 <a th:href="@{/joonggo}" class="noto-sans-kr-20">중고거래</a>
             </div>
@@ -33,7 +41,7 @@
             </button>
 
             <!-- 알림 영역 -->
-            <section class="notification-container">
+            <div class="notification-container">
 
                 <!-- 알림 버튼 -->
                 <button class="notification-btn" id="bell">
@@ -45,51 +53,50 @@
                 
                 <!-- 알림 목록 -->
                 <ul class="notification-list">
-                    <li class="notification-item">
+                    <!-- <li class="notification-item">
                         <div class="notification-div">
-                            <!-- 읽은 알림 -->
-                            <img th:src="@{/images/admin/user.png}">
+                            읽은 알림
+                            <img th:src="@{/images/common/user.png}">
                             <div class="notification-content">
                                 <p class="notification-title">관심 상품이 등록되었습니다.</p>
-                                <p class="notification-text">알림 내용</p>
-                                <span class="notification-date">알림 보낸 시간</span>
-                                <span>x</span>
+                                <p class="notification-date">알림 보낸 시간</p>
+                                <span class="notice-deleteBtn">x</span>
                             </div>
                         </div>
 
-                        <!-- 안읽은 알림 -->
-                        <div class="notification-div box-background">
-                            <img th:src="@{/images/admin/user.png}">
+                        안읽은 알림
+                        <div class="notification-div not-read">
+                            <img th:src="@{/images/common/user.png}">
 
                             <div class="notification-content">
                                 <p class="notification-title">관심 상품이 등록되었습니다.</p>
-                                <p class="notification-text">알림 내용</p>
-                                <span class="notification-date">알림 보낸 시간</span>
-                                <span>x</span>
+                                <p class="notification-date">알림 보낸 시간</p>
+                                <span class="notice-deleteBtn">x</span>
                             </div>
                         </div>
-
-                    </li>
+                    </li> -->
                 </ul>
-            </section>
+            </div>
 
             <div class="dropdown-toggle">
                 <button class="dropdown" id="dropdown">
                     <img th:src="@{/images/svg/clarity_menu-line.svg}" class="icon-img">                
                 </button>
 
-                <div class="dropdown-menu" id="dropdownMenu">
-                    <a th:href="@{/myPage/profile}">마이페이지</a>
-                    <a th:href="@{/member/logout}">로그아웃</a>
-                    <a th:href="@{/myPage/fraud}">사기 이력 조회</a>
-                </div>
+                <th:block th:if="${session.loginMember}">
+                    <div class="dropdown-menu" id="dropdownMenu">
+                        <a th:href="@{/myPage/profile}">마이페이지</a>
+                        <a th:href="@{/member/logout}">로그아웃</a>
+                        <a th:href="@{/myPage/fraud}">사기 이력 조회</a>
+                    </div>
+                </th:block>
+                
+                <th:block th:unless="${session.loginMember}">
+                    <div id="login-area" class="dropdown-menu">
+                        <a th:href="@{member/login}" id="login">로그인</a>
+                    </div>
+                </th:block>
             </div>    
-
-            <!--   <div id="login-area">
-                <a th:href="@{login}" id="login">로그인</a>
-
-            </div> -->
-            
 
         </div>
     </section>
@@ -105,7 +112,27 @@
 
     </section>
 
+    <!-- 하단 floating-btn -->
+    <section class="floating-area">
 
+        <th:block th:if="${session.loginMember}">
+            <div id="chattingBtn" class="floating-div">
+                <img th:src="@{/images/svg/chatting.svg}">
+            </div>
+        </th:block>
+        
+        <div id="chatbotBtn" class="floating-div">
+            <img th:src="@{/images/svg/chatbot.svg}">
+        </div>
+
+    </section>
+
+
+    <th:block th:if="${session.loginMember}">
+        <th:block th:replace="~{chatting/chatting}">chatting.html</th:block>
+        <script th:src="@{/js/chatting/chatting.js}"></script>
+    </th:block>
+    
     <script th:src="@{/js/common/header.js}"></script>
 
 </header>
