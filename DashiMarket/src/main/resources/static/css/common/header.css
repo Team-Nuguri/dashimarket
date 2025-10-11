@@ -86,7 +86,7 @@ header>section> div:nth-child(2)>div>a:hover{
     width: 1200px;
     margin: 40px auto 40px ;
     height: 150px;
-
+    position: relative;
 }
 
 #search-area fieldset{
@@ -149,7 +149,7 @@ header>section> div:nth-child(2)>div>a:hover{
     border: 2px solid #52B291;
     border-radius: 5px;
     box-shadow: 0 0 0 2px #eee, 0 4px 8px 0 rgba(0, 0, 0, .3);
-    display: none; /*처음에 알림 창이 보이지 않게 함*/
+    display: none; 
 }
 
 /* 알림창 보임 */
@@ -229,7 +229,6 @@ header>section> div:nth-child(2)>div>a:hover{
 }
 
 /* 햄버거 버튼 */
-
 .dropdown-toggle {
     position: relative;
 }
@@ -237,7 +236,7 @@ header>section> div:nth-child(2)>div>a:hover{
 .dropdown-menu {
     position: absolute;
     top: 100%;
-    right: 0;
+    right: 20px;
 
     display: none;
     
@@ -269,4 +268,28 @@ header>section> div:nth-child(2)>div>a:hover{
 .dropdown-menu a:hover {
     background-color: #f0f0f0;
     color: #000;
+}
+
+/* floatingBtn - 하단 채팅, 챗봇 버튼 */
+.floating-area{
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+}
+
+.floating-div{
+    background-color: #166549;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;  
+    align-items: center;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.floating-div > img{
+    width: 50px;
+    height: 50px;
 }

@@ -15,6 +15,7 @@ const connectSse = () => {
 
     // 서버로 부터 메세지를 전달 받은 경우
     eventSource.addEventListener("message", e => {
+        console.log(e.data);
 
         const obj = JSON.parse(e.data);
         console.log("전달받은 메세지 : " + obj);
@@ -97,8 +98,8 @@ const selectNotificationList = ()=>{
     if(notificationLoginCheck === false) return;
 
     fetch("/notification")
-    .then(response => {
-        if(response.ok) return response.json();
+    .then(resp => {
+        if(resp.ok) return resp.json();
         throw new Error("알림 목록 조회 실패");
     })
     .then(selectList => {
@@ -152,7 +153,7 @@ const selectNotificationList = ()=>{
             // 알림 내용
             const noticeTitle = document.createElement("span");
             noticeTitle.className = 'notification-title';
-            noticeTitle.innerText = data.notificationContent;
+            noticeTitle.innerHTML = data.notificationContent;
 
             // 알림 보낸 시간
             const noticeDate = document.createElement("p");
@@ -278,6 +279,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
         }
     })
 
-    // 창 스크롤 -> URL 이동시 해당 창으로 이동??
+    // 창 스크롤 -> URL 이동시 해당 게시글로 이동
 })
 
