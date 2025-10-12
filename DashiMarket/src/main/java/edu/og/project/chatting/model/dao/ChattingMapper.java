@@ -33,5 +33,12 @@ public interface ChattingMapper {
 	// 메세지 삽입
 	public int insertMessage(ChattingMessage msg);
 
+	// (중고)기존에 해당 상품으로 같은 조합의 채팅방이 있는지 확인
+	public int checkJoonggoRoom(ChattingRoom chat);
+
+	// (중고)새 채팅방 생성
+	public int insertJoonggoRoom(ChattingRoom chat);
+	
+
 
 }
