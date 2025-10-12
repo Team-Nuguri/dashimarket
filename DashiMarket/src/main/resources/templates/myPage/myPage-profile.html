@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/myPage/myPage-profile.css}">  
-    <link rel="stylesheet" href="@{/css/common/header.css}">
-    <link rel="stylesheet" href="@{/css/common/footer.css}">
-    <link rel="stylesheet" href="@{/css/common/font.css}">
+    <link rel="stylesheet" th:href="@{/css/common/header.css}">
+    <link rel="stylesheet" th:href="@{/css/common/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/common/font.css}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
@@ -15,38 +15,25 @@
 <body>
 
     <!--header-->
-
     <th:block th:replace="~{common/header}"></th:block>
 
-
-
 <main>
-
     
 <!--왼쪽 사이드메뉴-->
-
 <section class="myPage-content">
 
 <section class="left-side">
-
     <nav>
-
     <div class="left-title text-size-28 bold-text">마이페이지</div>
-
 
     <ul class="left-menu">
         <li class="text-size-18 bold-text">
             <img th:src="@{/images/myPage/shopping.png}" alt="주문내역/구매내역" width="40px" height="40px">
             주문내역/구매내역
-
             <ul>
-                    
-                    <li><a href="myPage_order.html">직거래</a></li>
-                
-                    <li><a href="myPage_order.html">굿즈</a></li>
-               
-                    <li><a href="myPage_order.html">나눔</a></li>
-                
+                <li><a href="myPage_order.html">직거래</a></li>
+                <li><a href="myPage_order.html">굿즈</a></li>
+                <li><a href="myPage_order.html">나눔</a></li>
             </ul>        
         </li>
     </ul>
@@ -56,9 +43,7 @@
             <img th:src="@{/images/myPage/product.png}" alt="상품관리"  width="40px" height="40px">
             상품관리
             <ul class="left-submenu">
-                
-                    <li><a href="">내가 찜한 상품</a></li>
-            
+                <li><a href="">내가 찜한 상품</a></li>
             </ul>
         </li>
     </ul>
@@ -68,117 +53,171 @@
             <img th:src="@{/images//myPage/myinfo.png}" alt="내 정보 관리" width="40px" height="40px">
             내 정보 관리       
             <ul class="left-submenu">
-                
-                
-                    <li><a href="myPage-profile.html">프로필 관리</a></li>
-                
-                    <li><a href="myPage_secession.html">회원관리</a></li>
-                       
+                <li><a th:href="@{/myPage/profile}">프로필 관리</a></li>
+                <li><a th:href="@{/myPage/secession}">회원탈퇴</a></li>
             </ul>
         </li>   
     </ul>
     </nav>
-    
 </section>
 
 <!--프로필 관리-->
+<section class="myPage-main view-mode" id="profileSection">
 
-        <section class="myPage-main">
+    <span class="myPage-title text-size-24 bold-text">프로필 관리</span> <br>
+    <span class="myPage-subtitle text-size-10">내 정보를 변경할 수 있습니다.</span>
 
-            <span class="myPage-title text-size-24 bold-text" >프로필 관리</span> <br>
-            <span class="myPage-subtitle text-size-10">내 정보를 변경할 수 있습니다.</span>
+    
+    <form th:action="@{/myPage/profile}" th:object="${loginMember}" method="post" class="myPage" name="myPageFrm"
+        enctype="multipart/form-data" id="profileFrm">
 
-            <form th:action="@{/myPage/profile}" method="post" class="myPage">
+        <!-- 프로필 이미지 -->
+        <div class="myPage-profile"> 
+            <div class="profile-image">
+               <img th:src="*{profilePath} ?: @{/images/myPage/user.png}" alt="" id="profileImage">
+            </div>
+            <!-- 편집 모드에서만 표시 -->
+            <label for="imageInput" class="profile-button text-size-12 edit-only">사진 변경</label>
+            <button type="button" class="delete-button edit-only" id="deleteImage">사진 삭제</button>
+            <input type="file" id="imageInput" name="profileImage" accept="image/*" style="display: none;">
+        </div>               
 
-              
-                <div class="myPage-profile">
-                    <a th:href="@{/}"></a>
-                    <button class="text-size-12">프로필 사진 변경</button>
-                </div>
+        <!-- 이름 -->
+        <div class="myPage-row">
+            <div class="myPage-label text-size-18 bold-text">이름</div>
+            <div>
+               <input type="text" th:field="*{memberName}" class="myPage-input text-size-18" readonly>
+            </div>
+        </div>
 
+        <!-- 아이디/이메일 -->
+        <div class="myPage-row">
+            <div class="myPage-label text-size-18 bold-text">아이디/이메일</div>
+            <div>
+                 <input type="text" th:field="*{memberEmail}" class="myPage-input text-size-18" readonly>
+    
+            </div>
+        </div>
 
-                <div class="myPage-infoField">
+        <!-- 전화번호 -->
+        <div class="myPage-row">
+            <div class="myPage-label text-size-18 bold-text">전화번호</div>
+            <div>
+               <input type="text" th:field="*{memberTel}" class="myPage-input text-size-18" readonly>
+            </div>
+        </div>
 
-                    <div class="myPage-row">
-                        <div class="myPage-label text-size-18 bold-text">아이디</div>
-                        <div class="myPage-display text-size-18">푸른바다의 전달</div>
-                        <div></div>                            
-                    </div>
+        <!-- 가입일자 -->
+        <div class="myPage-row">
+            <div class="myPage-label text-size-18 bold-text">가입일자</div>
+            <input type="text" th:field="*{enrollDate}" class="myPage-input text-size-18" readonly>                            
+        </div>
 
-                    <div class="myPage-row">
-                        <div class="myPage-label text-size-18 bold-text">패스워드</div>
-                        <div>
-                            <input type="text" class="myPage-input text-size-18">
-                            <button class="myPage-actionButton text-size-16">변경</button>
-                        </div>
-                    </div>
+        <!-- 닉네임 -->
+        <div class="myPage-row">
+            <div class="myPage-label text-size-18 bold-text">닉네임</div>
+            <div>
+                <input type="text" th:field="*{memberNickname}" class="myPage-input text-size-18" readonly>
+                <button type="button" class="myPage-actionButton text-size-16 edit-only">확인</button>
+            </div>
+        </div>
 
-                    <div class="myPage-row">
-                        <div class="myPage-label text-size-18 bold-text">닉네임</div>
-                        <div>
-                            <input type="text" class="myPage-input text-size-18">
-                            <button class="myPage-actionButton text-size-16">변경</button>
-                        </div>
-                    </div>
-
-                    <div class="myPage-row">
-                        <div class="myPage-label text-size-18 bold-text">전화번호</div>
-                        <div>
-                            <input type="text" class="myPage-input text-size-18"> 
-                            <button class="myPage-actionButton text-size-16">변경</button>
-                        </div>
-                    </div>
-
-                    <div class="myPage-row">
-                        <div class="myPage-label text-size-18 bold-text">이메일</div>
-                        <div>
-                            <input type="text" class="myPage-input text-size-18">
-                            <button class="myPage-actionButton text-size-16">변경</button>
-                        </div>
-                    </div>
-
-                    <div class="myPage-row">
-                        <div class="myPage-label text-size-18 bold-text">가입일자</div>
-                        <div class="myPage-display text-size-18">2025년 9월 25일</div>                            
-                    </div>
-                    </div>
-
-                <div class="myPage-addressSection">
-                    <span class="myPage-label text-size-18 bold-text">주 소</span>                                   
-                        <div class="myPage-addpost">
-                            <input type="text" class="myPage-postinput text-size-20" placeholder="우편번호"> 
-                            <button class="myPage-addactionButton text-size-18">검색</button>
-                        </div>
-                                        
-                        <div class="myPage-addinputDong">
-                            <input type="text" class="myPage-addinputDongDetail1 text-size-18" placeholder="도로명/지번 주소">
-                            <div class="myPage-addinputDongInside">
-                            <input type="text" class="myPage-addinputDongDetail2 text-size-18" placeholder="상세주소">
-                            <input type="text" class="myPage-addinputDongDetail3 text-size-18" placeholder="동">
-                            </div>
-                        </div>
+        <!-- 비밀번호 (편집 모드에서만 표시) -->
+        <div class="myPage-row password-row">
+            <div class="myPage-label text-size-18 bold-text">비밀번호</div>
+            <div class="password-change-container">
+                
+                <div class="pwd-input-line">
+                    <input type="password" class="myPage-input text-size-18" placeholder="현재 비밀번호 입력" id="currentPwdInput" name="currentPwd">
+                    <button type="button" class="myPage-actionButton text-size-16" id="checkCurrentPwd">확인</button>
                 </div>
                 
+                <div class="pwd-new-inputs">
+                    <input type="password" class="myPage-input text-size-18" placeholder="새 비밀번호 입력" id="newPwdInput" name="newPwd" disabled>
+                </div>
+                
+                <div class="pwd-input-line">
+                    <input type="password" class="myPage-input text-size-18" placeholder="새 비밀번호 확인" id="newPwdConfirmInput">
+                    <button type="button" class="myPage-actionButton text-size-16" id="updatePwdBtn">확인</button>
+                </div>
 
-                <div class="myPage-buttons">
-                <button class="myPage-submit text-size-18">수정하기</button>
-                <!-- <button class="myPage-submit">수정완료</button> -->
-                 </div>
-              
-            </form>
+            </div>
+        </div>
 
-        </section>
+        <!-- 주소 -->
+        <div class="myPage-addressSection">
+            <span class="myPage-label text-size-18 bold-text">주 소</span>
+            
+            <div class="myPage-address-content">
+                <div class="myPage-addpost">
+                    <!-- ID와 name을 모두 명시 -->
+                    <input type="text" 
+                        id="sample6_postcode" 
+                        name="postCode"
+                        th:value="*{postCode}"
+                        class="myPage-postinput text-size-20" 
+                        placeholder="우편번호" 
+                        readonly>
+                    <button type="button" 
+                            onclick="sample6_execDaumPostcode()" 
+                            class="myPage-addactionButton text-size-18 edit-only">검색</button>
+                </div>
+                
+                <div class="myPage-addinputDong">
+                    <input type="text" 
+                        id="sample6_address" 
+                        name="loadAddress"
+                        th:value="*{loadAddress}"
+                        class="myPage-input text-size-18" 
+                        placeholder="도로명/지번 주소" 
+                        readonly>
+                    
+                    <div class="addr-detail-line">
+                        <input type="text" 
+                            id="sample6_detailAddress" 
+                            name="detailAddress"
+                            th:value="*{detailAddress}"
+                            class="myPage-input text-size-18" 
+                            placeholder="상세주소" 
+                            readonly>
+                        <input type="text" 
+                            id="sample6_extraAddress" 
+                            name="defaultDong"
+                            th:value="*{defaultDong}"
+                            class="myPage-input text-size-18" 
+                            placeholder="동" 
+                            readonly>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    </section>
+        <!-- 버튼 -->
+        <div class="myPage-buttons">
+            <!-- 읽기 모드: 수정하기 버튼만 표시 -->
+            <button type="button" class="myPage-submit text-size-18 view-only" id="editModeBtn">수정하기</button>
+            
+            <!-- 편집 모드: 저장 & 취소 버튼 표시 -->
+            <button type="submit" class="myPage-submit text-size-18 edit-only" id="saveBtn">저장하기</button>
+            <button type="button" class="myPage-cancel text-size-18 edit-only" id="cancelBtn">취소</button>
+        </div>
+      
+    </form>
+
+</section>
+
+</section>
     
 </main>
 
     <!--footer-->
-
     <th:block th:replace="~{common/footer}"></th:block>
 
-        
+    <!-- 주소 Daum API -->
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
+
+    <script th:src="@{/js/myPage/myPage-profile.js}"></script>
 
 </body>
 </html>
