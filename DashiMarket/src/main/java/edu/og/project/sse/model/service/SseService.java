@@ -32,5 +32,11 @@ public interface SseService {
 	void delectNotification(int notificationNo);
 
 
+	/** 알림 읽음 여부 변경
+	 * @param notification
+	 */
+	void updateNotification(int notification);
+
+
 
 }

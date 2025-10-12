@@ -79,11 +79,18 @@ header>section> div:nth-child(2)>div>a:hover{
     height: 25px;
 }
 
+#login{
+    margin-left: 120px;
+}
+
+#login:hover{
+    text-decoration: underline;
+}
 
 
 /* 검색창 */
 #search-area{
-    width: 1200px;
+    width: 800px;
     margin: 40px auto 40px ;
     height: 150px;
     position: relative;
@@ -279,6 +286,7 @@ header>section> div:nth-child(2)>div>a:hover{
     position: fixed;
     bottom: 40px;
     right: 40px;
+    z-index: 150;
 }
 
 .floating-div{
