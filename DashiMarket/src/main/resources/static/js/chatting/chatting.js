@@ -617,8 +617,6 @@ justExit?.addEventListener("click", () => {
         // 확인 눌렀을 때 실행
         alert("나가기 처리되었습니다.");
         // 나가기 로직 실행
-        fetch("/chatting/exit?=chattingNo=" + chattingNo)
-        .then()
     } else {
         alert("취소되었습니다.");
     }
