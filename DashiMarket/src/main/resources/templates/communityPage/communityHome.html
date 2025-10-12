@@ -13,16 +13,18 @@
 </head>
 <body th:with="pagination=${pagination}, boardList=${boardList}">
     
-    <!-- <th:block th:replace="~{common/header}">header.html</th:block> -->
+    <th:block th:replace="~{common/header}">header.html</th:block>
 
     <section class="body">
 
             <!-- 동네 -->
             <div id="select-city" class="bold-text">
                 <div id="drop-down-icon"><img th:src="@{/images/svg/location_green.svg}"></div>
-                <div id="city-name" class="text-size-24">여기는 
-                    " <span th:if="${session.selectDong}">[[${session.selectDong}]]</span>
-                     <span th:unless="${session.selectDong}">관철동</span>"입니다
+                <div id="show-city-name" class="text-size-24">여기는 
+                    " <span id="show-region" th:text="${session.selectDong != null ? session.selectDong : session.loginMember.defaultDong}">
+                        동네명
+                    </span>
+                    "입니다
                 </div>
             </div>
 
@@ -73,7 +75,6 @@
         <div id="community-list">
             
             <!-- 게시글이 있는 경우 -->
-            [[${boardList}]]
             <th:block th:if="${#lists.size(boardList) > 0}">
                 <th:block th:each="board : ${boardList}">
 

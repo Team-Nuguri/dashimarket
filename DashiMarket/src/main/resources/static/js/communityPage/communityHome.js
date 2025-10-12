@@ -127,7 +127,7 @@ if(writeBtn != null) {
 }
 
 /* 맵 팝업 띄우기 */
-const selectDong = document.getElementById("city-name");
+const selectDong = document.getElementById("show-city-name");
 selectDong.addEventListener("click", () => {
     const url = "/openMap"; // 팝업 띄울 url(요청주소): 스프링 부트니까 컨트롤러로 요청해서 컨트롤러가 찾아줘야 함!
     const name = "동네 찾기"; // 팝업창 이름

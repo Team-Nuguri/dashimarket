@@ -49,6 +49,7 @@
 
 <script type="text/javascript"
     src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=4eadace8a189e8fb36d8ccf3d8aa6233&libraries=services"></script>
+
 <script>
 
     /* 카카오맵 지도의 중심 좌표를 현재 위치 기반으로 하기 위해 현재 위치의 위도 경도 가져옴 */
@@ -71,8 +72,8 @@
 
     const options = {
         enableHighAccuracy: true, // 고정밀 위치 여부
-        timeout: 10000, // 5 seconds, 현재 위치를 가져오기 위한 시간 제한
-        maximumAge: 0, // 1 minute, 캐시된 위치 정보의 유효기간
+        timeout: 10000, // 10 seconds, 현재 위치를 가져오기 위한 시간 제한
+        maximumAge: 0, // 캐시된 위치 정보의 유효기간
     };
 
 
@@ -143,8 +144,12 @@
 
                             if(opener) {
                                 console.log("region = " + region);
-                                const regionName = opener.document.getElementById("city-name");
-                                regionName.textContent = region;
+                                const regionName2 = opener.document.getElementById("city-name");
+                                if(regionName2) regionName2.textContent = selectDong;
+                                
+                                const regionName = opener.document.getElementById("show-region");
+                                if(regionName) regionName.textContent = selectDong;
+
                                 console.log("동네명 업데이트 성공!");
                             }
                         })
