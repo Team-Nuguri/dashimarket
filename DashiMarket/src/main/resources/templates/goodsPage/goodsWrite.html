@@ -106,6 +106,8 @@
 
 
     <th:block th:replace="~{common/footer}">footer.html</th:block>
+
+    <th:block th:if="${session.loginMember}" th:replace="~{chatting/chatting}">chatting.html</th:block>
     
     <script th:src="@{/js/goodsPage/goodsWrite.js}"></script>
 </body>
