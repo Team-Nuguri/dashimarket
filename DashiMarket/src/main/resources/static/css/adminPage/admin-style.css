@@ -201,7 +201,7 @@ body, input, button, textarea, select {
     padding: 15px;
     border: 2px solid #ccc;
     border-radius: 10px;
-    width: 70%;
+    width: 90%;
 }
 
 #search-area label {
@@ -362,6 +362,7 @@ fieldset > [name="query"]{
     font-weight: bold;
     font-size: 35px;
     margin-top: 20px;
+    transition: opacity 0.3s ease;
 }
 
 /* 중간에 있는 버튼과 드롭다운들 */
@@ -402,8 +403,9 @@ fieldset > [name="query"]{
     border-collapse: collapse;
     text-align: center;
     margin-top: 30px;
-    height: 35%;   
+    height: 50%;   
 }
+
 
 /* 테이블 체크박스 */
 .table-content .fa-square, .table-content .fa-square-check{
@@ -419,7 +421,6 @@ fieldset > [name="query"]{
 
 .table-content td{
     border-right: 1px solid #ddd;
-    height: 48px;
     margin-left: auto;
 }
 
@@ -427,6 +428,15 @@ fieldset > [name="query"]{
 
 .table-title{
     background-color: #ddd;
+    height: 50px;
+}
+
+tr, td{
+    height: 48px;
+}
+
+td.empty-cell {
+    color: transparent; /* 글자가 보이지 않게 처리 */
 }
 
 /* ***************************************************** */
@@ -542,4 +552,9 @@ fieldset > [name="query"]{
     height: 60%;
     border: 3px solid #ccc;
     border-radius: 10px;
+}
+
+/* 페이지네이션 조정 */
+footer{
+    padding-left: 300px;
 }

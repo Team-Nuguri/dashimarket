@@ -46,7 +46,7 @@ public class SecurityConfig {
 
 						// 1-2. [핵심 수정] 명시적으로 인증이 필요한 경로를 먼저 설정
 						// 예시: 마이페이지, 프로필 수정 등은 로그인 필요
-						.requestMatchers("/member/myPage", "/admin/**").authenticated()
+						.requestMatchers("/member/myPage").authenticated()
 
 						// 이 규칙이 모든 공개 페이지(루트, 로그인, 게시판 등)를 처리합니다.
 						.anyRequest().permitAll())
