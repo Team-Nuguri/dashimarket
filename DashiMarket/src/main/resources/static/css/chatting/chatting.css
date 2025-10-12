@@ -413,3 +413,18 @@ body{
 #imageInput{display: none;}
 
 #img-send{cursor: pointer;}
+
+
+/* 중고 상품 채팅방의 스타일을 일반 채팅방과 다르게 지정 */
+.product-chat {
+    border-left: 4px solid #ff7e36; /* 예시: 왼쪽 테두리 색상 변경 */
+    background-color: #fff9f5; /* 예시: 배경색 살짝 변경 */
+}
+
+/* 상품 문의 라벨 스타일 */
+.chat-type-label {
+    color: #ff7e36; /* 라벨 색상 */
+    font-weight: bold;
+    margin-right: 5px;
+    font-size: 0.85em;
+}

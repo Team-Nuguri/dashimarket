@@ -72,6 +72,26 @@ public class ChattingServiceImpl implements ChattingService{
 		return mapper.insertMessage(msg);
 	}
 
+	// 중고 상품으로 채팅방 입장 (기존방 있으면 번호 반환, 없으면 새로 생성)
+	@Override
+	public int enterJoonggoChat(ChattingRoom chat) {
+		
+		// 기존에 채팅방이 있는지 확인
+		int chattingNo = mapper.checkJoonggoRoom(chat);
+		
+		
+		// 없으면 채팅방 생성
+		if(chattingNo == 0) {
+			
+			// 채팅방 생성
+			int result = mapper.insertJoonggoRoom(chat);
+			
+			if(result > 0 ) chattingNo = chat.getChattingNo();
+		}
+		
+		return chattingNo;
+	}
+
 	
 
 }

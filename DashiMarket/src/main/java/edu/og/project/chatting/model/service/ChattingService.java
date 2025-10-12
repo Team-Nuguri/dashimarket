@@ -50,4 +50,11 @@ public interface ChattingService {
 	 */
 	int insertMessage(ChattingMessage msg);
 
+
+	/** 중고 상품으로 채팅방 입장
+	 * @param chat
+	 * @return chattingNo(중고상품 번호)
+	 */
+	int enterJoonggoChat(ChattingRoom chat);
+
 }
