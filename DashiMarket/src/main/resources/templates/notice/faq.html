@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../static/css/notice/faq.css">
-    <link rel="stylesheet" href="../../static/css/common/font.css">
+    <link rel="stylesheet" th:href="@{/css/notice/faq.css}" />
+    <link rel="stylesheet" th:href="@{/css/common/font.css}" />
     <title>자주 묻는 질문</title>
 </head>
 
@@ -15,148 +15,31 @@
             <h1>자주 묻는 질문</h1>
 
             <section class="search-section">
-                <form class="search-form" role="search">
-                    <img
-                        src="../../static/images/svg/돋보기.svg">
-                    <input type="search" id="search-input" placeholder="무엇을 찾고 계신가요?" aria-label="공지사항 검색" autocomplete="off">
+                <form class="search-form" role="search" th:action="@{/faq}" method="get">
+                    <img th:src="@{/images/svg/돋보기.svg}" alt="검색 아이콘" />
+                    <input type="search" id="search-input" name="query" th:value="${query}" placeholder="무엇을 찾고 계신가요?"
+                        aria-label="검색" autocomplete="off" />
                 </form>
 
-                <button type="button" id="admin-writeBtn" onclick="">글쓰기</button>
+                <!-- <button type="button" id="admin-writeBtn" th:if="${session.loginMember.isAdmin == 'Y'}"
+                    th:onclick="|location.href='@{/faq/write}'|">글쓰기</button> -->
             </section>
-
         </header>
+
 
         <main>
             <section class="notice-list">
                 <div class="notice-table">
-                    <div class="notice-item">
-                        <div class="notice-row" onclick="toggleAccordion(this)">
-                            <span class="category">[기타]</span>
-                            <span class="notice-title">다시마켓은 어떤 서비스인가요</span>
-                            <span class="notice-date">2025-09-23</span>
+                    <div th:each="faq, iterStat : ${faqList}" class="notice-item">
+                        <div class="notice-row" th:onclick="|toggleAccordion(this)|">
+                            <span class="category" th:text="'[' + faq.boardCode + ']'">[분류]</span>
+                            <span class="notice-title" th:text="${faq.faqTitle}">질문 제목</span>
+                            <span class="notice-date" th:text="${faq.faqCreateDate}">2025-09-23</span>
                             <span class="arrow-icon">▼</span>
                         </div>
                         <div class="notice-content">
-                            <div class="notice-content-inner">
-                                다시마켓은 환경을 생각하는 중고거래 플랫폼입니다. <br>
-                                버려지는 물건에 새로운 가치를 부여하여 자원 낭비를 줄입니다. 안전하고 편리한 거래 시스템으로 누구나 쉽게 참여할 수 있습니다. <br> <br>
-                                친환경적인 소비 문화를 확산시키며, 지속 가능한 미래를 만듭니다. 작은 거래 하나가 지구를 살리는 의미 있는 실천이 됩니다. <br>
-                                다시마켓과 함께 가치 있는 순환 경제에 동참해보세요! <br>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="notice-item">
-                        <div class="notice-row" onclick="toggleAccordion(this)">
-                            <span class="category">[사기예방]</span>
-                            <span class="notice-title">안전하게 직거래하는 3가지 꿀팁!</span>
-                            <span class="notice-date">YYYY-MM-DD</span>
-                            <span class="arrow-icon">▼</span>
-                        </div>
-                        <div class="notice-content">
-                            <div class="notice-content-inner">
-                                직거래 시 안전을 위한 팁을 안내해드립니다.<br>
-                                1. 공공장소에서 만나기<br>
-                                2. 상품 상태 꼼꼼히 확인하기<br>
-                                3. 의심스러운 거래는 피하기
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="notice-item">
-                        <div class="notice-row" onclick="toggleAccordion(this)">
-                            <span class="category">[공지]</span>
-                            <span class="notice-title">공지사항을 입력하세요</span>
-                            <span class="notice-date">YYYY-MM-DD</span>
-                            <span class="arrow-icon">▼</span>
-                        </div>
-                        <div class="notice-content">
-                            <div class="notice-content-inner">
-                                공지사항 내용이 여기에 표시됩니다.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="notice-item">
-                        <div class="notice-row" onclick="toggleAccordion(this)">
-                            <span class="category">[공지]</span>
-                            <span class="notice-title">공지사항을 입력하세요</span>
-                            <span class="notice-date">YYYY-MM-DD</span>
-                            <span class="arrow-icon">▼</span>
-                        </div>
-                        <div class="notice-content">
-                            <div class="notice-content-inner">
-                                공지사항 내용이 여기에 표시됩니다.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="notice-item">
-                        <div class="notice-row" onclick="toggleAccordion(this)">
-                            <span class="category">[이벤트 관련]</span>
-                            <span class="notice-title">이벤트 관련 사항을 입력하세요</span>
-                            <span class="notice-date">YYYY-MM-DD</span>
-                            <span class="arrow-icon">▼</span>
-                        </div>
-                        <div class="notice-content">
-                            <div class="notice-content-inner">
-                                이벤트 관련 내용이 여기에 표시됩니다.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="notice-item">
-                        <div class="notice-row" onclick="toggleAccordion(this)">
-                            <span class="category">[공지]</span>
-                            <span class="notice-title">공지사항을 입력하세요</span>
-                            <span class="notice-date">YYYY-MM-DD</span>
-                            <span class="arrow-icon">▼</span>
-                        </div>
-                        <div class="notice-content">
-                            <div class="notice-content-inner">
-                                공지사항 내용이 여기에 표시됩니다.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="notice-item">
-                        <div class="notice-row" onclick="toggleAccordion(this)">
-                            <span class="category">[정책변경]</span>
-                            <span class="notice-title">공지사항을 입력하세요</span>
-                            <span class="notice-date">YYYY-MM-DD</span>
-                            <span class="arrow-icon">▼</span>
-                        </div>
-                        <div class="notice-content">
-                            <div class="notice-content-inner">
-                                정책변경 내용이 여기에 표시됩니다.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="notice-item">
-                        <div class="notice-row" onclick="toggleAccordion(this)">
-                            <span class="category">[사기예방]</span>
-                            <span class="notice-title">안전하게 직거래하는 3가지 꿀팁!</span>
-                            <span class="notice-date">YYYY-MM-DD</span>
-                            <span class="arrow-icon">▼</span>
-                        </div>
-                        <div class="notice-content">
-                            <div class="notice-content-inner">
-                                직거래 안전 팁 내용이 여기에 표시됩니다.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="notice-item">
-                        <div class="notice-row" onclick="toggleAccordion(this)">
-                            <span class="category">[이벤트 관련]</span>
-                            <span class="notice-title">이벤트 관련 사항을 입력하세요</span>
-                            <span class="notice-date">YYYY-MM-DD</span>
-                            <span class="arrow-icon">▼</span>
-                        </div>
-                        <div class="notice-content">
-                            <div class="notice-content-inner">
-                                이벤트 관련 내용이 여기에 표시됩니다.
+                            <div class="notice-content-inner" th:text="${faq.faqContent}">
+                                상세 내용이 여기에 표시됩니다.
                             </div>
                         </div>
                     </div>
@@ -167,30 +50,36 @@
         <footer>
             <nav aria-label="페이지네이션">
                 <ul class="pagination">
-                    <li><button type="button" class="pagination-btn" aria-label="이전 페이지">
-                            <img
-                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'%3E%3Cpath d='M15 18l-6-6 6-6'/%3E%3C/svg%3E">
-                        </button></li>
-                    <li><button type="button" aria-current="page" aria-label="1페이지">1</button></li>
-                    <li><button type="button" aria-label="2페이지">2</button></li>
-                    <li><button type="button" aria-label="3페이지">3</button></li>
-                    <li><button type="button" aria-label="4페이지">4</button></li>
-                    <li><button type="button" aria-label="5페이지">5</button></li>
-                    <li><button type="button" aria-label="6페이지">6</button></li>
-                    <li><button type="button" aria-label="7페이지">7</button></li>
-                    <li><button type="button" aria-label="8페이지">8</button></li>
-                    <li><button type="button" aria-label="9페이지">9</button></li>
-                    <li><button type="button" aria-label="10페이지">10</button></li>
-                    <li><button type="button" class="pagination-btn" aria-label="다음 페이지">
-                            <img
-                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'%3E%3Cpath d='M9 18l6-6-6-6'/%3E%3C/svg%3E">
-                        </button></li>
+                    <li>
+                        <button type="button" class="pagination-btn" aria-label="이전 페이지"
+                            th:disabled="${currentPage == 1}"
+                            th:onclick="|location.href='@{/faq(page=${currentPage - 1}, query=${query})}'|">
+                            <img th:src="@{/images/pagination/pagn-previous-btn.svg}" alt="이전" />
+                        </button>
+                    </li>
+
+                    <li th:each="i : ${#numbers.sequence(startPage, endPage)}">
+                        <button type="button" th:aria-current="${i == currentPage ? 'page' : null}"
+                            th:aria-label="|${i}페이지|" th:text="${i}"
+                            th:onclick="|location.href='@{/faq(page=${i}, query=${query})}'|">1</button>
+                    </li>
+
+                    <li>
+                        <button type="button" class="pagination-btn" aria-label="다음 페이지"
+                            th:disabled="${currentPage == totalPages}"
+                            th:onclick="|location.href='@{/faq(page=${currentPage + 1}, query=${query})}'|">
+                            <img th:src="@{/images/pagination/pagn-next-btn.svg}" alt="다음" />
+                        </button>
+                    </li>
                 </ul>
             </nav>
         </footer>
     </div>
-    <script src="/src/main/resources/static/js/notice/faq.js"></script>
+    
+    <script th:src="@{/js/notice/faq.js}"></script>
 
+    <!-- footer -->
+    <th:block th:replace="~{common/footer}"></th:block>
 </body>
 
 </html>
