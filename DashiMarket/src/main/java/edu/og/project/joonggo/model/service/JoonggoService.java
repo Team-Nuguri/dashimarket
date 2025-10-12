@@ -63,12 +63,4 @@ public interface JoonggoService {
 	// 현재 로그인 중인 유저가 좋아요 눌렀는지 확인
 	int likeSelect(Map<String, Object> map);
 
-
-	
-	/** 조회수 증가
-	 * @param joonggoNo
-	 * @return int 행 개수
-	 */
-	int updateReadCount(String joonggoNo);
-
 }

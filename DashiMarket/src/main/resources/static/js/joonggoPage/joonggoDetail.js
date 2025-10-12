@@ -68,7 +68,7 @@ for (let i = 0; i < imglength; i++) {
 
 
 /* 수정 삭제 */
-document.getElementById("ud-menu")?.addEventListener("click", () => {
+document.getElementById("ud-menu").addEventListener("click", () => {
 
     document.querySelector(".dropdown-menu").classList.toggle("show");
 

@@ -311,13 +311,4 @@ public class JoonggoServiceImpl implements JoonggoService {
 		return mapper.likeSelect(map);
 	}
 
-
-	
-	
-	// 조회수 증가
-	@Override
-	public int updateReadCount(String joonggoNo) {
-		return mapper.updateReadCount(joonggoNo);
-	}
-
 }

@@ -291,14 +291,4 @@
 		AND MEMBER_NO = ${memberNo}
 		
 	</select>
-	
-	
-	<!-- 조회수 증가 -->
-	<update id="updateReadCount">
-		UPDATE BOARD SET
-		POST_VIEWS = POST_VIEWS + 1
-		WHERE BOARD_NO = #{joonggoNo}
-		
-		
-	</update>
 </mapper>
