@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -20,7 +21,6 @@ import edu.og.project.notice.model.service.NoticeService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class NoticeController {
@@ -33,7 +33,7 @@ public class NoticeController {
 	public String selectNoticeList(@RequestParam(value = "page", defaultValue = "1") int currentPage,
 			@RequestParam(value = "query", required = false) String query,
 			Model model,
-			HttpSession session) {
+			@SessionAttribute(value = "loginMember", required = false) Member loginMember) {
 
 		// 페이지당 게시글 수
 		int pageSize = 10;
@@ -59,6 +59,8 @@ public class NoticeController {
 		int startPage = currentPageGroup * pageGroupSize + 1;
 		int endPage = Math.min(startPage + pageGroupSize - 1, totalPages);
 		
+		// 로그인한 멤버 정보 세션에서 가져와서 Model로 전달
+
 		model.addAttribute("noticeList", noticeList);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("totalPages", totalPages);
