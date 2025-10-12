@@ -109,7 +109,7 @@ public class EmailServiceImpl implements EmailService{
         
         // application.properties에 설정된 username과 동일해야 합니다.
         // 현재 설정: every3322@gmail.com
-        String fromEmail = "every3322@gmail.com"; 
+        String fromEmail = "every3322@gmail.com";  
 
         // 이메일 내용 구성 (HTML 형식)
         StringBuilder emailContent = new StringBuilder();
