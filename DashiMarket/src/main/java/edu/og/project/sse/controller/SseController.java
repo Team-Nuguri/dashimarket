@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -99,6 +100,10 @@ public class SseController {
 	}
 	
 	// 알림 읽음 여부 변경
+	@PutMapping("/notification")
+	public void updateNotification(@RequestBody int notification) {
+		service.updateNotification(notification);
+	}
 	
 
 }

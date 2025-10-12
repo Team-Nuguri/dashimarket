@@ -231,6 +231,8 @@
 
     <th:block th:replace="~{common/footer}"></th:block>
 
+    <th:block th:if="${session.loginMember}" th:replace="~{chatting/chatting}">chatting.html</th:block>
+
     <script th:inline="javascript">
         let loginMemberNo = /*[[${session.loginMember?.memberNo}]]*/ "로그인한 회원 번호";
         let memberNickname = /*[[${session.loginMember?.memberNickname}]]*/ "로그인한 회원 닉네임";
@@ -240,11 +242,6 @@
         const boardNo = /*[[${board.communityNo}]]*/ "게시글 번호";
         const boardTitle = /*[[${board.communityTitle}]]*/ "게시글 제목";
     </script>
-
-    <th:block th:if="${session.loginMember}">
-        <th:block th:replace="~{chatting/chatting}">chatting.html</th:block>
-        <script th:src="@{/js/chatting/chatting.js}"></script>
-    </th:block>
 
     <script th:src="@{/js/communityPage/communityDetail.js}"></script>
 </body>
