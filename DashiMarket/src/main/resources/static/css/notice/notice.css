@@ -1,10 +1,11 @@
 .container {
-    max-width: 800px;
+    max-width: 900px; /* 약간 늘려서 공간 확보 */
     margin: 0 auto;
     padding: 40px 20px;
     background-color: white;
     min-height: 100vh;
 }
+
 
 header {
     text-align: center;
@@ -24,6 +25,21 @@ h1 {
 .search-section {
     margin-bottom: 30px;
     text-align: left;
+}
+
+/* 검색 결과 표시 */
+.search-result {
+    padding: 10px 0;
+    font-size: 14px;
+    color: #666;
+    text-align: left;
+}
+
+.search-result mark {
+    background-color: #FFC800;
+    padding: 2px 4px;
+    border-radius: 2px;
+    font-weight: 500;
 }
 
 /* 관리자 글쓰기 버튼 */
@@ -175,18 +191,36 @@ main {
     margin-right: 25px;
 }
 
-/* 페이지네이션 */
+/* 페이지네이션 배치 완벽 중앙정렬 (최신, 덮어쓰기) */
 .pagination {
     display: flex;
-    justify-content: center;
+    justify-content: center; /* 가운데 정렬 */
     align-items: center;
-    gap: 15px;
+    gap: 8px; /* 버튼 간격 */
     list-style: none;
+    padding: 0;
+    margin: 30px 0 0 0; /* 위쪽 공간 확보, 하단 여백 */
+    flex-wrap: wrap; /* 반응형 줄바꿈 허용 */
+}
+
+.pagination-wrapper {
+    width: 100%;
+    max-width: 900px;      /* .container랑 동일하게 */
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination li {
+    margin: 0;
+    padding: 0;
+    /* 불필요한 좌우 여백 제거 */
 }
 
 .pagination button {
     width: 35px;
     height: 35px;
+    padding: 0;
     border: none;
     background-color: white;
     color: #666;
@@ -196,14 +230,26 @@ main {
     align-items: center;
     justify-content: center;
     transition: all 0.2s;
+    min-width: 35px;
+    box-sizing: border-box;
 }
 
-.pagination button:hover {
-    background-color: #34a57d1e;
-}
-
-.pagination .pagination-btn:hover {
+.pagination .pagination-btn {
     background-color: #166549;
+    color: white;
+    font-weight: bold;
+    height: 35px;
+    min-width: 60px;
+    padding: 0 12px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination button:hover,
+.pagination .pagination-btn:hover {
+    background-color: #298C69; /* 더 진한 초록색 hover */
     color: white;
 }
 
@@ -212,10 +258,3 @@ main {
     color: white;
 }
 
-.pagination .pagination-btn {
-    background-color: #166549;
-    color: white;
-    font-weight: bold;
-    height: 35px;
-    width: 65px;
-}

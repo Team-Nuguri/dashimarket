@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>[관리자 전용] 게시글 작성</title>
+    <title th:text="${mode == 'edit' ? '[관리자 전용] 게시글 수정' : '[관리자 전용] 게시글 작성'}">[관리자 전용] 게시글 작성</title>
 
     <!-- 폰트 -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -16,11 +16,18 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>새 게시글 작성</h1>
+            <!-- 작성 모드: "새 게시글 작성", 수정 모드: "게시글 수정" -->
+            <h1 th:text="${mode == 'edit' ? '게시글 수정' : '새 게시글 작성'}">새 게시글 작성</h1>
         </div>
 
-        <!-- Thymeleaf form: action과 enctype 설정 -->
-        <form id="writeForm" th:action="@{/notice/write}" method="post" enctype="multipart/form-data">
+        <!-- form action을 동적으로 설정 -->
+        <form id="writeForm" th:action="${mode == 'edit' ? '/notice/edit/' + notice.noticeNo : '/notice/write'}"
+            method="post" enctype="multipart/form-data">
+
+            <!-- mode와 notice 데이터를 JavaScript로 전달 -->
+            <input type="hidden" id="pageMode" th:value="${mode}" />
+            <input type="hidden" id="noticeNo" th:value="${notice != null ? notice.noticeNo : ''}" />
+
             <ul class="form-list">
                 <li class="form-item">
                     <div class="label-area">
@@ -28,8 +35,10 @@
                     </div>
                     <div class="field-area">
                         <select class="form-control form-select" id="boardSelect" name="admWriteBoardSelect" required>
-                            <option value="notice">공지사항</option>
-                            <option value="qna">자주 묻는 질문</option>
+                            <option value="notice" th:selected="${notice != null && notice.boardType == 'notice'}">공지사항
+                            </option>
+                            <option value="qna" th:selected="${notice != null && notice.boardType == 'qna'}">자주 묻는 질문
+                            </option>
                         </select>
                     </div>
                 </li>
@@ -40,7 +49,8 @@
                     </div>
                     <div class="field-area">
                         <input type="text" class="form-control" name="admWriteTitle"
-                            placeholder="ex) [공지] 게시글 제목을 입력하세요." required />
+                            th:value="${notice != null ? notice.noticeTitle : ''}" placeholder="ex) [공지] 게시글 제목을 입력하세요."
+                            required />
                     </div>
                 </li>
 
@@ -50,7 +60,7 @@
                     </div>
                     <div class="field-area">
                         <textarea class="form-control content-textarea" name="admWriteContent" placeholder="내용을 입력하세요"
-                            required></textarea>
+                            required th:text="${notice != null ? notice.noticeContent : ''}"></textarea>
                     </div>
                 </li>
 
@@ -69,7 +79,7 @@
 
                             <div>
                                 <span class="attachment-description">
-                                    *사진(이미지)만 등록 가능합니다.(최대 OOMB 등록 가능)
+                                    *사진(이미지)만 등록 가능합니다.(최대 10MB 등록 가능)
                                 </span>
                             </div>
                         </div>
@@ -78,10 +88,12 @@
             </ul>
 
             <div class="button-group">
-                <button type="button" class="btn btn-cancel" th:onclick="history.back()">
+                <!-- 취소 버튼 -->
+                <button type="button" class="btn btn-cancel" id="cancelBtn">
                     취소하기
                 </button>
-                <button type="submit" class="btn btn-submit">
+                <!-- 제출 버튼 - 텍스트 동적 변경 -->
+                <button type="submit" class="btn btn-submit" th:text="${mode == 'edit' ? '수정하기' : '등록하기'}">
                     등록하기
                 </button>
             </div>

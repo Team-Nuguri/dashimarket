@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns="http://www.thymeleaf.org">
 
 <head>
   <meta charset="UTF-8" />
@@ -14,14 +14,22 @@
     <header>
       <h1>공지사항</h1>
       <section class="search-section">
-        <form class="search-form" role="search">
+        <!-- 검색창 -->
+        <form class="search-form" role="search" action="/notice" method="get">
           <img th:src="@{/images/svg/돋보기.svg}" alt="검색 아이콘" />
-          <input type="search" id="search-input" placeholder="무엇을 찾고 계신가요?" aria-label="공지사항 검색" autocomplete="off" />
+          <input type="search" id="search-input" name="query" th:value="${query}" placeholder="무엇을 찾고 계신가요?"
+            aria-label="공지사항 검색" autocomplete="off" />
         </form>
         <!-- 관리자로 로그인 했을 때만 글쓰기 버튼 노출 -->
-        <button th:if="${loginMember != null and loginMember.isAdmin()}" type="button" id="admin-writeBtn">글쓰기</button>
+        <button th:if="${loginMember != null and loginMember.isAdmin == 'Y'}" type="button" id="admin-writeBtn">글쓰기</button>
       </section>
+
+      <!-- 검색 결과 표시 -->
+      <div th:if="${query != null and query != ''}" class="search-result">
+        '<span th:text="${query}"></span>' 검색 결과: 총 <span th:text="${totalCount}"></span>건
+      </div>
     </header>
+
     <main>
       <section class="notice-list">
         <table class="notice-table">
@@ -34,9 +42,26 @@
             </tr>
           </thead>
           <tbody>
-            <tr role="button" th:each="notice : ${noticeList}">
-              <td class="notice-no" th:text="${notice.noticeNo}">No.00001</td>
-              <td class="notice-title" th:text="${notice.noticeTitle}">개인정보 처리방침 개정안내</td>
+            <!-- 게시글이 없을 때 -->
+            <tr th:if="${#lists.isEmpty(noticeList)}">
+              <td colspan="4" style="text-align: center; padding: 40px;">
+                <span th:if="${query != null and query != ''}">검색 결과가 없습니다.</span>
+                <span th:if="${query == null or query == ''}">등록된 공지사항이 없습니다.</span>
+              </td>
+            </tr>
+
+            <!-- 게시글 목록 -->
+            <tr th:each="notice, iterStat : ${noticeList}"
+              th:onclick="|location.href='@{/notice/detail/{noticeNo}(noticeNo=${notice.noticeNo})}'|"
+              style="cursor: pointer;">
+              <td class="notice-no" th:text="${((currentPage - 1) * pageSize) + iterStat.index + 1}">No.00001</td>
+
+              <td class="notice-title">
+                <a th:href="@{/notice/detail/{noticeNo}(noticeNo=${notice.noticeNo})}" th:text="${notice.noticeTitle}"
+                  style="text-decoration: none; color: inherit;">
+                  개인정보 처리방침 개정안내
+                </a>
+              </td>
               <td class="notice-date" th:text="${notice.noticeCreateDate}">2025-10-10</td>
               <td class="notice-views">
                 <img th:src="@{/images/svg/조회수.svg}" alt="조회수" />
@@ -47,33 +72,44 @@
         </table>
       </section>
     </main>
+
     <footer>
       <nav aria-label="페이지네이션">
-        <ul class="pagination">
-          <li>
-            <button type="button" class="pagination-btn" aria-label="이전 페이지">
-              <img th:src="@{/images/pagination/pagn-previous-btn.svg}" alt="이전" />
-            </button>
-          </li>
-          <li><button type="button" aria-current="page" aria-label="1페이지">1</button></li>
-          <li><button type="button" aria-label="2페이지">2</button></li>
-          <li><button type="button" aria-label="3페이지">3</button></li>
-          <li><button type="button" aria-label="4페이지">4</button></li>
-          <li><button type="button" aria-label="5페이지">5</button></li>
-          <li><button type="button" aria-label="6페이지">6</button></li>
-          <li><button type="button" aria-label="7페이지">7</button></li>
-          <li><button type="button" aria-label="8페이지">8</button></li>
-          <li><button type="button" aria-label="9페이지">9</button></li>
-          <li><button type="button" aria-label="10페이지">10</button></li>
-          <li>
-            <button type="button" class="pagination-btn" aria-label="다음 페이지">
-              <img th:src="@{/images/pagination/pagn-next-btn.svg}" alt="다음" />
-            </button>
-          </li>
-        </ul>
+        <div class="pagination-wrapper">
+          <ul class="pagination">
+            <!-- 이전 버튼 -->
+            <li>
+              <button type="button" class="pagination-btn" aria-label="이전 페이지" th:disabled="${currentPage == 1}"
+                th:onclick="|location.href='@{/notice(page=${currentPage - 1}, query=${query})}'|">
+                <img th:src="@{/images/pagination/pagn-previous-btn.svg}" alt="이전" />
+              </button>
+            </li>
+
+            <!-- 페이지 번호 버튼들 -->
+            <li th:each="i : ${#numbers.sequence(startPage, endPage)}">
+              <button type="button" th:aria-current="${i == currentPage ? 'page' : null}" th:aria-label="|${i}페이지|"
+                th:text="${i}" th:onclick="|location.href='@{/notice(page=${i}, query=${query})}'|">
+                1
+              </button>
+            </li>
+
+            <!-- 다음 버튼 -->
+            <li>
+              <button type="button" class="pagination-btn" aria-label="다음 페이지"
+                th:disabled="${currentPage == totalPages}"
+                th:onclick="|location.href='@{/notice(page=${currentPage + 1}, query=${query})}'|">
+                <img th:src="@{/images/pagination/pagn-next-btn.svg}" alt="다음" />
+              </button>
+            </li>
+          </ul>
+        </div>
       </nav>
     </footer>
+
     <script th:src="@{/js/notice/notice.js}"></script>
+
+    <!-- footer -->
+    <th:block th:replace="~{common/footer}"></th:block>
   </div>
 </body>
 
