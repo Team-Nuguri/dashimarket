@@ -24,6 +24,7 @@
         
         <result property="commentCount"    column="COMMENT_COUNT"/>
         <result property="likeCount"       column="LIKE_COUNT"/>
+        <result property="likeCheck"       column="LIKE_CHECK"/>
         
         <result property="childCommentCount"       column="CHILD_COMMENT_COUNT"/>
         
@@ -119,6 +120,10 @@
 		        
 		        (SELECT COUNT(*) FROM "LIKE" L
 		        WHERE L.POST_NO = B.BOARD_NO) LIKE_COUNT,
+		        
+                (SELECT COUNT(*) FROM "LIKE" L2
+		        WHERE L2.POST_NO = B.BOARD_NO
+		        AND L2.MEMBER_NO = 2) LIKE_CHECK,
 		        
 		        (SELECT IMG_PATH || IMG_RENAME FROM IMAGE I
 		        WHERE I.BOARD_NO = B.BOARD_NO

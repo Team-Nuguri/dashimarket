@@ -122,20 +122,38 @@
                     // 변수에 저장된 행정동 주소 확인
                     console.log("저장된 행정동 주소:" + legalDongAddress);
 
-                    let selectDong = legalDongAddress.split(" ");
+                    /* 풀 주소를 띄어쓰기로 나눠서 자른 후 */
+                    /* 주소가 3칸, 4칸인 경우 길이-1만큼 잘라서 마지막 행정동만 가져옴 */
+                    let selectDongLength = legalDongAddress.split(" ");
+                    let selectDong = selectDongLength[selectDongLength.length - 1];
 
                     console.log("행정동 : " + selectDong);
 
                     /* 가져온 행정동을 서버 세션에 올리기 위해 비동기 요청 */
-                    fetch("/selectDong", {
-                        method: "POST",
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify( {selectDong: selectDong} )
-                    })
-                    .then(resp => {
-                        if(resp.OK) console.log("요청 성공")
-                    })
-                    .catch(err => console.log(e))
+                    if(selectDong != null && selectDong != "") {
+                        fetch("/selectDong", {
+                            method: "POST",
+                            headers: {'Content-Type': 'application/text'},
+                            body: selectDong
+                        })
+                        .then(resp => resp.text())
+                        .then(region => {
+                            /* 세션에 저장 성공시 동네명 띄워줌 */
+                            const opener = window.opener; // 팝업창 띄운 부모창
+
+                            if(opener) {
+                                console.log("region = " + region);
+                                const regionName = opener.document.getElementById("city-name");
+                                regionName.textContent = region;
+                                console.log("동네명 업데이트 성공!");
+                            }
+                        })
+                        .catch(err => console.log(err))
+
+                    } else {
+                        alert("동네를 다시 선택해주세요.");
+                        return;
+                    }
 
                     // 인포윈도우에 상세 주소를 표시
                     searchDetailAddrFromCoords(mouseEvent.latLng, function (detailResult, detailStatus) {

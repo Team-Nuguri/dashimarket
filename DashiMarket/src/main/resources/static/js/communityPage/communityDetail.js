@@ -450,17 +450,27 @@ function deleteComment(commentNo) {
 }
 
 /* 게시글 수정 */
-document.getElementsByClassName("post-update-btn")[0].addEventListener("click", () => {
-    /* /community/게시글번호 -> /community/게시글번호/update?cp=1 */
-    location.href = location.pathname + '/update' + location.search;
+const updateBtn = document.getElementsByClassName("post-update-btn")[0];
 
-})
+if(updateBtn != null) {
+    updateBtn.addEventListener("click", () => {
+        /* /community/게시글번호 -> /community/게시글번호/update?cp=1 */
+        location.href = location.pathname + '/update' + location.search;
+    
+    })
+
+}
 
 
 
 /* 게시글 삭제 */
-document.getElementsByClassName("post-del-btn")[0].addEventListener("click", () => {
-    if(confirm("게시글을 삭제하시겠습니까?")) {
-        location.href = location.pathname + "/delete";
-    }
-})
+const deleteBtn = document.getElementsByClassName("post-del-btn")[0];
+
+if(deleteBtn != null) {
+    deleteBtn.addEventListener("click", () => {
+        if(confirm("게시글을 삭제하시겠습니까?")) {
+            location.href = location.pathname + "/delete";
+        }
+    })
+
+}

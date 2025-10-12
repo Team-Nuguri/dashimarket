@@ -8,18 +8,22 @@
     <link rel="stylesheet" th:href="@{/css/common/font.css}">
     <link rel="stylesheet" th:href="@{/css/communityPage/communityHome.css}">
     <link rel="stylesheet" th:href="@{/css/common/footer.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 </head>
 <body th:with="pagination=${pagination}, boardList=${boardList}">
     
-    <th:block th:replace="~{common/header}">header.html</th:block>
+    <!-- <th:block th:replace="~{common/header}">header.html</th:block> -->
 
     <section class="body">
 
             <!-- 동네 -->
             <div id="select-city" class="bold-text">
                 <div id="drop-down-icon"><img th:src="@{/images/svg/location_green.svg}"></div>
-                <div id="city-name" class="text-size-24">여기는 "<span>관철동</span>"입니다</div>
+                <div id="city-name" class="text-size-24">여기는 
+                    " <span th:if="${session.selectDong}">[[${session.selectDong}]]</span>
+                     <span th:unless="${session.selectDong}">관철동</span>"입니다
+                </div>
             </div>
 
 
@@ -69,9 +73,10 @@
         <div id="community-list">
             
             <!-- 게시글이 있는 경우 -->
+            [[${boardList}]]
             <th:block th:if="${#lists.size(boardList) > 0}">
                 <th:block th:each="board : ${boardList}">
-    
+
                     <!-- 하나의 게시글 -->
                     <a th:href="@{/{boardType}/{communityNo}(boardType=${boardType}, communityNo=${board.communityNo}, cp=${pagination.currentPage})}" class="community-post">
                         <!-- 썸네일 영역 -->
@@ -95,9 +100,10 @@
         
                             <!-- 좋아요, 댓글 -->
                             <div class="post-icon">
-        
+                                
                                 <div class="post-like">
-                                    <img th:src="@{/images/svg/postLike.svg}" alt="">
+                                    <i class="fa-solid fa-heart" style="font-size: 23px;" th:if="${board.likeCheck == 1}" id="like-heart"></i>
+                                    <i class="fa-regular fa-heart" style="font-size: 23px;" th:unless="${board.likeCheck == 1}" id="like-heart"></i>
                                     <div th:text="${board.likeCount}">좋아요</div>
                                 </div>
         

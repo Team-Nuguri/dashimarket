@@ -12,7 +12,7 @@
 </head>
 <body>
     
-    <th:block th:replace="~{common/header}"></th:block>
+    <!-- <th:block th:replace="~{common/header}"></th:block> -->
 
     <section class="body">
 
@@ -242,6 +242,7 @@
         const boardNo = /*[[${board.communityNo}]]*/ "게시글 번호";
         const boardTitle = /*[[${board.communityTitle}]]*/ "게시글 제목";
     </script>
+
 
     <script th:src="@{/js/communityPage/communityDetail.js}"></script>
 </body>

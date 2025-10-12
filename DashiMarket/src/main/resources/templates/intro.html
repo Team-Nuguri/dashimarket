@@ -38,7 +38,10 @@
             <!-- 선택한 동네 -->
             <div id="select-city" class="bold-text">
                 <div><img th:src="@{/images/svg/location.svg}" alt=""></div>
-                <div id="city-name" class="text-size-20">관철동</div>
+                <!-- 동네 선택한 경우 -->
+                <div id="city-name" class="text-size-20" th:if="${session.selectDong}">[[${session.selectDong}]]</div>
+                <!-- 선택하지 않은 경우 -->
+                <div id="city-name" class="text-size-20" th:unless="${session.selectDong}">관철동</div>
             </div>
 
             <!-- 검색 -->
