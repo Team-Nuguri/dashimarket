@@ -21,7 +21,7 @@
             aria-label="공지사항 검색" autocomplete="off" />
         </form>
         <!-- 관리자로 로그인 했을 때만 글쓰기 버튼 노출 -->
-        <button th:if="${loginMember != null and loginMember.isAdmin == 'Y'}" type="button" id="admin-writeBtn">글쓰기</button>
+        <button th:if="${session.loginMember.isAdmin == 'Y'}" type="button" id="admin-writeBtn">글쓰기</button>
       </section>
 
       <!-- 검색 결과 표시 -->
