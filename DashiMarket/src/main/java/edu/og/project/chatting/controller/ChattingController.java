@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -28,7 +28,8 @@ public class ChattingController {
 
 	// 채팅 요청
 	@GetMapping("/chatting")
-	public String chatting(Model model, @SessionAttribute("loginMember") Member loginMember) {
+	public String chatting(Model model, @SessionAttribute("loginMember") Member loginMember
+			/*임시 - Member DTO 변경하기*/) {
 		
 		// 채팅방 목록 조회
 		List<ChattingRoom> roomList = service.selectRoomList(loginMember.getMemberNo());
@@ -41,7 +42,8 @@ public class ChattingController {
 	// 채팅 입장(없으면 생성)
 	@GetMapping("/chatting/enter")
 	@ResponseBody
-	public int chattingEnter(int targetNo, @SessionAttribute("loginMember") Member loginMember) {
+	public int chattingEnter(int targetNo, @SessionAttribute("loginMember") Member loginMember
+			/*임시 - Member DTO 변경하기*/) {
 		
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("targetNo", targetNo);
@@ -50,23 +52,11 @@ public class ChattingController {
 		return service.checkChattingNo(map);
 	}
 	
-	// 중고 상세 페이지에서 채팅하기
-	@PostMapping("/chatting/enter")
-	@ResponseBody
-	public int joonggoChattingEnter(@RequestBody ChattingRoom request) {
-		
-		Map<String, Object> map = new HashMap<>();
-		map.put("sellerNo", request.getSellerNo());
-		map.put("buyerNo", request.getBuyerNo());
-		map.put("productNo", request.getProductNo());		
-		
-		return service.checkJoonggoChat(map);
-	}
-	
 	// 채팅방 목록 조회
 	@GetMapping(value="/chatting/roomList", produces="application/json; charset=UTF-8")
 	@ResponseBody
-	public List<ChattingRoom> selectRoomList(@SessionAttribute("loginMember") Member loginMember){
+	public List<ChattingRoom> selectRoomList(@SessionAttribute("loginMember") Member loginMember
+			/*임시 - Member DTO 변경하기*/){
 		return service.selectRoomList(loginMember.getMemberNo());
 	}
 	
@@ -98,7 +88,7 @@ public class ChattingController {
 		return service.selectMessageList(paramMap);
 	}
 	
-	// 채팅방 나가기 -> 채팅방 삭제
+	// 나가기 -> 채팅방 삭제
 	
 	
 }

@@ -17,9 +17,4 @@ public class ChattingRoom {
 	private String targetProfile;
 	private int notReadCount;
 	
-	// 중고 상품번호로 채팅 구분 입장
-	private int sellerNo;
-    private int buyerNo;
-    private String productNo; // 중고 상품 번호
-	
 }

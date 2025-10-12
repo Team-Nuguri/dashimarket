@@ -286,7 +286,6 @@ header>section> div:nth-child(2)>div>a:hover{
     border-radius: 50%;
     width: 100px;
     height: 100px;
-    z-index: 200;
     display: flex;
     justify-content: center;  
     align-items: center;

@@ -3,7 +3,6 @@ package edu.og.project.common.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
-import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 import org.springframework.web.socket.server.HandshakeInterceptor;
@@ -12,7 +11,6 @@ import edu.og.project.chatting.model.websocket.ChattingWebsocketHandler;
 
 @Configuration 
 @EnableWebSocket
-//@EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketConfigurer{
 
 	@Autowired
@@ -28,7 +26,6 @@ public class WebSocketConfig implements WebSocketConfigurer{
 				.addInterceptors(handshakeInterceptor)
 				.setAllowedOriginPatterns("http://localhost", "http://127.0.0.1")
 				.withSockJS(); 
+	
 	}
-	
-	
 }
