@@ -1,26 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="edu.og.project.member.model.dao.MemberMapper">
-	
-	<update id="updateProfile">
-		UPDATE MEMBER 
-		SET
-		MEMBER_NICKNAME = #{memberNickname},
-		MEMBER_TEL = #{memberTel},
-		POST_CODE = #{postCode},
-		LOAD_ADDRESS = #{loadAddress},
-		DETAIL_ADDRESS = #{detailAddress},
-		DEFAULT_DONG = #{defaultDong}
-		
-		<if test="profilePath != null">
-		, PROFILE_PATH = #{profilePath}
-		</if>
-		
-		<if test="profilePath == null">
-		, PROFILE_PATH = NULL  </if>
-		
+<mapper namespace="edu.og.project.mypage.dao.MyPageMapper">
+
+    <!-- 회원 정보 조회 (비밀번호 제외) -->
+    <select id="selectMember" parameterType="int" resultType="Member">
+        SELECT 
+            MEMBER_NO as memberNo,
+            MEMBER_EMAIL as memberEmail,
+            MEMBER_NAME as memberName,
+            MEMBER_NICKNAME as memberNickname,
+            MEMBER_TEL as memberTel,
+            POST_CODE as postCode,
+            LOAD_ADDRESS as loadAddress,
+            DETAIL_ADDRESS as detailAddress,
+            DEFAULT_DONG as defaultDong,
+            PROFILE_PATH as profilePath,
+            TO_CHAR(ENROLL_DATE, 'YYYY"년" MM"월" DD"일"') AS enrollDate,
+            SECESSIONFL as secessionFl,
+            IS_ADMIN as isAdmin
+        FROM MEMBER
+        WHERE MEMBER_NO = #{memberNo}
+          AND SECESSIONFL = 'N'
+    </select>
+
+    <!-- 회원 정보 조회 (비밀번호 포함) -->
+    <select id="selectMemberWithPassword" parameterType="int" resultType="Member">
+        SELECT 
+            MEMBER_NO as memberNo,
+            MEMBER_EMAIL as memberEmail,
+            MEMBER_PW as memberPw,
+            MEMBER_NAME as memberName,
+            MEMBER_NICKNAME as memberNickname,
+            MEMBER_TEL as memberTel
+        FROM MEMBER
+        WHERE MEMBER_NO = #{memberNo}
+          AND SECESSIONFL = 'N'
+    </select>
+
+    <!-- 프로필 정보 업데이트 (이거 하나만 있어야 함!) -->
+    <update id="updateProfile" parameterType="Member">
+        UPDATE MEMBER
+        SET
+            MEMBER_NICKNAME = #{memberNickname},
+            MEMBER_TEL = #{memberTel},
+            POST_CODE = #{postCode},
+            LOAD_ADDRESS = #{loadAddress},
+            DETAIL_ADDRESS = #{detailAddress},
+            DEFAULT_DONG = #{defaultDong},
+            PROFILE_PATH = #{profilePath}
+            <if test="memberPw != null and memberPw != ''">
+            , MEMBER_PW = #{memberPw}
+            </if>
+        WHERE MEMBER_NO = #{memberNo}
+    </update>
+    
+    <!-- 회원 탈퇴 -->
+	<update id="secession" parameterType="_int">
+		UPDATE MEMBER SET
+		SECESSIONFL = 'Y'
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
-		
+	
+	<!-- 암호화된 비밀번호 조회 (회원 탈퇴 시 비밀번호 확인용) -->
+	<select id="selectEncPw" parameterType="int" resultType="String">
+    SELECT MEMBER_PW
+    FROM MEMBER
+    WHERE MEMBER_NO = #{memberNo}
+    AND SECESSIONFL = 'N'
+	</select>
+	
 </mapper>

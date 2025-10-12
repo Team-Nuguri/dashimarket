@@ -79,11 +79,12 @@ public class MemberController {
 	}
 	
 	@GetMapping("/logout")
-	public String lotout(SessionStatus status) {
+	public String logout(SessionStatus status) {
 		status.setComplete();
 		
 		return "redirect:/";
 	}
+	
 	
 	@GetMapping("/signUp")
 	public String signUp() {
