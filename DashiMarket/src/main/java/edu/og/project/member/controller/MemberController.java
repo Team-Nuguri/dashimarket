@@ -16,7 +16,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import edu.og.project.common.dto.Member;
 import edu.og.project.member.model.service.MemberService;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/member")
@@ -28,33 +30,32 @@ public class MemberController {
 	
 	@GetMapping("/login")
 	public String login(@CookieValue(value="saveId", required=false) String saveId,
-	                    Model model) {
+	                    Model model,
+	                    @RequestHeader(value="referer", required=false) String referer,
+	                    HttpSession session) {
 	    
 	    if(saveId != null) {
 	        model.addAttribute("saveId", saveId);
 	    }
 	    
+	    session.setAttribute("referer", referer);
+	    
 	    return "member/login";
 	}
 	
 	@PostMapping("/login")
-	public String login(Member inputMember, Model model
-					, @RequestHeader(value="referer", required=false) String referer
+	public String login(Member inputMember, Model model	
 					, @RequestParam(value="saveId", required=false) String saveId					
+					, HttpSession session
 					, HttpServletResponse resp
 					, RedirectAttributes ra) {
 		
 		Member loginMember = service.login(inputMember);
 	
-		
 		String path = "redirect:";
 		
 		if(loginMember != null) {
-			model.addAttribute("loginMember", loginMember);
-			path += "/";
-			
-	        System.out.println("loginMember:" + loginMember);
-	        System.out.println("saveId 체크박스 값: " + saveId);  // ⭐ 추가			
+			model.addAttribute("loginMember", loginMember);			
 
 	        Cookie cookie = new Cookie("saveId", loginMember.getMemberEmail());
 		
@@ -72,9 +73,10 @@ public class MemberController {
 			resp.addCookie(cookie);
 		
 		}else {
-			path += referer;
 			ra.addFlashAttribute("message", "아이디 또는 비밀번호가 일치하지 않습니다.");
 		}
+		String referer = (String) session.getAttribute("referer");
+		path += (referer != null) ? referer : "/";
 		return path;
 	}
 	
