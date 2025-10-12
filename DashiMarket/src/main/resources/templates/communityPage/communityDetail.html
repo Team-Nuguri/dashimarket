@@ -231,17 +231,18 @@
 
     <th:block th:replace="~{common/footer}"></th:block>
 
-    <th:block th:if="${session.loginMember}" th:replace="~{chatting/chatting}">chatting.html</th:block>
+    <!-- <th:block th:if="${session.loginMember}" th:replace="~{chatting/chatting}">chatting.html</th:block> -->
 
     <script th:inline="javascript">
-        let loginMemberNo = /*[[${session.loginMember?.memberNo}]]*/ "로그인한 회원 번호";
-        let memberNickname = /*[[${session.loginMember?.memberNickname}]]*/ "로그인한 회원 닉네임";
+        let commLoginMemberNo = /*[[${session.loginMember?.memberNo}]]*/ "로그인한 회원 번호";
+        let commMemberNickname = /*[[${session.loginMember?.memberNickname}]]*/ "로그인한 회원 닉네임";
         
-        if(loginMemberNo == null) loginMemberNo = ""; // 빈칸 처리
+        if(commLoginMemberNo == null) loginMemberNo = ""; // 빈칸 처리
 
         const boardNo = /*[[${board.communityNo}]]*/ "게시글 번호";
         const boardTitle = /*[[${board.communityTitle}]]*/ "게시글 제목";
     </script>
+
 
     <script th:src="@{/js/communityPage/communityDetail.js}"></script>
 </body>
