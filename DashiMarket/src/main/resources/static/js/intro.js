@@ -107,3 +107,54 @@ function getSuccess(position) {
 function getError(error) {
     console.warn("현재 위치 가져오기 권한이 거부되었거나 실패했습니다: " + error.message);
 }
+
+// 통합 검색 - 모든 게시글 제목으로 검색
+document.addEventListener("DOMContentLoaded", ()=>{
+    const query = document.getElementById("query"); // 검색창
+    const searchResult = document.getElementById("searchResult");
+
+    query.addEventListener("input", e =>{
+        
+        // 입력된 내용이 있을 때
+        if(query.value.trim().length > 0){
+            fetch("/introSearch?query=" + query.value.trim())
+            .then(resp => resp.json())
+            .then(list => {
+                
+                // 검색 결과가 있을 때
+                if(list.length > 0){
+                    searchResult.classList.remove("close");
+                    searchResult.innerHTML = "";
+
+                    for(let map of list){
+                        const li = document.createElement("li");
+                        li.setAttribute("path", `${map.BOARD_TYPE}/${map.BOARD_NO}`);
+
+                        const a = document.createElement("a");
+
+                        map.BOARD_TITLE = map.BOARD_TITLE.replace(query.value, `<mark>${query.value}</mark>`);
+                        map.BOARD_TITLE = `<b>${map.BOARD_TITLE}</b>`;
+
+                        a.innerHTML = `${map.BOARD_TITLE} - ${map.BOARD_TYPE}`;
+                        a.setAttribute("href", "#");
+
+                        a.addEventListener("click", e => {
+                            e.preventDefault()
+
+                            const path = e.currentTarget.parentElement.getAttribute("path");
+                            
+                            location.href = path;
+                        })
+
+                        li.append(a)
+                        searchResult.append(li)
+                    }
+                }
+            })
+            .catch(err => console.log(err))
+
+        }
+
+        e.preventDefault();
+    })
+})

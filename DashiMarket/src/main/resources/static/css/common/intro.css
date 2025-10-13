@@ -149,6 +149,40 @@ section {
     margin: 10px;
 }
 
+#query{
+    width: 100%;
+}
+
+/* 검색 결과 */
+#intro-search{position: relative;}
+
+#searchResult{
+    width: 586px;
+    padding: 10px 0;
+    position: absolute;
+    z-index: 300;
+    background: white;
+    border: 1px solid #166549;
+    list-style: none;
+    margin: 66px 0 0 204px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#searchResult > li:hover{
+    background-color: #ddd;
+}
+
+#searchResult a{
+    height: 35px;
+    padding: 5px 10px;
+    font-size: 18px;
+    line-height: 20px;
+    display: block;
+}
+
+.close{display: none;}
+
 /* 중고거래, 굿즈판매, 커뮤니티*/
 #row2 {
     display: flex;
@@ -191,3 +225,4 @@ section {
     margin-top: 10px;
     color: white;
 }
+

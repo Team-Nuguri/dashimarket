@@ -151,6 +151,47 @@ if(location.href == "http://localhost/admin/goods"){
         .then(resp => resp.json())
         .then(products => {
             console.log(products)
+
+            // table 만들기
+            const totalRows = 10; // 행의 개수
+            const totalCols = 8; // 열의 개수
+            const tableContent = document.querySelector(".table-content");
+            
+            products.forEach(item => {
+        
+                const row = document.createElement("tr")
+                row.innerHTML = `
+                    <td><input type="checkbox"></td>
+                    <td>${item.boardNo}</td>
+                    <td>${item.boardTitle}</td>
+                    <td>${item.boardContent}</td>
+                    <td>${item.goodsStock}</td>
+                    <td>${item.goodsPrice}</td>
+                    <td>${item.boardCreateDate}</td>
+                    <td><select class="table-item">
+                            <option value="">${'판매중'}</option>
+                            <option value="">${'판매완료'}</option>
+                        </select>
+                    </td>`;
+                    
+                tableContent.appendChild(row);
+            })
+
+            // 부족한 행 만큼 table 만들기 - 형태 유지
+            const remainRows = totalRows - products.length;
+
+            if (remainRows > 0) {
+                for (let i = 0; i < remainRows; i++) {
+                    const emptyRow = document.createElement('tr');
+                    let emptyCells = '';
+                    for (let j = 0; j < totalCols; j++) {
+                        // &nbsp; (공백문자)를 넣어주어야 셀의 높이가 깨지지 않습니다.
+                        emptyCells += `<td class="empty-cell">&nbsp;</td>`;
+                    }
+                    emptyRow.innerHTML = emptyCells;
+                    tableBody.appendChild(emptyRow);
+                }
+            }
         })
         .catch(error => console.error("상품 조회 오류:", error))
     }

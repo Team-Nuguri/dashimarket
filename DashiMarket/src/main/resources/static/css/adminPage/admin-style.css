@@ -435,7 +435,7 @@ tr, td{
     height: 48px;
 }
 
-td.empty-cell {
+.empty-cell {
     color: transparent; /* 글자가 보이지 않게 처리 */
 }
 
@@ -514,6 +514,12 @@ td.empty-cell {
     height: 40px;
     text-align: center;
     cursor: pointer;
+}
+
+.table-item > option{
+    width: 95px;
+    height: 40px;
+    cursor:pointer
 }
 
 /* 최신순 드롭다운 */
