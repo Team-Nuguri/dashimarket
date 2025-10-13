@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/notice/faq-adminWrite.css}" />
+    <link rel="stylesheet" th:href="@{/css/common/font.css}" />
+    <title th:text="${mode == 'edit' ? 'FAQ 수정' : 'FAQ 글쓰기'}">FAQ 글쓰기</title>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1 th:text="${mode == 'edit' ? 'FAQ 수정' : 'FAQ 글쓰기'}">FAQ 글쓰기</h1>
+        </header>
+
+        <main>
+            <!-- 페이지 모드와 FAQ 번호를 hidden input으로 전달 -->
+            <input type="hidden" id="pageMode" th:value="${mode}" />
+            <input type="hidden" id="faqNo" th:value="${faq.faqNo}" />
+
+            <form id="writeForm" th:action="${mode == 'edit' ? '/faq/edit/' + faq.faqNo : '/faq/write'}" method="post"
+                enctype="multipart/form-data">
+
+                <div class="form-group">
+                    <label for="admWriteTitle">제목</label>
+                    <input type="text" id="admWriteTitle" name="admWriteTitle" th:value="${faq.faqTitle}"
+                        placeholder="제목을 입력하세요" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="admWriteContent">내용</label>
+                    <textarea id="admWriteContent" name="admWriteContent" rows="10" placeholder="내용을 입력하세요" required
+                        th:text="${faq.faqContent}"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="admWriteFileInput">첨부파일</label>
+                    <input type="file" id="admWriteFileInput" name="admWriteFileInput" accept="image/*" />
+
+                    <!-- 첨부파일 표시 영역 -->
+                    <div class="attachment-area"></div>
+
+                    <div th:if="${mode == 'edit' and faq.imageList != null and !faq.imageList.isEmpty()}">
+                        <p>기존 이미지:</p>
+                        <img th:src="${faq.imageList[0].imagePath}" alt="첨부 이미지"
+                            style="max-width: 200px; margin-top: 10px;" />
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit" th:text="${mode == 'edit' ? '수정' : '등록'}">등록</button>
+                    <button type="button" id="cancelBtn" class="btn-cancel">취소</button>
+                </div>
+            </form>
+        </main>
+    </div>
+
+    <script th:src="@{/js/notice/faq-adminWrite.js}"></script>
+
+    <!-- footer -->
+    <th:block th:replace="~{common/footer}"></th:block>
+</body>
+
+</html>

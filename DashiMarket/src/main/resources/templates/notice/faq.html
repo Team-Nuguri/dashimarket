@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -21,25 +21,47 @@
                         aria-label="검색" autocomplete="off" />
                 </form>
 
-                <!-- <button type="button" id="admin-writeBtn" th:if="${session.loginMember.isAdmin == 'Y'}"
-                    th:onclick="|location.href='@{/faq/write}'|">글쓰기</button> -->
+                <!-- 관리자만 글쓰기 버튼 표시 -->
+                <button type="button" id="admin-writeBtn"
+                    th:if="${session.loginMember != null and session.loginMember.isAdmin == 'Y'}"
+                    th:onclick="|location.href='@{/faq/write}'|">글쓰기</button>
             </section>
         </header>
-
 
         <main>
             <section class="notice-list">
                 <div class="notice-table">
                     <div th:each="faq, iterStat : ${faqList}" class="notice-item">
-                        <div class="notice-row" th:onclick="|toggleAccordion(this)|">
-                            <span class="category" th:text="'[' + faq.boardCode + ']'">[분류]</span>
+                        <!-- 아코디언 헤더: 번호 | 제목 | 조회수 | 날짜 | 토글 -->
+                        <div class="notice-row" th:data-faq-no="${faq.faqNo}" onclick="toggleAccordion(this)">
+                            <span class="notice-number"
+                                th:text="${totalCount - (currentPage - 1) * pageSize - iterStat.index}">1</span>
+
                             <span class="notice-title" th:text="${faq.faqTitle}">질문 제목</span>
+
+                            <span class="notice-views">
+                                <img th:src="@{/images/svg/조회수.svg}" alt="조회수" />
+                                <span th:text="${faq.readCount}">0</span>
+                            </span>
+
                             <span class="notice-date" th:text="${faq.faqCreateDate}">2025-09-23</span>
+
                             <span class="arrow-icon">▼</span>
                         </div>
+
+                        <!-- 아코디언 내용 -->
                         <div class="notice-content">
                             <div class="notice-content-inner" th:text="${faq.faqContent}">
                                 상세 내용이 여기에 표시됩니다.
+                            </div>
+
+                            <!-- 관리자만 수정/삭제 버튼 표시 -->
+                            <div class="admin-action-buttons"
+                                th:if="${session.loginMember != null and session.loginMember.isAdmin == 'Y'}">
+                                <button type="button" class="btn-edit" th:data-faq-no="${faq.faqNo}"
+                                    onclick="editFaq(this)">수정</button>
+                                <button type="button" class="btn-delete" th:data-faq-no="${faq.faqNo}"
+                                    onclick="deleteFaq(this)">삭제</button>
                             </div>
                         </div>
                     </div>
@@ -75,7 +97,7 @@
             </nav>
         </footer>
     </div>
-    
+
     <script th:src="@{/js/notice/faq.js}"></script>
 
     <!-- footer -->
