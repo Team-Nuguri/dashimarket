@@ -16,28 +16,31 @@ selectDong.addEventListener("click", e => {
 
 
 /* 로그인 안 한 경우(홈페이지 접속시) 현재 위치의 행정동 가져와서 세팅 */
-document.addEventListener("DOMContentLoaded", () => {
+if(isLogin == null) {
 
-    if(isSelectDong) return;
-
-    const getRegion = document.getElementById("getRegion");
-
-    /* 이 요소가 화면에 존재하는 경우 = 로그인 x, 선택한 동네 x => 비회원의 현재 위치의 동네명 가져오기 */
-
-    /* 현재 위치의 위도 경도 가져오기 */
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(getSuccess, getError, {
-            enableHighAccuracy: true,
-            timeout: 10000,
-            maximumAge: 0
-        });
-
-    } else {
-        console.warn("Geolocation API를 지원하지 않아 현재 위치를 가져올 수 없습니다.")
-    }
-
-
-});
+    document.addEventListener("DOMContentLoaded", () => {
+    
+        if(isSelectDong) return;
+    
+        const getRegion = document.getElementById("getRegion");
+    
+        /* 이 요소가 화면에 존재하는 경우 = 로그인 x, 선택한 동네 x => 비회원의 현재 위치의 동네명 가져오기 */
+    
+        /* 현재 위치의 위도 경도 가져오기 */
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(getSuccess, getError, {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 0
+            });
+    
+        } else {
+            console.warn("Geolocation API를 지원하지 않아 현재 위치를 가져올 수 없습니다.")
+        }
+    
+    
+    });
+}
 
 
 function getSuccess(position) {
@@ -57,9 +60,9 @@ function getSuccess(position) {
 
             for (var i = 0; i < result.length; i++) {
 
-                // 행정동의 region_type 값은 'H' 이므로
-                if (result[i].region_type === 'H') {
-                    // 행정동 가져오기
+                // 법정동의 region_type 값은 'B' 이므로
+                if (result[i].region_type === 'B') {
+                    // 법정동 가져오기
                     legalDongAddress = result[i].address_name;
                     break;
                 }
@@ -67,18 +70,18 @@ function getSuccess(position) {
 
             console.log(legalDongAddress);
 
-            // 변수에 저장된 행정동 주소 확인
-            console.log("저장된 행정동 주소:" + legalDongAddress);
+            // 변수에 저장된 법정동 주소 확인
+            console.log("저장된 법정동 주소:" + legalDongAddress);
 
             /* 풀 주소를 띄어쓰기로 나눠서 자른 후 */
-            /* 주소가 3칸, 4칸인 경우 길이-1만큼 잘라서 마지막 행정동만 가져옴 */
+            /* 주소가 3칸, 4칸인 경우 길이-1만큼 잘라서 마지막 법정동만 가져옴 */
             let selectDongLength = legalDongAddress.split(" ");
             let selectDong = selectDongLength[selectDongLength.length - 1];
 
             console.log(selectDong);
 
 
-            /* 가져온 행정동을 서버 세션에 올리기 위해 비동기 요청 */
+            /* 가져온 법정동 서버 세션에 올리기 위해 비동기 요청 */
             if (selectDong != null && selectDong != "") {
                 fetch("/selectDong", {
                     method: "POST",

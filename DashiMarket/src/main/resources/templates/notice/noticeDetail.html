@@ -30,12 +30,25 @@
                 </div>
 
                 <!-- 게시글 내용 -->
-                <div class="notice-content" th:utext="${notice.noticeContent}">
-                    내용이 여기에 표시됩니다.
+                <div class="notice-content">
+                    <!-- 게시글 본문 (위로 올림) -->
+                    <div th:utext="${notice.noticeContent}">
+                        내용이 여기에 표시됩니다.
+                    </div>
+
+                    <!-- 첨부 이미지 (아래로 내림) -->
+                    <div th:if="${notice.imageList != null and !notice.imageList.isEmpty()}" class="notice-images">
+                        <div th:each="image : ${notice.imageList}" class="notice-image">
+                            <img th:src="@{${image.imagePath}}" alt="첨부 이미지"
+                                style="max-width: 100%; height: auto; margin-top: 20px;" />
+                        </div>
+                    </div>
                 </div>
 
+
                 <!-- 관리자 버튼 영역 (관리자만 표시) -->
-                <div class="admin-buttons" th:if="${loginMember != null and loginMember.isAdmin()}">
+                <div class="admin-buttons"
+                    th:if="${session.loginMember != null and session.loginMember.isAdmin == 'Y'}">
                     <button type="button" class="btn-edit" id="editBtn">수정</button>
                     <button type="button" class="btn-delete" id="deleteBtn">삭제</button>
                 </div>

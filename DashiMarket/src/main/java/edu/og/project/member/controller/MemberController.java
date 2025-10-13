@@ -50,12 +50,15 @@ public class MemberController {
 					, HttpServletResponse resp
 					, RedirectAttributes ra) {
 		
-		Member loginMember = service.login(inputMember);
-	
+		Member loginMember = service.login(inputMember);	
+		
+    	System.out.println(loginMember);
+		
 		String path = "redirect:";
 		
 		if(loginMember != null) {
-			model.addAttribute("loginMember", loginMember);			
+			model.addAttribute("loginMember", loginMember);
+			session.removeAttribute("selectDong"); // 처음 페이지 접속시 지정된 현재 위치가 담긴 세션을 지움
 
 	        Cookie cookie = new Cookie("saveId", loginMember.getMemberEmail());
 		
@@ -97,6 +100,7 @@ public class MemberController {
 	public String signUp(Member inputMember, 
 						RedirectAttributes ra) {
 	
+		System.out.println(inputMember);
 		
 		int result = service.signUp(inputMember);
 		
