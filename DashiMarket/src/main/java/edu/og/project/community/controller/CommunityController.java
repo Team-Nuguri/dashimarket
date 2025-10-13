@@ -52,10 +52,11 @@ public class CommunityController {
 									  @RequestParam(value="category", required=false) String category,
 									  @RequestParam(value="sort", required=false, defaultValue="latest") String sort,
 									  Model model,
-									  HttpSession session /* 동네 확인 */) {
+									  @SessionAttribute(value="selectDong", required=false) String selectDong, /* 동네 확인 */
+									  @SessionAttribute(value="loginMember", required=false) Member loginMember) {
 		
 									// 공통 메소드
-		Map<String, Object> map = getData(boardType, cp, category, sort, session);
+		Map<String, Object> map = getData(boardType, cp, category, sort, selectDong, loginMember);
 		System.out.println(map);
 		model.addAllAttributes(map);
 		
@@ -70,10 +71,11 @@ public class CommunityController {
 									  @RequestParam(value="category", required=false) String category,
 									  @RequestParam(value="sort", required=false, defaultValue="latest") String sort,
 									  Model model,
-									  HttpSession session /* 동네 확인 */) {
+									  @SessionAttribute(value="selectDong", required=false) String selectDong, /* 동네 확인 */
+									  @SessionAttribute(value="loginMember", required=false) Member loginMember) {
 		
 									// 공통 메소드
-		Map<String, Object> map = getData(boardType, cp, category, sort, session);
+		Map<String, Object> map = getData(boardType, cp, category, sort, selectDong, loginMember);
 		model.addAllAttributes(map);
 		
 		// 프레그먼트 반환
@@ -98,24 +100,32 @@ public class CommunityController {
 	
 	
 	// 동기, 비동기 요청 로직이 같으므로 한 메소드로 빼서 사용 (목록 조회 서비스 호출)
-	private Map<String, Object> getData(String boardType, int cp, String category, String sort, HttpSession session) {
-		// 세션에 저장된 회원 정보
-//		Member loginMember = session.getAttribute("loginMember");
+	private Map<String, Object> getData(String boardType, int cp, String category, String sort, String selectDong, Member loginMember) {
 		
 		// 선택한 동네값 존재 여부
-//		String selectDong = (String) session.getAttribute("selectDong");
-//		String finalDong = null;
+		String finalDong = null;
 		
-		// 선택한 동네가 없는 경우 회원의 동네로 조회
-//		if(selectDong == null) {
-//			finalDong = loginMember.getDefaultDong();
-//		} else {
-//			finalDong = selectDong;
-//	}
-		// ***************************************************************
-		// 회원가입 로그인 로직 구현 후 파라미터 추가 수정 필요
-		// ***************************************************************
-		return service.selectCommunityList(boardType, cp, category, sort);
+		// 1. 세션에 selectDong이 있는 경우 (맵 선택 or 현재위치)
+		if(selectDong != null && !selectDong.trim().isEmpty()) {
+			finalDong = selectDong; // 세션에 있는 동네값으로 세팅
+			
+		} else if(loginMember != null) {
+			// 로그인만 한 상태인 경우(맵 선택 x, 세션에 동네 값 없음)
+			
+			finalDong = loginMember.getDefaultDong(); // DB에 있는 회원의 주소 값으로 세팅
+		}
+		
+		int loginMemberNo;
+		
+		if(loginMember != null) {
+			loginMemberNo = loginMember.getMemberNo();
+		} else {
+			loginMemberNo = 0;
+		}
+		
+		
+		System.out.println("최종 조회 동네 : " + finalDong);
+		return service.selectCommunityList(loginMemberNo, boardType, cp, category, sort, finalDong);
 	}
 	
 	// 커뮤니티 상세조회

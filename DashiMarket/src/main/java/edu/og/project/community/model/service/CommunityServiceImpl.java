@@ -37,11 +37,12 @@ public class CommunityServiceImpl implements CommunityService {
 
 	// 커뮤니티 목록 조회
 	@Override
-	public Map<String, Object> selectCommunityList(String boardType, int cp, String category, String sort) {
-		// 특정 게시판의 특정 카테고리에서 삭제되지 않은 게시글 수 조회
+	public Map<String, Object> selectCommunityList(int memberNo, String boardType, int cp, String category, String sort, String finalDong) {
+		// 특정 동네의 특정 게시판의 특정 카테고리에서 삭제되지 않은 게시글 수 조회
 		Map<String, Object> countParam = new HashMap<>();
 		countParam.put("boardType", boardType);
 		countParam.put("category", category);
+		countParam.put("finalDong", finalDong);
 
 		int listCount = mapper.getListCount(countParam);
 
@@ -52,9 +53,11 @@ public class CommunityServiceImpl implements CommunityService {
 
 		// 매퍼로 보낼 파라미터
 		Map<String, Object> param = new HashMap<>();
+		param.put("memberNo", memberNo);
 		param.put("boardType", boardType);
 		param.put("category", category);
 		param.put("sort", sort);
+		param.put("finalDong", finalDong);
 
 		List<Community> boardList = mapper.selectCommunityList(param, rowBounds);
 
