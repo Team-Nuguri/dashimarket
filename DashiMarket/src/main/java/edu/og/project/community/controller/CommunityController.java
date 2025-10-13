@@ -111,8 +111,17 @@ public class CommunityController {
 		// 로그인만 한 상태인 경우(맵 선택 x, 세션에 동네 값 없음)
 		else if(loginMember != null) {
 			String hDongStr = loginMember.getJibunAddress();
-			String hDongArr[] = hDongStr.split(" ");
-			finalDong = hDongArr[hDongArr.length - 2];
+			
+			if(hDongStr != null && !hDongStr.trim().isEmpty()) {
+				String hDongArr[] = hDongStr.split(" ");
+				
+				if(hDongArr.length >= 2) {
+					finalDong = hDongArr[hDongArr.length - 2];
+				} else {
+					finalDong = null;
+				}
+				
+			}
 		}
 		
 		int loginMemberNo;
