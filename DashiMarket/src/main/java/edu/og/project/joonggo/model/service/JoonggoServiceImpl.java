@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,8 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.og.project.common.dto.Image;
+import edu.og.project.common.dto.Pagination;
 import edu.og.project.common.utility.ImageResizer;
 import edu.og.project.common.utility.Util;
+import edu.og.project.goods.model.dto.Goods;
 import edu.og.project.joonggo.model.dao.JoonggoMapper;
 import edu.og.project.joonggo.model.dto.Joonggo;
 import edu.og.project.joonggo.model.dto.JoonggoWrite;
@@ -39,6 +42,57 @@ public class JoonggoServiceImpl implements JoonggoService {
 	@Value("${my.joonggo.location}")
 	private String filePath;
 
+
+	// 중고 상품 목록 조회 (KJK)
+	@Override
+	public Map<String, Object> selectJoonggoList(String boardType, int cp) {
+		// 특정 게시판의 삭제되지 않은 게시글 수 조회
+		int listCount = mapper.getJoonggoListCount(boardType);
+
+		Pagination pagination = new Pagination(cp, listCount, 16);
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		List<Joonggo> boardList = mapper.selectJoonggoList(boardType, rowBounds);
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("pagination", pagination);
+		map.put("boardList", boardList);
+
+		return map;
+	}
+
+
+	// 중고 상품 목록 정렬 (KJK)
+	@Override
+	public Map<String, Object> sortJoonggoList(String boardType, int cp, String sortType) {
+		int listCount = mapper.getJoonggoListCount(boardType);
+
+		Pagination pagination = new Pagination(cp, listCount, 16);
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		// 정렬 타입에 맞게 조회해오기
+		List<Joonggo> sortList = null;
+
+		if(sortType != null) {
+
+			// 인기순(조회수?)
+			if(sortType.equals("popular")) sortList = mapper.sortJoonggoViews(boardType, rowBounds);
+
+			// 낮은 가격순
+			if(sortType.equals("lowPrice")) sortList = mapper.sortJoonggoLowPrice(boardType, rowBounds);
+
+			// 높은 가격순
+			if(sortType.equals("highPrice")) sortList = mapper.sortJoonggoHighPrice(boardType, rowBounds);
+		}
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("pagination", pagination);
+		map.put("boardList", sortList);
+
+		return map;
+	}
 
 
 
@@ -276,6 +330,9 @@ public class JoonggoServiceImpl implements JoonggoService {
 	}
 
 
+<<<<<<< HEAD
+
+=======
 	
 	// 중고 삽입 or 삭제
 	@Override
@@ -310,6 +367,7 @@ public class JoonggoServiceImpl implements JoonggoService {
 		
 		return mapper.likeSelect(map);
 	}
+>>>>>>> 75ecc543f402e34b055104d28c1a327ae3f46779
 
 
 	

@@ -1,24 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.thymeleaf.org">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>굿즈 구매후기</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
-  <link rel="stylesheet" href="font.css">
-  <link rel="stylesheet" href="../../static/css/afterTradeReview/goods_review.css">
-
+ 
+<!-- <link rel="stylesheet" href="font.css"> -->
+  
+  <link rel="stylesheet" th:href="@{/css/common/font.css}">
+  <link rel="stylesheet" th:href="@{/css/afterTradeReview/goods_review.css}">
 
 </head>
 
 <body>
 
   <main>
+	  
+	  <form id="uploadForm" enctype="multipart/form-data">
+		  
     <div class="logo-container">
       <div class="logo">
         <div class="logo-icon">
-          <img src="../../static/images/afterTradeReview/logoWhite.png" alt="배송 완료 로고">
+          <img th:src="@{/images/afterTradeReview/logoWhite.png}" alt="배송 완료 로고">
         </div>
       </div>
       <div id="used-review-msg">배송이 완료되었습니다</div>
@@ -45,7 +50,7 @@
         <i class="rating__star1 far fa-star" data-rating="4"></i>
         <i class="rating__star1 far fa-star" data-rating="5"></i>
       </div>
-      <input type="hidden" name="Q1" value="">
+       <input type="hidden" name="rating1" value="">
       <p class="selected-rating" id="selected-rating1"></p>
     </div>
     
@@ -58,6 +63,7 @@
         <i class="rating__star2 far fa-star" data-rating="4"></i>
         <i class="rating__star2 far fa-star" data-rating="5"></i>
       </div>
+       <input type="hidden" name="rating2" value="">
       <p class="selected-rating" id="selected-rating2"></p>
     </div>
 
@@ -70,6 +76,7 @@
         <i class="rating__star3 far fa-star" data-rating="4"></i>
         <i class="rating__star3 far fa-star" data-rating="5"></i>
       </div>
+       <input type="hidden" name="rating3" value="">
       <p class="selected-rating" id="selected-rating3"></p>
     </div>
 
@@ -82,6 +89,7 @@
         <i class="rating__star4 far fa-star" data-rating="4"></i>
         <i class="rating__star4 far fa-star" data-rating="5"></i>
       </div>
+       <input type="hidden" name="rating4" value="">
       <p class="selected-rating" id="selected-rating4"></p>
     </div>
 
@@ -89,7 +97,7 @@
       <h3>후기를 통해<br>
         다른 분들에게 도움될 수 있는 이야기를 들려주세요!</h3>
       <span class="text1">굿즈 후기를 작성하시고, 포인트를 적립하세요!</span>
-      <form id="uploadForm">
+      
         <textarea id="text" name="text" placeholder="여기에 적어주세요. (선택사항)"></textarea>
 
         <div id="upload-bottom-area">
@@ -99,14 +107,16 @@
           <input type="file" id="image" name="image" accept="image/*" style="display: none;">
           <div class="preview" id="preview"></div>
         </div>
-
+        <input type="hidden" name="reviewType" value="goods">
         <button type="submit">구매 후기 보내기</button>
-      </form>
+     
     </div>
+    
+     </form>
   </main>
-
-
-  <script src="../../static/js/afterTradeReview/goods_review.js"></script>
+ 
+  
+  <script th:src="@{/js/afterTradeReview/goods_review.js}"></script>
 </body>
 
 </html>
