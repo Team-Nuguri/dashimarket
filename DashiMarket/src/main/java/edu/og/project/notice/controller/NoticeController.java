@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.og.project.common.dto.Image;
 import edu.og.project.common.dto.Member;
 import edu.og.project.notice.model.dto.Notice;
 import edu.og.project.notice.model.service.NoticeService;
@@ -157,7 +158,8 @@ public class NoticeController {
 
 	// =========== 관리자 전용 글쓰기 등록 처리 ===========
 	@PostMapping("/notice/write")
-	public String noticeWriteSubmit(@RequestParam("admWriteBoardSelect") String boardType,
+	public String noticeWriteSubmit(
+			@RequestParam("admWriteBoardSelect") String boardType,
 			@RequestParam("admWriteTitle") String title, 
 			@RequestParam("admWriteContent") String content,
 			@RequestParam(value = "admWriteFileInput", required = false) MultipartFile file,
@@ -180,17 +182,22 @@ public class NoticeController {
 			notice.setBoardCode(5);
 		}
 		
-		// 파일 업로드 처리
-        if (file != null && !file.isEmpty()) {
-            String savedFileName = saveFile(file);
-            if (savedFileName != null) {
-                notice.setAttachmentPath(noticeWebPath + savedFileName); // ⭐ 웹 경로 저장
-                notice.setAttachmentOriginalName(file.getOriginalFilename());
-            }
-        }
-
-		
+		// 게시글 등록 (selectKey로 noticeNo가 자동 생성됨)
 		int result = service.insertNotice(notice);
+		
+		// IMAGE 테이블에 이미지 등록
+	    if (result > 0 && file != null && !file.isEmpty()) {
+	        String savedFileName = saveFile(file);
+	        if (savedFileName != null) {
+	            Image image = new Image();
+	            image.setImagePath(noticeWebPath + savedFileName);
+	            image.setImageRename(savedFileName);
+	            image.setImageOrder(0);
+	            image.setBoardNo(notice.getNoticeNo());  // selectKey로 생성된 noticeNo 사용
+	            
+	            service.insertImage(image);
+	        }
+	    }
 
 		if (result > 0) {
 			ra.addFlashAttribute("message", "공지사항이 등록되었습니다.");
@@ -254,17 +261,27 @@ public class NoticeController {
 			notice.setBoardCode(5);
 		}
 		
-		// 파일 업로드 처리 (새 파일이 있을 경우)
-        if (file != null && !file.isEmpty()) {
-            String savedFileName = saveFile(file);
-            if (savedFileName != null) {
-                notice.setAttachmentPath(noticeWebPath + savedFileName); // ⭐ 웹 경로 저장
-                notice.setAttachmentOriginalName(file.getOriginalFilename());
-            }
-        }
+		int result = service.updateNotice(notice);
+		
+		// 새 파일 업로드 시 기존 이미지 삭제 후 새로 등록
+	    if (result > 0 && file != null && !file.isEmpty()) {
+	        // 기존 이미지 삭제
+	        service.deleteImagesByBoardNo(String.valueOf(noticeNo));
+	        
+	        // 새 이미지 등록
+	        String savedFileName = saveFile(file);
+	        if (savedFileName != null) {
+	            Image image = new Image();
+	            image.setImagePath(noticeWebPath + savedFileName);
+	            image.setImageRename(savedFileName);
+	            image.setImageOrder(0);
+	            image.setBoardNo(String.valueOf(noticeNo));
+	            
+	            service.insertImage(image);
+	        }
+	    }
 		
 
-		int result = service.updateNotice(notice);
 
 		if (result > 0) {
 			ra.addFlashAttribute("message", "공지사항이 수정되었습니다.");	
