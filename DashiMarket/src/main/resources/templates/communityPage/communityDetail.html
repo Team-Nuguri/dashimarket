@@ -18,7 +18,7 @@
 
         <div id="post-category-header">
             <div class="text-size-24 bold-text" th:text="${board.categoryName}">카테고리명</div>
-            <div><a href="#" class="text-size-16 medium-text">목록</a></div>
+            <div><a href="#" class="text-size-16 medium-text" id="go-list">목록</a></div>
         </div>
 
         <div class="row1">
@@ -39,6 +39,8 @@
                     <span class="user-dong medium-text text-size-16" th:text="${board.defaultDong}">동네명</span>
                     <span>•</span>
                     <span class="post-date text-size-15" th:text="${board.communityCreateDate}">작성일</span>
+                                                                                                            <!-- 수정일 -->
+                    <span class="post-date text-size-14" style="color: gray;" th:if="${board.communityUpdateDate}">(수정됨) [[${board.communityUpdateDate}]]</span> 
                 </div>
             </div>
 

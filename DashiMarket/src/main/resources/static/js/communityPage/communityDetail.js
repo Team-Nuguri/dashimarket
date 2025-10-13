@@ -1,5 +1,12 @@
 console.log("communityDetail.js");
 
+/* 목록으로 */
+const goList = document.getElementById("go-list");
+
+goList.addEventListener("click", () => {
+    location.href = "/community" + location.search;
+})
+
 /* 정렬 */
 const sort = document.querySelectorAll(".sort-area a");
 let isSort = sort[0];
