@@ -36,7 +36,7 @@
                 </div>
                 <div class="info-text">
                     <div class="user-nick-name bold-text text-size-20" th:text="${board.memberNickname}">닉네임</div>
-                    <span class="user-dong medium-text text-size-16" th:text="${session.loginMember.jibunAddress.split(' ')[#arrays.length(session.loginMember.jibunAddress.split(' ')) - 2]}">동네명</span>
+                    <span class="user-dong medium-text text-size-16" th:text="${memberHdong}">동네명</span>
                     <span>•</span>
                     <span class="post-date text-size-15" th:text="${board.communityCreateDate}">작성일</span>
                                                                                                             <!-- 수정일 -->
