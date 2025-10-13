@@ -65,7 +65,7 @@ const connectSse = () => {
 }
 
 // 알림 메세지 전송 함수
-const sendNotification = (type, url, pkNo, content) => {
+const sendNotification = (type, url, pkNo, content, targetNo) => {
 
     // 로그인X -> 함수 종료
     if(notificationLoginCheck === false) return;
@@ -74,7 +74,7 @@ const sendNotification = (type, url, pkNo, content) => {
         notificationType    : type,
         notificationUrl     : url,
         pkNo                : pkNo,
-        notificationContent : content,
+        notificationContent : content
     }
 
     fetch("/sse/send", {

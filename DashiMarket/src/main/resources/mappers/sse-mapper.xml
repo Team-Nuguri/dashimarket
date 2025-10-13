@@ -35,7 +35,7 @@
 				
 				<!-- 알림 종류가 채팅 [pkNo : 채팅을 받는 회원 번호(targetNo)] -->
 				<when test="notificationType == 'chatting'">
-					#{pkNo})				
+					#{pkNo}			
 				</when>
 			
 			</choose>
@@ -46,7 +46,7 @@
 	<select id="selectReceiveMember" resultType="map">
 		SELECT RECEIVE_MEMBER_NO "receiveMemberNo",
 			(SELECT COUNT(*) FROM NOTIFICATION SUB
-			 WHERE SUB.RECEIVE_MEMBER_NO = MAIN.RECEVIE_MEMBER_NO
+			 WHERE SUB.RECEIVE_MEMBER_NO = MAIN.RECEIVE_MEMBER_NO
 			 AND READ_CHECK = 'N') "notiCount"
 		FROM(
 			 SELECT RECEIVE_MEMBER_NO FROM NOTIFICATION
@@ -55,7 +55,7 @@
 	</select>
 	
 	<!-- 로그인한 회원의 알림 목록 조회 -->
-	<select id="selectNotificationList" parameterType="int" resultType="Notification">
+	<select id="selectNotificationList" resultType="Notification">
 		SELECT 
 		    NOTIFICATION_NO,
 		    NOTIFICATION_CONTENT,
@@ -85,5 +85,12 @@
 	<delete id="delectNotification">
 		DELETE FROM NOTIFICATION WHERE NOTIFICATION_NO = ${notificationNo}
 	</delete>
+	
+	<!-- 알림 읽음 처리 -->
+	<update id="updateNotification">
+		UPDATE NOTIFICATION SET
+		READ_CHECK = 'Y'
+		WHERE NOTIFICATION_NO = ${notificationNo}
+	</update>
 	
 </mapper>

@@ -61,5 +61,11 @@ public class SseServiceImpl implements SseService{
 		mapper.delectNotification(notificationNo);
 	}
 
+	// 알림 읽음 처리
+	@Override
+	public void updateNotification(int notification) {
+		mapper.updateNotification(notification);
+	}
+
 
 }

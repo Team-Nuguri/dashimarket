@@ -103,7 +103,7 @@ const likeBtn = document.getElementById("like-heart");
 
 likeBtn.addEventListener("click", e => {
     /* 로그인 하지 않은 회원인 경우 */
-    if(loginMemberNo == "") {
+    if(commLoginMemberNo == "") {
         alert("로그인 후 이용해주세요.");
         return;
     }
@@ -120,7 +120,7 @@ likeBtn.addEventListener("click", e => {
     }
 
     const data = {
-        memberNo: loginMemberNo,
+        memberNo: commLoginMemberNo,
         communityNo: boardNo,
         check: check
     }
@@ -223,7 +223,7 @@ replySubmitBtn.forEach(submit => {
         /* 답글 작성 비동기 요청 */
         const data = {
         "commentContent" : replyContent.value.trim(),
-        memberNo : loginMemberNo,
+        memberNo : commLoginMemberNo,
         "postNo" : boardNo,
         "parentCommentNo": parentNo
         }
@@ -278,10 +278,10 @@ const commentBtn = document.getElementsByClassName("comment-button-area")[0];
 commentBtn.addEventListener("click", e => {
 
     /* 로그인 안 한 경우 댓글 작성 X */
-    // if(loginMemberNo == "") {
-    //     alert("로그인 후 이용해주세요.");
-    //     return;
-    // }
+    if(commLoginMemberNo == "") {
+        alert("로그인 후 이용해주세요.");
+        return;
+    }
 
     /* 댓글 미작성인 경우 */
     if(commentArea.value.trim().length == 0) {
@@ -295,7 +295,7 @@ commentBtn.addEventListener("click", e => {
     /* 댓글 작성 비동기 요청 */
     const data = {
         "commentContent" : commentArea.value,
-        memberNo : loginMemberNo,
+        memberNo : commLoginMemberNo,
         "postNo" : boardNo
     }
 
@@ -450,17 +450,27 @@ function deleteComment(commentNo) {
 }
 
 /* 게시글 수정 */
-document.getElementsByClassName("post-update-btn")[0].addEventListener("click", () => {
-    /* /community/게시글번호 -> /community/게시글번호/update?cp=1 */
-    location.href = location.pathname + '/update' + location.search;
+const updateBtn = document.getElementsByClassName("post-update-btn")[0];
 
-})
+if(updateBtn != null) {
+    updateBtn.addEventListener("click", () => {
+        /* /community/게시글번호 -> /community/게시글번호/update?cp=1 */
+        location.href = location.pathname + '/update' + location.search;
+    
+    })
+
+}
 
 
 
 /* 게시글 삭제 */
-document.getElementsByClassName("post-del-btn")[0].addEventListener("click", () => {
-    if(confirm("게시글을 삭제하시겠습니까?")) {
-        location.href = location.pathname + "/delete";
-    }
-})
+const deleteBtn = document.getElementsByClassName("post-del-btn")[0];
+
+if(deleteBtn != null) {
+    deleteBtn.addEventListener("click", () => {
+        if(confirm("게시글을 삭제하시겠습니까?")) {
+            location.href = location.pathname + "/delete";
+        }
+    })
+
+}

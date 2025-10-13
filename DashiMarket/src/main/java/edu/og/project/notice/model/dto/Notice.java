@@ -18,4 +18,8 @@ public class Notice {
 	private int boardCode; // 게시판 코드 (공지사항 : 4)
 	private String boardType; // 게시판 이름 (notice)
 	
+	// 회원
+	private String memberNickname;
+	private int memberNo;
+	
 }

@@ -1,5 +1,3 @@
-console.log("noticeDetail.js is loaded");
-
 // 목록으로 버튼 클릭 이벤트
 const listBtn = document.getElementById('listBtn');
 if (listBtn) {

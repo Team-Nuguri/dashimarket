@@ -369,4 +369,13 @@ public class JoonggoServiceImpl implements JoonggoService {
 	}
 >>>>>>> 75ecc543f402e34b055104d28c1a327ae3f46779
 
+
+	
+	
+	// 조회수 증가
+	@Override
+	public int updateReadCount(String joonggoNo) {
+		return mapper.updateReadCount(joonggoNo);
+	}
+
 }
