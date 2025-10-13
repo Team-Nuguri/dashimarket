@@ -95,11 +95,12 @@ public interface JoonggoMapper {
 	// 좋아요 확인
 	int likeSelect(Map<String, Object> map);
 
+	// 나의 위시리스트 (KJK)
+	public List<Joonggo> selectJonggoWishList(int memberNo);
+	
 	
 	// 조회수 증가
 	int updateReadCount(String joonggoNo);
 	
 	
-
-
 }
