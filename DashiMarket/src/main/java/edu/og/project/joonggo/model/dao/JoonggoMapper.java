@@ -79,9 +79,7 @@ public interface JoonggoMapper {
 	// 시작 인덱스 조회
 	int selectImageOrder(String joonggoNo);
 
-<<<<<<< HEAD
-=======
-	
+
 	// 좋아요 삽입
 	int likeInsert(Map<String, Object> paramMap);
 
@@ -102,6 +100,6 @@ public interface JoonggoMapper {
 	int updateReadCount(String joonggoNo);
 	
 	
->>>>>>> 75ecc543f402e34b055104d28c1a327ae3f46779
+
 
 }

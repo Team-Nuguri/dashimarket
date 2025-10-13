@@ -498,8 +498,8 @@
             </div>
 
 
-            <!-- 상품 등록(관리자한테만 보여줄 것) -->
-            <a th:href="@{/}" class="upload-goods-btn">
+
+            <a th:if="${session.loginMember}" th:href="@{/joonggo/write}" class="upload-goods-btn">
                 <div id="upload-goods-text" class="text-size-16 medium-text">상품 등록</div>
             </a>
         </div>
@@ -566,13 +566,13 @@
 
             <th:block th:each="board : ${boardList}">
 
-                <a th:href="@{/{boardType}/{boardNo}(boardType=${boardType}, boardNo=${board.boardNo}, cp=${pagination.currentPage})}" class="joonggo-detail-area">
+                <a th:href="@{/{boardType}/{boardNo}(boardType=${boardType}, boardNo=${board.joonggoNo}, cp=${pagination.currentPage})}" class="joonggo-detail-area">
                     <!-- 이미지 -->
                     <div class="joonggo-img"><img th:src="${board.thumbnail}" alt="">중고상품 이미지</div>
                     <!-- 제품명 -->
-                    <div class="joonggo-name text-size-16 medium-text" th:text="${board.boardTitle}">중고상품 이름</div>
+                    <div class="joonggo-name text-size-16 medium-text" th:text="${board.joonggoTitle}">중고상품 이름</div>
                     <!-- 가격 -->
-                    <div class="joonggo-price" th:text="${board.goodsPrice}">가격</div>
+                    <div class="joonggo-price" th:text="${#numbers.formatDecimal(board.joonggoPrice, 0, 'COMMA', 0, 'POINT')} + '원'">가격</div>
                 </a>
                 
             </th:block>

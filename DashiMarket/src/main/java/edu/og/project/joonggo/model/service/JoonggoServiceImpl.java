@@ -330,9 +330,6 @@ public class JoonggoServiceImpl implements JoonggoService {
 	}
 
 
-<<<<<<< HEAD
-
-=======
 	
 	// 중고 삽입 or 삭제
 	@Override
@@ -367,7 +364,6 @@ public class JoonggoServiceImpl implements JoonggoService {
 		
 		return mapper.likeSelect(map);
 	}
->>>>>>> 75ecc543f402e34b055104d28c1a327ae3f46779
 
 
 	
