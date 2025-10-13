@@ -30,12 +30,22 @@
                 </div>
 
                 <!-- 게시글 내용 -->
-                <div class="notice-content" th:utext="${notice.noticeContent}">
-                    내용이 여기에 표시됩니다.
+                <div class="notice-content">
+                    <!-- 첨부 이미지가 있는 경우 표시 -->
+                    <div th:if="${notice.attachmentPath != null and notice.attachmentPath != ''}" class="notice-image">
+                        <!-- 경로 수정: @{} 안에서 + 사용 -->
+                        <img th:src="@{${notice.attachmentPath}}" alt="첨부 이미지" style="max-width: 100%; height: auto;" />
+                    </div>
+
+                    <!-- 게시글 본문 -->
+                    <div th:utext="${notice.noticeContent}">
+                        내용이 여기에 표시됩니다.
+                    </div>
                 </div>
 
                 <!-- 관리자 버튼 영역 (관리자만 표시) -->
-                <div class="admin-buttons" th:if="${loginMember != null and loginMember.isAdmin()}">
+                <div class="admin-buttons"
+                    th:if="${session.loginMember != null and session.loginMember.isAdmin == 'Y'}">
                     <button type="button" class="btn-edit" id="editBtn">수정</button>
                     <button type="button" class="btn-delete" id="deleteBtn">삭제</button>
                 </div>
