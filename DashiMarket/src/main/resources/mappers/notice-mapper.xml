@@ -3,23 +3,24 @@
 
 <mapper namespace="edu.og.project.notice.model.dao.NoticeMapper">
 
-    <!-- 공지사항 목록 조회 (검색 + 페이징) -->
-    <select id="selectNoticeList" resultType="edu.og.project.notice.model.dto.Notice">
-        SELECT
-            BOARD_NO AS noticeNo,
-            BOARD_TITLE AS noticeTitle,
-            TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS noticeCreateDate,
-            POST_VIEWS AS readCount
-        FROM BOARD
-        WHERE BOARD_CODE = 4
-        AND DELETE_FL = 'N'
-        <if test="query != null and query != ''">
-            AND BOARD_TITLE LIKE '%' || #{query} || '%'
-        </if>
-        ORDER BY TO_NUMBER(BOARD_NO) DESC
-        OFFSET #{offset} ROWS
-        FETCH NEXT #{pageSize} ROWS ONLY
-    </select>
+    <!-- 공지사항 목록 조회 (검색 + 페이징) - 최신글이 맨 위 -->
+	<select id="selectNoticeList" resultType="edu.og.project.notice.model.dto.Notice">
+	    SELECT
+	        BOARD_NO AS noticeNo,
+	        BOARD_TITLE AS noticeTitle,
+	        TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS noticeCreateDate,
+	        POST_VIEWS AS readCount
+	    FROM BOARD
+	    WHERE BOARD_CODE = 4
+	    AND DELETE_FL = 'N'
+	    <if test="query != null and query != ''">
+	        AND BOARD_TITLE LIKE '%' || #{query} || '%'
+	    </if>
+	    ORDER BY BOARD_CREATE_DATE DESC, TO_NUMBER(BOARD_NO) DESC
+	    OFFSET #{offset} ROWS
+	    FETCH NEXT #{pageSize} ROWS ONLY
+	</select>
+
 
     <!-- 공지사항 전체 개수 조회 (검색 포함) -->
     <select id="getNoticeCount" resultType="int">
@@ -32,7 +33,7 @@
         </if>
     </select>
 
-    <!-- 공지사항 상세 조회 -->
+    <!-- 공지사항 상세 조회 - ATTACHMENT_PATH 추가 -->
     <select id="selectNoticeDetail" resultType="edu.og.project.notice.model.dto.Notice">
         SELECT
             BOARD_NO AS noticeNo,
@@ -41,6 +42,7 @@
             TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS noticeCreateDate,
             POST_VIEWS AS readCount,
             BOARD_CODE AS boardCode,
+            ATTACHMENT_PATH AS attachmentPath,
             CASE 
                 WHEN BOARD_CODE = 4 THEN 'notice'
                 WHEN BOARD_CODE = 5 THEN 'faq'
@@ -51,7 +53,7 @@
         AND DELETE_FL = 'N'
     </select>
 
-    <!-- 공지사항 글 등록 -->
+    <!-- 공지사항 글 등록 - ATTACHMENT_PATH 추가 -->
     <insert id="insertNotice" parameterType="edu.og.project.notice.model.dto.Notice">
         INSERT INTO BOARD (
             BOARD_NO,
@@ -61,7 +63,8 @@
             POST_VIEWS,
             BOARD_CODE,
             MEMBER_NO,
-            DELETE_FL
+            DELETE_FL,
+            ATTACHMENT_PATH
         ) VALUES (
             SEQ_NOTICE_NO.NEXTVAL,
             #{noticeTitle},
@@ -70,7 +73,8 @@
             0,
             #{boardCode},
             1,
-            'N'
+            'N',
+            #{attachmentPath}
         )
     </insert>
 
@@ -100,13 +104,16 @@
         FETCH FIRST 1 ROWS ONLY
     </select>
 
-    <!-- 공지사항 수정 -->
+    <!-- 공지사항 수정 - ATTACHMENT_PATH 추가 -->
     <update id="updateNotice" parameterType="edu.og.project.notice.model.dto.Notice">
         UPDATE BOARD
         SET
             BOARD_TITLE = #{noticeTitle},
             BOARD_CONTENT = #{noticeContent},
             BOARD_CODE = #{boardCode}
+            <if test="attachmentPath != null and attachmentPath != ''">
+            , ATTACHMENT_PATH = #{attachmentPath}
+            </if>
         WHERE BOARD_NO = #{noticeNo}
         AND DELETE_FL = 'N'
     </update>
