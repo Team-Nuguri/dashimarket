@@ -21,7 +21,7 @@
             <div id="select-city" class="bold-text">
                 <div id="drop-down-icon"><img th:src="@{/images/svg/location_green.svg}"></div>
                 <div id="show-city-name" class="text-size-24">여기는 
-                    " <span id="show-region" th:text="${session.selectDong != null ? session.selectDong : session.loginMember.defaultDong}">
+                    " <span id="show-region" th:text="${session.selectDong != null ? session.selectDong : session.loginMember.jibunAddress}">
                         동네명
                     </span>
                     "입니다

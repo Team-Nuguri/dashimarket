@@ -57,9 +57,9 @@ function getSuccess(position) {
 
             for (var i = 0; i < result.length; i++) {
 
-                // 행정동의 region_type 값은 'H' 이므로
-                if (result[i].region_type === 'H') {
-                    // 행정동 가져오기
+                // 법정동의 region_type 값은 'B' 이므로
+                if (result[i].region_type === 'B') {
+                    // 법정동 가져오기
                     legalDongAddress = result[i].address_name;
                     break;
                 }
@@ -67,18 +67,18 @@ function getSuccess(position) {
 
             console.log(legalDongAddress);
 
-            // 변수에 저장된 행정동 주소 확인
-            console.log("저장된 행정동 주소:" + legalDongAddress);
+            // 변수에 저장된 법정동 주소 확인
+            console.log("저장된 법정동 주소:" + legalDongAddress);
 
             /* 풀 주소를 띄어쓰기로 나눠서 자른 후 */
-            /* 주소가 3칸, 4칸인 경우 길이-1만큼 잘라서 마지막 행정동만 가져옴 */
+            /* 주소가 3칸, 4칸인 경우 길이-1만큼 잘라서 마지막 법정동만 가져옴 */
             let selectDongLength = legalDongAddress.split(" ");
             let selectDong = selectDongLength[selectDongLength.length - 1];
 
             console.log(selectDong);
 
 
-            /* 가져온 행정동을 서버 세션에 올리기 위해 비동기 요청 */
+            /* 가져온 법정동 서버 세션에 올리기 위해 비동기 요청 */
             if (selectDong != null && selectDong != "") {
                 fetch("/selectDong", {
                     method: "POST",
