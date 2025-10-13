@@ -8,7 +8,6 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import edu.og.project.admin.model.dao.ReportMapper;
 import edu.og.project.admin.model.dto.Report;
 import edu.og.project.common.dto.Pagination;
 import edu.og.project.goods.model.dao.GoodsMapper;
