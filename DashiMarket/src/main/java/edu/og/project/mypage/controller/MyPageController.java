@@ -41,7 +41,8 @@ public class MyPageController {
     @GetMapping("/profile")
     public String myPageProfile(
         @SessionAttribute(value = "loginMember", required = false) Member loginMember, 
-        Model model) {
+        Model model) {  	
+
         
         if (loginMember == null) {
             return "redirect:/member/login"; 
@@ -56,6 +57,9 @@ public class MyPageController {
         }
         
         model.addAttribute("loginMember", memberInfo);
+        
+    	System.out.println(loginMember);
+    	
         return "myPage/myPage-profile";
     }
     
@@ -266,4 +270,19 @@ public class MyPageController {
 	public String fraud() { 
 	    return "myPage/fraudService";
 	}
+	
+	
+//	@GetMapping("/myPage/goods")
+//	@ResponseBody
+//	public String selectGoods (
+//			@RequestBody List<Map <String, Object> paramMap>,
+//			@SessionAttributes(value="loginMember") Member loginMember) {
+//		
+//		retun 
+//		
+//		
+//	}
+	
+	
+	
 }
