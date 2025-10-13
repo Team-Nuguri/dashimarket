@@ -21,55 +21,7 @@
 
 <body th:with="pagination=${map.pagination}, boardList=${map.boardList}">
 
-    <header>
-        <section id="header-area">
-            <div>
-                <a th:href="@{/}">
-                    <img id="main-logo" th:src="@{/images/common/logo.png}">
-                </a>
-
-            </div>
-            <div>
-                <div>
-                    <a th:href="@{/joongo}" class="noto-sans-kr-20">중고거래</a>
-                </div>
-                <div>
-                    <a th:href="@{/goods}" class="noto-sans-kr-20">굿즈</a>
-                </div>
-                <div>
-                    <a th:href="@{/community}" class="noto-sans-kr-20">커뮤니티</a>
-                </div>
-
-            </div>
-
-            <div id="icon-area">
-                <button>
-                    <!-- <img th:src="@{/images/svg/하트.svg"> -->
-                    <!-- <img th:src="@{@{/images/장바구니.svg}" > -->
-                    <img th:src="@{/images/svg/사람.svg}" >
-                </button>
-
-                <button>
-                    <img th:src="@{/images/svg/group.svg}">
-                </button>
-                <button>
-                    <img th:src="@{/images/svg/clarity_menu-line.svg}">
-
-                </button>
-
-            </div>
-        </section>
-
-        <section id="search-area">
-            <form action="">
-                <fieldset>
-                    <img th:src="@{/images/svg/돋보기.svg}">
-                    <input type="search" name="query" id="query" placeholder="검색어를 입력해주세요." class="noto-sans-kr-20">
-
-                </fieldset>
-            </form>
-        </section>
-</header>
+    <th:block th:replace="~{common/header}">header.html</th:block>
 
 
 
@@ -623,6 +575,7 @@
         
         
 <th:block th:replace="~{common/footer}">footer.html</th:block>
+
 <script th:src="@{/js/joonggoPage/joonggoHome.js}"></script>
 <script th:src="@{/js/joonggoPage/joonggoHome2.js}"></script>
 
