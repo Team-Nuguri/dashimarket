@@ -51,8 +51,8 @@
                     <span th:unless="${session.selectDong}">
 
                         <!-- 로그인한 상태: 회원가입시 저장된 기본 동네 -->
-                        <span th:if="${session.loginMember}">
-                            [[${session.loginMember.defaultDong}]]
+                        <span th:if="${session.loginMember}" th:text="${session.loginMember.jibunAddress.split(' ')[#arrays.length(session.loginMember.jibunAddress.split(' ')) - 2]}">
+                            [[${session.loginMember.jibunAddress}]]
                         </span>
 
                         <!-- 로그인 안 한 상태: 현재 위치 -->
@@ -110,7 +110,8 @@
     <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=4eadace8a189e8fb36d8ccf3d8aa6233&libraries=services"></script>
     <script th:src="@{/js/intro.js}"></script>
     <script th:inline="javascript">
-        const isSelectDong = /*[[${session.selectDong}]]*/ "선택한 동네";
+        const isLogin = /*[[${session.loginMember != null}]]*/ "로그인 정보";
+        const isSelectDong = /*[[${session.selectDong != null}]]*/ "선택한 동네";
     </script>
 </body>
 

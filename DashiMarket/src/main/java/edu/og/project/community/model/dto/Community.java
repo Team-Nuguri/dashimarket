@@ -32,7 +32,7 @@ public class Community {
 	private String memberNickname;
 	private int memberNo;
 	private String profilePath;
-	private String defaultDong;
+	private String jibunAddress;
 	
 	// 이미지
 	private List<Image> imgList;

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import edu.og.project.common.dto.Image;
 import edu.og.project.notice.model.dto.Notice;
 
 @Mapper
@@ -35,6 +36,12 @@ public interface NoticeMapper {
      */
     int insertNotice(Notice notice);
     
+    /** 이미지 등록
+     * @param image
+     * @return
+     */
+    int insertImage(Image image); 
+    
     /** 이전글 조회
      * @param noticeNo
      * @return Notice
@@ -52,6 +59,12 @@ public interface NoticeMapper {
      * @return int
      */
     int updateNotice(Notice notice);
+    
+    /** 이미지 삭제
+     * @param boardNo
+     * @return
+     */
+    int deleteImagesByBoardNo(@Param("boardNo") String boardNo);  // 이미지 삭제 추가
     
     /** 공지사항 삭제 (논리 삭제)
      * @param noticeNo
