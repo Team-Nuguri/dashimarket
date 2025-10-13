@@ -57,7 +57,6 @@ public class CommunityController {
 		
 									// 공통 메소드
 		Map<String, Object> map = getData(boardType, cp, category, sort, selectDong, loginMember);
-		System.out.println(map);
 		model.addAllAttributes(map);
 		
 		return "/communityPage/communityHome";
@@ -93,7 +92,6 @@ public class CommunityController {
 		// 로그인한 회원의 번호
 		int memberNo = loginMember.getMemberNo();
 		Map<String, Object> map = service.selectLikeCommunityList(boardType, memberNo, cp);
-		System.out.println(map);
 		model.addAttribute("map", map);
 		return "/communityPage/communityLike";
 	}
@@ -101,17 +99,15 @@ public class CommunityController {
 	
 	// 동기, 비동기 요청 로직이 같으므로 한 메소드로 빼서 사용 (목록 조회 서비스 호출)
 	private Map<String, Object> getData(String boardType, int cp, String category, String sort, String selectDong, Member loginMember) {
-		System.out.println(loginMember);
 		
 		// 선택된 동네값 최종 저장 변수
 		String finalDong = null;
 		
 		// 1. 세션에 selectDong이 있는 경우 (맵 선택 or 현재위치)
-//		if(selectDong != null && !selectDong.trim().isEmpty()) {
-//			finalDong = selectDong; // 세션에 있는 동네값으로 세팅
-//			
-//		} else 
-			if(loginMember != null) {
+		if(selectDong != null && !selectDong.trim().isEmpty()) {
+			finalDong = selectDong; // 세션에 있는 동네값으로 세팅
+			
+		} else if(loginMember != null) {
 			// 로그인만 한 상태인 경우(맵 선택 x, 세션에 동네 값 없음)
 			String hDongStr = loginMember.getJibunAddress();
 			String hDongArr[] = hDongStr.split(" ");
@@ -257,7 +253,6 @@ public class CommunityController {
 	@PostMapping("/community/like")
 	@ResponseBody
 	public int communityLike(@RequestBody Map<String, Object> paramMap) {
-		System.out.println(paramMap);
 		return service.communityLike(paramMap);
 	}
 	
