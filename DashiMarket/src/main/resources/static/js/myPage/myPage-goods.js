@@ -18,8 +18,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
         goodsId.innerHTML = order.sellerId;
         goodsDate.innerHTML = order.date;
         }
-    
-
     })
     .catch(err => console.log(err))
 
