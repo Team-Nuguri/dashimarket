@@ -132,7 +132,7 @@
 }
 
 /* 드롭다운 메뉴 스타일 */
-.dropdown-menu {
+.joonggo-dropdown-menu {
     /* 초기에는 숨김 */
     display: none;
     
@@ -147,7 +147,7 @@
 }
 
 /* 드롭다운 메뉴 내 버튼 스타일 (수정/삭제) */
-.dropdown-menu>button {
+.joonggo-dropdown-menu>button {
     width: 100%;
     padding: 10px 15px;
     border: none;
@@ -158,13 +158,13 @@
     background-color: white;
 }
 
-.dropdown-menu>button:hover{
+.joonggo-dropdown-menu>button:hover{
     background-color: #52B291;
     font-weight: bold;
     transition: all 0.4s;
 }
 
-.dropdown-menu.show {
+.joonggo-dropdown-menu.show {
     display: block;
 }
 

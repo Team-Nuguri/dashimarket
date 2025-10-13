@@ -3,11 +3,13 @@ package edu.og.project.afterTradeReview.model.service;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.og.project.afterTradeReview.model.dao.afterTradeReviewMapper;
 import edu.og.project.afterTradeReview.model.dto.ReviewWrite;
 
+@Service
 public class afterTradeReviewServiceImpl implements afterTradeReviewService {
 	
 	@Autowired
