@@ -249,7 +249,7 @@ document.getElementById("communityLikeBtn")?.addEventListener("click", () => {
 })
 
 // 햄버거 메뉴
-document.getElementById("dropdown").addEventListener("click", ()=>{
+document.getElementById("dropdown")?.addEventListener("click", ()=>{
     
     document.querySelector('.dropdown-menu').classList.toggle('show');
 });

@@ -12,6 +12,7 @@
         <result property="memberTel" column="MEMBER_TEL"/>
 		<result property="postCode" column="POST_CODE"/>
 		<result property="loadAddress" column="LOAD_ADDRESS"/>
+		<result property="jibunAddress" column="JIBUN_ADDRESS"/>
 		<result property="detailAddress" column="DETAIL_ADDRESS"/>
 		<result property="defaultDong" column="DEFAULT_DONG"/>
 		<result property="profilePath" column="PROFILE_PATH" />
@@ -34,7 +35,7 @@
 	<insert id="signUp" parameterType="Member">
 		INSERT INTO MEMBER (
             MEMBER_NO, MEMBER_EMAIL, MEMBER_PW, MEMBER_NAME, MEMBER_NICKNAME, MEMBER_TEL, 
-            POST_CODE, LOAD_ADDRESS, DETAIL_ADDRESS, DEFAULT_DONG,
+            POST_CODE, LOAD_ADDRESS, DETAIL_ADDRESS, JIBUN_ADDRESS, DEFAULT_DONG,
             PROFILE_PATH, ENROLL_DATE, SECESSIONFL, IS_ADMIN
         )
 		VALUES(
@@ -44,7 +45,7 @@
 		    #{memberName},
 		    #{memberNickname},
 		    #{memberTel},
-            #{postCode},  #{loadAddress},
+            #{postCode},  #{loadAddress}, #{jibunAddress},
             #{detailAddress},
             #{defaultDong},
 		    NULL, 
