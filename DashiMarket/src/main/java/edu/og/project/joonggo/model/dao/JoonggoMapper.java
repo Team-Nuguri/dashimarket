@@ -35,32 +35,32 @@ public interface JoonggoMapper {
 
 
 	// 중고 상품 상세 조회
-	Joonggo selectJoonggoDetail(String joonggoNo);
+	public Joonggo selectJoonggoDetail(String joonggoNo);
 	
 	
 	// 비슷한 상품 목록 조회
-	List<SimilarItem> selectJonggoList(Map<String, Object> map);
+	public List<SimilarItem> selectJonggoList(Map<String, Object> map);
 
 	
 	// 중고 상품 삭제
-	int deleteJoonggoItem(String joonggoNo);
+	public int deleteJoonggoItem(String joonggoNo);
 
 	
 	// 중고 상품 정보 삽입
-	int joonggoInsert(JoonggoWrite joonggoWrite);
+	public int joonggoInsert(JoonggoWrite joonggoWrite);
 
 	
 	// 가격 삽입
-	int joonggoPriceInsert(JoonggoWrite joonggoWrite);
+	public int joonggoPriceInsert(JoonggoWrite joonggoWrite);
 	
 	
 	
 	// 이미지 삽입 
-	int insertImage(List<Image> uploadImage);
+	public int insertImage(List<Image> uploadImage);
 
 	
 	// 보드 내용 수정
-	int joonggoUpdate(JoonggoWrite joonggoWrite);
+	public int joonggoUpdate(JoonggoWrite joonggoWrite);
 	
 	
 	// 상푸 ㅁ가격 수정
@@ -95,11 +95,12 @@ public interface JoonggoMapper {
 	// 좋아요 확인
 	int likeSelect(Map<String, Object> map);
 
+	// 나의 위시리스트 (KJK)
+	public List<Joonggo> selectJonggoWishList(int memberNo);
+	
 	
 	// 조회수 증가
 	int updateReadCount(String joonggoNo);
 	
 	
-
-
 }

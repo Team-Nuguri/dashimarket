@@ -1,9 +1,11 @@
 package edu.og.project.admin.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import edu.og.project.common.dto.Member;
 import edu.og.project.goods.model.dto.Goods;
+import edu.og.project.admin.model.dto.Report;
 
 public interface AdminService {
 
@@ -27,5 +29,12 @@ public interface AdminService {
 	 * @return List<Goods>
 	 */
 	List<Goods> selectProducts(String sort);
+
+	// 신고 
+	Map<String, Object> selectReportList(String keyword, String reportResult, int cp);
+
+	Report selectReportDetail(int reportNo);
+
+	int updateReportResult(int reportNo, String resultType);
 
 }

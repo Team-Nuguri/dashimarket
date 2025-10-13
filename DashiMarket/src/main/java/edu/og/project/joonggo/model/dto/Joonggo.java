@@ -21,6 +21,11 @@ public class Joonggo {
 	private int readCount;
 	private int boardCode;
 	private String boardType;
+	private String thumbnail;
+	
+	// 이미지
+	private Image image;
+		
 	
 	
 	// 좋아요 수 서븨쿼리로
@@ -41,7 +46,6 @@ public class Joonggo {
 	List<Image> imageList;
 	
 	
-	private String thumbnail;
 	
 	
 	
