@@ -329,10 +329,6 @@ public class JoonggoServiceImpl implements JoonggoService {
 		return updateResult;
 	}
 
-
-<<<<<<< HEAD
-
-=======
 	
 	// 중고 삽입 or 삭제
 	@Override
@@ -367,6 +363,13 @@ public class JoonggoServiceImpl implements JoonggoService {
 		
 		return mapper.likeSelect(map);
 	}
->>>>>>> 75ecc543f402e34b055104d28c1a327ae3f46779
+
+	// 중고 상품 나의 위시리스트 목록 조회 (KJK)
+	@Override
+	public List<Joonggo> selectJoonggoWishList(int memberNo) {
+		return mapper.selectJonggoWishList(memberNo);
+	}
+
+  
 
 }

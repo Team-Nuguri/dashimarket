@@ -17,10 +17,16 @@ public class Joonggo {
 	private String joonggoContent;
 	private String joonggoCreateDate;
 	private String joonggoUpdateDate;
-	private int joonggoPrice;
+	// private int joonggoPrice;
+	private String joonggoPrice;
 	private int readCount;
 	private int boardCode;
 	private String boardType;
+	private String thumbnail;
+	
+	// 이미지
+	private Image image;
+		
 	
 	
 	// 좋아요 수 서븨쿼리로

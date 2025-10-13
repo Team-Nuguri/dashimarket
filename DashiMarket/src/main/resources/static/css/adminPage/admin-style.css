@@ -402,7 +402,9 @@ fieldset > [name="query"]{
     border-collapse: collapse;
     text-align: center;
     margin-top: 30px;
-    height: 35%;   
+    /* height: 35%;   */
+    height: auto;   /* KJK */
+    
 }
 
 /* 테이블 체크박스 */
@@ -419,7 +421,8 @@ fieldset > [name="query"]{
 
 .table-content td{
     border-right: 1px solid #ddd;
-    height: 48px;
+    /* height: 48px; */
+    height: 25px;  /* KJK */
     margin-left: auto;
 }
 
@@ -428,6 +431,74 @@ fieldset > [name="query"]{
 .table-title{
     background-color: #ddd;
 }
+
+/* ============== */
+
+
+/* 신고 상세보기 테이블 */
+.table-content-detail {
+    width: 100%;
+    max-width: 700px;          /* 중앙에서 보기 좋게 */
+    margin: 30px;        
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    font-size: 15px;
+}
+
+/* 테이블 제목 열(th) */
+.table-content-detail th {
+    width: 25%;
+    background-color: #f5f5f5;
+    color: #333;
+    font-weight: 600;
+    padding: 12px;
+    text-align: center;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+/* 테이블 데이터 열(td) */
+.table-content-detail td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+/* 마지막 행 밑줄 제거 */
+.table-content-detail tr:last-child td {
+    border-bottom: none;
+}
+
+/* 링크 스타일 */
+.table-content-detail a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.table-content-detail a:hover {
+    text-decoration: underline;
+}
+
+/* 목록으로 돌아가기 버튼 */
+.table-content-detail + a {
+    display: inline-block;
+    margin: 20px auto 0;
+    padding: 8px 16px;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+.table-content-detail + a:hover {
+    background-color: #555;
+}
+
+
+
+
 
 /* ***************************************************** */
 /* 드롭다운 */
