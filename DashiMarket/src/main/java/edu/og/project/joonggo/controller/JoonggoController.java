@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -43,15 +44,28 @@ public class JoonggoController {
 	@GetMapping("/{boardType:j.*}")
 	public String selectJoonggoList(@PathVariable("boardType") String boardType,
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
+		
+		// System.out.println(boardType);  joonggo 로 넘어옴
 
 		Map<String, Object> map = service.selectJoonggoList(boardType, cp);
+		
+		if(map == null) {
+		    System.out.println("map is null");
+		} else if(map.isEmpty()) {
+		    System.out.println("map is empty");
+		} else {
+		    System.out.println("map = " + map);
+		}
+		
 		System.out.println(map);
 
 		model.addAttribute("map", map);
+		// model.addAttribute("boardType", boardType);
 		return "joonggoPage/joonggoHome";
+		
 	}
-	
-	// 중고상품 목록 정렬 (비동기)
+
+	// 중고상품 목록 정렬 (비동기) (KJK)
 	@GetMapping(value = "/{boardType:j.*}/sort", produces = "application/html; charset=UTF-8") /*
 	 * json이 아닌 html 형태로
 	 * 보내주기
@@ -64,6 +78,16 @@ public class JoonggoController {
 		model.addAllAttributes(resultMap); // return에 바로 resultMap을 담지 않고, model로 넘겨줌
 
 		return "joonggoPage/joonggoHome :: #joonggo-container"; // 동적으로 바뀔 부분의 아이디
+	}
+	
+	// 로그인한 회원의 나의 위시리스트 (KJK)
+	@GetMapping("/myPage/wishlist")
+	public String wishListPage(Model model, @AuthenticationPrincipal Member loginMember) {
+
+	    List<Joonggo> wishList = service.selectJoonggoWishList(loginMember.getMemberNo());
+	    model.addAttribute("wishList", wishList);
+
+	    return "myPage/myPage-wishlist";
 	}
 
 	

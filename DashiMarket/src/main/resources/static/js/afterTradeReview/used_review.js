@@ -11,8 +11,6 @@
       const stars = container.querySelectorAll(`.rating__star${ratingId.slice(-1)}`);
       const textElement = document.getElementById(`selected-${ratingId}`);
       
-      const hiddenInput = document.querySelector(`#uploadForm input[name="${ratingId}"]`);
-      
       ratings[ratingId].stars = stars;
       ratings[ratingId].text = textElement;
 
@@ -31,11 +29,6 @@
           });
           
           textElement.textContent = ratings[ratingId].messages[rating - 1];
-          
-          if (hiddenInput) {
-             hiddenInput.value = rating;
-          }
-          
         });
 
         star.addEventListener('mouseenter', function() {
