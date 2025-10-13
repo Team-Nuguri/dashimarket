@@ -84,6 +84,15 @@
 		AND DELETE_FL = 'N'
 	</select>
 	
+	  <!-- 카테고리 게시글 수 조회 (KJK) -->
+	<select id="getJoonggoCategoryListCount">
+		SELECT COUNT(*) FROM BOARD
+		JOIN BOARD_TYPE USING(BOARD_CODE)
+		WHERE BOARD_TYPE = 'joonggo'
+		AND CATEGORY_ID = #{categoryId}
+		AND DELETE_FL = 'N'
+	</select>
+	
 	<!-- 중고상품 목록 조회 (KJK) -->
 	<select id="selectJoonggoList" resultMap="joonggo_rm">
 

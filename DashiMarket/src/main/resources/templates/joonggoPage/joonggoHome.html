@@ -78,56 +78,56 @@
 
             <!-- 카테고리 선택 드롭다운 -->
             <div id="category-drop-down-container">
-                <a th:href="@{joonggoHome}">
+                <a th:href="@{/joonggo}">
                     <div class="text-size-20 medium-text">전체</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J100)}">
-                    <div class="text-size-20 medium-text" id="div1">가전제품</div>
+                <a th:href="@{/joonggoCategory?categoryId=J100}">
+                    <div class="text-size-20 medium-text" id="div1">가전제품1</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J200)}">
+                <a th:href="@{/joonggoCategory(categoryId='J200')}">
                     <div class="text-size-20 medium-text" id="div2">의류</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J300)}">
+                <a th:href="@{/joonggoCategoryy(categoryId='J300')}">
                     <div class="text-size-20 medium-text" id="div3">스포츠/레저</div>
                 </a>
 
-                <a th:href="@{joonggoHome(code=J400)}">
+                <a th:href="@{/joonggoCategory(categoryId='J400')}">
                     <div class="text-size-20 medium-text" id="div4">신발</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J500)}">
+                <a th:href="@{/joonggoCategory(categoryId='J500')}">
                     <div class="text-size-20 medium-text" id="div5">뷰티/미용</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J600)}">
+                <a th:href="@{/joonggoCategory(categoryId='J600')}">
                     <div class="text-size-20 medium-text" id="div6">게임</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J700)}">
+                <a th:href="@{/joonggoCategory(categoryId='J700')}">
                     <div class="text-size-20 medium-text" id="div7">생활</div>
                 </a>
 
-                <a th:href="@{joonggoHome(code=J800)}">
+                <a th:href="@{/joonggoCategory(categoryId='J800')}">
                     <div class="text-size-20 medium-text" id="div8">차량/오토바이</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J900)}">
+                <a th:href="@{/joonggoCategory(categoryId='J900')}">
                     <div class="text-size-20 medium-text" id="div9">가구/인테리어</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1000)}">
+                <a th:href="@{/joonggoCategory(categoryId='J1000')}">
                     <div class="text-size-20 medium-text" id="div10">디지털</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1100)}">
+                <a th:href="@{/joonggoCategory(categoryId='J1100')}">
                     <div class="text-size-20 medium-text" id="div11">음반/악기</div>
                 </a>
 
-                <a th:href="@{joonggoHome(code=J1200)}">
+                <a th:href="@{/joonggoCategory(categoryId='J1200')}">
                     <div class="text-size-20 medium-text" id="div12">패션 엑세서리</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1300)}">
+                <a th:href="@{/joonggoCategory(categoryId='J1300')}">
                     <div class="text-size-20 medium-text" id="div13">도서/문구</div>
                 </a>
 
-                <a th:href="@{joonggoHome(code=J1400)}">
+                <a th:href="@{/joonggoCategory(categoryId='J1400')}">
                     <div class="text-size-20 medium-text" id="div14">예술/희귀</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1500)}">
+                <a th:href="@{/joonggoCategory(categoryId='J1500')}">
                     <div class="text-size-20 medium-text" id="div15">공구/산업용품</div>
                 </a>
             </div>
@@ -861,7 +861,11 @@
 
         </div>
 
-
+       
+         <!-- 상품이 없는 경우 -->
+         <div id="joonggo-container" th:unless="${#lists.size(boardList) > 0}">
+             <p class="text-center text-gray-600">현재 등록된 상품이 없습니다.</p>
+          </div>
 
 
     </section>

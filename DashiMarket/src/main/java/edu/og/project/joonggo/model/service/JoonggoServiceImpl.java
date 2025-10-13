@@ -370,23 +370,8 @@ public class JoonggoServiceImpl implements JoonggoService {
 		return mapper.selectJonggoWishList(memberNo);
 	}
 
-	// 중고 상품 목록 조회 (KJK)
 	
-	/*
-	 * @Override public Map<String, Object> selectJoonggoCategoryList(String
-	 * categoryId) { int listCount = mapper.getJoonggoListCount(boardType);
-	 * 
-	 * Pagination pagination = new Pagination(cp, listCount, 16); int offset =
-	 * (pagination.getCurrentPage() - 1) * pagination.getLimit(); RowBounds
-	 * rowBounds = new RowBounds(offset, pagination.getLimit());
-	 * 
-	 * List<Joonggo> boardList = mapper.selectJoonggoList(boardType, rowBounds);
-	 * 
-	 * Map<String, Object> map = new HashMap<>(); map.put("pagination", pagination);
-	 * map.put("boardList", boardList);
-	 * 
-	 * return map; }
-	 */
+
 	 
 
 
@@ -394,6 +379,23 @@ public class JoonggoServiceImpl implements JoonggoService {
 	public int updateReadCount(String joonggoNo) {
 		
 		return mapper.updateReadCount(joonggoNo);
+	}
+
+	// 중고 상품 카테고리 목록 조회 (KJK)
+	@Override
+	public Map<String, Object> selectJoonggoCategoryList(String categoryId, int cp) {
+		 int listCount = mapper.getJoonggoCategoryListCount(categoryId);
+		 
+		  Pagination pagination = new Pagination(cp, listCount, 16); int offset =
+		 (pagination.getCurrentPage() - 1) * pagination.getLimit(); RowBounds
+		  rowBounds = new RowBounds(offset, pagination.getLimit());
+		  
+		  List<Joonggo> boardList = mapper.selectJoonggoCategoryList(categoryId, rowBounds);
+		  
+		  Map<String, Object> map = new HashMap<>(); map.put("pagination", pagination);
+		  map.put("boardList", boardList);
+		  
+		  return map;
 	}
 
   

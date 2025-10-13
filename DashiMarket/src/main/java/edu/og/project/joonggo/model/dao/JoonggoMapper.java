@@ -101,6 +101,12 @@ public interface JoonggoMapper {
 	
 	// 조회수 증가
 	int updateReadCount(String joonggoNo);
+
+	// (KJK)
+	public int getJoonggoCategoryListCount(String categoryId);
+
+	// (KJK)
+	public List<Joonggo> selectJoonggoCategoryList(String categoryId, RowBounds rowBounds);
 	
 	
 }
