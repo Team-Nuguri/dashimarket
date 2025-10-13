@@ -371,29 +371,29 @@ public class JoonggoServiceImpl implements JoonggoService {
 	}
 
 	// 중고 상품 목록 조회 (KJK)
-	@Override
-	public Map<String, Object> selectJoonggoCategoryList(String categoryId) {
-		// 특정 게시판의 삭제되지 않은 게시글 수 조회
-		int listCount = mapper.getJoonggoListCount(boardType);
-
-		Pagination pagination = new Pagination(cp, listCount, 16);
-		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
-		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
-
-		List<Joonggo> boardList = mapper.selectJoonggoList(boardType, rowBounds);
-
-		Map<String, Object> map = new HashMap<>();
-		map.put("pagination", pagination);
-		map.put("boardList", boardList);
-
-		return map;
-	}
+	
+	/*
+	 * @Override public Map<String, Object> selectJoonggoCategoryList(String
+	 * categoryId) { int listCount = mapper.getJoonggoListCount(boardType);
+	 * 
+	 * Pagination pagination = new Pagination(cp, listCount, 16); int offset =
+	 * (pagination.getCurrentPage() - 1) * pagination.getLimit(); RowBounds
+	 * rowBounds = new RowBounds(offset, pagination.getLimit());
+	 * 
+	 * List<Joonggo> boardList = mapper.selectJoonggoList(boardType, rowBounds);
+	 * 
+	 * Map<String, Object> map = new HashMap<>(); map.put("pagination", pagination);
+	 * map.put("boardList", boardList);
+	 * 
+	 * return map; }
+	 */
+	 
 
 
 	@Override
 	public int updateReadCount(String joonggoNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return mapper.updateReadCount(joonggoNo);
 	}
 
   
