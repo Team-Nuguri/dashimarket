@@ -82,7 +82,7 @@ public interface JoonggoService {
 	List<Joonggo> selectJoonggoWishList(int memberNo);
 
 	// 중고목록 카데고리 (KJK)
-	Map<String, Object> selectJoonggoCategoryList(String categoryId);
+	// Map<String, Object> selectJoonggoCategoryList(String categoryId);
 
 
 		/** 조회수 증가

@@ -22,7 +22,7 @@ public class AdminServiceImpl implements AdminService{
 	
 	@Autowired
 
-	private AdminMapper mapper;
+	private ReportMapper mapper;
 
 	@Override
 	public Map<String, Object> selectReportList(String keyword, String reportResult, int cp) {

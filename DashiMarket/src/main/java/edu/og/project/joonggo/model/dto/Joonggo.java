@@ -17,8 +17,7 @@ public class Joonggo {
 	private String joonggoContent;
 	private String joonggoCreateDate;
 	private String joonggoUpdateDate;
-	// private int joonggoPrice;
-	private String joonggoPrice;
+	private int joonggoPrice;
 	private int readCount;
 	private int boardCode;
 	private String boardType;
@@ -47,7 +46,6 @@ public class Joonggo {
 	List<Image> imageList;
 	
 	
-	private String thumbnail;
 	
 	
 	
