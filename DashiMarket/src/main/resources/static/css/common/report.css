@@ -1,0 +1,155 @@
+
+
+main{
+  width: 700px;
+  text-align: center;
+  margin:0 auto;
+}
+
+fieldset {
+  border: 2px solid #298c69;
+ /* padding: 20px;  */
+  border-radius: 10px;
+  background-color: white;
+  margin-bottom: 20px;
+
+  text-align: center;
+  width: 480px;
+}
+
+#section1 {
+  width: 500px;
+  text-align: center;
+}
+
+.div-content {
+  width: 500px;
+}
+
+#div1 {
+  font-size: 24pt;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#div2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#div3 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#div4 {
+  width: 500px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+
+#div5 {
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+#div5-1 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+#div6 {
+  text-align: center;
+}
+
+
+#div7 {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+
+#div8 {
+  text-align: left;
+  padding-left:70px;
+  font-size: 10pt;
+  color:gray
+}
+
+hr {
+  width: 500px;
+}
+
+
+/* ************* 프로필 화면 ************* */
+.profile-image-area{
+    width: 150px;
+    height: 150px;
+    border: 3px solid #ccc;
+    border-radius: 50%;
+
+    position: relative;
+
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin: 0 auto; /* 수평 가운데 정렬 */
+}
+
+#profileImage{
+    height: 100%;
+}
+
+textarea {
+  border: 2px solid #298c69;
+  border-radius: 10px;
+}
+
+#report-btn {
+  border: 3px solid #166449;
+  border-radius: 10%;
+  background-color: #298c69;
+  color: white;
+  height: 40px;
+}
+
+.report-select {
+  width: 200px;
+  position: relative;
+  user-select: none;
+  cursor: pointer;
+  margin: 0 auto;
+  border: none; 
+}
+
+.selected {
+  padding: 10px;
+  /* border: 1px solid #ccc; */
+  border: none;
+  background-color: white;
+}
+
+.options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  border: 1px solid #ccc;
+  border-top: none;
+  background-color: white;
+  display: none; /* 기본 숨김 */
+  max-height: 150px;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.options .option {
+  padding: 10px;
+}
+
+.options .option:hover {
+  background-color: #eee;
+}
