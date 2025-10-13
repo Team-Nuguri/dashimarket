@@ -26,5 +26,10 @@ public class Member implements Serializable {
     private String enrollDate;
     private String secessionFl;
     private String isAdmin;
+    
+    // 관리자 회원 조회시 필요 필드
+    private String address; // 우편번호 + 도로명 + 상세주소
+    private int boardCount;
+    private int commentCount;
 
 }
