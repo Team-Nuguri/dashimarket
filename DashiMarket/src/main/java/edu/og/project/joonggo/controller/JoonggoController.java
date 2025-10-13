@@ -39,6 +39,34 @@ public class JoonggoController {
 	@Autowired
 	private JoonggoService service;
 	
+	// 중고 상품 목록 조회 (KJK)
+	@GetMapping("/{boardType:j.*}")
+	public String selectJoonggoList(@PathVariable("boardType") String boardType,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
+
+		Map<String, Object> map = service.selectJoonggoList(boardType, cp);
+		System.out.println(map);
+
+		model.addAttribute("map", map);
+		return "joonggoPage/joonggoHome";
+	}
+	
+	// 중고상품 목록 정렬 (비동기)
+	@GetMapping(value = "/{boardType:j.*}/sort", produces = "application/html; charset=UTF-8") /*
+	 * json이 아닌 html 형태로
+	 * 보내주기
+	 */
+	public String sortJoonggoList(@PathVariable("boardType") String boardType,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model,
+			@RequestParam("sortType") String sortType) {
+		// 정렬 방식 넘겨주기
+		Map<String, Object> resultMap = service.sortJoonggoList(boardType, cp, sortType);
+		model.addAllAttributes(resultMap); // return에 바로 resultMap을 담지 않고, model로 넘겨줌
+
+		return "joonggoPage/joonggoHome :: #joonggo-container"; // 동적으로 바뀔 부분의 아이디
+	}
+
+	
 	
 	// 중고 상품  상세 조회
 	@GetMapping("/{boardType}/{joonggoNo:J.*}")

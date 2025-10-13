@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신고하기</title>
+</head>
+
+<link rel="stylesheet" th:href="@{/css/common/report.css}">
+
+<body>
+
+  <main>
+
+   <section id="section1">
+     
+     <div class="div-content" id="div1">신고하기 <img th:src="@{/images/Siren.png}"></div>
+     
+     <div class="div-content" id="div2">
+
+           <div class="profile-image-area">
+
+                        <img src="" id="profileImage">
+
+            </div>
+
+     </div>
+
+     <div class="div-content" id="div3">홀리식</div>
+
+     <div class="div-content" id="div4"><hr></div>
+
+   </section>
+   
+   <div id="div5">신고유형</div>
+
+   <div id="div5-1">
+
+   <fieldset>
+
+      <div class="report-select">
+         <div class="selected">== 선택해주세요 ==</div>
+         <div class="options">
+             <div class="option" data-value="1">부적절한 사진입니다</div>
+             <div class="option" data-value="2">부적절한 내용입니다</div>
+             <div class="option" data-value="3">욕설</div>
+             <div class="option" data-value="4">사기</div>
+             <div class="option" data-value="5">규정위반</div>
+             <div class="option" data-value="6">기타</div>
+         </div>
+      </div>
+
+    </fieldset>
+
+    </div>
+
+    <div class="div-content" id="div6">
+
+      <textarea rows="20" cols="70" placeholder="상세한 내용을 작성해주세요."></textarea>
+
+    </div>
+
+    <div class="div-content" id="div7">
+       <button id="report-btn">신고하기</button>
+
+    </div>
+
+    <div id="div8">
+
+    이 회원이 신고대상에 해당되는지 다시 한번 확인하여 주시기 바랍니다.
+    <br><br>
+신고대상은 다시마켓 이용약관에 따라 활동 제한 등 불이익을 받을 수 있<br>
+으며, 사실관계 확인시 쌍방과실일 경우 신고자 또한 다시마켓 이용약관에<br>
+따라 활동제한 등 불이익을 받을 수 있습니다.<br><br>
+    </div>
+   
+  </main>
+    
+
+
+<script>
+const reportSelect = document.querySelector('.report-select');
+const selected = reportSelect.querySelector('.selected');
+const options = reportSelect.querySelector('.options');
+
+selected.addEventListener('click', () => {
+  options.style.display = options.style.display === 'block' ? 'none' : 'block';
+});
+
+options.querySelectorAll('.option').forEach(option => {
+  option.addEventListener('click', () => {
+    selected.textContent = option.textContent;
+    options.style.display = 'none';
+    // 여기서 선택값(option.dataset.value) 필요하면 사용 가능
+  });
+});
+
+// 옵션 외부 클릭시 옵션 닫기 (선택사항)
+document.addEventListener('click', (e) => {
+  if (!reportSelect.contains(e.target)) {
+    options.style.display = 'none';
+  }
+});
+
+
+</script>
+
+
+</body>
+</html>

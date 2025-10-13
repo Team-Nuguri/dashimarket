@@ -103,7 +103,7 @@
 }
 
 /* 제품 컨테이너 */
-#goods-container {
+#joonggo-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 4개씩 보이기 */
     gap: 26px;
@@ -111,19 +111,19 @@
 }
 
 /* 개별 상품 카드 */
-.goods-detail-area {
+.joonggo-detail-area {
     display: flex;
     flex-direction: column;
 }
 
 /* 이미지 정사각형으로 통일하기 */
-.goods-img {
+.joonggo-img {
     aspect-ratio: 1 / 1; /* 정사각형 박스 */
     overflow: hidden;
     border-radius: 10px;
 }
 
-.goods-img img {
+.joonggo-img img {
     width: 100%;
     height: 100%;
     object-fit: cover; /* 비율 유지하면서 꽉 채우기 */
@@ -131,12 +131,12 @@
 }
 
 /* 제품명 및 가격 */
-.goods-name {
+.joonggo-name {
     padding-top: 5px;
     padding-left: 5px;
 }
 
-.goods-price {
+.joonggo-price {
     padding-left: 5px;
 }
 

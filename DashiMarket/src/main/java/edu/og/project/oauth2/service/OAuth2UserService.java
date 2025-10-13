@@ -124,10 +124,10 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
 		}else {
 			// 빌더
 			// - 객체 생성 시, 필드 이름을 명시하며 단계적으로 값을 설정
-			// 가독성 상승 유지보수성 상승
+			// 못가져오는 데이터들 임시데이터로
 			user = User.builder()
 					.memberEmail(email)
-					.memberPw(null) // 소셜 로그인 회원은 비밀번호가 없습니다.
+					.memberPw(null) // 소셜 로그인 회원은 비밀번호 x
 					.memberName(email+"_"+oauthId) // 추출된 이름 또는 기본값
 					.memberNickname(nickname != null ? nickname : "소셜닉네임") // 추출된 닉네임 또는 기본값
 					.memberTel("010-0000-0000") // 고정 기본값
@@ -143,7 +143,6 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
 			userRepository.save(user); 
 			// save() 상황에 따라 INSERT 또는 UPDATE를 자동으로 결정
 			// 새 엔티티 INSERT
-			// 기존 UPDATE ?
 			// 유저 번호는 시퀀스 번호로 자동 insert
 
 
