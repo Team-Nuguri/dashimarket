@@ -149,47 +149,23 @@
             <span class="myPage-label text-size-18 bold-text">주 소</span>
             
             <div class="myPage-address-content">
-                <div class="myPage-addpost">
-                    <!-- ID와 name을 모두 명시 -->
-                    <input type="text" 
-                        id="sample6_postcode" 
-                        name="postCode"
-                        th:value="*{postCode}"
-                        class="myPage-postinput text-size-20" 
-                        placeholder="우편번호" 
-                        readonly>
-                    <button type="button" 
-                            onclick="sample6_execDaumPostcode()" 
-                            class="myPage-addactionButton text-size-18 edit-only">검색</button>
+                <div class="myPage-addpost">       
+                    <input type="text" id="sample4_postcode" name="postCode" th:value="*{postCode}" class="myPage-postinput text-size-20" placeholder="우편번호" readonly>
+                    <button type="button" onclick="sample4_execDaumPostcode()" class="myPage-addactionButton text-size-18 edit-only">검색</button>
                 </div>
                 
                 <div class="myPage-addinputDong">
-                    <input type="text" 
-                        id="sample6_address" 
-                        name="loadAddress"
-                        th:value="*{loadAddress}"
-                        class="myPage-input text-size-18" 
-                        placeholder="도로명/지번 주소" 
-                        readonly>
-                    
-                    <div class="addr-detail-line">
-                        <input type="text" 
-                            id="sample6_detailAddress" 
-                            name="detailAddress"
-                            th:value="*{detailAddress}"
-                            class="myPage-input text-size-18" 
-                            placeholder="상세주소" 
-                            readonly>
-                        <input type="text" 
-                            id="sample6_extraAddress" 
-                            name="defaultDong"
-                            th:value="*{defaultDong}"
-                            class="myPage-input text-size-18" 
-                            placeholder="동" 
-                            readonly>
-                    </div>
+                    <input type="text" id="sample4_roadAddress" name="loadAddress" th:value="*{loadAddress}"             class="myPage-input text-size-18" placeholder="도로명 주소" readonly>
+                    <input type="text" id="sample4_jibunAddress" name="jibunAddress" th:value="*{loadAddress}" class="myPage-input text-size-18" placeholder="지번 주소" readonly>
+                </div>                    
+
+                <div class="addr-detail-line">
+                    <input type="text" id="sample4_detailAddress" name="detailAddress" th:value="*{detailAddress}" class="myPage-input text-size-18" placeholder="상세주소" readonly>
+                    <input type="text" id="sample4_extraAddress" name="defaultDong" th:value="*{defaultDong}" class="myPage-input text-size-18" placeholder="동" readonly>
                 </div>
+
             </div>
+            
         </div>
 
         <!-- 버튼 -->

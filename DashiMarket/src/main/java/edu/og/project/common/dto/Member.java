@@ -19,10 +19,11 @@ public class Member implements Serializable {
     private String memberNickname;     
     private String memberTel;
     private String postCode;
-    private String loadAddress;        
+    private String loadAddress;
+    private String jibunAddress;
     private String detailAddress;      
     private String defaultDong;        
-    private String profilePath;
+    private String profilePath;    
     private String enrollDate;
     private String secessionFl;
     private String isAdmin;
