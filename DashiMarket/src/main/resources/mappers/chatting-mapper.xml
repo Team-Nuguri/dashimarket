@@ -28,15 +28,15 @@
 			SELECT SEQ_ROOM_NO.NEXTVAL FROM DUAL
 		</selectKey>
 		
-		INSERT INTO CHATTING_ROOM
-		VALUES(${chattingNo}, DEFAULT, ${targetNo}, ${loginMemberNo})
+		INSERT INTO CHATTING_ROOM (CHATTING_NO, CHATTING_DATE, PARTCIPANT, OPEN_MEMBER)
+		VALUES(#{chattingNo}, DEFAULT, #{targetNo}, #{loginMemberNo})
 										<!-- 참여자          개설자  -->		
 	</insert>
 	
 	
 	<!-- 채팅방 목록 조회 -->
 	<select id="selectRoomList" resultType="ChattingRoom">
-		SELECT CHATTING_NO, 
+		SELECT CHATTING_NO, PRODUCT_NO, OPEN_MEMBER BUYER_NO, PARTCIPANT SELLER_NO,
 
 		    -- 가장 최근 메세지
 		    (SELECT MESSAGE_CONTENT FROM 
@@ -124,5 +124,24 @@
 		VALUES(SEQ_MESSAGE_NO.NEXTVAL, #{messageContent}, DEFAULT, DEFAULT, DEFAULT, ${chattingNo}, ${sendMember})
 	</insert>
 	
+	<!-- (중고)기존 채팅방 존재 여부 -->
+	<select id="checkJoonggoRoom" parameterType="edu.og.project.chatting.model.dto.ChattingRoom" resultType="int">
+		SELECT COUNT(*) 
+        FROM CHATTING_ROOM
+        WHERE PRODUCT_NO = #{productNo}
+        AND ((PARTCIPANT = #{sellerNo} AND OPEN_MEMBER = #{buyerNo}) 
+        	OR (PARTCIPANT = #{buyerNo} AND OPEN_MEMBER = #{sellerNo}))
+	</select>
 	
+	<!-- (중고)새 채팅방 생성 -->
+	<insert id="insertJoonggoRoom" parameterType="edu.og.project.chatting.model.dto.ChattingRoom" useGeneratedKeys="true">
+		<selectKey order="BEFORE" resultType="int" keyProperty="chattingNo">
+			SELECT SEQ_ROOM_NO.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		INSERT INTO CHATTING_ROOM (CHATTING_NO, PRODUCT_NO, PARTCIPANT, OPEN_MEMBER, CHATTING_DATE)
+        VALUES (#{chattingNo}, #{productNo}, #{sellerNo}, #{buyerNo}, SYSDATE)
+	</insert>
+
+
 </mapper>

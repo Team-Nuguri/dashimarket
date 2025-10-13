@@ -3,135 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../static/css/myPage/myPage_secession.css">
-    <link rel="stylesheet" href="../../static/css/common/header.css">
-    <link rel="stylesheet" href="../../static/css/common/footer.css">
-    <link rel="stylesheet" href="../../static/css/common/font.css">
+    <link rel="stylesheet" th:href="@{/css/myPage/myPage-secession.css}">  
+    <link rel="stylesheet" th:href="@{/css/common/header.css}">
+    <link rel="stylesheet" th:href="@{/css/common/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/common/font.css}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
-    <title>프로필 관리</title>
+    <title>회원 탈퇴</title>
 </head>
 <body>
 
-     <header>
-        <section id="header-area">
-            <div>
-                <a href="@{/}">
-                    <img id="main-logo" src="../../../resources/static/images/logo.png">
-                </a>
-
-            </div>
-
-            <div>
-                <div>
-                    <a href="/joongo" class="noto-sans-kr-20">중고거래</a>
-                </div>
-                <div>
-                    <a href="/goods" class="noto-sans-kr-20">굿즈</a>
-                </div>
-                <div>
-                    <a href="/community" class="noto-sans-kr-20">커뮤니티</a>
-                </div>
-
-            </div>
-            
-            <div id="icon-area">
-                <button>
-                    <img src="../../../resources/static/images/하트.svg" >
-                    <!-- <img src="@{/images/장바구니.svg}" > -->
-                    <!-- <img src="@{/images/사람.svg}" > -->
-                </button>
-                    
-    
-                <button>
-                    <img src="../../../resources/static/images/group.svg" >
-                </button>
-                <button>
-                    <img src="../../../resources/static/images/clarity_menu-line.svg" >
-                    
-                </button>
-
-            </div>
-        </section>
-
-        <section id="search-area">
-
-            <form action="">
-                <fieldset>
-                    <img src="../../../resources/static/images/돋보기.svg" >
-                    <input type="search" name="query" id="query"
-                    placeholder="검색어를 입력해주세요." class="noto-sans-kr-20">
-
-                </fieldset>
-
-            </form>
-            
-        </section>       
-       
-
-    </header>
-
+    <!--header-->
+    <th:block th:replace="~{common/header}"></th:block>
 
 <main>
 
     
 <!--왼쪽 사이드메뉴-->
-
 <section class="myPage-content">
 
 <section class="left-side">
-
     <nav>
-
     <div class="left-title text-size-28 bold-text">마이페이지</div>
-
 
     <ul class="left-menu">
         <li class="text-size-18 bold-text">
-            <img src="../../static/images/myPage/shopping.png" alt="주문내역/구매내역" width="40px" height="40px">
+            <img th:src="@{/images/myPage/shopping.png}" alt="주문내역/구매내역" width="40px" height="40px">
             주문내역/구매내역
-
             <ul>
-                    
-                    <li class="myPage-a"><a href="myPage_order.html">직거래</a></li>
-                
-                    <li class="myPage-a"><a href="myPage_order.html">굿즈</a></li>
-               
-                    <li class="myPage-a"><a href="myPage_order.html">나눔</a></li>
-                
+                <li><a href="myPage_order.html">직거래</a></li>
+                <li><a href="myPage_order.html">굿즈</a></li>
+                <li><a href="myPage_order.html">나눔</a></li>
             </ul>        
         </li>
     </ul>
 
     <ul class="left-menu">
         <li class="text-size-18 bold-text">
-            <img src="../../static/images/myPage/product.png" alt="상품관리"  width="40px" height="40px">
+            <img th:src="@{/images/myPage/product.png}" alt="상품관리"  width="40px" height="40px">
             상품관리
             <ul class="left-submenu">
-                
-                    <li class="myPage-a"><a href="">내가 찜한 상품</a></li>
-            
+                <li><a href="">내가 찜한 상품</a></li>
             </ul>
         </li>
     </ul>
 
     <ul class="left-menu">
         <li class="text-size-18 bold-text">
-            <img src="../../static/images/myPage/myinfo.png" alt="내 정보 관리" width="40px" height="40px">
+            <img th:src="@{/images//myPage/myinfo.png}" alt="내 정보 관리" width="40px" height="40px">
             내 정보 관리       
             <ul class="left-submenu">
-                
-                
-                    <li class="myPage-a"><a href="myPage-profile.html">프로필 관리</a></li>
-                
-                    <li class="myPage-a"><a href="myPage_secession.html">회원 탈퇴</a></li>
-                       
+                <li><a th:href="@{/myPage/profile}">프로필 관리</a></li>
+                <li><a th:href="@{/myPage/secession}">회원탈퇴</a></li>
             </ul>
         </li>   
     </ul>
     </nav>
-    
 </section>
 
 <!-- 회원탈퇴 -->
@@ -140,7 +68,7 @@
            
             <span class="myPage-title text-size-24 bold-text" >회원 탈퇴</span>   
             
-            <form action="/secession" class="secession">              
+            <form th:action="@{/myPage/secession}" method="post" class="secession" >              
                 
                 <div class="myPage-secessionTitle">
                 <label class="text-size-18 bold-text">탈퇴 사유를 알려주시면 개선을 위해 노력하겠습니다.</label><br>
@@ -197,7 +125,7 @@
 
                 <div class="myPage-secessionPasswordRow">
                     <label class="myPage-secessionPasswordLabel text-size-18 bold-text">패스워드</label>
-                    <input type="password" class="myPage-secessionPasswordInput text-size-18" placeholder="패스워드를 입력해주세요">
+                    <input type="password" class="myPage-secessionPasswordInput text-size-18" id="memberPw" name="memberPw" placeholder="패스워드를 입력해주세요">
                 </div>
 
                 <div class="myPage-secessionButtons">
@@ -214,58 +142,10 @@
 </main>
 
     
-<!--footer-->
+ <!--footer-->
+    <th:block th:replace="~{common/footer}"></th:block>
 
-<footer>
-
-     <div class="footer-top">
-        <a th:href="@{#}"><img src="../../../resources/static/images/logo.png" width="100px" style="vertical-align: middle;"></a>
-        <a th:href="@{#}">회사 소개</a>    
-        <span>|</span>
-        <a th:href="@{#}">서비스 소개</a>    
-        <span>|</span>
-        <a th:href="@{#}">블로그</a>    
-        <span>|</span>
-        <a th:href="@{#}">채용제휴 문의</a>    
-        <span>|</span>
-        <a th:href="@{#}">광고 문의</a>
-    </div>
-
-   <hr>
-
-  <div class="footer-bottom">
-
-    <div class="footer-left">
-      (주) 다시마켓 <br>
-대표 너구리  <br>
-사업자번호 168-87-57386  <br>
-직업정보제공사업 신고번호J1200020200016  <br>
-통신판매신고번호 제2024-서울강남-06966호  <br>
-호스팅 사업자 Amazon Web Service(AWS)<br>
-주소 서울특별시 종로구 우정국로2길 21 9층, 903호  <br>
-전화 1877-9292  <br>
-고객문의 kelp@dasimacat.com 
-    </div>
-    <div class="footer-right">
-      <a href="#">공지사항</a>
-      <a href="#">자주묻는 질문</a> <br><br>
-
-      <a href="#">이용약관</a>
-      <a href="#">개인정보처리방침</a>
-
-      <a href="#">운영정책</a>
-
-      <a href="#">위치기반서비스 이용약관</a>
-
-      <a href="#">게시글</a>
-      
-    </div>
-
-    </div>
-
-
-
-</footer>
+    <script th:src="@{/js/myPage/myPage-secession.js}"></script>
         
 
 

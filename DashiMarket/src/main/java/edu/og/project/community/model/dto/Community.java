@@ -45,4 +45,7 @@ public class Community {
 	
 	// 좋아요 수
 	private int likeCount;
+	
+	// 좋아요 여부
+	private int likeCheck;
 }

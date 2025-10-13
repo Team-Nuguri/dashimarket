@@ -20,55 +20,7 @@
 
 <body th:with="pagination=${map.pagination}, boardList=${map.boardList}">
 
-    <header>
-        <section id="header-area">
-            <div>
-                <a th:href="@{/}">
-                    <img id="main-logo" th:src="@{/images/common/logo.png}">
-                </a>
-
-            </div>
-            <div>
-                <div>
-                    <a th:href="@{/joongo}" class="noto-sans-kr-20">중고거래</a>
-                </div>
-                <div>
-                    <a th:href="@{/goods}" class="noto-sans-kr-20">굿즈</a>
-                </div>
-                <div>
-                    <a th:href="@{/community}" class="noto-sans-kr-20">커뮤니티</a>
-                </div>
-
-            </div>
-
-            <div id="icon-area">
-                <button>
-                    <!-- <img th:src="@{/images/svg/하트.svg"> -->
-                    <!-- <img th:src="@{@{/images/장바구니.svg}" > -->
-                    <img th:src="@{/images/svg/사람.svg}" >
-                </button>
-
-                <button>
-                    <img th:src="@{/images/svg/group.svg}">
-                </button>
-                <button>
-                    <img th:src="@{/images/svg/clarity_menu-line.svg}">
-
-                </button>
-
-            </div>
-        </section>
-
-        <section id="search-area">
-            <form action="">
-                <fieldset>
-                    <img th:src="@{/images/svg/돋보기.svg}">
-                    <input type="search" name="query" id="query" placeholder="검색어를 입력해주세요." class="noto-sans-kr-20">
-
-                </fieldset>
-            </form>
-        </section>
-</header>
+    <th:block th:replace="~{common/header}">header.html</th:block>
 
 
 
@@ -497,8 +449,13 @@
             </div>
 
 
+<<<<<<< HEAD
             <!-- 상품 등록(관리자한테만 보여줄 것) -->
             <a th:href="@{/joonggo/write}" class="upload-goods-btn">
+=======
+
+            <a th:if="${session.loginMember}" th:href="@{/joonggo/write}" class="upload-goods-btn">
+>>>>>>> 2d06d03e90ebe6f72fe670238da1ee8d97641944
                 <div id="upload-goods-text" class="text-size-16 medium-text">상품 등록</div>
             </a>
         </div>
@@ -565,17 +522,14 @@
 
             <th:block th:each="board : ${boardList}">
 
-                 <a th:href="@{/{boardType}/{boardNo}(boardType=${boardType}, boardNo=${board.joonggoNo}, cp=${pagination.currentPage})}" class="joonggo-detail-area">
-   		        <!-- <a th:href="@{${'/joonggo/' + board.boardNo + '(cp=' + pagination.currentPage + ')'}}"  class="joonggo-detail-area">  -->					   
-				<!--<a th:href="@{/joonggo/{boardNo}(boardNo=${board.boardNo}, cp=${pagination.currentPage})}" class="joonggo-detail-area">-->
-				<!-- <a th:href="@{'/joonggo/' + ${board.joonggoNo} + '(cp=' + ${pagination.currentPage} + ')'}" class="joonggo-detail-area"> -->              
+                <a th:href="@{/{boardType}/{boardNo}(boardType=${boardType}, boardNo=${board.joonggoNo}, cp=${pagination.currentPage})}" class="joonggo-detail-area">
                     <!-- 이미지 -->
                     <div class="joonggo-img"><img th:src="${board.thumbnail}" alt=""><!--중고상품 이미지--></div>
                     <!-- 제품명 -->
                     <div class="joonggo-name text-size-16 medium-text" th:text="${board.joonggoTitle}">중고상품 이름</div>
                     <!-- 가격 -->
-                    <div class="joonggo-price" th:text="${board.joonggoPrice}">가격</div>
-                </a> 
+                    <div class="joonggo-price" th:text="${#numbers.formatDecimal(board.joonggoPrice, 0, 'COMMA', 0, 'POINT')} + '원'">가격</div>
+                </a>
                 
             </th:block>
             
@@ -627,6 +581,7 @@
         
         
 <th:block th:replace="~{common/footer}">footer.html</th:block>
+
 <script th:src="@{/js/joonggoPage/joonggoHome.js}"></script>
 <script th:src="@{/js/joonggoPage/joonggoHome2.js}"></script>
 

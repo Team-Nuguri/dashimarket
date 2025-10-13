@@ -59,13 +59,13 @@
 
                     <!--  상품 수량에 따른 가격 변화 -->
                     <form th:action="@{/goods/order}" method="POST">
-                        <input type="hidden" name="boardNo" th:value="${goods.boardNo}">
+                        <input type="hidden" th:name="'orderItems[0].boardNo'" th:value="${goods.boardNo}">
                         <div class="flex" id="count-price">
 
 
                             <div class="number-input">
                                 <button type="button" class="minus">-</button>
-                                <input type="number" name="quantity" id="quantity" value="1" min="1"
+                                <input type="number" th:name="'orderItems[0].quantity'" id="quantity" value="1" min="1"
                                     th:max="${goods.goodsStock}">
                                 <button type="button" class="plus">+</button>
                             </div>
@@ -548,10 +548,7 @@
 
     <th:block th:replace="~{common/footer}">footer.html</th:block>
 
-    <th:block th:if="${session.loginMember}">
-        <th:block th:replace="~{chatting/chatting}">chatting.html</th:block>
-        <script th:src="@{/js/chatting/chatting.js}"></script>
-    </th:block>
+    <!-- <th:block th:if="${session.loginMember}" th:replace="~{chatting/chatting}">chatting.html</th:block> -->
 
     <script th:inline="javascript">
 

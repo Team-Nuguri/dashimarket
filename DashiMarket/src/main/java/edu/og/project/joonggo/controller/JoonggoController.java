@@ -1,6 +1,10 @@
 package edu.og.project.joonggo.controller;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +30,9 @@ import edu.og.project.joonggo.model.dto.JoonggoWrite;
 import edu.og.project.joonggo.model.dto.SimilarItem;
 import edu.og.project.joonggo.model.service.JoonggoService;
 import edu.og.project.joonggo.model.service.JoonggoServiceImpl;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class JoonggoController {
@@ -92,9 +99,10 @@ public class JoonggoController {
 			@PathVariable("boardType") String boardType,
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
 			@SessionAttribute(value ="loginMember" , required = false) Member loginMember,
-			Model model
-			// 세션에서 로그인 번호 얻어와야 함
-			) {
+			Model model,
+			HttpServletRequest req,
+			HttpServletResponse resp
+			) throws ParseException {
 		
 		Map<String, Object> map = new HashMap<>();
 		
@@ -122,6 +130,69 @@ public class JoonggoController {
 				if(likeSelect != 0) {
 					model.addAttribute("likeCheck", "like");
 				}
+			}
+			
+			// 조회수 처리
+			if(loginMember == null || loginMember.getMemberNo() != joonggo.getMemberNo()) {
+				
+				Cookie c = null;
+				
+				// 모든 쿠키 배열에 담고
+				Cookie[] cookies = req.getCookies();
+				
+				// 배열 순회해서 readJoonggo 쿠키 찾아 있다면 c 에 저장
+				for (Cookie cookie : cookies) {
+					if(cookie.getName().equals("readJoonggo")) {
+						
+						c = cookie;
+						break;
+					}
+					
+				}
+				
+				int result = 0;
+				
+				if(c == null) {
+					
+					c= new Cookie("readJoonggo", "|" + joonggoNo + "|");
+					
+					// 조회수 증가 서비스 호출
+					result = service.updateReadCount(joonggoNo);
+				}else {
+					// 쿠키 존재할 때 
+					if(c.getValue().indexOf("|" + joonggoNo + "|") == -1) {
+						c.setValue(c.getValue()+ "|" + joonggoNo + "|");
+						
+						result = service.updateReadCount(joonggoNo);
+					}
+				}
+				
+				if(result == 1) {
+					
+					joonggo.setReadCount(joonggo.getReadCount() + 1);
+					
+					c.setPath("/");
+					
+					Calendar cal = Calendar.getInstance();
+					cal.add(Calendar.DATE, 1); // 1일
+					
+					// 날짜 표기법 변경
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+					
+					Date current = new Date(); // 현재 시간
+					Date temp = new Date(cal.getTimeInMillis()); // 24시간 후(내일
+					Date tmr = sdf.parse( sdf.format(temp) ); // 내일 0시 0분 0초
+					
+					// 내일 0시 0분 0초 - 현재 시간 = 쿠키 수명
+					long lifeTime = (tmr.getTime() - current.getTime()) / 1000;
+					// 남은 시간을 초단위로 반환
+					
+					// 쿠키 수명 설정
+					c.setMaxAge((int)lifeTime);
+					resp.addCookie(c);
+				}
+				
+				
 			}
 		}
 		

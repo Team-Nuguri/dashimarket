@@ -4,7 +4,7 @@
 <script th:inline="javascript">
     // 접속한 클라이언트가 로그인 상태인지 확인
     const notificationLoginCheck = /*[[${session.loginMember} ? true : false]]*/ false;
-    
+
     // 기본 이미지 - config.properties에서 얻어옴
     const notificationDefaultImg = /*[[#{user.default.image}]]*/ "기본 이미지";
 </script>
@@ -31,9 +31,9 @@
             </div>
 
         </div>
-            
+
         <!-- 아이콘 영역 -->
-        <div id="icon-area">
+        <div th:if="${session.loginMember}" id="icon-area">
             <button>
                 <img th:src="@{/images/svg/하트.svg}" class="icon-img">
                 <!-- <img th:src="@{/images/svg/장바구니.svg}"  id="cartListBtn"> -->
@@ -50,7 +50,7 @@
                     <!-- 알림 표시 -->
                     <div class="notification-area"></div>
                 </button>
-                
+
                 <!-- 알림 목록 -->
                 <ul class="notification-list">
                     <!-- <li class="notification-item">
@@ -80,24 +80,22 @@
 
             <div class="dropdown-toggle">
                 <button class="dropdown" id="dropdown">
-                    <img th:src="@{/images/svg/clarity_menu-line.svg}" class="icon-img">                
+                    <img th:src="@{/images/svg/clarity_menu-line.svg}" class="icon-img">
                 </button>
 
-                <th:block th:if="${session.loginMember}">
-                    <div class="dropdown-menu" id="dropdownMenu">
-                        <a th:href="@{/myPage/profile}">마이페이지</a>
-                        <a th:href="@{/member/logout}">로그아웃</a>
-                        <a th:href="@{/myPage/fraud}">사기 이력 조회</a>
-                    </div>
-                </th:block>
-                
-                <th:block th:unless="${session.loginMember}">
-                    <div id="login-area" class="dropdown-menu">
-                        <a th:href="@{member/login}" id="login">로그인</a>
-                    </div>
-                </th:block>
-            </div>    
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a th:href="@{/myPage/profile}">마이페이지</a>
+                    <a th:href="@{/member/logout}">로그아웃</a>
+                    <a th:href="@{/myPage/fraud}">사기 이력 조회</a>
+                </div>
 
+
+            </div>
+
+        </div>
+
+        <div th:unless="${session.loginMember}">
+            <a th:href="@{/member/login}" class="bold-text"  id="login">로그인</a>
         </div>
     </section>
 
@@ -120,19 +118,13 @@
                 <img th:src="@{/images/svg/chatting.svg}">
             </div>
         </th:block>
-        
+
         <div id="chatbotBtn" class="floating-div">
             <img th:src="@{/images/svg/chatbot.svg}">
         </div>
 
     </section>
-
-
-    <th:block th:if="${session.loginMember}">
-        <th:block th:replace="~{chatting/chatting}">chatting.html</th:block>
-        <script th:src="@{/js/chatting/chatting.js}"></script>
-    </th:block>
-    
     <script th:src="@{/js/common/header.js}"></script>
+    <!-- <script th:src="@{/js/chatting/chatting.js}"></script> -->
 
 </header>

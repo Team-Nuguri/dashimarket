@@ -38,7 +38,29 @@
             <!-- 선택한 동네 -->
             <div id="select-city" class="bold-text">
                 <div><img th:src="@{/images/svg/location.svg}" alt=""></div>
-                <div id="city-name" class="text-size-20">관철동</div>
+
+                <!-- 조건에 따른 동네명 -->
+                <div id="city-name" class="text-size-20">
+
+                    <!-- 선택한 동네가 있는 경우 -->
+                    <span th:if="${session.selectDong}">
+                        [[${session.selectDong}]]
+                    </span>
+
+                    <!-- 선택한 동네가 없는 경우 -->
+                    <span th:unless="${session.selectDong}">
+
+                        <!-- 로그인한 상태: 회원가입시 저장된 기본 동네 -->
+                        <span th:if="${session.loginMember}">
+                            [[${session.loginMember.defaultDong}]]
+                        </span>
+
+                        <!-- 로그인 안 한 상태: 현재 위치 -->
+                        <span th:unless="${session.loginMember}">[[${session.selectDong}]]</span>
+
+                    </span>
+                    
+                </div>
             </div>
 
             <!-- 검색 -->
@@ -79,8 +101,12 @@
 
     <th:block th:replace="~{common/footer}"></th:block>
 
+    <!-- 카카오맵 API -->
+    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=4eadace8a189e8fb36d8ccf3d8aa6233&libraries=services"></script>
     <script th:src="@{/js/intro.js}"></script>
-    
+    <script th:inline="javascript">
+        const isSelectDong = /*[[${session.selectDong}]]*/ "선택한 동네";
+    </script>
 </body>
 
 </html>

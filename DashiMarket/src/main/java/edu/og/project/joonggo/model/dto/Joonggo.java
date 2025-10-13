@@ -47,6 +47,8 @@ public class Joonggo {
 	List<Image> imageList;
 	
 	
+	private String thumbnail;
+	
 	
 	
 

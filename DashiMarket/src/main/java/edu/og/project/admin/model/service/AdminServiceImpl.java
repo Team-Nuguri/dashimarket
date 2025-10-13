@@ -14,11 +14,15 @@ import edu.og.project.common.dto.Pagination;
 import edu.og.project.goods.model.dao.GoodsMapper;
 import edu.og.project.goods.model.dto.Goods;
 
+import edu.og.project.admin.model.dao.AdminMapper;
+
+
 @Service
 public class AdminServiceImpl implements AdminService{
 	
 	@Autowired
-	private ReportMapper mapper;
+
+	private AdminMapper mapper;
 
 	@Override
 	public Map<String, Object> selectReportList(String keyword, String reportResult, int cp) {

@@ -1,5 +1,6 @@
 package edu.og.project.admin.controller;
 
+
 import java.util.List;
 import java.util.Map;
 
@@ -11,12 +12,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.og.project.admin.model.dto.Report;
 import edu.og.project.admin.model.service.AdminService;
 import edu.og.project.goods.model.service.GoodsService;
+
+import org.springframework.web.bind.annotation.SessionAttribute;
+
+import edu.og.project.admin.model.service.AdminService;
+import edu.og.project.common.dto.Member;
+
 
 @RequestMapping("/admin")
 @Controller
@@ -96,19 +104,19 @@ public class AdminController {
 		return "admin/admin_goodsOrder";
 	}
 	
-	// 데이터 - 이용자 수 페이지 요청
-	@GetMapping("/data/user")
-	public String dataUser() {
+//	// 데이터 - 이용자 수 페이지 요청
+//	@GetMapping("/data/user")
+//	public String dataUser() {
+//		
+//		return "admin/admin_dataUser";
+//	}
 		
-		return "admin/admin_dataUser";
-	}
-		
-	// 통합 신고 페이지 요청
-	@GetMapping("/data/goods")
-	public String dataGoods() {
-		
-		return "admin/admin_dataGoods";
-	}		
+//	// 통합 신고 페이지 요청
+//	@GetMapping("/data/goods")
+//	public String dataGoods() {
+//		
+//		return "admin/admin_dataGoods";
+//	}		
 		
 	
 	
