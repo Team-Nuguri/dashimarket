@@ -32,13 +32,9 @@
       <result property="boardCode" column="BOARD_CODE"/>
       <result property="boardType" column="BOARD_TYPE"/>
       
-       <!-- 대표 이미지 -->
-		<result property="thumbnail" 	   column="THUMBNAIL"/>
+       
         
-        <association property="image" select="selectImageList" 
-             column="BOARD_NO" 
-             javaType="Image" > 
-		</association>
+       
       
       
       <!-- collection 태그  
@@ -269,7 +265,7 @@
 	
 	 <!-- 중고상품 위시리스트 목록 조회 (KJK) -->
 	<select id="selectJoonggoWishList" resultMap="joonggo_rm">
-		SELECT B.BOARD_NO, BOARD_TITLE, TO_CHAR(JOONGGO_PRICE, '999,999,999,999')||'원' JOONGGO_PRICE,
+		SELECT B.BOARD_NO, BOARD_TITLE,  JOONGGO_PRICE,
 		  (SELECT IMG_PATH || IMG_RENAME FROM IMAGE I
 		    WHERE I.BOARD_NO = B.BOARD_NO
 		    AND IMG_ORDER = 0) THUMBNAIL
