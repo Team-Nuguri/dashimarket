@@ -108,9 +108,15 @@
                                     <div th:text="${board.likeCount}">좋아요</div>
                                 </div>
         
+                                <!-- 댓글 -->
                                 <div class="post-comment">
                                     <img th:src="@{/images/svg/comment.svg}" alt="">
-                                    <div th:text="${board.commentCount}">댓글</div>
+                                    <div>[[${board.commentCount}]]</div>
+                                </div>
+
+                                <div class="views-area">
+                                    <div><img th:src="@{/images/svg/Eye.svg}" alt=""></div>
+                                    <div class="text-size-14" th:text="${board.postViews}">조회수</div>
                                 </div>
                             </div>
                         </div>
