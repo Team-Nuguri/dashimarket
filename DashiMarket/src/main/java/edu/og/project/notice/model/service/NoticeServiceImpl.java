@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import edu.og.project.common.dto.Image;
 import edu.og.project.notice.model.dao.NoticeMapper;
 import edu.og.project.notice.model.dto.Notice;
 
@@ -41,6 +42,12 @@ public class NoticeServiceImpl implements NoticeService{
         return mapper.insertNotice(notice);
     }
     
+    @Transactional
+    @Override
+    public int insertImage(Image image) {
+        return mapper.insertImage(image);
+    }
+    
     // 이전글 조회
     @Override
     public Notice selectPrevNotice(int noticeNo) {
@@ -58,6 +65,12 @@ public class NoticeServiceImpl implements NoticeService{
     @Override
     public int updateNotice(Notice notice) {
         return mapper.updateNotice(notice);
+    }
+    
+    @Transactional
+    @Override
+    public int deleteImagesByBoardNo(String boardNo) {
+        return mapper.deleteImagesByBoardNo(boardNo);
     }
     
     // 공지사항 삭제 (논리 삭제)

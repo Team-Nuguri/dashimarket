@@ -1,5 +1,8 @@
 package edu.og.project.notice.model.dto;
 
+import java.util.List;
+
+import edu.og.project.common.dto.Image;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,8 +29,7 @@ public class Notice {
 	private String memberNickname;
 	private int memberNo;
 
-	// 첨부파일 추가
-	private String attachmentPath; // 이미지 파일 웹 경로 (/images/notice/파일명.jpg)
-	private String attachmentOriginalName; // 원본 파일명
+	// 이미지 리스트 (IMAGE 테이블 사용)
+	private List<Image> imageList;
 	
 }
