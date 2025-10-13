@@ -12,13 +12,15 @@ import edu.og.project.community.model.dto.Community;
 public interface CommunityService {
 
 	/** 커뮤니티 목록 조회
+	 * @param memberNo 
 	 * @param boardType
 	 * @param cp
 	 * @param sortType 
 	 * @param category 
+	 * @param finalDong 
 	 * @return map
 	 */
-	Map<String, Object> selectCommunityList(String boardType, int cp, String category, String sort);
+	Map<String, Object> selectCommunityList(int memberNo, String boardType, int cp, String category, String sort, String finalDong);
 
 	/** 커뮤니티 상세조회
 	 * @param map

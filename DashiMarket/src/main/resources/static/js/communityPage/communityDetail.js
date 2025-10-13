@@ -263,6 +263,14 @@ function selectCommentList(type, value) {
     .then(resp => resp.text())
     .then(commentList => {
         document.getElementsByClassName('comment-area')[0].innerHTML = commentList;
+
+        /* 댓글 개수 카운트 */
+        const commentCount = document.querySelector(".post-comment div");
+
+        let count = parseInt(commentCount.textContent.trim(), 10);
+        count += 1;
+
+        commentCount.textContent = count;
         initReplyBtn();
     })
     .catch(e => console.log(e))
