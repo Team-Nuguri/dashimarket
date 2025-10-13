@@ -79,7 +79,7 @@
                 <th:block th:each="board : ${boardList}">
 
                     <!-- 하나의 게시글 -->
-                    <a th:href="@{/{boardType}/{communityNo}(boardType=${boardType}, communityNo=${board.communityNo}, cp=${pagination.currentPage})}" class="community-post">
+                    <a th:href="@{/{boardType}/{communityNo}(boardType=${boardType}, communityNo=${board.communityNo}, finalDong=${finalDong}, cp=${pagination.currentPage})}" class="community-post">
                         <!-- 썸네일 영역 -->
                         <div class="post-thumbnail" th:if="${board.thumbnail != null}">
                             <img th:src="${board.thumbnail}" alt="">
