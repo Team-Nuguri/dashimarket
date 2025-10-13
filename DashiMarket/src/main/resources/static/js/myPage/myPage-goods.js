@@ -1,33 +1,29 @@
-//    console.log('myPage-goods.js');
+console.log('myPage-goods.js');
 
-// document.addEventListener('DOMContentLoaded', ()=>{
+document.addEventListener('DOMContentLoaded', ()=>{
 
-//     fetch('/myPage/goods')
-//     .then(res => res.text())
-//     .then(data => {
+    fetch('/myPage/goods')
+    .then(res => res.text())
+    .then(data => {
 
-//         data.forEach((order, index) => {
+        data.forEach((order, index) => {
+    
+        document.querySelector(".orderStatus")[index];
+        document.querySelector(".goodsName")[index];
+        document.querySelector(".goodsId")[index];
+        document.querySelector(".goodsDate")[index]; 
+                
+        orderStatus.innerHTML = order.status;
+        goodsName.innerHTML = order.name; 
+        goodsId.innerHTML = order.sellerId;
+        goodsDate.innerHTML = order.date;
+        }
+    
 
-//         if(data != null) {
-//         document.querySelector(".orderStatus")[index];
-//         document.querySelector(".goodsName")[index];
-//         document.querySelector(".goodsId")[index];
-//         document.querySelector(".goodsDate")[index]; 
+    })
+    .catch(err => console.log(err))
 
-//         document.getElementById
-        
-//         status.innerHTML = order.status;
-//         name.innerHTML = order.name; 
-//         id.innerHTML = order.sellerId;
-//         data.innerHTML = order.date;
-        
-//            }       
-//           }
-//         ))
-//     })
-//     .catch(err => console.log(err))
-
-// })
+})
 
 // const reviewBtn = querySelector(".myPage-orderPostWrite");
 // const confirmBtn = querySelector(".myPage-orderConfirm");
