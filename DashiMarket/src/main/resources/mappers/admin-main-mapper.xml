@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.og.project.admin.model.dao.AdminMapper">
+	
+	<!-- 오늘 가입한 회원 수 -->
+	<select id="selectTodayJoincount" resultType="int">
+		SELECT COUNT (*) FROM MEMBER
+		WHERE TRUNC(ENROLL_DATE) = TRUNC(SYSDATE)
+	</select>
+	
+	<!-- 가입한 총 회원 수 -->
+	<select id="selectTotalUsercount" resultType="int">
+        SELECT COUNT(*)FROM MEMBER
+    </select>
+    
+    <!-- 전체 회원 조회 -->
+    <select id="selectAllMembers" resultType="Member">
+    	SELECT
+		    M.MEMBER_NO, M.MEMBER_EMAIL, M.MEMBER_NAME,
+		    M.MEMBER_NICKNAME, M.MEMBER_TEL,
+		    ('(' || M.POST_CODE || ') ' || M.LOAD_ADDRESS || ' ' ||  M.DETAIL_ADDRESS) AS ADDRESS,
+		    TO_CHAR(TRUNC(M.ENROLL_DATE), 'YYYY-MM-DD') AS ENROLL_DATE, M.SECESSIONFL,
+		    
+		    -- 게시글 수 
+		    NVL((SELECT COUNT(B.BOARD_NO) FROM BOARD B WHERE B.MEMBER_NO = M.MEMBER_NO), 0) AS BOARD_COUNT,
+		    
+		    -- 댓글 수 
+		    NVL((SELECT COUNT(C.COMMENT_NO) FROM "COMMENT" C WHERE C.MEMBER_NO = M.MEMBER_NO), 0) AS COMMENT_COUNT
+		    
+		FROM MEMBER M
+		WHERE IS_ADMIN = 'N'
+		ORDER BY M.MEMBER_NO
+    </select>
+    
+    <!-- 굿즈 상품 조회 -->
+    <select id="selectProducts" resultType="Goods">
+        SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT, GOODS_PRICE, GOODS_STOCK,
+        	TO_CHAR(TRUNC(BOARD_CREATE_DATE), 'YYYY-MM-DD') AS BOARD_CREATE_DATE
+        FROM GOODS
+        LEFT JOIN BOARD USING(BOARD_NO)
+        
+        <choose>
+            <!-- 최신순 -->
+            <when test="sort == 'latest'">
+                ORDER BY BOARD_CREATE_DATE DESC
+            </when>
+
+            <!-- 가격순 -->
+            <when test="sort == 'price'">
+                ORDER BY GOODS_PRICE
+            </when>
+
+            <!-- 기본: 상품 이름 오름차순 -->
+            <otherwise>
+                ORDER BY BOARD_TITLE
+            </otherwise>
+        </choose>
+        
+    </select>
+	
+</mapper>

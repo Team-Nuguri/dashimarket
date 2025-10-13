@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/myPage/myPage-goods.css}">
+    <link rel="stylesheet" th:href="@{css/common/header.css}">
+    <link rel="stylesheet" th:href="@{/css/common/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/common/font.css}">    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <title>굿즈 거래내역</title>
+</head>
+<body>
+    
+    <!-- header -->
+        <th:block th:replace="~{common/header.js}"></script>  
+
+<main>
+
+    
+<!--왼쪽 사이드메뉴-->
+
+<section class="myPage-content">
+
+<section class="left-side">
+
+    <nav>
+
+    <div class="left-title text-size-28 bold-text">마이페이지</div>
+
+
+    <ul class="left-menu">
+        <li class="text-size-18 bold-text">
+            <img th:src="@{/images/myPage/shopping.png}" alt="주문내역/구매내역" width="40px" height="40px">
+            주문내역/구매내역
+
+            <ul>
+                    
+                    <li class="myPage-a"><a th:href="@{/myPage/order}">중고거래</a></li>
+                
+                    <li class="myPage-a"><a th:href="@{/myPage/goods}">굿즈</a></li>                                  
+                
+            </ul>        
+        </li>
+    </ul>
+
+    <ul class="left-menu">
+        <li class="text-size-18 bold-text">
+            <img th:src="@{/images/myPage/product.png}" alt="상품관리"  width="40px" height="40px">
+            상품관리
+            <ul class="left-submenu">
+                
+                    <li class="myPage-a"><a href=""></a>내가 찜한 상품</li>
+            
+            </ul>
+        </li>
+    </ul>
+
+    <ul class="left-menu">
+        <li class="text-size-18 bold-text">
+            <img th:src="@{/images//myPage/myinfo.png}" alt="내 정보 관리" width="40px" height="40px">
+            내 정보 관리       
+            <ul class="left-submenu">
+                
+                
+                    <li class="myPage-a"><a th:href="@{/myPage/profile}">프로필 관리</a></li>
+                
+                    <li class="myPage-a"><a th:href="@{myPage/secession}">회원 탈퇴</a></li>
+                       
+            </ul>
+        </li>   
+    </ul>
+    </nav>
+    
+</section>
+
+<!-- 주문 내역 / 거래 내역 -->
+
+        <section class="myPage-order">
+           
+            <div class="myPage-orderTitle text-size-24 bold-text">주문 내역 / 거래 내역</div>
+
+            <fieldset class="myPage-orderSearch">
+                <legend class="text-size-20 bold-text">검색</legend>
+                <input type="text">
+            </fieldset>
+
+            <div class="divider"></div>
+
+            <div class="myPage-orderSelect">
+                <select name="" id="">
+                <option value="">직거래</option>
+                <option value="">굿즈</option>               
+                </select>
+
+            </div>
+
+            <div class="myPage-orderStatus">
+                <div class="text-size-16 bold-text">구매상태</div>
+                <span class="text-size-10 bold-text">(구매확정/결제완료)</span>
+            </div>
+
+            <section class="myPage-orderDetail">
+            <div>
+                <div class=" text-size-14 bold-text">판매글 제목 / 굿즈 상품명</div>
+                <div class=" text-size-14 bold-text">판매자 아이디(닉네임)</div>
+                <div class=" text-size-14 bold-text">YYYY-MM-DD(aaa)</div>
+            </div>
+            <div class="myPage-orderButtonGroup">
+                <button class="myPage-orderPostWrite text-size-14 bold-text">거래 후기 작성</button>
+                <button class="myPage-orderConfirm text-size-14 bold-text">구매확정</button>
+                <button class="myPage-orderDelivery text-size-14 bold-text">배송조회</button>
+            </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <div class="myPage-orderStatus">
+                <div class="text-size-16 bold-text">구매상태</div>
+                <span class="text-size-10 bold-text orderStatus">(구매확정/결제완료/etc)</span>
+            </div>
+
+            <section class="myPage-orderDetail">
+            <div>
+                <div class="text-size-12 bold-text goodsName">판매글 제목 / 굿즈 상품명</div>
+                <div class="text-size-12 bold-text goodsId">판매자 아이디(닉네임)</div>
+                <div class="text-size-12 bold-text goodsDate">YYYY-MM-DD(aaa)</div>
+            </div>
+            <div class="myPage-orderButtonGroup">
+                <button class="myPage-orderPostWrite text-size-12 bold-text">거래 후기 작성</button>
+                <button class="myPage-orderConfirm text-size-12 bold-text">구매확정</button>
+                <button class="myPage-orderDelivery text-size-12 bold-text">배송조회</button>
+            </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <div class="myPage-orderStatus">
+                <div class="text-size-16 bold-text">구매상태</div>
+                <span class="text-size-10 bold-text">(구매확정/결제완료/etc)</span>
+            </div>
+
+            <section class="myPage-orderDetail">
+            <div>
+                <div class="text-size-12 bold-text">판매글 제목 / 굿즈 상품명</div>
+                <div class="text-size-12 bold-text">판매자 아이디(닉네임)</div>
+                <div class="text-size-12 bold-text">YYYY-MM-DD(aaa)</div>
+            </div>
+            <div class="myPage-orderButtonGroup">
+                <button class="myPage-orderPostWrite text-size-12 bold-text">거래 후기 작성</button>
+                <button class="myPage-orderConfirm text-size-12 bold-text">구매확정</button>
+                <button class="myPage-orderDelivery text-size-12 bold-text">배송조회</button>
+            </div>
+            </section>
+
+            <div class="myPage-pagination">
+                <ul>
+                    <li><img th:src="@{/images/pagination/pagn-previous-btn.svg}" class="next-group" alt="">&lt;</li>
+                    
+
+                    <li><a href="" class="page-link">1</a></li>
+                    <li><a href="" class="page-link">2</a></li>
+                    <li><a href="" class="page-link">3</a></li>
+                    <li><a href="" class="page-link">4</a></li>
+                    <li><a href="" class="page-link">5</a></li>
+                    <li><a href="" class="page-link">6</a></li>
+                    <li><a href="" class="page-link">7</a></li>
+                    <li><a href="" class="page-link">8</a></li>
+                    <li><a href="" class="page-link">9</a></li>
+                    <li><a href="" class="page-link">10</a></li>
+
+                    <li><img th:src="@{/images/pagination/pagn-next-btn.svg}" class="last-page" alt="">&gt;</li>
+
+                </ul>
+
+            </div>
+
+        </section>
+
+
+</section>
+    
+</main>
+
+    
+<!--footer-->
+<th:block th:replace="~{common/footer}"></th:block>       
+<script src="@{/js/myPage/myPage-goods.js}"></script>
+
+
+</body>
+</html>
