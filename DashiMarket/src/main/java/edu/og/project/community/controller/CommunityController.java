@@ -107,12 +107,15 @@ public class CommunityController {
 		String finalDong = null;
 		
 		// 1. 세션에 selectDong이 있는 경우 (맵 선택 or 현재위치)
-		if(selectDong != null && !selectDong.trim().isEmpty()) {
-			finalDong = selectDong; // 세션에 있는 동네값으로 세팅
-			
-		} else if(loginMember != null) {
+//		if(selectDong != null && !selectDong.trim().isEmpty()) {
+//			finalDong = selectDong; // 세션에 있는 동네값으로 세팅
+//			
+//		} else 
+			if(loginMember != null) {
 			// 로그인만 한 상태인 경우(맵 선택 x, 세션에 동네 값 없음)
-			finalDong = loginMember.getDefaultDong(); // DB에 있는 회원의 주소 값으로 세팅
+			String hDongStr = loginMember.getJibunAddress();
+			String hDongArr[] = hDongStr.split(" ");
+			finalDong = hDongArr[hDongArr.length - 2];
 		}
 		
 		int loginMemberNo;

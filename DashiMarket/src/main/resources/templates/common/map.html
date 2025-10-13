@@ -150,6 +150,8 @@
                                 const regionName = opener.document.getElementById("show-region");
                                 if(regionName) regionName.textContent = selectDong;
 
+                                opener.location.reload(true);
+
                                 console.log("동네명 업데이트 성공!");
                             }
                         })
