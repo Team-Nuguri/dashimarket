@@ -2,7 +2,7 @@ console.log('myPage-goods.js');
 
 document.addEventListener('DOMContentLoaded', ()=>{
 
-    fetch('/myPage/goods')
+    fetch('/goods/list')
     .then(res => res.text())
     .then(data => {
 
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         goodsName.innerHTML = order.name; 
         goodsId.innerHTML = order.sellerId;
         goodsDate.innerHTML = order.date;
-        }
+        })
     })
     .catch(err => console.log(err))
 

@@ -70,7 +70,7 @@
     AND SECESSIONFL = 'N'
 	</select>
 	
-	<select id="selectMyOrderDetails" parameterType="String" resultType="map">
+	<select id="selectGoods" parameterType="String" resultType="map">
 	    
 	    SELECT 
 	        G.GOODS_TITLE AS 제품명,

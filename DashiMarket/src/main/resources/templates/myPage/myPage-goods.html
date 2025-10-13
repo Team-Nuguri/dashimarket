@@ -14,8 +14,8 @@
 </head>
 <body>
     
-    <!-- header -->
-        <th:block th:replace="~{common/header.js}"></script>  
+    <!--header-->
+    <th:block th:replace="~{common/header}"></th:block>
 
 <main>
 
@@ -170,8 +170,10 @@
 
     
 <!--footer-->
-<th:block th:replace="~{common/footer}"></th:block>       
-<script src="@{/js/myPage/myPage-goods.js}"></script>
+<th:block th:replace="~{common/footer}"></th:block>
+
+
+<script th:src="@{/js/myPage/myPage-profile.js}"></script>
 
 
 </body>

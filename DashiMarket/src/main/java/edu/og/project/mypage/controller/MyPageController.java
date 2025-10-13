@@ -272,7 +272,14 @@ public class MyPageController {
 	}
 	
 	
-	@GetMapping("/myPage/goods")
+	@GetMapping("/goods")	
+	public String selectGoods () {
+		
+		return "/myPage/myPage-goods";		
+	}
+	
+	
+	@GetMapping("/goods/list") // 비동기
 	@ResponseBody
 	public List<Map<String, Object>> selectGoods (			
 			@SessionAttribute("loginMember") Member loginMember) {
