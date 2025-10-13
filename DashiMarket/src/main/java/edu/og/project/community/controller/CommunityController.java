@@ -56,7 +56,7 @@ public class CommunityController {
 									  @SessionAttribute(value="loginMember", required=false) Member loginMember) {
 		
 									// 공통 메소드
-		Map<String, Object> map = getData(boardType, cp, category, sort, selectDong, loginMember);
+		Map<String, Object> map = getData(boardType, cp, category, sort, selectDong, loginMember, model);
 		model.addAllAttributes(map);
 		
 		return "/communityPage/communityHome";
@@ -74,7 +74,7 @@ public class CommunityController {
 									  @SessionAttribute(value="loginMember", required=false) Member loginMember) {
 		
 									// 공통 메소드
-		Map<String, Object> map = getData(boardType, cp, category, sort, selectDong, loginMember);
+		Map<String, Object> map = getData(boardType, cp, category, sort, selectDong, loginMember, model);
 		model.addAllAttributes(map);
 		
 		// 프레그먼트 반환
@@ -98,7 +98,7 @@ public class CommunityController {
 	
 	
 	// 동기, 비동기 요청 로직이 같으므로 한 메소드로 빼서 사용 (목록 조회 서비스 호출)
-	private Map<String, Object> getData(String boardType, int cp, String category, String sort, String selectDong, Member loginMember) {
+	private Map<String, Object> getData(String boardType, int cp, String category, String sort, String selectDong, Member loginMember, Model model) {
 		
 		// 선택된 동네값 최종 저장 변수
 		String finalDong = null;
@@ -126,6 +126,7 @@ public class CommunityController {
 		}
 		
 		System.out.println("최종 조회 동네 : " + finalDong);
+		model.addAttribute("finalDong", finalDong);
 		return service.selectCommunityList(loginMemberNo, boardType, cp, category, sort, finalDong);
 	}
 	
@@ -140,6 +141,7 @@ public class CommunityController {
 								  /* 쿠키를 이용한 조회수 증가시 사용*/
 								  HttpServletRequest req,
 								  HttpServletResponse resp) throws ParseException {
+		
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("boardType", boardType);
@@ -242,7 +244,14 @@ public class CommunityController {
 		
 		if(community != null) {
 			path = "communityPage/communityDetail";
+			
+			String hDongStr = community.getJibunAddress();
+			String hDongArr[] = hDongStr.split(" ");
+			String memberHdong = hDongArr[hDongArr.length - 2];
+			
 			model.addAttribute("board", community);
+			model.addAttribute("memberHdong", memberHdong);
+			
 		} else {
 			path = "redirect:/community/" + boardType;
 			ra.addFlashAttribute("message", "게시글이 존재하지 않습니다.");
