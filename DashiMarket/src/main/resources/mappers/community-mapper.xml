@@ -123,9 +123,11 @@
 		        (SELECT COUNT(*) FROM "LIKE" L
 		        WHERE L.POST_NO = B.BOARD_NO) LIKE_COUNT,
 		        
+		        <if test="memberNo != 0">
                 (SELECT COUNT(*) FROM "LIKE" L2
 		        WHERE L2.POST_NO = B.BOARD_NO
 		        AND L2.MEMBER_NO = ${memberNo}) LIKE_CHECK,
+		        </if>
 		        
 		        (SELECT IMG_PATH || IMG_RENAME FROM IMAGE I
 		        WHERE I.BOARD_NO = B.BOARD_NO

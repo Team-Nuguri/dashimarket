@@ -115,8 +115,17 @@ public class CommunityController {
 			finalDong = loginMember.getDefaultDong(); // DB에 있는 회원의 주소 값으로 세팅
 		}
 		
+		int loginMemberNo;
+		
+		if(loginMember != null) {
+			loginMemberNo = loginMember.getMemberNo();
+		} else {
+			loginMemberNo = 0;
+		}
+		
+		
 		System.out.println("최종 조회 동네 : " + finalDong);
-		return service.selectCommunityList(loginMember.getMemberNo(),boardType, cp, category, sort, finalDong);
+		return service.selectCommunityList(loginMemberNo, boardType, cp, category, sort, finalDong);
 	}
 	
 	// 커뮤니티 상세조회
