@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" th:href="@{/css/adminPage/admin-style.css}">
+    <link rel="stylesheet" th:href="@{/css/common/font.css}">
 
     <script src="https://kit.fontawesome.com/1c15543e3e.js" crossorigin="anonymous"></script>
 </head>
@@ -63,139 +64,32 @@
                     </form>
     
                     <div id="view-box" class="box-style">
-                        <p>신규 가입자</p>
-                        <p class="p-tag-value">0</p>
+                        <p class="text-size-24">신규 가입자</p>
+                        <p id="todayJoin" class="p-tag-value">0</p>
                     </div>
     
                     <div id="view-box2" class="box-style">
-                        <p>오늘 이용자 수</p>
-                        <p class="p-tag-value">0</p>
+                        <p class="text-size-24">총 회원 수</p>
+                        <p id="totalUser" class="p-tag-value">0</p>
                     </div>
                 </div>
                 
                 <!-- 회원조회 테이블 -->
                 <table class="table-content">
-                    <tr class="table-title">
-                        <td>회원번호</td>
-                        <td>회원ID</td>
-                        <td>닉네임</td>
-                        <td>전화번호</td>
-                        <td>주소</td>
-                        <td>탈퇴여부(Y/N)</td>
-                        <td>가입일</td>
-                        <td>게시글 수</td>
-                        <td>평점</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>user01@og.or.kr</td>
-                        <td>유저일</td>
-                        <td>01012345678</td>
-                        <td>서울시 종로구 관철동</td>
-                        <td>N</td>
-                        <td>2025.09.01</td>
-                        <td>0</td>
-                        <td>0.0</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>user02@og.or.kr</td>
-                        <td>유저이</td>
-                        <td>01012345678</td>
-                        <td>서울시 종로구 관철동</td>
-                        <td>N</td>
-                        <td>2025.09.10</td>
-                        <td>1</td>
-                        <td>2.0</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>user03@og.or.kr</td>
-                        <td>유저삼</td>
-                        <td>01012345678</td>
-                        <td>서울시 종로구 관철동</td>
-                        <td>N</td>
-                        <td>2025.09.10</td>
-                        <td>6</td>
-                        <td>6/3.0</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>user04@og.or.kr</td>
-                        <td>유저사</td>
-                        <td>01012345678</td>
-                        <td>서울시 종로구 관철동</td>
-                        <td>N</td>
-                        <td>2025.09.10</td>
-                        <td>5</td>
-                        <td>5/4.0</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>user05@og.or.kr</td>
-                        <td>유저오</td>
-                        <td>01012345678</td>
-                        <td>서울시 종로구 관철동</td>
-                        <td>N</td>
-                        <td>2025.09.15</td>
-                        <td >0</td>
-                        <td>0/0.0</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>user06@og.or.kr</td>
-                        <td>유저육</td>
-                        <td>01012345678</td>
-                        <td>서울시 종로구 관철동</td>
-                        <td>N</td>
-                        <td>2025.09.11</td>
-                        <td>10</td>
-                        <td>10/3.9</td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>user07@og.or.kr</td>
-                        <td>유저칠</td>
-                        <td>01012345678</td>
-                        <td>서울시 종로구 관철동</td>
-                        <td>N</td>
-                        <td>2025.09.11</td>
-                        <td>10</td>
-                        <td>10/3.9</td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td>user08@og.or.kr</td>
-                        <td>유저팔</td>
-                        <td>01012345678</td>
-                        <td>서울시 종로구 관철동</td>
-                        <td>N</td>
-                        <td>2025.09.11</td>
-                        <td>10</td>
-                        <td>10/3.9</td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td>user09@og.or.kr</td>
-                        <td>유저팔</td>
-                        <td>01012345678</td>
-                        <td>서울시 종로구 관철동</td>
-                        <td>N</td>
-                        <td>2025.09.19</td>
-                        <td>5</td>
-                        <td>5/4.7</td>
-                    </tr>
-                    <tr>
-                        <td>10</td>
-                        <td>user10@og.or.kr</td>
-                        <td>유저십</td>
-                        <td>01012345678</td>
-                        <td>서울시 종로구 관철동</td>
-                        <td>N</td>
-                        <td>2025.09.15</td>
-                        <td>10</td>
-                        <td>10/3.9</td>
-                    </tr>
+                    <thead>
+                        <tr class="table-title">
+                            <td>회원번호</td>
+                            <td>회원ID</td>
+                            <td>본명</td>
+                            <td>닉네임</td>
+                            <td>전화번호</td>
+                            <td>주소</td>
+                            <td>탈퇴여부(Y/N)</td>
+                            <td>가입일</td>
+                            <td>게시글 수</td>
+                            <td>댓글 수</td>
+                        </tr>
+                    </thead>
                 </table>
 
             </section>
