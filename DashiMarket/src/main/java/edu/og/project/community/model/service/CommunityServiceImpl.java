@@ -324,8 +324,6 @@ public class CommunityServiceImpl implements CommunityService {
 		
 		// 현재 게시글의 좋아요 개수 반환
 		int count = mapper.countCommunityLike(communityNo);
-		System.out.println(communityNo);
-		System.out.println(count);
 		return count;
 	}
 
@@ -355,7 +353,6 @@ public class CommunityServiceImpl implements CommunityService {
 		param.put("boardType", boardType);
 		param.put("memberNo", memberNo);
 		
-		System.out.println("파라미터 : " + param);
 
 		List<Community> boardList = mapper.selectLikeCommunityList(param, rowBounds);
 
@@ -364,7 +361,6 @@ public class CommunityServiceImpl implements CommunityService {
 		map.put("pagination", pagination);
 		map.put("boardList", boardList);
 		
-		System.out.println("임플: " + map);
 
 		return map;
 

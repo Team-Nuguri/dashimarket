@@ -16,28 +16,31 @@ selectDong.addEventListener("click", e => {
 
 
 /* 로그인 안 한 경우(홈페이지 접속시) 현재 위치의 행정동 가져와서 세팅 */
-document.addEventListener("DOMContentLoaded", () => {
+if(isLogin == null) {
 
-    if(isSelectDong) return;
-
-    const getRegion = document.getElementById("getRegion");
-
-    /* 이 요소가 화면에 존재하는 경우 = 로그인 x, 선택한 동네 x => 비회원의 현재 위치의 동네명 가져오기 */
-
-    /* 현재 위치의 위도 경도 가져오기 */
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(getSuccess, getError, {
-            enableHighAccuracy: true,
-            timeout: 10000,
-            maximumAge: 0
-        });
-
-    } else {
-        console.warn("Geolocation API를 지원하지 않아 현재 위치를 가져올 수 없습니다.")
-    }
-
-
-});
+    document.addEventListener("DOMContentLoaded", () => {
+    
+        if(isSelectDong) return;
+    
+        const getRegion = document.getElementById("getRegion");
+    
+        /* 이 요소가 화면에 존재하는 경우 = 로그인 x, 선택한 동네 x => 비회원의 현재 위치의 동네명 가져오기 */
+    
+        /* 현재 위치의 위도 경도 가져오기 */
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(getSuccess, getError, {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 0
+            });
+    
+        } else {
+            console.warn("Geolocation API를 지원하지 않아 현재 위치를 가져올 수 없습니다.")
+        }
+    
+    
+    });
+}
 
 
 function getSuccess(position) {
