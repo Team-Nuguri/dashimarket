@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.og.project.seller.model.dao.SellerMapper">
+
+    <!-- 판매자 기본 정보 조회 -->
+	<select id="getSellerInfo" resultType="Member">
+	    SELECT 
+	        MEMBER_NO AS memberNo,
+	        MEMBER_NICKNAME AS memberNickname,
+	        PROFILE_PATH AS profilePath,    <!-- ✅ profileImage → profilePath -->
+	        DEFAULT_DONG AS defaultDong
+	    FROM MEMBER
+	    WHERE MEMBER_NO = #{memberNo}
+	    AND SECESSIONFL = 'N'
+	</select>
+
+
+    <!-- 판매자 평균 별점 조회 -->
+    <select id="getAvgRating" resultType="double">
+        SELECT 0.0 FROM DUAL
+    </select>
+
+    <!-- 판매자 판매 물품 개수 -->
+    <select id="getProductCount" resultType="int">
+        SELECT COUNT(*)
+        FROM BOARD B
+        JOIN JOONGGO J ON B.BOARD_NO = J.BOARD_NO
+        WHERE B.MEMBER_NO = #{memberNo}
+        AND B.BOARD_CODE = 1
+        AND B.DELETE_FL = 'N'
+    </select>
+
+    <!-- 판매자 거래후기 개수 -->
+    <select id="getReviewCount" resultType="int">
+        SELECT COUNT(*)
+        FROM REVIEW R
+        WHERE R.BOARD_NO IN (
+            SELECT B.BOARD_NO 
+            FROM BOARD B
+            JOIN JOONGGO J ON B.BOARD_NO = J.BOARD_NO
+            WHERE B.MEMBER_NO = #{memberNo}
+            AND B.BOARD_CODE = 1
+        )
+    </select>
+
+    <!-- 판매자 판매 물품 목록 -->
+    <resultMap id="JoonggoResultMap" type="Joonggo">
+        <id property="joonggoNo" column="BOARD_NO"/>
+        <result property="joonggoTitle" column="BOARD_TITLE"/>
+        <result property="joonggoPrice" column="JOONGGO_PRICE"/>
+        <result property="joonggoCreateDate" column="BOARD_CREATE_DATE"/>
+        <result property="memberNo" column="MEMBER_NO"/>
+        
+        <collection property="imageList" ofType="Image">
+            <id property="imageNo" column="IMG_NO"/>
+            <result property="imagePath" column="IMG_PATH"/>
+            <result property="imageRename" column="IMG_RENAME"/>
+            <result property="imageOrder" column="IMG_ORDER"/>
+        </collection>
+    </resultMap>
+
+    <select id="getSellerProducts" resultMap="JoonggoResultMap">
+        SELECT 
+            B.BOARD_NO,
+            B.BOARD_TITLE,
+            J.JOONGGO_PRICE,
+            TO_CHAR(B.BOARD_CREATE_DATE, 'YYYY-MM-DD') AS BOARD_CREATE_DATE,
+            B.MEMBER_NO,
+            I.IMG_NO,
+            I.IMG_PATH,
+            I.IMG_RENAME,
+            I.IMG_ORDER
+        FROM BOARD B
+        JOIN JOONGGO J ON B.BOARD_NO = J.BOARD_NO
+        LEFT JOIN IMAGE I ON B.BOARD_NO = I.BOARD_NO AND I.IMG_ORDER = 0
+        WHERE B.MEMBER_NO = #{memberNo}
+        AND B.BOARD_CODE = 1
+        AND B.DELETE_FL = 'N'
+        ORDER BY B.BOARD_CREATE_DATE DESC
+    </select>
+
+    <!-- 판매자 거래후기 목록 -->
+    <resultMap id="ReviewResultMap" type="Review">
+        <id property="reviewNo" column="REVIEW_NO"/>
+        <result property="comment" column="COMMENT"/>
+        <result property="reviewDate" column="REVIEW_DATE"/>
+        <result property="reviewFilePath" column="REVIEW_FILE_PATH"/>
+        <result property="reviewFileName" column="REVIEW_FILE_NAME"/>
+        <result property="buyerNo" column="BUYER_NO"/>
+        <result property="boardNo" column="BOARD_NO"/>
+        <result property="buyerNickname" column="BUYER_NICKNAME"/>
+        <result property="buyerProfileImg" column="BUYER_PROFILE_IMG"/>
+    </resultMap>
+
+    <!-- 판매자 거래후기 목록 -->
+	<select id="getSellerReviews" resultMap="ReviewResultMap">
+	    SELECT 
+	        R.REVIEW_NO,
+	        R."COMMENT",  <!-- ✅ 큰따옴표로 감싸기 -->
+	        TO_CHAR(R.REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE,
+	        R.REVIEW_FILE_PATH,
+	        R.REVIEW_FILE_NAME,
+	        R.BUYER_NO,
+	        R.BOARD_NO,
+	        M.MEMBER_NICKNAME AS BUYER_NICKNAME,
+	        M.PROFILE_PATH AS BUYER_PROFILE_IMG
+	    FROM REVIEW R
+	    JOIN MEMBER M ON R.BUYER_NO = M.MEMBER_NO
+	    WHERE R.BOARD_NO IN (
+	        SELECT B.BOARD_NO 
+	        FROM BOARD B
+	        JOIN JOONGGO J ON B.BOARD_NO = J.BOARD_NO
+	        WHERE B.MEMBER_NO = #{memberNo}
+	        AND B.BOARD_CODE = 1
+	    )
+	    ORDER BY R.REVIEW_DATE DESC
+	</select>
+
+
+</mapper>
