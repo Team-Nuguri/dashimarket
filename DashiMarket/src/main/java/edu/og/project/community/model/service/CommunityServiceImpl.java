@@ -366,4 +366,10 @@ public class CommunityServiceImpl implements CommunityService {
 
 	}
 
+	// 커뮤니티 페이지에서 헤더 검색
+	@Override
+	public List<Community> communitySearch(String query) {
+		return mapper.communitySearch(query);
+	}
+
 }

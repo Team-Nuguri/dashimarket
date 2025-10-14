@@ -234,6 +234,12 @@ public class GoodsController {
 	}
 	
 
+	// 굿즈 페이지에서 헤더 검색 - 게시글 제목
+	@GetMapping("/goods/search")
+	@ResponseBody
+	public List<Goods> goodsSearch(@RequestParam String query){
+		return service.goodsSearch(query);
+	}
 
 	
 

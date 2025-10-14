@@ -102,6 +102,9 @@ public interface JoonggoMapper {
 	// 조회수 증가
 	int updateReadCount(String joonggoNo);
 
+	// 중고 페이지에서 헤더 검색
+	public List<Joonggo> joonggoSearch(String query);
+	
 	// 카테고리 카운트(대분류) (KJK)
 	public int getJoonggoCategoryListCount(String categoryId);
 	

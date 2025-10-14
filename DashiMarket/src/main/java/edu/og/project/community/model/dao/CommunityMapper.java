@@ -79,6 +79,9 @@ public interface CommunityMapper {
 	// 좋아요한 게시글의 개수
 	public int getLikeListCount(Map<String, Object> countParam);
 
+	// 커뮤니티 페이지에서 헤더 검색
+	public List<Community> communitySearch(String query);
+
 
 
 }

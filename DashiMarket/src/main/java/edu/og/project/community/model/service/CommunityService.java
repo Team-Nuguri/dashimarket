@@ -102,5 +102,11 @@ public interface CommunityService {
 	 */
 	Map<String, Object> selectLikeCommunityList(String boardType, int memberNo, int cp);
 
+	/** 커뮤니티 페이지에서 헤더 검색
+	 * @param query
+	 * @return list
+	 */
+	List<Community> communitySearch(String query);
+
 
 }

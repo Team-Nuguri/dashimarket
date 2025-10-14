@@ -78,4 +78,7 @@ public interface GoodsMapper {
 	// 장바구니 굿즈 목록 조회
 	public List<Goods> selectCartGoodsList(int i);
 
+	// 굿즈 페이지에서 헤더 검색
+	public List<Goods> goodsSearch(String query);
+
 }

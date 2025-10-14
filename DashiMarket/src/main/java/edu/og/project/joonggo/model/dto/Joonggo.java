@@ -47,7 +47,9 @@ public class Joonggo {
 	List<Image> imageList;
 	
 	
-	
+	// 헤더 검색
+	private String boardNo;
+	private String boardTitle;
 	
 	
 
