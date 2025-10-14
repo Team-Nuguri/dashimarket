@@ -13,23 +13,23 @@ let reviewsLoaded = false;
 tabButtons.forEach(btn => {
     btn.addEventListener('click', () => {
         const tab = btn.dataset.tab;
-        
+
         // 활성 탭 변경
         tabButtons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        
+
         // 컨텐츠 영역 전환
         if (tab === 'products') {
             productsContainer.classList.add('active');
             reviewsContainer.classList.remove('active');
-            
+
             if (!productsLoaded) {
                 loadProducts();
             }
         } else if (tab === 'reviews') {
             reviewsContainer.classList.add('active');
             productsContainer.classList.remove('active');
-            
+
             if (!reviewsLoaded) {
                 loadReviews();
             }
@@ -48,22 +48,22 @@ function loadProducts() {
         .then(resp => resp.json())
         .then(products => {
             productsContainer.querySelector('.loading').style.display = 'none';
-            
+
             if (products.length === 0) {
                 productList.innerHTML = '<p class="no-data">등록된 판매 물품이 없습니다.</p>';
                 return;
             }
-            
+
             let html = '';
             products.forEach(product => {
-                const mainImage = product.imageList && product.imageList.length > 0 
-                    ? product.imageList[0].imagePath + product.imageList[0].imageRename 
+                const mainImage = product.imageList && product.imageList.length > 0
+                    ? product.imageList[0].imagePath + product.imageList[0].imageRename
                     : '/images/common/no-image.png';
-                
-                const price = product.joonggoPrice > 0 
-                    ? Number(product.joonggoPrice).toLocaleString() + '원' 
+
+                const price = product.joonggoPrice > 0
+                    ? Number(product.joonggoPrice).toLocaleString() + '원'
                     : '나눔';
-                
+
                 html += `
                     <div class="product-item" onclick="location.href='/joonggo/${product.joonggoNo}'">
                         <div class="product-image">
@@ -77,7 +77,7 @@ function loadProducts() {
                     </div>
                 `;
             });
-            
+
             productList.innerHTML = html;
             productsLoaded = true;
         })
@@ -94,18 +94,18 @@ function loadReviews() {
         .then(resp => resp.json())
         .then(reviews => {
             reviewsContainer.querySelector('.loading').style.display = 'none';
-            
+
             if (reviews.length === 0) {
                 reviewList.innerHTML = '<p class="no-data">작성된 거래후기가 없습니다.</p>';
                 return;
             }
-            
+
             let html = '';
             reviews.forEach(review => {
-                const profileImg = review.buyerProfileImg 
-                    ? review.buyerProfileImg 
+                const profileImg = review.buyerProfileImg
+                    ? review.buyerProfileImg
                     : '/images/common/user.png';
-                
+
                 // 별점 생성
                 let stars = '';
                 for (let i = 1; i <= 5; i++) {
@@ -115,7 +115,7 @@ function loadReviews() {
                         stars += '<i class="fa-regular fa-star"></i>';
                     }
                 }
-                
+
                 html += `
                     <div class="review-item">
                         <div class="review-header">
@@ -123,7 +123,10 @@ function loadReviews() {
                                 <img src="${profileImg}" class="reviewer-img">
                                 <div>
                                     <p class="reviewer-name">${review.buyerNickname}</p>
-                                    <div class="review-stars">${stars}</div>
+                                    <div class="review-stars">
+                                        ${stars}
+                                        <span class="review-rating-score">${review.rating}</span>
+                                    </div>
                                 </div>
                             </div>
                             <span class="review-date">${review.reviewDate}</span>
@@ -132,7 +135,7 @@ function loadReviews() {
                     </div>
                 `;
             });
-            
+
             reviewList.innerHTML = html;
             reviewsLoaded = true;
         })
