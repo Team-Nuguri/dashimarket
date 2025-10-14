@@ -100,11 +100,11 @@
 		
 	</select>
 	
-    <update id="updateReportResult">
+    <update id="updateReportResult" >
     UPDATE REPORT
-    SET REPORT_RESULT = #{resultType}, 
+    SET REPORT_RESULT =  #{resultType}, 
         RESULT_DATE = SYSDATE
-    WHERE REPORT_NO = #{reportNo}
+    WHERE REPORT_NO =  #{reportNo}
     </update>
 	
 </mapper>

@@ -10,6 +10,7 @@
       const container = document.getElementById(ratingId);
       const stars = container.querySelectorAll(`.rating__star${ratingId.slice(-1)}`);
       const textElement = document.getElementById(`selected-${ratingId}`);
+      const hiddenInput = document.getElementById(`hidden-${ratingId}`);  // 별점 hidden input 
       
       ratings[ratingId].stars = stars;
       ratings[ratingId].text = textElement;
@@ -29,6 +30,9 @@
           });
           
           textElement.textContent = ratings[ratingId].messages[rating - 1];
+          
+           // hidden input에 값 설정
+           hiddenInput.value = rating;
         });
 
         star.addEventListener('mouseenter', function() {
@@ -65,5 +69,5 @@
     // 폼 제출
     document.getElementById('uploadForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      alert('거래 후기가 제출되었습니다!');
+      alert('굿즈거래 후기가 제출되었습니다!');
     });

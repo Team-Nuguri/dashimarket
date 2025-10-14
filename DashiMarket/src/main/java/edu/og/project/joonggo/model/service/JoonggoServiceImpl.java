@@ -63,9 +63,10 @@ public class JoonggoServiceImpl implements JoonggoService {
 	}
 
 
-	// 중고 상품 목록 정렬 (KJK)
+	// 중고상품 목록 정렬 (KJK)
 	@Override
 	public Map<String, Object> sortJoonggoList(String boardType, int cp, String sortType) {
+		
 		int listCount = mapper.getJoonggoListCount(boardType);
 
 		Pagination pagination = new Pagination(cp, listCount, 16);
@@ -77,7 +78,7 @@ public class JoonggoServiceImpl implements JoonggoService {
 
 		if(sortType != null) {
 
-			// 인기순(조회수?)
+			// 인기순(관심순, 조회수?)
 			if(sortType.equals("popular")) sortList = mapper.sortJoonggoViews(boardType, rowBounds);
 
 			// 낮은 가격순
@@ -90,11 +91,10 @@ public class JoonggoServiceImpl implements JoonggoService {
 		Map<String, Object> map = new HashMap<>();
 		map.put("pagination", pagination);
 		map.put("boardList", sortList);
+		// map.put("sortType", sortType); 
 
 		return map;
 	}
-
-
 
 	// 중고상품 상세 조회
 	@Override
