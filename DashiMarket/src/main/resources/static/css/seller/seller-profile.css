@@ -257,6 +257,28 @@
     margin: 0 0 5px 0;
 }
 
+/* 리뷰 별점 옆 숫자 - 배지 스타일 */
+.review-rating-score {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 3px 10px;
+    background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%);
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(255, 107, 53, 0.3);
+}
+
+
+/* 별 아이콘 추가 (선택사항) */
+.review-rating-score::before {
+    content: '⭐';
+    margin-right: 4px;
+    font-size: 11px;
+}
+
+
 .review-stars i {
     color: #FFD700;
     font-size: 14px;

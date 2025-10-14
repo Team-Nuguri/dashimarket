@@ -4,21 +4,29 @@
 <mapper namespace="edu.og.project.seller.model.dao.SellerMapper">
 
     <!-- 판매자 기본 정보 조회 -->
-	<select id="getSellerInfo" resultType="Member">
-	    SELECT 
-	        MEMBER_NO AS memberNo,
-	        MEMBER_NICKNAME AS memberNickname,
-	        PROFILE_PATH AS profilePath,    <!-- ✅ profileImage → profilePath -->
-	        DEFAULT_DONG AS defaultDong
-	    FROM MEMBER
-	    WHERE MEMBER_NO = #{memberNo}
-	    AND SECESSIONFL = 'N'
-	</select>
-
+    <select id="getSellerInfo" resultType="Member">
+        SELECT 
+            MEMBER_NO AS memberNo,
+            MEMBER_NICKNAME AS memberNickname,
+            PROFILE_PATH AS profilePath,
+            DEFAULT_DONG AS defaultDong
+        FROM MEMBER
+        WHERE MEMBER_NO = #{memberNo}
+        AND SECESSIONFL = 'N'
+    </select>
 
     <!-- 판매자 평균 별점 조회 -->
     <select id="getAvgRating" resultType="double">
-        SELECT 0.0 FROM DUAL
+        SELECT NVL(ROUND(AVG((RQ.QUESTION1 + RQ.QUESTION2 + RQ.QUESTION3 + RQ.QUESTION4) / 4), 1), 0.0) AS avgRating
+        FROM REVIEW R
+        JOIN REVIEW_QUESTION RQ ON R.REVIEW_NO = RQ.REVIEW_NO
+        WHERE R.BOARD_NO IN (
+            SELECT B.BOARD_NO 
+            FROM BOARD B
+            JOIN JOONGGO J ON B.BOARD_NO = J.BOARD_NO
+            WHERE B.MEMBER_NO = #{memberNo}
+            AND B.BOARD_CODE = 1
+        )
     </select>
 
     <!-- 판매자 판매 물품 개수 -->
@@ -89,33 +97,34 @@
         <result property="reviewFileName" column="REVIEW_FILE_NAME"/>
         <result property="buyerNo" column="BUYER_NO"/>
         <result property="boardNo" column="BOARD_NO"/>
+        <result property="rating" column="RATING"/>
         <result property="buyerNickname" column="BUYER_NICKNAME"/>
         <result property="buyerProfileImg" column="BUYER_PROFILE_IMG"/>
     </resultMap>
 
-    <!-- 판매자 거래후기 목록 -->
-	<select id="getSellerReviews" resultMap="ReviewResultMap">
-	    SELECT 
-	        R.REVIEW_NO,
-	        R."COMMENT",  <!-- ✅ 큰따옴표로 감싸기 -->
-	        TO_CHAR(R.REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE,
-	        R.REVIEW_FILE_PATH,
-	        R.REVIEW_FILE_NAME,
-	        R.BUYER_NO,
-	        R.BOARD_NO,
-	        M.MEMBER_NICKNAME AS BUYER_NICKNAME,
-	        M.PROFILE_PATH AS BUYER_PROFILE_IMG
-	    FROM REVIEW R
-	    JOIN MEMBER M ON R.BUYER_NO = M.MEMBER_NO
-	    WHERE R.BOARD_NO IN (
-	        SELECT B.BOARD_NO 
-	        FROM BOARD B
-	        JOIN JOONGGO J ON B.BOARD_NO = J.BOARD_NO
-	        WHERE B.MEMBER_NO = #{memberNo}
-	        AND B.BOARD_CODE = 1
-	    )
-	    ORDER BY R.REVIEW_DATE DESC
-	</select>
-
+    <select id="getSellerReviews" resultMap="ReviewResultMap">
+        SELECT 
+            R.REVIEW_NO,
+            R."COMMENT",
+            TO_CHAR(R.REVIEW_DATE, 'YYYY-MM-DD') AS REVIEW_DATE,
+            R.REVIEW_FILE_PATH,
+            R.REVIEW_FILE_NAME,
+            R.BUYER_NO,
+            R.BOARD_NO,
+            ROUND((RQ.QUESTION1 + RQ.QUESTION2 + RQ.QUESTION3 + RQ.QUESTION4) / 4, 1) AS RATING,
+            M.MEMBER_NICKNAME AS BUYER_NICKNAME,
+            M.PROFILE_PATH AS BUYER_PROFILE_IMG
+        FROM REVIEW R
+        JOIN REVIEW_QUESTION RQ ON R.REVIEW_NO = RQ.REVIEW_NO
+        JOIN MEMBER M ON R.BUYER_NO = M.MEMBER_NO
+        WHERE R.BOARD_NO IN (
+            SELECT B.BOARD_NO 
+            FROM BOARD B
+            JOIN JOONGGO J ON B.BOARD_NO = J.BOARD_NO
+            WHERE B.MEMBER_NO = #{memberNo}
+            AND B.BOARD_CODE = 1
+        )
+        ORDER BY R.REVIEW_DATE DESC
+    </select>
 
 </mapper>
