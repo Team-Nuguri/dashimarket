@@ -125,7 +125,8 @@ document.getElementById("completeBtn").addEventListener("click", () => {
     })
         .then(res => res.text())
         .then(result => {
-            if (result === "success") {
+			
+            if (result == "success") {
                 alert("처리 완료되었습니다!");
                 location.reload();
             } else {

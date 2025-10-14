@@ -222,7 +222,7 @@
 	
 		<!-- 중고상품 목록 정렬 : 인기순(조회순?) (KJK) -->
 	<select id="sortJoonggoViews" resultMap="joonggo_rm">
-		SELECT B.BOARD_NO, BOARD_TITLE, MEMBER_NICKNAME, POST_VIEWS,  JOONGGO_PRICE,
+			SELECT B.BOARD_NO, BOARD_TITLE, MEMBER_NICKNAME, POST_VIEWS, JOONGGO_PRICE,
 		
 		   <![CDATA[     
 		    CASE  
@@ -257,7 +257,7 @@
 	
 		<!-- 중고상품 목록 정렬 : 낮은 가격순 (KJK) -->
 	<select id="sortJoonggoLowPrice" resultMap="joonggo_rm">
-		SELECT B.BOARD_NO, BOARD_TITLE, MEMBER_NICKNAME, POST_VIEWS,  JOONGGO_PRICE,
+			SELECT B.BOARD_NO, BOARD_TITLE, MEMBER_NICKNAME, POST_VIEWS, JOONGGO_PRICE,
 		
 		   <![CDATA[     
 		    CASE  
@@ -292,7 +292,7 @@
 	
 		<!-- 중고상품 목록 정렬 : 높은 가격순 (KJK) -->
 	<select id="sortJoonggoHighPrice" resultMap="joonggo_rm">
-		SELECT B.BOARD_NO, BOARD_TITLE, MEMBER_NICKNAME, POST_VIEWS,  JOONGGO_PRICE,
+			SELECT B.BOARD_NO, BOARD_TITLE, MEMBER_NICKNAME, POST_VIEWS, JOONGGO_PRICE,
 		
 		   <![CDATA[     
 		    CASE  

@@ -1,24 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>중고 거래후기</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
-  <link rel="stylesheet" href="font.css">
-  <link rel="stylesheet" href="../../static/css/afterTradeReview/used_review.css">
-
+  
+  <link rel="stylesheet" th:href="@{/css/common/font.css}">
+  <link rel="stylesheet" th:href="@{/css/afterTradeReview/used_review.css}">
 
 </head>
 
 <body>
 
   <main>
+	  
+	  <form id="uploadForm" method="post"  action="/review/write" enctype="multipart/form-data">
+		  
     <div class="logo-container">
       <div class="logo">
         <div class="logo-icon">
-        <img src="../../static/images/afterTradeReview/logoWhite.png" alt="거래 완료 로고">
+        <img th:src="@{/images/afterTradeReview/logoWhite.png}" alt="거래 완료 로고">
         </div>
       </div>
       <div id="used-review-msg">거래가 완료되었습니다</div>
@@ -85,24 +88,36 @@
     <div class="upload-container">
       <h3>좋았던 거래경험을 알려주세요!</h3>
       <span class="text1">남겨주신 거래 후기는 상대방에게 공개돼요.</span>
-      <form id="uploadForm">
-        <textarea id="text" name="text" placeholder="여기에 적어주세요. (선택사항)"></textarea>
+      
+        <textarea id="comment" name="comment" placeholder="여기에 적어주세요. (선택사항)"></textarea>
         
         <div id="upload-bottom-area">
           <label for="image">
             <i class="fas fa-camera"></i>
           </label>
-          <input type="file" id="image" name="image" accept="image/*" style="display: none;">
+          <input type="file" id="reviewImage" name="reviewImage" accept="image/*" style="display: none;">
           <div class="preview" id="preview"></div>
         </div>
 
         <button type="submit">거래 후기 보내기</button>
-      </form>
+     
     </div>
+    
+     <!-- rating1~rating4 별점 hidden -->
+  <input type="hidden" name="rating1" id="hidden-rating1">
+  <input type="hidden" name="rating2" id="hidden-rating2">
+  <input type="hidden" name="rating3" id="hidden-rating3">
+  <input type="hidden" name="rating4" id="hidden-rating4">
+  
+  <input type="hidden" name="reviewType" value="joonggo">
+  <input type="hidden" name="buyerNo" value="1"> <!-- 추후 변경요망 -->
+  <input type="hidden" name="boardNo" value="1"> <!-- 추후 변경요망 -->
+     </form>
   </main>
 
 
-  <script src="../../static/js/afterTradeReview/used_review.js"></script>
+  <script th:src="@{/js/afterTradeReview/used_review.js}"></script>
+  
 </body>
 
 </html>

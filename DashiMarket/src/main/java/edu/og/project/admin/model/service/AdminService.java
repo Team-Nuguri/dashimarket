@@ -35,6 +35,6 @@ public interface AdminService {
 
 	Report selectReportDetail(int reportNo);
 
-	int updateReportResult(int reportNo, String resultType);
+	int updateReportResult(Map<String, Object> report);
 
 }

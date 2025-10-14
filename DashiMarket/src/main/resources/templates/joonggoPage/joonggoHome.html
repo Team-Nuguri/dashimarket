@@ -784,13 +784,13 @@
 
             <!-- 드롭다운 메뉴 -->
             <div id="select-sort-box">
-                <a th:href="@{/}">
+                <a th:href="@{/joonggo/popular}">
                     <div class="text-size-14">관심순</div>
                 </a>
-                <a th:href="@{/}">
+                <a th:href="@{/joonggo/lowPrice}">
                     <div class="text-size-14">낮은 가격순</div>
                 </a>
-                <a th:href="@{/}">
+                <a th:href="@{/joonggo/highPrice}">
                     <div class="text-size-14">높은 가격순</div>
                 </a>
             </div>
@@ -864,8 +864,8 @@
 
             <th:block th:each="board : ${boardList}">
 
-                <a th:href="@{/{boardType}/{boardNo}(boardType=${boardType}, boardNo=${board.joonggoNo}, cp=${pagination.currentPage})}"
-                    class="joonggo-detail-area">
+                <!-- <a th:href="@{/{boardType}/{boardNo}(boardType=${boardType}, boardNo=${board.joonggoNo}, cp=${pagination.currentPage})}" class="joonggo-detail-area"> -->
+                <a th:href="@{/joonggo/{boardNo}(boardType='joonggo', boardNo=${board.joonggoNo}, cp=${pagination.currentPage})}" class="joonggo-detail-area">
                     <!-- 이미지 -->
                     <div class="joonggo-img"><img th:src="${board.thumbnail}" alt=""><!--중고상품 이미지--></div>
                     <!-- 제품명 -->
