@@ -223,3 +223,12 @@ document.getElementById('report-btn').addEventListener('click', () => {
     
     );
 }); 
+
+
+
+document.getElementById("goToList").addEventListener("click", e => {
+
+    e.preventDefault();
+
+    location.href = "/joonggo"+location.search;
+})
