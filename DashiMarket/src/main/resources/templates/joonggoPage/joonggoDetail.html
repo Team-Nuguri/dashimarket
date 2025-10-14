@@ -15,7 +15,7 @@
 
 <body>
 
-    <!-- <th:block th:text="${joonggo}"></th:block>  -->
+    <th:block th:text="${joonggo}"></th:block>
 
     <th:block th:replace="~{common/header}">header.html</th:block>
     <!-- ----------------------------------------- -->
@@ -111,12 +111,10 @@
                     </div>
                     
                     <div class="rating-stars">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star-half"></i>
-                        <span>4.8</span>
+                        <i class="fa-solid fa-star text-size-24"></i>
+                        
+                        <span th:if="${joonggo.sellerRating}" th:text="${joonggo.sellerRating}" class="bold-text text-size-24">판매자 평점</span>
+                        <span th:unless="${joonggo.sellerRating}"  class="bold-text text-size-24">0.0</span>
                     </div>
 
                 </div>
