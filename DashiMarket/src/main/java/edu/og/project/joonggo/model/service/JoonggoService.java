@@ -91,5 +91,12 @@ public interface JoonggoService {
 	 */
 	int updateReadCount(String joonggoNo);
 
+	
+	/** 중고 페이제에서 헤더 검색
+	 * @param query
+	 * @return list
+	 */
+	List<Joonggo> joonggoSearch(String query);
+
 
 }

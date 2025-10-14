@@ -48,4 +48,9 @@ public class Community {
 	
 	// 좋아요 여부
 	private int likeCheck;
+	
+	// 헤더 검색
+	private String boardNo;
+	private String boardTitle;
+	
 }

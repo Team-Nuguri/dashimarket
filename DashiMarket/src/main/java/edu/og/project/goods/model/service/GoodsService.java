@@ -78,12 +78,18 @@ public interface GoodsService {
 	
 	
 	
-	/** 중고 상품 수정
+	/** 굿즈 상품 수정
 	 * @param goods
 	 * @return 행 개수
 	 * @throws IOException 
 	 * @throws IllegalStateException 
 	 */
 	int goodsUpdate(GoodsWrite goods) throws IllegalStateException, IOException;
+
+	/** 굿즈 페이지에서 헤더 검색
+	 * @param query
+	 * @return list
+	 */
+	List<Goods> goodsSearch(String query);
 
 }

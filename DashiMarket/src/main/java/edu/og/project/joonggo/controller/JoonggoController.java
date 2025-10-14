@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.og.project.common.dto.Member;
+import edu.og.project.goods.model.dto.Goods;
 import edu.og.project.joonggo.model.dto.Joonggo;
 import edu.og.project.joonggo.model.dto.JoonggoWrite;
 import edu.og.project.joonggo.model.dto.SimilarItem;
@@ -315,8 +316,12 @@ public class JoonggoController {
 		return result;
 	}
 	
-	
-		
+	// 중고 페이지에서 헤더 검색 - 게시글 제목
+	@GetMapping("/joonggo/search")
+	@ResponseBody
+	public List<Joonggo> joonggoSearch(@RequestParam String query){
+		return service.joonggoSearch(query);
+	}	
 	
 
 }

@@ -396,6 +396,12 @@ public class JoonggoServiceImpl implements JoonggoService {
 		return mapper.updateReadCount(joonggoNo);
 	}
 
+	// 중고 페이지에서 헤더 검색
+	@Override
+	public List<Joonggo> joonggoSearch(String query) {
+		return mapper.joonggoSearch(query);
+	}
+
   
 
 }

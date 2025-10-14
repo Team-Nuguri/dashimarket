@@ -152,6 +152,9 @@ document.addEventListener("DOMContentLoaded", ()=>{
             })
             .catch(err => console.log(err))
 
+        }else{
+            searchResult.innerHTML = ""
+            searchResult.classList.add("close")
         }
 
         e.preventDefault();
