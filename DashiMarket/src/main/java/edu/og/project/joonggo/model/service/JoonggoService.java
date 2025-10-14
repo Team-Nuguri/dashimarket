@@ -90,8 +90,11 @@ public interface JoonggoService {
 	 */
 	int updateReadCount(String joonggoNo);
 
-	// 중고목록 카데고리 (KJK)
+	// 중고목록(대분류) 카데고리 (KJK)
 	Map<String, Object> selectJoonggoCategoryList(String categoryId, int cp);
+
+	// 중고목록(중분류) 카데고리 (KJK)
+	Map<String, Object> selectJoonggoCategoryList2(String categoryId, int cp);
 
 
 }

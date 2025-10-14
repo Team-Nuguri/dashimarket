@@ -4,54 +4,7 @@
 <mapper namespace="edu.og.project.admin.model.dao.ReportMapper">
 	
 	
-	<!-- 신고 게시글 수 조회 -->
-	<select id="getReportListCount">
-		SELECT COUNT(*) FROM REPORT
-		JOIN REPORT_CODE USING(REPORT_CODE)
-	</select>
 	
-	<!-- 신고 게시글 전체 조회 -->
-<select id="selectReportList" resultType="Report">
-  SELECT
-      REPORT_NO,
-      REPORT_TARGET,
-      REPORT_TARGET_ID,
-      REPORT_REASON,
-      TO_CHAR(REPORT_DATE, 'YYYY-MM-DD') AS REPORT_DATE,
-      TO_CHAR(RESULT_DATE, 'YYYY-MM-DD') AS RESULT_DATE,
-      REPORT_CODE,
-      REPORT_MEMBER_NO,
-      TARGET_MEMBER_NO,
-      REPORT_RESULT
-  FROM REPORT
-  ORDER BY REPORT_NO DESC
-</select>
-
-	
-	<!-- 신고 상세 조회-->
-	<select id="selectReportDetail" resultType="Report">
-		 SELECT
-      REPORT_NO,
-      REPORT_TARGET,
-      REPORT_TARGET_ID,
-      REPORT_REASON,
-      TO_CHAR(REPORT_DATE, 'YYYY-MM-DD') AS REPORT_DATE,
-      TO_CHAR(RESULT_DATE, 'YYYY-MM-DD') AS RESULT_DATE,
-      REPORT_CODE,
-      REPORT_MEMBER_NO,
-      TARGET_MEMBER_NO,
-      REPORT_RESULT
-  FROM REPORT
-  WHERE REPORT_NO = #{reportNo}
-		
-	</select>
-	
-    <update id="updateReportResult">
-    UPDATE REPORT
-    SET REPORT_RESULT = #{resultType}, 
-        RESULT_DATE = SYSDATE
-    WHERE REPORT_NO = #{reportNo}
-    </update>
  
  
 </mapper>

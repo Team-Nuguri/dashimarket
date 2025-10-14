@@ -82,19 +82,38 @@ public class JoonggoController {
 		return "joonggoPage/joonggoHome :: #joonggo-container"; // 동적으로 바뀔 부분의 아이디
 	}
 	
-	 // 중고상품 카테고리 목록 조회 (KJK)
+	 // 중고상품 카테고리(대분류) 목록 조회 (KJK)
 		@GetMapping("/joonggoCategory")
 		public String selectJoonggoCategoryList(
 				@RequestParam(name = "categoryId", required = false) String categoryId,
 				@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
 				Model model) {
 			
+			System.out.println("temp");
+			
 			Map<String, Object> map = service.selectJoonggoCategoryList(categoryId, cp);
 			model.addAttribute("map", map);
+			model.addAttribute("categoryId", categoryId);
 			
 			return "joonggoPage/joonggoHome";
 		}
 		
+		
+		 // 중고상품 카테고리(중분류) 목록 조회 (KJK)
+		@GetMapping("/joonggoCategory2")
+		public String selectJoonggoCategoryList2(
+				@RequestParam(name = "categoryId", required = false) String categoryId,
+				@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+				Model model) {
+			
+			System.out.println("temp2");
+			
+			Map<String, Object> map = service.selectJoonggoCategoryList2(categoryId, cp);
+			model.addAttribute("map", map);
+			model.addAttribute("categoryId", categoryId);
+			
+			return "joonggoPage/joonggoHome";
+		}
 	 
 	
 	

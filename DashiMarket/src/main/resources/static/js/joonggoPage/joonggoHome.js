@@ -33,14 +33,15 @@ cityLinks.forEach(link => {
 })
 
 /* 카테고리 링크 요소 모두 가져오기 */
-const categoryLinks = document.querySelectorAll("#category-drop-down-container a");
+/* 작동 일부 중지시킴 : 링크가 제대로 작동안해서 막아놓았습니다.  (KJK) */
+// const categoryLinks = document.querySelectorAll("#category-drop-down-container a");
 let isActive = null; // 현재 활성화된 카테고리 링크를 저장할 변수
 
 categoryLinks.forEach(link => {
     link.addEventListener("click", (e) => {
-        e.preventDefault();
+         e.preventDefault();
 
-        /* 선택시 선택 효과 */
+        // 선택시 선택 효과
         if (isActive) {
             isActive.classList.remove("active-category"); 
         }
@@ -50,6 +51,7 @@ categoryLinks.forEach(link => {
 
     })
 })
+
 
 /* 정렬 */
 const sort = document.querySelectorAll(".sort-area a");
