@@ -50,9 +50,8 @@ public class MemberController {
 					, HttpServletResponse resp
 					, RedirectAttributes ra) {
 		
-		Member loginMember = service.login(inputMember);	
-		
-    	System.out.println(loginMember);
+		Member loginMember = service.login(inputMember);		
+    	
 		
 		String path = "redirect:";
 		

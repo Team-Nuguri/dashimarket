@@ -1,5 +1,8 @@
 package edu.og.project.mypage.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 import edu.og.project.common.dto.Member;
 
@@ -25,4 +28,8 @@ public interface MyPageMapper {
 	public int secession(int memberNo);
 	
 	String selectEncPw(int memberNo);
+	
+	// 굿즈 거래
+	List<Map<String, Object>> selectGoods(String memberEmail);
+	
 }
