@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-	
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,7 +27,7 @@
                 <div id="admin-user">
                     <h1 class="admin-title">통합 신고</h1>
                     <div class="admin-login">
-                        <img th:src="@{/images/admin/user.png}">
+                        <img th:src="@{/images/common/user.png}">
                         <p>관리자 계정</p>
                         <button id="logout">로그아웃</button>
                     </div>
@@ -39,8 +39,9 @@
                         <div class="search-box">
                             <label>검색</label>
                             <fieldset>
-                                <input type="text" name="query" placeholder="게시글 제목/회원ID를 입력하세요." autocomplete="off">
                                 <button class="searchBtn fa-solid fa-magnifying-glass"></button>
+                                <input type="text" name="keyword" id="search-query" placeholder="게시글 제목/회원ID를 입력하세요."
+                                    autocomplete="off">
                             </fieldset>
                         </div>
 
@@ -53,7 +54,7 @@
                                         data-bs-toggle="dropdown" data-bs-auto-close="inside" aria-expanded="false">
                                         사유<img id="dropdown-img" th:src="@{/images/svg/color-drop-down.svg}">
                                     </button>
-                                    <ul id="dropdown-menu1" class="dropdown-menu close">
+                                    <ul id="dropdown-menu" class="dropdown-menu close">
                                         <li><a class="dropdown-item" th:href="@{#}">스팸</a></li>
                                         <hr>
                                         <li><a class="dropdown-item" th:href="@{#}">불법</a></li>
@@ -70,11 +71,11 @@
 
                                 신고일:<input type="date">
                             </div>
-                            
+
                             <!-- 초기화/검색 버튼 -->
                             <div class="search-buttons">
                                 <button type="reset" class="basic-btn">초기화</button>
-                                <button type="submit" class="color-btn">검색</button>
+                                <button type="button" class="color-btn" id="searchBtn">검색</button>
                             </div>
 
                         </div>
@@ -87,207 +88,87 @@
                 </div>
 
                 <form th:action="@{/admin/report/updateResult}" method="post" id="reportForm">
-					
-                <div class="result-middle">
-                    <!-- <p>0개 선택됨</p> -->
-                    <button type="button" class="color-btn"  id="completeBtn">처리완료</button>
-                </div>
 
-                <table class="table-content">
-                    <tr class="table-title">
-                        <td><input type="checkbox" id="checkAll"></td>
-                        <td>신고번호</td>
-                        <td>신고자</td>
-                        <td>신고된 게시글</td>
-                        <td>신고된 회원</td>
-                        <td>신고 사유</td>
-                        <td>신고일</td>
-                        <td>처리 결과</td>
-                        <td>처리일</td>
-                    </tr>
-                    
-                    <tr th:each="report : ${reportList}">   
-                           <td><input type="checkbox" name="reportNo" th:value="${report.reportNo}"></td>
-                           <td th:text="${report.reportNo}">1</td>
-                           <td th:text="${report.reportMemberNo}">홍길동</td>
-                           <td> 
-                              <!-- 게시글 제목 클릭 시 해당 신고게시글 내용으로 이동 -->
-                              <a th:href="@{'/admin/report/detail/' + ${report.reportNo}}" th:text="${report.reportTarget} + '게시글 #' + ${report.reportTargetId}">게시글 보기</a> 
-                              <!-- <a th:href="@{#}">게시글 보기</a> -->
-      
-                           </td>
-                           <td th:text="${report.targetMemberNo}">회원ID</td>
-                           <td th:text="${report.reportReason}">욕설 및 비방</td>
-                           <td th:text="${report.reportDate}">2025-10-11</td>
-                           
-                           
-                           <!-- <td th:text="${report.reportResult}">대기</td> -->
-                           
-                           <td>
-                             <select name="reportResult" th:id="'result-' + ${report.reportNo}" th:data-report-no="${report.reportNo}" class="report-result-select"> 
-                               <option value="-" th:selected="${report.reportResult == '-'}">-</option>
-                               <option value="채팅방삭제" th:selected="${report.reportResult == '채팅방삭제'}">채팅방삭제</option>
-                               <option value="게시글삭제" th:selected="${report.reportResult == '게시글삭제'}">게시글삭제</option>
-                               <option value="회원탈퇴" th:selected="${report.reportResult == '회원탈퇴'}">회원탈퇴</option>
-                             </select>
-                           </td>
+                    <div class="result-middle">
+                        <button type="button" class="color-btn" id="completeBtn">처리완료</button>
+                    </div>
 
-                           
-                           
-                           <td th:text="${report.resultDate}">-</td>
-                       </tr>
+                    <table class="table-content">
+                        <thead>
+                            <tr class="table-title">
+                                <td><input type="checkbox" id="checkAll"></td>
+                                <td>신고번호</td>
+                                <td>신고자</td>
+                                <td>신고된 게시글</td>
+                                <td>신고된 회원</td>
+                                <td>신고 사유</td>
+                                <td>신고일</td>
+                                <td>처리 결과</td>
+                                <td>처리일</td>
+                            </tr>
+                        </thead>
 
-                        <!-- 신고가 없을 경우 -->
-                       <tr th:if="${#lists.isEmpty(reportList)}">
-                          <td colspan="9">신고 내역이 없습니다.</td>
-                       </tr>  
-                    
-                    
-                <!--    <tr>
-                        <td><input type="checkbox"></td>
-                        <td>01</td>
-                        <td>user01@og.or.kr</td>
-                        <td><a href="#">아이폰16 판매합니다.......</a></td>
-                        <td></td>
-                        <td>불법</td>
-                        <td>2025.09.01</td>
-                        <td>
-                            <select class="table-item">
-                                <option value="-">-</option>
-                                <option value="게시글 삭제">게시글 삭제</option>
-                                <option value="채팅방 삭제">채팅방 삭제</option>
-                                <option value="회원탈퇴">회원탈퇴</option>
-                            </select>
-                        </td>
-                        <td>2025.09.01</td>
-                        <td></td>
-                    </tr>
-                    
-                    
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td>02</td>
-                        <td>user02@og.or.kr</td>
-                        <td><a href="#">안읽는 도서 판매합니다...</a></td>
-                        <td></td>
-                        <td>사기</td>
-                        <td>2025.09.04</td>
-                        <td>게시글 삭제</td>
-                        <td>2025.09.06</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td>03</td>
-                        <td>user02@og.or.kr</td>
-                        <td></td>
-                        <td>wkqch33@og.kr</td>
-                        <td>사기</td>
-                        <td>2025.09.01</td>
-                        <td>게시글 삭제</td>
-                        <td>2025.09.02</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td>04</td>
-                        <td>user04@og.or.kr</td>
-                        <td></td>
-                        <td>wkqch76@og.kr</td>
-                        <td>스팸</td>
-                        <td>2025.09.01</td>
-                        <td>회원탈퇴</td>
-                        <td>2025.09.02</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td>05</td>
-                        <td>user05@og.or.kr</td>
-                        <td></td>
-                        <td>wkqch33@og.kr</td>
-                        <td>사기</td>
-                        <td>2025.09.01</td>
-                        <td>회원탈퇴</td>
-                        <td>2025.09.02</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td>06</td>
-                        <td>user06@og.or.kr</td>
-                        <td></td>
-                        <td>wkqch33@og.kr</td>
-                        <td>욕설</td>
-                        <td>2025.09.01</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td>07</td>
-                        <td>user07@og.or.kr</td>
-                        <td>안읽는 도서 판매합니다...</td>
-                        <td></td>
-                        <td>사기</td>
-                        <td>2025.09.04</td>
-                        <td>거절</td>
-                        <td>2025.09.06</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td>08</td>
-                        <td>user02@og.or.kr</td>
-                        <td></td>
-                        <td>wkqch33@og.kr</td>
-                        <td>사기</td>
-                        <td>2025.09.01</td>
-                        <td>거절</td>
-                        <td>2025.09.02</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td>09</td>
-                        <td>user09@og.or.kr</td>
-                        <td>아이폰15 판매합니다.......</td>
-                        <td></td>
-                        <td>불법</td>
-                        <td>2025.09.14</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td>10</td>
-                        <td>user10@og.or.kr</td>
-                        <td>안읽는 도서 판매합니다...</td>
-                        <td></td>
-                        <td>스팸</td>
-                        <td>2025.09.04</td>
-                        <td>게시글 삭제</td>
-                        <td>2025.09.06</td>
-                    </tr>  -->
-                                  
-                 </table>
+                        <tbody>
+                            <tr th:each="report : ${reportList}">
+                                <td><input type="checkbox" name="reportNo" th:value="${report.reportNo}"></td>
+                                <td th:text="${report.reportNo}">1</td>
+                                <td th:text="${report.reportMemberNo}">홍길동</td>
+                                <td>
+                                    <!-- 게시글 제목 클릭 시 해당 신고게시글 내용으로 이동 -->
+                                    <a th:href="@{'/admin/report/detail/' + ${report.reportNo}}"
+                                        th:text="${report.reportTarget} + '게시글 #' + ${report.reportTargetId}">게시글 보기</a>
+                                    <!-- <a th:href="@{#}">게시글 보기</a> -->
 
-                 </form>
+                                </td>
+                                <td th:text="${report.targetMemberNo}">회원ID</td>
+                                <td th:text="${report.reportReason}">욕설 및 비방</td>
+                                <td th:text="${report.reportDate}">2025-10-11</td>
+
+
+                                <!-- <td th:text="${report.reportResult}">대기</td> -->
+
+                                <td>
+                                    <select name="reportResult" th:id="'result-' + ${report.reportNo}"
+                                        th:data-report-no="${report.reportNo}" class="report-result-select">
+                                        <option value="-" th:selected="${report.reportResult == '-'}">-</option>
+                                        <option value="채팅방삭제" th:selected="${report.reportResult == '채팅방삭제'}">채팅방삭제</option>
+                                        <option value="게시글삭제" th:selected="${report.reportResult == '게시글삭제'}">게시글삭제</option>
+                                        <option value="회원탈퇴" th:selected="${report.reportResult == '회원탈퇴'}">회원탈퇴</option>
+                                    </select>
+                                </td>
+
+
+
+                                <td th:text="${report.resultDate}">-</td>
+                            </tr>
+
+                            <!-- 신고가 없을 경우 -->
+                            <tr th:if="${#lists.isEmpty(reportList)}">
+                                <td colspan="9">신고 내역이 없습니다.</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                </form>
             </section>
         </section>
     </main>
-    
-    
+
+
     <div class="pagination">
-  <a th:if="${pagination.prevPage}" 
-     th:href="@{'/admin/report'(cp=${pagination.prevPage})}">이전</a>
+        <a th:if="${pagination.prevPage}" th:href="@{'/admin/report'(cp=${pagination.prevPage})}">이전</a>
 
-  <span th:each="pageNum : ${#numbers.sequence(pagination.startPage, pagination.endPage)}">
-    <a th:href="@{'/admin/report'(cp=${pageNum})}"
-       th:text="${pageNum}"
-       th:classappend="${pageNum == pagination.currentPage} ? 'active' : ''"></a>
-  </span>
+        <span th:each="pageNum : ${#numbers.sequence(pagination.startPage, pagination.endPage)}">
+            <a th:href="@{'/admin/report'(cp=${pageNum})}" th:text="${pageNum}"
+                th:classappend="${pageNum == pagination.currentPage} ? 'active' : ''"></a>
+        </span>
 
-  <a th:if="${pagination.nextPage}" 
-     th:href="@{'/admin/report'(cp=${pagination.nextPage})}">다음</a>
-</div>
-  
+        <a th:if="${pagination.nextPage}" th:href="@{'/admin/report'(cp=${pagination.nextPage})}">다음</a>
+    </div>
 
-<!--    <th:block th:replace="~{common/pagination}">pagination.html</th:block>  -->
+
+    <!--    <th:block th:replace="~{common/pagination}">pagination.html</th:block>  -->
 
     <script th:src="@{/js/adminPage/admin.js}"></script>
 </body>

@@ -52,6 +52,13 @@ public class AdminController {
 	public List<Member> selectAllMembers() {
 		return service.selectAllMembers();
 	}
+	
+	// 회원 검색
+	@GetMapping("/main/search")
+	@ResponseBody
+	public List<Member> searchMember(@RequestParam String keyword){
+		return service.searchMember(keyword);
+	}
 
 	// 통합 신고 페이지 요청
 	@GetMapping("/report")
@@ -78,6 +85,7 @@ public class AdminController {
 		return "admin/total_report_detail";
 	}
 
+	// 신고 처리완료
 	@PostMapping("/report/updateResult")
 	@ResponseBody
 	public String updateReportResult(@RequestBody List<Map<String, Object>> reportNoList) {
@@ -95,38 +103,56 @@ public class AdminController {
 			return "fail";
 		}
 	}
+	
+	// 신고 검색
+	@GetMapping("/report/search")
+	@ResponseBody
+	public List<Report> searchReport(@RequestParam String keyword){
+		return service.searchReport(keyword);
+	}
 
 	// 상품 관리 페이지 요청
 	@GetMapping("/goods")
 	public String goods() {
 		return "admin/admin_goods";
 	}
-
+	
 	// 상품 정보 조회
 	@GetMapping("/product")
 	@ResponseBody
 	public List<Goods> selectProducts(@RequestParam(required = false) String sort) {
 		return service.selectProducts(sort);
 	}
+	
+	// 상품명으로 검색
+	@GetMapping("/product/search")
+	@ResponseBody
+	public List<Goods> searchGoods(@RequestParam String keyword){
+		return service.searchGoods(keyword);
+	}
+
 
 	// 굿즈 거래 페이지 요청
 	@GetMapping("/order")
 	public String order() {
 		return "admin/admin_goodsOrder";
 	}
+	
+	// 굿즈 거래내역 구매자명 또는 상품명으로 검색
+	
 
-	// 데이터 - 이용자 수 페이지 요청
-	@GetMapping("/data/user")
-	public String dataUser() {
-
-		return "admin/admin_dataUser";
-	}
-
-	// 데이터 - 중고 상품별 페이지 요청
-	@GetMapping("/data/goods")
-	public String dataGoods() {
-
-		return "admin/admin_dataGoods";
-	}
+//	// 데이터 - 이용자 수 페이지 요청
+//	@GetMapping("/data/user")
+//	public String dataUser() {
+//
+//		return "admin/admin_dataUser";
+//	}
+//
+//	// 데이터 - 중고 상품별 페이지 요청
+//	@GetMapping("/data/goods")
+//	public String dataGoods() {
+//
+//		return "admin/admin_dataGoods";
+//	}
 
 }

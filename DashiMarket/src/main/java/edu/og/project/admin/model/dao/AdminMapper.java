@@ -34,4 +34,13 @@ public interface AdminMapper {
 
 	int updateReportResult(@Param("reportNo") int reportNo, @Param("resultType") String resultType);
 
+	// (회원) 회원id 또는 닉네임으로 검색
+	List<Member> searchMember(String keyword);
+
+	// (신고) 회원id 또는 게시글로 검색
+	List<Report> searchReport(String keyword);
+
+	// (굿즈) 상품명으로 검색
+	List<Goods> searchGoods(String keyword);
+
 }

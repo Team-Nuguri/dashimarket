@@ -39,8 +39,8 @@
                         <div class="search-box">
                             <label>검색</label>
                             <fieldset>
-                                <input type="text" name="query" placeholder="상품명을 입력하세요." autocomplete="off">
                                 <button class="searchBtn fa-solid fa-magnifying-glass"></button>
+                                <input type="text" name="query" id="search-query" placeholder="상품명을 입력하세요." autocomplete="off">
                             </fieldset>
                         </div>
 
@@ -67,7 +67,7 @@
                             <!-- 초기화/검색 버튼 -->
                             <div class="search-buttons">
                                 <button type="reset" class="basic-btn">초기화</button>
-                                <button type="submit" class="color-btn">검색</button>
+                                <button type="button" class="color-btn" id="searchBtn">검색</button>
                             </div>
                         </div>
                     </form>
@@ -99,21 +99,7 @@
                             <td>판매 상태</td>
                         </tr>
                     </thead>
-                    <!-- <tr>
-                        <td><input type="checkbox"></td>
-                        <td>1000</td>
-                        <td>다시마 피규어</td>
-                        <td>이미지(썸네일)</td>
-                        <td>99</td>
-                        <td>
-                            <select class="table-item">
-                                <option th:value="판매중">판매중</option>
-                                <option th:value="판매완료">판매완료</option>
-                            </select>
-                        </td>
-                        <td>2025.09.01</td>
-                    </tr> -->
-                    
+                    <tbody></tbody>
                 </table>
 
             </section>

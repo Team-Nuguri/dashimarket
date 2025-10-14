@@ -79,5 +79,23 @@ public class AdminServiceImpl implements AdminService{
 	public int updateReportResult(int reportNo, String resultType) {
 		return mapper.updateReportResult(reportNo, resultType);
 	}
+
+	// (회원) 회원id 또는 닉네임으로 검색
+	@Override
+	public List<Member> searchMember(String keyword) {
+		return mapper.searchMember(keyword);
+	}
+
+	// (신고) 회원id 또는 게시글로 검색
+	@Override
+	public List<Report> searchReport(String keyword) {
+		return mapper.searchReport(keyword);
+	}
+
+	// (굿즈) 상품명으로 검색
+	@Override
+	public List<Goods> searchGoods(String keyword) {
+		return mapper.searchGoods(keyword);
+	}
 	
 }

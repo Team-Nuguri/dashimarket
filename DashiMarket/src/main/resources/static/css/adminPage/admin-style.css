@@ -229,7 +229,7 @@ body, input, button, textarea, select {
     margin-left: 30px;
 }
 
-fieldset > [name="query"]{
+#search-query{
     flex: 1;
     border: none;
     width: 80%;
@@ -244,7 +244,8 @@ fieldset > [name="query"]{
     height: 30px;
     text-align: end;
     font-size: 20px;
-    cursor: pointer;
+    pointer-events: none;
+    margin-right: 5px;
 }
 
 /* 상세검색, 등록일 */
@@ -538,7 +539,7 @@ tr, td{
     position: absolute;
     background-color: white;
     margin-left: 10px;
-    width: 100%;
+    width: 90%;
 }
 
 .dropdown-menu > li{

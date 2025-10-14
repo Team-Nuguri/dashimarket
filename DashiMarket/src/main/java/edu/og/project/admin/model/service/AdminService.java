@@ -26,7 +26,7 @@ public interface AdminService {
 
 	/** 굿즈 상품 조회
 	 * @param sort 
-	 * @return List<Goods>
+	 * @return products
 	 */
 	List<Goods> selectProducts(String sort);
 
@@ -36,5 +36,25 @@ public interface AdminService {
 	Report selectReportDetail(int reportNo);
 
 	int updateReportResult(int reportNo, String resultType);
+
+	
+	/** (회원) 회원id 또는 닉네임으로 검색
+	 * @param keyword
+	 * @return data
+	 */
+	List<Member> searchMember(String keyword);
+
+	/** (신고) 회원id 또는 게시글로 검색
+	 * @param keyword
+	 * @return data
+	 */
+	List<Report> searchReport(String keyword);
+
+	/** (굿즈) 상품명으로 검색
+	 * @param keyword
+	 * @return data
+	 */
+	List<Goods> searchGoods(String keyword);
+
 
 }
