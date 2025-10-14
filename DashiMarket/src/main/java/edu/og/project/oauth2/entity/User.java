@@ -84,6 +84,10 @@ public class User {
 	// 관리자 여부 (CHAR(1), Not Null, 기본값 'N')
 	@Column(name = "IS_ADMIN", nullable = false, length = 1)
 	private String isAdmin;
+	
+	// 지번 주소
+	@Column(name = "JIBUN_ADDRESS", length = 200 )
+	private String jibunAddress;
 
 	/**
 	 * 회원 정보 업데이트 (소셜 로그인 시 이미 존재하는 회원 정보 갱신에 사용)
@@ -123,6 +127,9 @@ public class User {
         }
         if (defaultDong == null) {
             defaultDong = "관철동";
+        }
+        if (jibunAddress == null) {
+        	jibunAddress = "서울 종로구 관철동 45-1";
         }
 	}
 }
