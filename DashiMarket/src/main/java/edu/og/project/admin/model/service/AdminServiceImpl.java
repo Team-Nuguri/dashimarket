@@ -76,8 +76,9 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
-	public int updateReportResult(int reportNo, String resultType) {
-		return mapper.updateReportResult(reportNo, resultType);
+	public int updateReportResult(Map<String, Object> report) {
+		
+		return mapper.updateReportResult(report);
 	}
 
 	// (회원) 회원id 또는 닉네임으로 검색

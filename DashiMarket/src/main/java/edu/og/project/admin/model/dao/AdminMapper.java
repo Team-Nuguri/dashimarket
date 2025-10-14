@@ -1,6 +1,7 @@
 package edu.og.project.admin.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
@@ -32,7 +33,9 @@ public interface AdminMapper {
 
 	public Report selectReportDetail(int reportNo);
 
-	int updateReportResult(@Param("reportNo") int reportNo, @Param("resultType") String resultType);
+	 int updateReportResult(Map<String, Object> report);
+	 
+    // int updateReportResult(int reportNo, String resultType);
 
 	// (회원) 회원id 또는 닉네임으로 검색
 	List<Member> searchMember(String keyword);

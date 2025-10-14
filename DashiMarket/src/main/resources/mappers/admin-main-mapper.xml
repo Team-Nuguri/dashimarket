@@ -101,12 +101,15 @@
 		
 	</select>
 	
+
 	<!-- 신고 처리완료 -->
-    <update id="updateReportResult">
-	    UPDATE REPORT
-	    SET REPORT_RESULT = #{resultType}, 
-	        RESULT_DATE = SYSDATE
-	    WHERE REPORT_NO = #{reportNo}
+	    
+    <update id="updateReportResult" >
+    UPDATE REPORT
+    SET REPORT_RESULT =  #{resultType}, 
+        RESULT_DATE = SYSDATE
+    WHERE REPORT_NO =  #{reportNo}
+
     </update>
     
     <!-- (회원) 회원id 또는 닉네임으로 검색 -->

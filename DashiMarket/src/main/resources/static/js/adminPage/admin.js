@@ -78,10 +78,25 @@ if (location.href == "http://localhost/admin/report") {
             e.preventDefault();
 
             /* 선택한 사유명으로 반영하기 */
-            reasonBtn.innerText = link.innerText;
-            reasonMenu.classList.remove("close");
-            dropDownImg.setAttribute("src", "/images/svg/color-drop-down.svg");
-            reasonMenu.classList.add("close")
+            // reasonBtn.innerText = link.innerText;
+            // reasonMenu.classList.remove("close");
+            // dropDownImg.setAttribute("src", "/images/svg/color-drop-down.svg");
+            // reasonMenu.classList.add("close")
+    // fetch로 백엔드 전송
+    fetch("/admin/report/updateResult", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(reportList)
+    })
+        .then(res => res.text())
+        .then(result => {
+			
+            if (result == "success") {
+                alert("처리 완료되었습니다!");
+                location.reload();
+            } else {
+                alert("처리 실패!");
+            }
         })
     })
 

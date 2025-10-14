@@ -91,11 +91,12 @@ public class AdminController {
 	public String updateReportResult(@RequestBody List<Map<String, Object>> reportNoList) {
 		try {
 			for (Map<String, Object> report : reportNoList) {
-				int reportNo = Integer.parseInt(report.get("reportNo").toString());
-				String resultType = report.get("resultType").toString();
+				// int reportNo = Integer.parseInt(report.get("reportNo").toString());
+				// String resultType = report.get("resultType").toString();
 				// System.out.println(reportNo);
 				// System.out.println(resultType);
-				service.updateReportResult(reportNo, resultType);
+				service.updateReportResult(report);
+				
 			}
 			return "success";
 		} catch (Exception e) {

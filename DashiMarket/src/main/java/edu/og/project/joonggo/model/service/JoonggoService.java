@@ -19,7 +19,7 @@ public interface JoonggoService {
 	Map<String, Object> selectJoonggoList(String boardType, int cp);
 	
 	
-	/** 중고상품 목록 정렬  (KJK)
+	/** 중고상품 목록 정렬 (인기순, 낮은가격순, 높은가격순) (KJK)
 	 * @param boardType
 	 * @param cp
 	 * @param sortType

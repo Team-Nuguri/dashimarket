@@ -41,7 +41,7 @@ public class JoonggoController {
 	@Autowired
 	private JoonggoService service;
 	
-	// 중고 상품 목록 조회 (KJK)
+	// 중고상품 목록 조회 (KJK)
 	// @GetMapping("/{boardType:j.*}")
 	 @GetMapping("/joonggo")
 	public String selectJoonggoList( 
@@ -65,8 +65,26 @@ public class JoonggoController {
 		model.addAttribute("map", map);
 		// model.addAttribute("boardType", boardType);
 		return "joonggoPage/joonggoHome";
-		
 	}
+	 
+	   // 중고상품 목록 조회 (관심순, 낮은가격순, 높은가격순) (KJK)
+		@GetMapping("/joonggo/{sortType:[a-zA-Z]+}")
+		public String sortJoonggoList( 
+				// @PathVariable("boardType") String boardType,
+				@PathVariable("sortType") String sortType,
+				@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
+			
+			// System.out.println(boardType);  joonggo 로 넘어옴
+			// Map<String, Object> map = service.selectJoonggoList(boardType, cp);  // 사용X
+		    Map<String, Object> map = service.sortJoonggoList("joonggo", cp, sortType);
+			
+			// System.out.println(map);
+
+			model.addAttribute("map", map);
+		    model.addAttribute("sortType", sortType);
+		    
+			return "joonggoPage/joonggoHome";
+		}
 
 	// 중고상품 목록 정렬 (비동기) (KJK)
 	@GetMapping(value = "/{boardType:j.*}/sort", produces = "application/html; charset=UTF-8") /*
@@ -131,10 +149,11 @@ public class JoonggoController {
 	
 	
 	// 중고 상품  상세 조회
-	@GetMapping("/{boardType}/{joonggoNo:J.*}")
+	// @GetMapping("/{boardType}/{joonggoNo:J.*}")
+	@GetMapping("/joonggo/{joonggoNo:\\d+}")
 	public String selectJoonggoDetail(
 			@PathVariable("joonggoNo") String joonggoNo,
-			@PathVariable("boardType") String boardType,
+			// @PathVariable("boardType") String boardType,
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
 			@SessionAttribute(value ="loginMember" , required = false) Member loginMember,
 			Model model,
@@ -170,68 +189,55 @@ public class JoonggoController {
 				}
 			}
 			
-			// 조회수 처리
-			if(loginMember == null || loginMember.getMemberNo() != joonggo.getMemberNo()) {
-				
-				Cookie c = null;
-				
-				// 모든 쿠키 배열에 담고
-				Cookie[] cookies = req.getCookies();
-				
-				// 배열 순회해서 readJoonggo 쿠키 찾아 있다면 c 에 저장
-				for (Cookie cookie : cookies) {
-					if(cookie.getName().equals("readJoonggo")) {
-						
-						c = cookie;
-						break;
-					}
-					
-				}
-				
-				int result = 0;
-				
-				if(c == null) {
-					
-					c= new Cookie("readJoonggo", "|" + joonggoNo + "|");
-					
-					// 조회수 증가 서비스 호출
-					result = service.updateReadCount(joonggoNo);
-				}else {
-					// 쿠키 존재할 때 
-					if(c.getValue().indexOf("|" + joonggoNo + "|") == -1) {
-						c.setValue(c.getValue()+ "|" + joonggoNo + "|");
-						
-						result = service.updateReadCount(joonggoNo);
-					}
-				}
-				
-				if(result == 1) {
-					
-					joonggo.setReadCount(joonggo.getReadCount() + 1);
-					
-					c.setPath("/");
-					
-					Calendar cal = Calendar.getInstance();
-					cal.add(Calendar.DATE, 1); // 1일
-					
-					// 날짜 표기법 변경
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-					
-					Date current = new Date(); // 현재 시간
-					Date temp = new Date(cal.getTimeInMillis()); // 24시간 후(내일
-					Date tmr = sdf.parse( sdf.format(temp) ); // 내일 0시 0분 0초
-					
-					// 내일 0시 0분 0초 - 현재 시간 = 쿠키 수명
-					long lifeTime = (tmr.getTime() - current.getTime()) / 1000;
-					// 남은 시간을 초단위로 반환
-					
-					// 쿠키 수명 설정
-					c.setMaxAge((int)lifeTime);
-					resp.addCookie(c);
-				}
-				
-				
-			}
+			/* 일단 막아둠 (KJK)
+			 * // 조회수 처리 if(loginMember == null || loginMember.getMemberNo() !=
+			 * joonggo.getMemberNo()) {
+			 * 
+			 * Cookie c = null;
+			 * 
+			 * // 모든 쿠키 배열에 담고 Cookie[] cookies = req.getCookies();
+			 * 
+			 * // 배열 순회해서 readJoonggo 쿠키 찾아 있다면 c 에 저장 for (Cookie cookie : cookies) {
+			 * if(cookie.getName().equals("readJoonggo")) {
+			 * 
+			 * c = cookie; break; }
+			 * 
+			 * }
+			 * 
+			 * int result = 0;
+			 * 
+			 * if(c == null) {
+			 * 
+			 * c= new Cookie("readJoonggo", "|" + joonggoNo + "|");
+			 * 
+			 * // 조회수 증가 서비스 호출 result = service.updateReadCount(joonggoNo); }else { // 쿠키
+			 * 존재할 때 if(c.getValue().indexOf("|" + joonggoNo + "|") == -1) {
+			 * c.setValue(c.getValue()+ "|" + joonggoNo + "|");
+			 * 
+			 * result = service.updateReadCount(joonggoNo); } }
+			 * 
+			 * if(result == 1) {
+			 * 
+			 * joonggo.setReadCount(joonggo.getReadCount() + 1);
+			 * 
+			 * c.setPath("/");
+			 * 
+			 * Calendar cal = Calendar.getInstance(); cal.add(Calendar.DATE, 1); // 1일
+			 * 
+			 * // 날짜 표기법 변경 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			 * 
+			 * Date current = new Date(); // 현재 시간 Date temp = new
+			 * Date(cal.getTimeInMillis()); // 24시간 후(내일 Date tmr = sdf.parse(
+			 * sdf.format(temp) ); // 내일 0시 0분 0초
+			 * 
+			 * // 내일 0시 0분 0초 - 현재 시간 = 쿠키 수명 long lifeTime = (tmr.getTime() -
+			 * current.getTime()) / 1000; // 남은 시간을 초단위로 반환
+			 * 
+			 * // 쿠키 수명 설정 c.setMaxAge((int)lifeTime); resp.addCookie(c); }
+			 * 
+			 * 
+			 * }
+			 */
 		}
 		
 		

@@ -35,7 +35,7 @@ public interface AdminService {
 
 	Report selectReportDetail(int reportNo);
 
-	int updateReportResult(int reportNo, String resultType);
+	int updateReportResult(Map<String, Object> report);
 
 	
 	/** (회원) 회원id 또는 닉네임으로 검색
