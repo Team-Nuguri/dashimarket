@@ -24,7 +24,20 @@
     gap: 30px;
 }
 
+.goodsName{
 
+    width: 200px;
+    height: 35px;
+
+    
+    
+}
+
+.goodsName>h3{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 
 /* 상품 총 가격 */
 .order-info-area>form>div:last-child{

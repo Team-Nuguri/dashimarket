@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.og.project.order.model.dao.OrderMapper">
+	
+	<resultMap id="order_rm" type="edu.og.project.order.model.dto.OrderDto">
+		
+		<!--주문 번호-->
+		<id     property="orderNo"         column="ORDER_NO"/>
+        
+        <!--주문 정보-->
+        <result property="recipientName"      column="RECIPIENT_NAME"/>
+        <result property="recipientTel"      column="RECIPIENT_TEL"/>
+        <result property="totalPrice"      column="ORDER_PRICE"/>
+        <result property="address"      column="ADDRESS"/>
+        
+        
+        <!--결제 정보-->
+        <result property="payPrice"    column="PRICE"/>
+        <result property="payMethod" column="PAY_METHOD"/>
+        <result property="payDate" column="PAT_DATE"/>
+		
+		<collection property="orderItems" ofType="Goods" column="ORDER_NO" select="selectOrderItemList"
+					javaType="java.util.ArrayList"
+		>			
+		</collection>
+		
+		
+		
+	</resultMap>
+	
+	
+	<resultMap id="goods_rm" type="Goods">
+		<id     property="boardNo"         column="BOARD_NO"/>
+		<result property="boardTitle"      column="BOARD_TITLE"/>
+		<result property="thumbnail" 	   column="THUMBNAIL"/>
+		<result property="goodsPrice" 	   column="UNIT_PRICE"/>
+		<result property="quantity" 	   column="ORDER_QUANTITY"/>
+				
+	</resultMap>
+	
+	
+	<select id="selectOrderItemList" resultMap="goods_rm">
+		SELECT BOARD_NO, BOARD_TITLE, 
+				(SELECT IMG_PATH || IMG_RENAME FROM IMAGE I
+				    WHERE I.BOARD_NO = B.BOARD_NO
+				    AND IMG_ORDER = 0) THUMBNAIL
+                    ,(SELECT UNIT_PRICE FROM ORDER_ITEM O
+                        WHERE ORDER_NO = ${orderNo}
+                        AND B.BOARD_NO = O.ORDER_ITEM_NO ) UNIT_PRICE
+                    ,(SELECT ORDER_QUANTITY FROM ORDER_ITEM O
+                        WHERE ORDER_NO = ${orderNo}
+                        AND B.BOARD_NO = O.ORDER_ITEM_NO ) ORDER_QUANTITY
+				    
+				    
+		FROM BOARD B
+		WHERE B.BOARD_NO IN (SELECT ORDER_ITEM_NO 
+							FROM ORDER_ITEM
+							WHERE ORDER_NO = ${orderNo})
+							
+							
+							
+		
+	</select>
+	
+	
+	<select id="selectOrderCompleteList" resultMap="order_rm">
+		SELECT ORDER_NO, RECIPIENT_NAME, RECIPIENT_TEL, ORDER_PRICE
+			    , POSTCODE || ' ' || ADDRESS_BASE || ' ' || ADDRESS_DETAIL AS ADDRESS
+			    , PRICE , PAY_METHOD, PAT_DATE
+		FROM "ORDER"
+		JOIN SHIPPING USING(ORDER_NO)
+		JOIN PAYMENT USING(ORDER_NO)
+		WHERE ORDER_NO = ${boardNo}
+		
+		
+	</select>
+	
+	
+	
+	
+	<insert id="insertOrder" useGeneratedKeys="true">
+		
+		<selectKey order="BEFORE" resultType="long" keyProperty="orderNo">
+			SELECT TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD') || LPAD(TRUNC(DBMS_RANDOM.VALUE(0, 100000)), 5, '0')) AS ORDER_NO
+			FROM DUAL
+			
+		</selectKey>
+		
+		INSERT INTO "ORDER" VALUES(
+		${orderNo},
+		${memberNo},
+		${totalPrice}
+		)
+		
+		
+	</insert>
+	
+	
+	<!-- 주문 상품 삽입-->
+	<insert id="orderItemInsert" useGeneratedKeys="true">
+		
+		<selectKey order="BEFORE" resultType="_int" keyProperty="itemNo">
+			
+			SELECT SEQ_ITEM_NO.NEXTVAL FROM DUAL
+			
+		</selectKey>
+		
+	    INSERT INTO ORDER_ITEM  values(
+	    	${itemNo},
+	    	${orderNo},
+	    	${quantity},
+	    	(SELECT GOODS_PRICE FROM GOODS WHERE BOARD_NO = #{boardNo}),
+	    	#{boardNo}     
+	    	)
+	    
+	</insert>
+	
+<!--	<foreach collection="orderItems" item="item" separator="UNION ALL">
+	        SELECT
+	            SEQ_ITEM_NO.NEXTVAL,
+	            #{orderNo},
+	            #{item.quantity},
+	            (SELECT GOODS_PRICE FROM GOODS WHERE BOARD_NO = #{item.boardNo}),
+	            #{item.boardNo}
+	        FROM DUAL
+	    </foreach>-->
+	
+	<!-- 배송 정보 삽-->
+	<insert id="shippingInsert">
+		INSERT INTO SHIPPING VALUES(
+		${orderNo},
+		#{recipientName},
+		#{recipientTel},
+		#{postcode},
+		#{addressBase},
+		#{addressDetail},
+		null,
+		default)
+			
+	</insert>
+
+	
+	<!--주문 상품 삭제-->
+	<delete id="orderItemDelete">
+		DELETE FROM ORDER_ITEM
+		WHERE ORDER_NO = ${orderNo}
+		
+	</delete>
+	<!-- 배송 삭제-->
+	<delete id="shippingDelete">
+		DELETE FROM SHIPPING
+		WHERE ORDER_NO = ${orderNo}
+	</delete>
+	
+	<!-- 주문 삭제-->
+	<delete id="orderDelete">
+		
+		DELETE FROM "ORDER"
+		WHERE ORDER_NO = ${orderNo}
+	</delete>
+	
+	
+	<!-- 주문 금액 일치하는지-->
+	
+	<select id="selectTotalPrice" resultType="_int">
+		SELECT COUNT(*) FROM "ORDER"
+		WHERE ORDER_NO = ${orderNo}
+		AND  ORDER_PRICE = ${totalPrice}
+	</select>
+	
+	
+	<!-- 결제 테이블 삽입 -->
+	<insert id="insertPayment" useGeneratedKeys="true">
+		<selectKey order="BEFORE" resultType="_int" keyProperty="payNo">
+			
+			SELECT SEQ_PAY_NO.NEXTVAL FROM DUAL
+			
+		</selectKey>
+		
+		INSERT INTO PAYMENT
+		VALUES(
+			${payNo},
+			${orderNo},
+			#{payMethod},
+			SYSDATE,
+			${totalPrice},
+			#{txId}
+		
+		)
+		
+		
+	</insert>
+	
+	
+	
+</mapper>

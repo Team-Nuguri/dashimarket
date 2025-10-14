@@ -304,38 +304,25 @@ const cartBtn = document.getElementById("shopping-cart");
 const soldOut = document.getElementById("sold-out");
 
 // 구매 버튼 클릭
-/* buyBtn.addEventListener("click", e => {
+buyBtn.addEventListener("click", e => {
 
     if (soldOut.classList.contains('show')) {
 
         alert("현재 상품은 재고소진으로 인해 구매가 불가능합니다.");
+        e.preventDefault();
         return;
     }
 
-    const cartQuantity = document.getElementById("quantity").value;
-    const data= {
-        boardNo : boardNo,
-        quantity : cartQuantity,
-        totalPrice : inputPrice.value
-    }
+    if(loginMember == null){
+        alert("로그인 후 이용해주세요");
+        if(confirm("로그인 페이지로 이동하시겠습니까 ?")){
 
-    
-    fetch("/order", {
-        method : "POST",
-        headers : {"Content-Type" : "application/json"},
-        body : JSON.stringify(data)
-    })
-    .then(resp => {
-
-        if(resp.ok){
-            console.log("성공");
-        }else{
-            console.log("실패");
+            location.href = "/member/login";
         }
-    })
-    .catch(e => console.log(e))
+        e.preventDefault();
+    }
     
-}) */
+})
 
 
 // 장바구니 버튼 클릭

@@ -385,6 +385,8 @@ public class JoonggoServiceImpl implements JoonggoService {
 	@Override
 	public List<Joonggo> joonggoSearch(String query) {
 		return mapper.joonggoSearch(query);
+	}
+	
 	// 중고 상품 카테고리(대분류) 목록 조회 (KJK)
 	@Override
 	public Map<String, Object> selectJoonggoCategoryList(String categoryId, int cp) {
