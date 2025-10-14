@@ -125,7 +125,10 @@
                     <i class="fa-regular fa-heart" th:unless="${likeCheck == 'like'}" id="like-heart"></i>
                     <i class="fa-regular fa-heart fa-solid" style="color: #52B291;" th:if="${likeCheck == 'like'}" id="like-heart"></i>
                     <!-- 채팅하기 -->
-                    <button id="chatting-btn" th:data-item="${joonggo.joonggoNo}" th:data-seller="${joonggo.memberNo}" th:data-buyer="${session.loginMember.memberNo}">채팅하기</button>
+                    <th:block th:if="${session.loginMember}">
+                        <button id="chatting-btn"  th:data-item="${joonggo.joonggoNo}" th:data-seller="${joonggo.memberNo}" th:data-buyer="${session.loginMember.memberNo}">채팅하기</button>
+
+                    </th:block>
                 </div>
             </div>
 
@@ -165,6 +168,7 @@
 
 
     <th:block th:replace="~{/common/footer}">footer.html</th:block>
+    
     <th:block th:if="${session.loginMember}" th:replace="~{chatting/chatting}">chatting.html</th:block>
 
 

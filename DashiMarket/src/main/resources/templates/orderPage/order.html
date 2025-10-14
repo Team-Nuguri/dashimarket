@@ -1,76 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>굿즈 상품 주문 페이지</title>
 
-    <link rel="stylesheet" href="../../static/css/common/header.css">
-    <link rel="stylesheet" href="../../static/css/common/footer.css">
-    <link rel="stylesheet" href="../../static/css/common/font.css">
-    <link rel="stylesheet" href="../../static/css/orderPage/order.css">
+    <link rel="stylesheet" th:href="@{/css/common/header.css}">
+    <link rel="stylesheet" th:href="@{/css/common/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/common/font.css}">
+    <link rel="stylesheet" th:href="@{/css/orderPage/order.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.portone.io/v2/browser-sdk.js"></script>
 </head>
 
 <body>
-    <header>
-        <section id="header-area">
-            <div>
-                <a href="@{/}">
-                    <img id="main-logo" src="../../static/images/logo.png">
-                </a>
-
-            </div>
-
-            <div>
-                <div>
-                    <a href="/joongo" class="noto-sans-kr-20">중고거래</a>
-                </div>
-                <div>
-                    <a href="/goods" class="noto-sans-kr-20">굿즈</a>
-                </div>
-                <div>
-                    <a href="/community" class="noto-sans-kr-20">커뮤니티</a>
-                </div>
-
-            </div>
-
-            <div id="icon-area">
-                <button>
-                    <img src="../../static/images/svg/하트.svg">
-                    <!-- <img src="../../static/images/svg/장바구니.svg" > -->
-                    <!-- <img src="@{/images/사람.svg}" > -->
-                </button>
-
-
-                <button>
-                    <img src="../../static/images/svg/Group.svg">
-                </button>
-                <button>
-                    <img src="../../static/images/svg/clarity_menu-line.svg">
-
-                </button>
-
-            </div>
-        </section>
-
-        <section id="search-area">
-
-            <form action="">
-                <fieldset>
-                    <img src="../../static/images/svg/돋보기.svg">
-                    <input type="search" name="query" id="query" placeholder="검색어를 입력해주세요." class="noto-sans-kr-20">
-
-                </fieldset>
-
-            </form>
-
-        </section>
-
-    </header>
+    <th:block th:replace="~{/common/header}">header.html</th:block>
 
     <main>
+
+        <th:blocl th:text="${orderList}">제발요</th:blocl>
 
 
         <!-- 주문 정보-->
@@ -80,9 +29,9 @@
             <form action="">
                 <div class="order-container">
                     <div class="orderer-info">
-                        <input type="text" name="ordererName" class="text-size-24 bold-text" value="이규식">
-                        <input type="text" name="ordererTel" class="text-size-24 bold-text" value="01012341234">
-                        <input type="text" name="ordererEmail" class="text-size-24 bold-text" value="user@naver.com">
+                        <input type="text" name="ordererName" class="text-size-24 bold-text" th:value="${session.loginMember.memberName}" required>
+                        <input type="text" name="ordererTel" class="text-size-24 bold-text" th:value="${session.loginMember.memberTel}" required>
+                        <input type="text" name="ordererEmail" class="text-size-24 bold-text" th:value="${session.loginMember.memberEmail}" required>
                     </div>
 
 
@@ -90,14 +39,14 @@
                     <div class="recipient-info">
                         <!-- 수령인 이름 -->
                         <label for="recipientName">
-                            <h2 style="margin: 10px 0 20px 30px;"><span class="required">*</span>수령인 이름</h2>
+                            <h2 style="margin: 10px 0 20px 30px;" ><span class="required">*</span>수령인 이름</h2>
                         </label>
-                        <input type="text" name="recipientName" id="recipientName" placeholder="성함">
+                        <input type="text" name="recipientName" id="recipientName" th:value="${session.loginMember.memberName}" placeholder="성함" required>
                         <!-- 수령인 전화번호 -->
                         <label for="recipientTel">
                             <h2 style="margin: 10px 0 20px 30px;"><span class="required">*</span>수령인 전화번호</h2>
                         </label>
-                        <input type="text" name="recipientTel" id="recipientTel" placeholder="전화번호">
+                        <input type="text" name="recipientTel" id="recipientTel" th:value="${session.loginMember.memberTel}" placeholder="전화번호" required>
                         <!-- 수령인 주소 -->
 
                         <label for="memberAddress" class="bold-text" style="margin: 10px 0 20px 30px; font-size: 24px;">
@@ -106,19 +55,19 @@
 
 
                         <div class="delivery-input-area">
-                            <input type="text" name="postcode" placeholder="우편번호" maxlength="6" id="sample6_postcode">
+                            <input type="text" name="postcode" placeholder="우편번호" th:value="${session.loginMember.postCode}" required maxlength="6" id="sample6_postcode">
 
                             <button type="button" onclick="sample6_execDaumPostcode()">검색</button>
                         </div>
 
 
                         <div class="delivery-input-area">
-                            <input type="text" name="addressBase" placeholder="도로명/지번 주소" id="sample6_address">
+                            <input type="text" name="addressBase" th:value="${session.loginMember.loadAddress}" required placeholder="도로명/지번 주소" id="sample6_address">
                         </div>
 
 
                         <div class="delivery-input-area">
-                            <input type="text" name="addressDetail" placeholder="상세 주소" id="sample6_detailAddress">
+                            <input type="text" name="addressDetail" th:value="${session.loginMember.detailAddress}" required placeholder="상세 주소" id="sample6_detailAddress">
                         </div>
 
                     </div>
@@ -128,21 +77,21 @@
 
                     <h1 class="center" style="margin-top: 10px;">주문 상품</h1>
                     <div class="order-item">
-                        <div class="order-item-row">
+                        <div class="order-item-row" th:each="item : ${orderList}">
                             <!-- 상품 대표 이미지 -->
                             <div class="item-img">
-                                <img src="../../static/images/goods/cushion.png" alt="">
+                                <img th:src="${item.image.imagePath} + ${item.image.imageRename}" >
                             </div>
 
                             <!-- 상품명 -->
-                            <div>
-                                <h1>다시마 쿠션</h1>
+                            <div class="goodsName">
+                                <h3 th:text="${item.boardTitle}">상품 이름</h3>
                             </div>
                             <!-- 상품 수량 -->
                             <div class="count-price">
                                 <div class="number-input">
                                     <button type="button" class="minus">-</button>
-                                    <input type="number" class="quantity" value="1" min="1" max="10" readonly>
+                                    <input type="number" class="quantity" th:value="${item.quantity}" min="1" th:max="${item.goodsStock}" readonly>
                                     <button type="button" class="plus">+</button>
                                 </div>
 
@@ -150,11 +99,11 @@
 
                             <!-- 상품 가격 -->
                             <div>
-                                <h2 class="total-price">28,000원</h2>
+                                <h2 class="total-price"  th:text="${item.goodsPrice}">상품 가격</h2>
                             </div>
 
-                            <input type="hidden" name="goodsNo" value="">
-                            <input type="hidden" name="inputPrice" value="28000">
+                            <input type="hidden" name="boardNo" th:value="${item.boardNo}">
+                            <input type="hidden" name="inputPrice" th:value="${item.goodsPrice * item.quantity}">
                             <!-- 삭제 -->
                             <div class="item-delete medium-text">
                                 <button type="button" class="text-size-16 medium-text">삭제</button>
@@ -162,38 +111,6 @@
 
                         </div>
                         
-                        <div class="order-item-row">
-                            <!-- 상품 대표 이미지 -->
-                            <div class="item-img">
-                                <img src="../../static/images/goods/tumbler.png" alt="">
-                            </div>
-
-                            <!-- 상품명 -->
-                            <div>
-                                <h1>다시마 텀블러</h1>
-                            </div>
-                            <!-- 상품 수량 -->
-                            <div class="count-price">
-                                <div class="number-input">
-                                    <button type="button" class="minus">-</button>
-                                    <input type="number" class="quantity" value="1" min="1" max="10" readonly>
-                                    <button type="button" class="plus">+</button>
-                                </div>
-
-                            </div>
-
-                            <!-- 상품 가격 -->
-                            <div>
-                                <h2 class="total-price">25,000원</h2>
-                            </div>
-                            <input type="hidden" name="goodsNo" value="">
-                            <input type="hidden" name="inputPrice" value="25000">
-                            <!-- 삭제 -->
-                            <div class="item-delete medium-text">
-                                <button type="button" class="text-size-16 medium-text">삭제</button>
-                            </div>
-
-                        </div>
 
 
 
@@ -203,7 +120,7 @@
                     <!-- 좀 밋밋한 느낌 결제수단을 
                         결제 대행사에서 제공해준다곤 하는데 그럼 굳이 이 영역이 필요한가 ? 싶음
                     -->
-                    <h1>결제수단</h1>
+    <!--                 <h1>결제수단</h1>
                     <div class="pay-method">
                         <label class="payment-option-item">
                             <input type="radio" name="paymentMethod" value="CARD" checked>
@@ -229,7 +146,7 @@
                             간편 결제
                         </label>
 
-                    </div>
+                    </div> -->
 
                 </div>
 
@@ -257,13 +174,13 @@
                             <h2>총 결제 금액</h2>
                         </div>
                         <div>
-                            <h2 id="real-total-price">0 원</h2>
+                            <h2 id="real-total-price" th:text="${totalPrice}">총 가격</h2>
                         </div>
                     </div>
                     <input type="hidden" name="realTotalPrice" id="realTotalPrice">
-
+                    
                     <div>
-                        <button id="purchaseBtn" class="bold-text text-size-20"><span></span>결제하기</button>
+                        <button id="purchaseBtn" class="bold-text text-size-20" >결제하기</button>
 
                     </div>
                 </div>
@@ -286,60 +203,8 @@
 
 
 
-
-    <footer>
-        <section>
-
-            <div class="footer-top">
-                <a th:href="@{#}"><img src="images/logo.png" width="100px" style="vertical-align: middle;"></a>
-                <a th:href="@{#}">회사 소개</a>
-                <span>|</span>
-                <a th:href="@{#}">서비스 소개</a>
-                <span>|</span>
-                <a th:href="@{#}">블로그</a>
-                <span>|</span>
-                <a th:href="@{#}">채용제휴 문의</a>
-                <span>|</span>
-                <a th:href="@{#}">광고 문의</a>
-            </div>
-
-            <hr>
-
-            <div class="footer-bottom">
-
-                <div class="footer-left">
-                    (주) 다시마켓 <br>
-                    대표 너구리 <br>
-                    사업자번호 168-87-57386 <br>
-                    직업정보제공사업 신고번호J1200020200016 <br>
-                    통신판매신고번호 제2024-서울강남-06966호 <br>
-                    호스팅 사업자 Amazon Web Service(AWS)<br>
-                    주소 서울특별시 종로구 우정국로2길 21 9층, 903호 <br>
-                    전화 1877-9292 <br>
-                    고객문의 kelp@dasimacat.com
-                </div>
-                <div class="footer-right">
-                    <a href="#">공지사항</a>
-                    <a href="#">자주묻는 질문</a> <br><br>
-
-                    <a href="#">이용약관</a>
-                    <a href="#">개인정보처리방침</a>
-
-                    <a href="#">운영정책</a>
-
-                    <a href="#">위치기반서비스 이용약관</a>
-
-                    <a href="#">게시글</a>
-
-                </div>
-
-            </div>
-        </section>
-
-
-
-
-    </footer>
+    <th:block th:replace="~{/common/footer}">footer.html</th:block>
+   
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
         function sample6_execDaumPostcode() {
@@ -370,7 +235,7 @@
     </script>
 
 
-    <script src="../../static/js/order/order.js"></script>
+    <script th:src="@{/js/order/order.js}"></script>
 
 </body>
 

@@ -36,7 +36,7 @@
             <!-- 장바구니 상품 목록 -->
             <form th:action="@{/goods/order}" method="POST">
                 <div class="cart-container">
-                    <div th:each="list : ${cartGoodsList}" class="cart-item-row">
+                    <div th:each="list, i : ${cartGoodsList}" class="cart-item-row">
                         <!-- 체크박스 -->
                         <div class="item-check">
                             <input type="checkbox" name="selectedGoods" class="selectedGoods">
@@ -68,21 +68,11 @@
                                 </div>
 
                             </div>
-                            <!-- 상품 수량 -->
-                            <!-- 
-                                
-                                여기 수량하고 가격은 상품 상세페이지에서
-                                값 넘겨줘서 기본 value 값 세팅할 예정
-                                상품 상세페이지에서 수량 선택, 총 가격 input 에 담아서 
-                                장바구니 테이블에 insert 후 그 값 가져와서 기본 값 세팅
-                                그리고 수량 변경할 때 마다 비동기로 장바구니 테이블 
-                                업데이트 해야함 
-                            
-                            -->
+                        
                             <div class="count-price">
                                 <div class="number-input">
                                     <button type="button" class="minus">-</button>
-                                    <input type="number" name="quantity" class="quantity" th:value="${list.quantity}" min="1"
+                                    <input type="number"  th:name="'orderItems[' + ${i.index} + '].quantity'" class="quantity" th:value="${list.quantity}" min="1"
                                         th:max="${list.goodsStock}" readonly>
                                     <button type="button" class="plus">+</button>
                                 </div>
@@ -90,10 +80,10 @@
                             </div>
                         </div>
                         <!-- 해당 굿즈 상품 번호 -->
-                        <input type="hidden" name="boardNo"  th:value="${list.boardNo}">
+                        <input type="hidden" class="goodsNo" th:name="'orderItems[' + ${i.index} + '].boardNo'"  th:value="${list.boardNo}">
                         <!-- 수량이랑 계산해서 초기 값 설정 -->
                         <input type="hidden" name="totalPrice"  th:value="${list.goodsPrice*list.quantity}">
-
+                        
                         <!-- 삭제 -->
                         <div class="item-delete medium-text">
                             <button type="button" class="text-size-16 medium-text cartDeletebtn" >삭제</button>
