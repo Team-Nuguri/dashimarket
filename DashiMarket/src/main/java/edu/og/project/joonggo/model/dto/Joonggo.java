@@ -33,6 +33,7 @@ public class Joonggo {
 	
 	// 카테고리
 	private String categoryId;
+	private String parentCategoryNo;
 	private String mainCategory;
 	private String subCategory;
 	

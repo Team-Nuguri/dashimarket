@@ -42,13 +42,15 @@ public class JoonggoController {
 	private JoonggoService service;
 	
 	// 중고 상품 목록 조회 (KJK)
-	@GetMapping("/{boardType:j.*}")
-	public String selectJoonggoList(@PathVariable("boardType") String boardType,
+	// @GetMapping("/{boardType:j.*}")
+	 @GetMapping("/joonggo")
+	public String selectJoonggoList( 
+			// @PathVariable("boardType") String boardType,
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
 		
 		// System.out.println(boardType);  joonggo 로 넘어옴
-
-		Map<String, Object> map = service.selectJoonggoList(boardType, cp);
+		// Map<String, Object> map = service.selectJoonggoList(boardType, cp);  // 사용X
+	    Map<String, Object> map = service.selectJoonggoList("joonggo", cp);
 		
 		if(map == null) {
 		    System.out.println("map is null");
@@ -80,6 +82,41 @@ public class JoonggoController {
 
 		return "joonggoPage/joonggoHome :: #joonggo-container"; // 동적으로 바뀔 부분의 아이디
 	}
+	
+	 // 중고상품 카테고리(대분류) 목록 조회 (KJK)
+		@GetMapping("/joonggoCategory")
+		public String selectJoonggoCategoryList(
+				@RequestParam(name = "categoryId", required = false) String categoryId,
+				@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+				Model model) {
+			
+			System.out.println("temp");
+			
+			Map<String, Object> map = service.selectJoonggoCategoryList(categoryId, cp);
+			model.addAttribute("map", map);
+			model.addAttribute("categoryId", categoryId);
+			
+			return "joonggoPage/joonggoHome";
+		}
+		
+		
+		 // 중고상품 카테고리(중분류) 목록 조회 (KJK)
+		@GetMapping("/joonggoCategory2")
+		public String selectJoonggoCategoryList2(
+				@RequestParam(name = "categoryId", required = false) String categoryId,
+				@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+				Model model) {
+			
+			System.out.println("temp2");
+			
+			Map<String, Object> map = service.selectJoonggoCategoryList2(categoryId, cp);
+			model.addAttribute("map", map);
+			model.addAttribute("categoryId", categoryId);
+			
+			return "joonggoPage/joonggoHome";
+		}
+	 
+	
 	
 	// 로그인한 회원의 나의 위시리스트 (KJK)
 	@GetMapping("/myPage/wishlist")

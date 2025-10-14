@@ -74,112 +74,118 @@
             </div>
         </div>
 
-        <div id="category-container" style="display: block;">
+        <!-- <div id="category-container" style="display: block;"> -->
+			<div id="category-container" th:if="${categoryId == null}" style="display: block;">
 
             <!-- 카테고리 선택 드롭다운 -->
-            <div id="category-drop-down-container">
-                <a th:href="@{joonggoHome}">
+             <div id="category-drop-down-container">
+                <a th:href="@{/joonggo}">
                     <div class="text-size-20 medium-text">전체</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J100)}">
+                <a th:href="@{/joonggoCategory(categoryId=J100)}">
                     <div class="text-size-20 medium-text" id="div1">가전제품</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J200)}">
+                <a th:href="@{/joonggoCategory(categoryId=J200)}">
                     <div class="text-size-20 medium-text" id="div2">의류</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J300)}">
+                <a th:href="@{/joonggoCategory(categoryId=J300)}">
                     <div class="text-size-20 medium-text" id="div3">스포츠/레저</div>
                 </a>
 
-                <a th:href="@{joonggoHome(code=J400)}">
+                <a th:href="@{/joonggoCategory(categoryId=J400)}">
                     <div class="text-size-20 medium-text" id="div4">신발</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J500)}">
+                <a th:href="@{/joonggoCategory(categoryId=J500)}">
                     <div class="text-size-20 medium-text" id="div5">뷰티/미용</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J600)}">
+                <a th:href="@{/joonggoCategory(categoryId=J600)}">
                     <div class="text-size-20 medium-text" id="div6">게임</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J700)}">
+                <a th:href="@{/joonggoCategory(categoryId=J700)}">
                     <div class="text-size-20 medium-text" id="div7">생활</div>
                 </a>
 
-                <a th:href="@{joonggoHome(code=J800)}">
+                <a th:href="@{/joonggoCategory(categoryId=J800)}">
                     <div class="text-size-20 medium-text" id="div8">차량/오토바이</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J900)}">
+                <a th:href="@{/joonggoCategory(categoryId=J900)}">
                     <div class="text-size-20 medium-text" id="div9">가구/인테리어</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1000)}">
+                <a th:href="@{/joonggoCategory(categoryId=J1000)}">
                     <div class="text-size-20 medium-text" id="div10">디지털</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1100)}">
+                <a th:href="@{/joonggoCategory(categoryId=J1100)}">
                     <div class="text-size-20 medium-text" id="div11">음반/악기</div>
                 </a>
 
-                <a th:href="@{joonggoHome(code=J1200)}">
+                <a th:href="@{/joonggoCategory(categoryId=J1200)}">
                     <div class="text-size-20 medium-text" id="div12">패션 엑세서리</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1300)}">
+                <a th:href="@{/joonggoCategory(categoryId=J1300)}">
                     <div class="text-size-20 medium-text" id="div13">도서/문구</div>
                 </a>
 
-                <a th:href="@{joonggoHome(code=J1400)}">
+                <a th:href="@{/joonggoCategory(categoryId=J1400)}">
                     <div class="text-size-20 medium-text" id="div14">예술/희귀</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1500)}">
+                <a th:href="@{/joonggoCategory(categoryId=J1500)}">
                     <div class="text-size-20 medium-text" id="div15">공구/산업용품</div>
                 </a>
+                
             </div>
-
+            
         </div>
 
-        <div id="category-sub-container1" style="display:none;">
+        <!-- <div id="category-sub-container1" style="display:none;"> -->
+       <div id="category-sub-container1" th:attr="style=${#lists.contains({'J100','J101','J102','J103','J104','J105','J106','J107','J108'}, categoryId)} ? 'display:block;' : 'display:none;'">
 
             <!-- 카테고리(서브) 선택 드롭다운 -->
             <div class="category-drop-down-sub-container">
-                <a th:href="@{joonggoHome(code=J100)}">
+                
+                <a th:href="@{/joonggo}">
                     <div class="text-size-20 medium-text"><b style="color: #166549;">홈 > 가전제품</b></div>
                 </a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
 
-                <a th:href="@{joonggoHome(code=j101)}">
-                    <div class="text-size-20 medium-text">생활가전</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J101)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J101'} ? ' bold-text' : ''">생활가전</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J102)}">
-                    <div class="text-size-20 medium-text">주방가전</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J102)}">
+                    <div class="text-size-20 medium-text"  th:classappend="${categoryId == 'J102'} ? ' bold-text' : ''">주방가전</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J103)}">
-                    <div class="text-size-20 medium-text">미용가전</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J103)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J103'} ? ' bold-text' : ''">미용가전</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J104)}">
-                    <div class="text-size-20 medium-text">냉장고</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J104)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J104'} ? ' bold-text' : ''">냉장고</div>
                 </a>
 
-                <a th:href="@{joonggoHome(code=J105)}">
-                    <div class="text-size-20 medium-text">에어컨</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J105)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J105'} ? ' bold-text' : ''">에어컨</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J106)}">
-                    <div class="text-size-20 medium-text">세탁기/건조기</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J106)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J106'} ? ' bold-text' : ''">세탁기/건조기</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J107)}">
-                    <div class="text-size-20 medium-text">TV</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J107)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J107'} ? ' bold-text' : ''">TV</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J108)}">
-                    <div class="text-size-20 medium-text">사무기기</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J108)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J108'} ? ' bold-text' : ''">사무기기</div>
                 </a>
             </div>
 
         </div>
 
-        <div id="category-sub-container2" style="display:none;">
+
+       <!-- <div id="category-sub-container2" style="display:none;">-->
+		   <div id="category-sub-container2" th:attr="style=${#lists.contains({'J200','J201','J202','J203','J204','J205','J206','J207','J208'}, categoryId)} ? 'display:block;' : 'display:none;'">
 
             <!-- 카테고리(서브) 선택 드롭다운 -->
             <div class="category-drop-down-sub-container">
 
-                <a th:href="@{joonggoHome(code=J200)}">
+                <a th:href="@{/joonggo}">
                     <div class="text-size-20 medium-text"><b style="color: #166549;">홈 > 의류</b></div>
                 </a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
@@ -187,41 +193,42 @@
                 <a th:href="@{/}" style="visibility: hidden;"></a>
 
 
-                <a th:href="@{joonggoHome(code=j201)}">
-                    <div class="text-size-20 medium-text">아우터</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J201)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J201'} ? ' bold-text' : ''">아우터</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J202)}">
-                    <div class="text-size-20 medium-text">상의</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J202)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J202'} ? ' bold-text' : ''">상의</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J203)}">
-                    <div class="text-size-20 medium-text">셔츠</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J203)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J203'} ? ' bold-text' : ''">셔츠</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J204)}">
-                    <div class="text-size-20 medium-text">니트/스웨터</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J204)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J204'} ? ' bold-text' : ''">니트/스웨터</div>
                 </a>
 
-                <a th:href="@{joonggoHome(code=J205)}">
-                    <div class="text-size-20 medium-text">하의</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J205)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J205'} ? ' bold-text' : ''">하의</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J206)}">
-                    <div class="text-size-20 medium-text">원피스/스커트</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J206)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J206'} ? ' bold-text' : ''">원피스/스커트</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J207)}">
-                    <div class="text-size-20 medium-text">홈웨어/언더웨어</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J207)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J207'} ? ' bold-text' : ''">홈웨어/언더웨어</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J208)}">
-                    <div class="text-size-20 medium-text">기타의류</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J208)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J208'} ? ' bold-text' : ''">기타의류</div>
                 </a>
             </div>
 
         </div>
 
-        <div id="category-sub-container3" style="display:none;">
+        <!--<div id="category-sub-container3" style="display:none;">-->
+		<div id="category-sub-container3" th:attr="style=${#lists.contains({'J300','J301','J302','J303','J304','J305','J306','J307','J308'}, categoryId)} ? 'display:block;' : 'display:none;'">
 
             <!-- 카테고리(서브) 선택 드롭다운 -->
             <div class="category-drop-down-sub-container">
 
-                <a th:href="@{joonggoHome(code=J300)}">
+                <a th:href="@{/joonggo}">
                     <div class="text-size-20 medium-text"><b style="color: #166549;">홈 > 스포츠/레저</b></div>
                 </a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
@@ -229,523 +236,534 @@
                 <a th:href="@{/}" style="visibility: hidden;"></a>
 
 
-                <a th:href="@{joonggoHome(code=j301)}">
-                    <div class="text-size-20 medium-text">헬스/요가/필라테스</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J301)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J301'} ? ' bold-text' : ''">헬스/요가/필라테스</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J302)}">
-                    <div class="text-size-20 medium-text">구기 스포츠</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J302)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J302'} ? ' bold-text' : ''">구기 스포츠</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J303)}">
-                    <div class="text-size-20 medium-text">라켓 스포츠</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J303)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J303'} ? ' bold-text' : ''">라켓 스포츠</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J304)}">
-                    <div class="text-size-20 medium-text">골프</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J304)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J304'} ? ' bold-text' : ''">골프</div>
                 </a>
 
-                <a th:href="@{joonggoHome(code=J305)}">
-                    <div class="text-size-20 medium-text">등산/캠핑</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J305)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J305'} ? ' bold-text' : ''">등산/캠핑</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J306)}">
-                    <div class="text-size-20 medium-text">자전거</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J306)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J306'} ? ' bold-text' : ''">자전거</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J307)}">
-                    <div class="text-size-20 medium-text">겨울 스포츠</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J307)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J307'} ? ' bold-text' : ''">겨울 스포츠</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J308)}">
-                    <div class="text-size-20 medium-text">수상 스포츠</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J308)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J308'} ? ' bold-text' : ''">수상 스포츠</div>
                 </a>
             </div>
 
         </div>
 
-        <div id="category-sub-container4" style="display:none;">
-
-            <!-- 카테고리(서브) 선택 드롭다운 -->
+       <!-- <div id="category-sub-container4" style="display:none;">-->
+       <div id="category-sub-container4" th:attr="style=${#lists.contains({'J400','J401','J402','J403','J404','J405','J406','J407','J408'}, categoryId)} ? 'display:block;' : 'display:none;'">
+        <!-- 카테고리(서브) 선택 드롭다운 -->
             <div class="category-drop-down-sub-container">
 
-                <a th:href="@{joonggoHome(code=J400)}">
+                <a th:href="@{/joonggo}">
                     <div class="text-size-20 medium-text"><b style="color: #166549;">홈 > 신발</b></div>
                 </a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
 
-                <a th:href="@{joonggoHome(code=j401)}">
-                    <div class="text-size-20 medium-text">운동화/스니커즈</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J401)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J401'} ? ' bold-text' : ''">운동화/스니커즈</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J402)}">
-                    <div class="text-size-20 medium-text">구두/로퍼</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J402)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J402'} ? ' bold-text' : ''">구두/로퍼</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J403)}">
-                    <div class="text-size-20 medium-text">샌들/슬리퍼</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J403)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J403'} ? ' bold-text' : ''">샌들/슬리퍼</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J404)}">
-                    <div class="text-size-20 medium-text">워커/부츠</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J404)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J404'} ? ' bold-text' : ''">워커/부츠</div>
                 </a>
 
-                <a th:href="@{joonggoHome(code=J405)}">
-                    <div class="text-size-20 medium-text">스포츠화</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J405)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J405'} ? ' bold-text' : ''">스포츠화</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J406)}">
-                    <div class="text-size-20 medium-text">유아/키즈</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J406)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J406'} ? ' bold-text' : ''">유아/키즈</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J407)}">
-                    <div class="text-size-20 medium-text">기타 남성화</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J407)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J407'} ? ' bold-text' : ''">기타 남성화</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J408)}">
-                    <div class="text-size-20 medium-text">기타 여성화</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J408)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J408'} ? ' bold-text' : ''">기타 여성화</div>
                 </a>
             </div>
 
         </div>
 
 
-        <div id="category-sub-container5" style="display:none;">
-
+        <!--<div id="category-sub-container5" style="display:none;">-->
+         <div id="category-sub-container5" th:attr="style=${#lists.contains({'J500','J501','J502','J503','J504','J505','J506','J507','J508'}, categoryId)} ? 'display:block;' : 'display:none;'">
+      
             <!-- 카테고리(서브) 선택 드롭다운 -->
             <div class="category-drop-down-sub-container">
 
-                <a th:href="@{joonggoHome(code=J500)}">
+                <a th:href="@{/joonggo}">
                     <div class="text-size-20 medium-text"><b style="color: #166549;">홈 > 뷰티/미용</b></div>
                 </a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
 
-                <a th:href="@{joonggoHome(code=j501)}">
-                    <div class="text-size-20 medium-text">스킨케어</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J501)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J501'} ? ' bold-text' : ''">스킨케어</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J502)}">
-                    <div class="text-size-20 medium-text">메이크업</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J502)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J502'} ? ' bold-text' : ''">메이크업</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J503)}">
-                    <div class="text-size-20 medium-text">바디/헤어케어</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J503)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J503'} ? ' bold-text' : ''">바디/헤어케어</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J504)}">
-                    <div class="text-size-20 medium-text">향수/아로마</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J504)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J504'} ? ' bold-text' : ''">향수/아로마</div>
                 </a>
 
-                <a th:href="@{joonggoHome(code=J505)}">
-                    <div class="text-size-20 medium-text">네일아트/케어</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J505)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J505'} ? ' bold-text' : ''">네일아트/케어</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J506)}">
-                    <div class="text-size-20 medium-text">미용소품/기기</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J506)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J506'} ? ' bold-text' : ''">미용소품/기기</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J507)}">
-                    <div class="text-size-20 medium-text">다이어트/이너뷰티</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J507)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J507'} ? ' bold-text' : ''">다이어트/이너뷰티</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J508)}">
-                    <div class="text-size-20 medium-text">남성 화장품</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J508)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J508'} ? ' bold-text' : ''">남성 화장품</div>
                 </a>
             </div>
 
         </div>
 
-        <div id="category-sub-container6" style="display:none;">
-
+        <!--<div id="category-sub-container6" style="display:none;">-->
+         <div id="category-sub-container6" th:attr="style=${#lists.contains({'J600','J601','J602','J603','J604','J605','J606','J607','J608'}, categoryId)} ? 'display:block;' : 'display:none;'">
+      
             <!-- 카테고리(서브) 선택 드롭다운 -->
             <div class="category-drop-down-sub-container">
 
-                <a th:href="@{joonggoHome(code=J600)}">
+                <a th:href="@{/joonggo}">
                     <div class="text-size-20 medium-text"><b style="color: #166549;">홈 > 게임</b></div>
                 </a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
 
-                <a th:href="@{joonggoHome(code=j601)}">
-                    <div class="text-size-20 medium-text">닌텐도 스위치</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J601)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J601'} ? ' bold-text' : ''">닌텐도 스위치</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J602)}">
-                    <div class="text-size-20 medium-text">플레이스테이션5</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J602)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J602'} ? ' bold-text' : ''">플레이스테이션5</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J603)}">
-                    <div class="text-size-20 medium-text">XBOX</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J603)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J603'} ? ' bold-text' : ''">XBOX</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J604)}">
-                    <div class="text-size-20 medium-text">콘솔 타이틀</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J604)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J604'} ? ' bold-text' : ''">콘솔 타이틀</div>
                 </a>
 
-                <a th:href="@{joonggoHome(code=J605)}">
-                    <div class="text-size-20 medium-text">레트로/구형 게임기</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J605)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J605'} ? ' bold-text' : ''">레트로/구형 게임기</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J606)}">
-                    <div class="text-size-20 medium-text">VR/AR 게임기기</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J606)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J606'} ? ' bold-text' : ''">VR/AR 게임기기</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J607)}">
-                    <div class="text-size-20 medium-text">게임 액세서리/부품</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J607)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J607'} ? ' bold-text' : ''">게임 액세서리/부품</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J608)}">
-                    <div class="text-size-20 medium-text">게임 굿즈/수집품</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J608)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J608'} ? ' bold-text' : ''">게임 굿즈/수집품</div>
                 </a>
             </div>
 
         </div>
 
-        <div id="category-sub-container7" style="display:none;">
-
+       <!-- <div id="category-sub-container7" style="display:none;">-->
+        <div id="category-sub-container7" th:attr="style=${#lists.contains({'J700','J701','J702','J703','J704','J705','J706','J707','J708'}, categoryId)} ? 'display:block;' : 'display:none;'">
+      
             <!-- 카테고리(서브) 선택 드롭다운 -->
             <div class="category-drop-down-sub-container">
 
-                <a th:href="@{joonggoHome(code=J700)}">
+                <a th:href="@{/joonggo}">
                     <div class="text-size-20 medium-text"><b style="color: #166549;">홈 > 생활</b></div>
                 </a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
 
-                <a th:href="@{joonggoHome(code=j701)}">
-                    <div class="text-size-20 medium-text">주방/조리용품</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J701)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J701'} ? ' bold-text' : ''">주방/조리용품</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J702)}">
-                    <div class="text-size-20 medium-text">청소/세탁 용품</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J702)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J702'} ? ' bold-text' : ''">청소/세탁 용품</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J703)}">
-                    <div class="text-size-20 medium-text">욕실/세면 용품</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J703)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J703'} ? ' bold-text' : ''">욕실/세면 용품</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J704)}">
-                    <div class="text-size-20 medium-text">반려동물 용품</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J704)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J704'} ? ' bold-text' : ''">반려동물 용품</div>
                 </a>
 
-                <a th:href="@{joonggoHome(code=J705)}">
-                    <div class="text-size-20 medium-text">휴지/생필품</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J705)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J705'} ? ' bold-text' : ''">휴지/생필품</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J706)}">
-                    <div class="text-size-20 medium-text">DIY/원예/공예</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J706)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J706'} ? ' bold-text' : ''">DIY/원예/공예</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J707)}">
-                    <div class="text-size-20 medium-text">여행/계절 용품</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J707)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J707'} ? ' bold-text' : ''">여행/계절 용품</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J708)}">
-                    <div class="text-size-20 medium-text">기타 생활 용품</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J708)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J708'} ? ' bold-text' : ''">기타 생활 용품</div>
                 </a>
             </div>
 
         </div>
 
-        <div id="category-sub-container8" style="display:none;">
-
+       <!-- <div id="category-sub-container8" style="display:none;">-->
+       <div id="category-sub-container8" th:attr="style=${#lists.contains({'J800','J801','J802','J803','J804','J805','J806','J807','J808'}, categoryId)} ? 'display:block;' : 'display:none;'">
+      
             <!-- 카테고리(서브) 선택 드롭다운 -->
             <div class="category-drop-down-sub-container">
 
-                <a th:href="@{joonggoHome(code=J800)}">
+                <a th:href="@{/joonggo}">
                     <div class="text-size-20 medium-text"><b style="color: #166549;">홈 > 차량/오토바이</b></div>
                 </a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
 
-                <a th:href="@{joonggoHome(code=j801)}">
-                    <div class="text-size-20 medium-text">승용차/SUV</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J801)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J801'} ? ' bold-text' : ''">승용차/SUV</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J802)}">
-                    <div class="text-size-20 medium-text">오토바이/스쿠터</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J802)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J802'} ? ' bold-text' : ''">오토바이/스쿠터</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J803)}">
-                    <div class="text-size-20 medium-text">타이어/휠</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J803)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J803'} ? ' bold-text' : ''">타이어/휠</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J804)}">
-                    <div class="text-size-20 medium-text">내비게이션/블랙박스</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J804)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J804'} ? ' bold-text' : ''">내비게이션/블랙박스</div>
                 </a>
 
-                <a th:href="@{joonggoHome(code=J805)}">
-                    <div class="text-size-20 medium-text">차량 인테리어</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J805)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J805'} ? ' bold-text' : ''">차량 인테리어</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J806)}">
-                    <div class="text-size-20 medium-text">세차/관리</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J806)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J806'} ? ' bold-text' : ''">세차/관리</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J807)}">
-                    <div class="text-size-20 medium-text">오토바이 용품</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J807)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J807'} ? ' bold-text' : ''">오토바이 용품</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J808)}">
-                    <div class="text-size-20 medium-text">기타 차량 부품</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J808)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J808'} ? ' bold-text' : ''">기타 차량 부품</div>
                 </a>
             </div>
 
         </div>
 
-        <div id="category-sub-container9" style="display:none;">
-
+        <!--<div id="category-sub-container9" style="display:none;">-->
+        <div id="category-sub-container9" th:attr="style=${#lists.contains({'J900','J901','J902','J903','J904','J905','J906','J907','J908'}, categoryId)} ? 'display:block;' : 'display:none;'">
+      
             <!-- 카테고리(서브) 선택 드롭다운 -->
             <div class="category-drop-down-sub-container">
 
-                <a th:href="@{joonggoHome(code=J900)}">
+                <a th:href="@{/joonggo}">
                     <div class="text-size-20 medium-text"><b style="color: #166549;">홈 > 가구/인테리어</b></div>
                 </a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
 
-                <a th:href="@{joonggoHome(code=j901)}">
-                    <div class="text-size-20 medium-text">침대/매트리스</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J901)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J901'} ? ' bold-text' : ''">침대/매트리스</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J902)}">
-                    <div class="text-size-20 medium-text">소파/의자</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J902)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J902'} ? ' bold-text' : ''">소파/의자</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J903)}">
-                    <div class="text-size-20 medium-text">테이블/식탁</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J903)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J903'} ? ' bold-text' : ''">테이블/식탁</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J904)}">
-                    <div class="text-size-20 medium-text">수납장/선반</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J904)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J904'} ? ' bold-text' : ''">수납장/선반</div>
                 </a>
 
-                <a th:href="@{joonggoHome(code=J905)}">
-                    <div class="text-size-20 medium-text">조명/스탠드</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J905)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J905'} ? ' bold-text' : ''">조명/스탠드</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J906)}">
-                    <div class="text-size-20 medium-text">커튼/블라인드</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J906)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J906'} ? ' bold-text' : ''">커튼/블라인드</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J907)}">
-                    <div class="text-size-20 medium-text">인테리어 소품</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J907)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J907'} ? ' bold-text' : ''">인테리어 소품</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J908)}">
-                    <div class="text-size-20 medium-text">DIY/셀프 인테리어</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J908)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J908'} ? ' bold-text' : ''">DIY/셀프 인테리어</div>
                 </a>
             </div>
 
         </div>
 
-        <div id="category-sub-container10" style="display:none;">
-
+       <!-- <div id="category-sub-container10" style="display:none;">-->
+       <div id="category-sub-container10" th:attr="style=${#lists.contains({'J1000','J1001','J1002','J1003','J1004','J1005','J1006','J1007','J1008'}, categoryId)} ? 'display:block;' : 'display:none;'">
+      
             <!-- 카테고리(서브) 선택 드롭다운 -->
             <div class="category-drop-down-sub-container">
 
-                <a th:href="@{joonggoHome(code=J1000)}">
+                <a th:href="@{/joonggo}">
                     <div class="text-size-20 medium-text"><b style="color: #166549;">홈 > 디지털</b></div>
                 </a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
 
-                <a th:href="@{joonggoHome(code=j1001)}">
-                    <div class="text-size-20 medium-text">스마트폰/태블릿</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1001)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1001'} ? ' bold-text' : ''">스마트폰/태블릿</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1002)}">
-                    <div class="text-size-20 medium-text">노트북/데스크탑</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1002)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1002'} ? ' bold-text' : ''">노트북/데스크탑</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1003)}">
-                    <div class="text-size-20 medium-text">모니터</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1003)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1003'} ? ' bold-text' : ''">모니터</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1004)}">
-                    <div class="text-size-20 medium-text">카메라/캠코더</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1004)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1004'} ? ' bold-text' : ''">카메라/캠코더</div>
                 </a>
 
-                <a th:href="@{joonggoHome(code=J1005)}">
-                    <div class="text-size-20 medium-text">이어폰/헤드폰/스피커</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1005)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1005'} ? ' bold-text' : ''">이어폰/헤드폰/스피커</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1006)}">
-                    <div class="text-size-20 medium-text">웨어러블 기기</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1006)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1006'} ? ' bold-text' : ''">웨어러블 기기</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1007)}">
-                    <div class="text-size-20 medium-text">PC 주변기기</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1007)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1007'} ? ' bold-text' : ''">PC 주변기기</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1008)}">
-                    <div class="text-size-20 medium-text">기타 디지털 기기</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1008)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1008'} ? ' bold-text' : ''">기타 디지털 기기</div>
                 </a>
             </div>
 
         </div>
 
-        <div id="category-sub-container11" style="display:none;">
-
+        <!--<div id="category-sub-container11" style="display:none;">-->
+         <div id="category-sub-container11" th:attr="style=${#lists.contains({'J1100','J1101','J1102','J1103','J1104','J1105','J1106','J1107','J1108'}, categoryId)} ? 'display:block;' : 'display:none;'">
+      
             <!-- 카테고리(서브) 선택 드롭다운 -->
             <div class="category-drop-down-sub-container">
 
-                <a th:href="@{joonggoHome(code=J1100)}">
+                <a th:href="@{/joonggo}">
                     <div class="text-size-20 medium-text"><b style="color: #166549;">홈 > 음반/악기</b></div>
                 </a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
 
-                <a th:href="@{joonggoHome(code=j1101)}">
-                    <div class="text-size-20 medium-text">CD/DVD/블루레이</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1101)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1101'} ? ' bold-text' : ''">CD/DVD/블루레이</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1102)}">
-                    <div class="text-size-20 medium-text">LP/턴테이블</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1102)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1102'} ? ' bold-text' : ''">LP/턴테이블</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1103)}">
-                    <div class="text-size-20 medium-text">전자 악기</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1103)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1103'} ? ' bold-text' : ''">전자 악기</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1104)}">
-                    <div class="text-size-20 medium-text">현악기</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1104)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1104'} ? ' bold-text' : ''">현악기</div>
                 </a>
 
-                <a th:href="@{joonggoHome(code=J1105)}">
-                    <div class="text-size-20 medium-text">관악기</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1105)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1105'} ? ' bold-text' : ''">관악기</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1106)}">
-                    <div class="text-size-20 medium-text">타악기</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1106)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1106'} ? ' bold-text' : ''">타악기</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1107)}">
-                    <div class="text-size-20 medium-text">악기 액세서리/부품</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1107)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1107'} ? ' bold-text' : ''">악기 액세서리/부품</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1108)}">
-                    <div class="text-size-20 medium-text">음향/녹음장비</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1108)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1108'} ? ' bold-text' : ''">음향/녹음장비</div>
                 </a>
             </div>
 
         </div>
 
-        <div id="category-sub-container12" style="display:none;">
-
+       <!-- <div id="category-sub-container12" style="display:none;">-->
+         <div id="category-sub-container12" th:attr="style=${#lists.contains({'J1200','J1201','J1202','J1203','J1204','J1205','J1206','J1207','J1208'}, categoryId)} ? 'display:block;' : 'display:none;'">
+      
             <!-- 카테고리(서브) 선택 드롭다운 -->
             <div class="category-drop-down-sub-container">
 
-                <a th:href="@{joonggoHome(code=J1200)}">
+                <a th:href="@{/joonggo}">
                     <div class="text-size-20 medium-text"><b style="color: #166549;">홈 > 패션 엑세서리</b></div>
                 </a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
 
-                <a th:href="@{joonggoHome(code=j1201)}">
-                    <div class="text-size-20 medium-text">모자</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1201)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1201'} ? ' bold-text' : ''">모자</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1202)}">
-                    <div class="text-size-20 medium-text">가방</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1202)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1202'} ? ' bold-text' : ''">가방</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1203)}">
-                    <div class="text-size-20 medium-text">시계</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1203)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1203'} ? ' bold-text' : ''">시계</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1204)}">
-                    <div class="text-size-20 medium-text">주얼리</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1204)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1204'} ? ' bold-text' : ''">주얼리</div>
                 </a>
 
-                <a th:href="@{joonggoHome(code=J1205)}">
-                    <div class="text-size-20 medium-text">안경/선글라스</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1205)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1205'} ? ' bold-text' : ''">안경/선글라스</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1206)}">
-                    <div class="text-size-20 medium-text">키링/키케이스</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1206)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1206'} ? ' bold-text' : ''">키링/키케이스</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1207)}">
-                    <div class="text-size-20 medium-text">벨트/장갑/스카프</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1207)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1207'} ? ' bold-text' : ''">벨트/장갑/스카프</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1208)}">
-                    <div class="text-size-20 medium-text">양말/레그웨어</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1208)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1208'} ? ' bold-text' : ''">양말/레그웨어</div>
                 </a>
             </div>
 
         </div>
 
-        <div id="category-sub-container13" style="display:none;">
-
+        <!--<div id="category-sub-container13" style="display:none;">-->
+         <div id="category-sub-container13" th:attr="style=${#lists.contains({'J1300','J1301','J1302','J1303','J1304','J1305','J1306','J1307','J1308'}, categoryId)} ? 'display:block;' : 'display:none;'">
+      
             <!-- 카테고리(서브) 선택 드롭다운 -->
             <div class="category-drop-down-sub-container">
 
-                <a th:href="@{joonggoHome(code=J1300)}">
+                <a th:href="@{/joonggo}">
                     <div class="text-size-20 medium-text"><b style="color: #166549;">홈 > 도서/문구</b></div>
                 </a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
 
-                <a th:href="@{joonggoHome(code=j1301)}">
-                    <div class="text-size-20 medium-text">소설/문학</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1301)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1301'} ? ' bold-text' : ''">소설/문학</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1302)}">
-                    <div class="text-size-20 medium-text">교양/실용/취미</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1302)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1302'} ? ' bold-text' : ''">교양/실용/취미</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1303)}">
-                    <div class="text-size-20 medium-text">만화/웹툰/잡지</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1303)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1303'} ? ' bold-text' : ''">만화/웹툰/잡지</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1304)}">
-                    <div class="text-size-20 medium-text">문제집/참고서</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1304)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1304'} ? ' bold-text' : ''">문제집/참고서</div>
                 </a>
 
-                <a th:href="@{joonggoHome(code=J1305)}">
-                    <div class="text-size-20 medium-text">아동/유아 도서</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1305)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1305'} ? ' bold-text' : ''">아동/유아 도서</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1306)}">
-                    <div class="text-size-20 medium-text">필기류</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1306)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1306'} ? ' bold-text' : ''">필기류</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1307)}">
-                    <div class="text-size-20 medium-text">노트/파일</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1307)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1307'} ? ' bold-text' : ''">노트/파일</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1308)}">
-                    <div class="text-size-20 medium-text">기타 사무/디자인</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1308)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1308'} ? ' bold-text' : ''">기타 사무/디자인</div>
                 </a>
             </div>
 
         </div>
 
-        <div id="category-sub-container14" style="display:none;">
-
+        <!--<div id="category-sub-container14" style="display:none;">-->
+       <div id="category-sub-container14" th:attr="style=${#lists.contains({'J1400','J1401','J1402','J1403','J1404','J1405','J1406','J1407','J1408'}, categoryId)} ? 'display:block;' : 'display:none;'">
+      
             <!-- 카테고리(서브) 선택 드롭다운 -->
             <div class="category-drop-down-sub-container">
 
-                <a th:href="@{joonggoHome(code=J1400)}">
+                <a th:href="@{/joonggo}">
                     <div class="text-size-20 medium-text"><b style="color: #166549;">홈 > 예술/희귀</b></div>
                 </a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
 
-                <a th:href="@{joonggoHome(code=j1401)}">
-                    <div class="text-size-20 medium-text">미술품</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1401)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1401'} ? ' bold-text' : ''">미술품</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1402)}">
-                    <div class="text-size-20 medium-text">조각/공예품</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1402)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1402'} ? ' bold-text' : ''">조각/공예품</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1403)}">
-                    <div class="text-size-20 medium-text">사진/포스터</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1403)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1403'} ? ' bold-text' : ''">사진/포스터</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1404)}">
-                    <div class="text-size-20 medium-text">화폐/우표</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1404)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1404'} ? ' bold-text' : ''">화폐/우표</div>
                 </a>
 
-                <a th:href="@{joonggoHome(code=J1405)}">
-                    <div class="text-size-20 medium-text">엔틱/빈티지 소품</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1405)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1405'} ? ' bold-text' : ''">엔틱/빈티지 소품</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1406)}">
-                    <div class="text-size-20 medium-text">피큐어/토이</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1406)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1406'} ? ' bold-text' : ''">피큐어/토이</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1407)}">
-                    <div class="text-size-20 medium-text">스타굿즈</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1407)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1407'} ? ' bold-text' : ''">스타굿즈</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1408)}">
-                    <div class="text-size-20 medium-text">기타 희소성 물품</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1408)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1408'} ? ' bold-text' : ''">기타 희소성 물품</div>
                 </a>
             </div>
 
         </div>
 
-        <div id="category-sub-container15" style="display:none;">
-
+        <!--<div id="category-sub-container15" style="display:none;">-->
+          <div id="category-sub-container15" th:attr="style=${#lists.contains({'J1500','J1501','J1502','J1503','J1504','J1505','J1506','J1507','J1508'}, categoryId)} ? 'display:block;' : 'display:none;'">
+      
             <!-- 카테고리(서브) 선택 드롭다운 -->
             <div class="category-drop-down-sub-container">
 
-                <a th:href="@{joonggoHome(code=J1500)}">
+                <a th:href="@{/joonggo}">
                     <div class="text-size-20 medium-text"><b style="color: #166549;">홈 > 공구/산업용품</b></div>
                 </a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
                 <a th:href="@{/}" style="visibility: hidden;"></a>
 
-                <a th:href="@{joonggoHome(code=j1501)}">
-                    <div class="text-size-20 medium-text">전동 공구</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1501)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1501'} ? ' bold-text' : ''">전동 공구</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1502)}">
-                    <div class="text-size-20 medium-text">수공구</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1502)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1502'} ? ' bold-text' : ''">수공구</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1503)}">
-                    <div class="text-size-20 medium-text">측정/안전 장비</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1503)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1503'} ? ' bold-text' : ''">측정/안전 장비</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1504)}">
-                    <div class="text-size-20 medium-text">DIY/목공 도구</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1504)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1504'} ? ' bold-text' : ''">DIY/목공 도구</div>
                 </a>
 
-                <a th:href="@{joonggoHome(code=J1505)}">
-                    <div class="text-size-20 medium-text">캠핑/야외 작업 공구</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1505)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1505'} ? ' bold-text' : ''">캠핑/야외 작업 공구</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1506)}">
-                    <div class="text-size-20 medium-text">산업용 부품/자재</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1506)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1506'} ? ' bold-text' : ''">산업용 부품/자재</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1507)}">
-                    <div class="text-size-20 medium-text">자동차/정비 공구</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1507)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1507'} ? ' bold-text' : ''">자동차/정비 공구</div>
                 </a>
-                <a th:href="@{joonggoHome(code=J1508)}">
-                    <div class="text-size-20 medium-text">전기/배선 용품</div>
+                <a th:href="@{/joonggoCategory2(categoryId=J1508)}">
+                    <div class="text-size-20 medium-text" th:classappend="${categoryId == 'J1508'} ? ' bold-text' : ''">전기/배선 용품</div>
                 </a>
             </div>
 
@@ -861,7 +879,11 @@
 
         </div>
 
-
+       
+         <!-- 상품이 없는 경우 -->
+         <div id="joonggo-container" th:unless="${#lists.size(boardList) > 0}">
+             <p class="text-center text-gray-600">현재 등록된 상품이 없습니다.</p>
+          </div>
 
 
     </section>
@@ -873,10 +895,12 @@
 
         <!-- 첫 페이지로 이동 -->
         <!-- boardCode : @PathVariable로 request scope에 세팅된 값 -->
-        <li><a th:href="@{/{boardType}(boardType=${boardType}, cp=1)}">&lt;&lt;</a></li>
+        <!-- <li><a th:href="@{/{boardType}(boardType=${boardType}, cp=1)}">&lt;&lt;</a></li> -->
+         <li><a th:href="@{/joonggo(cp=1)}">&lt;&lt;</a></li> 
 
         <!-- 이전 목록 마지막 번호로 이동 -->
-        <li><a th:href="@{/{boardType}(boardType=${boardType}, cp=${pagination.prevPage})}">&lt;</a></li>
+        <!-- <li><a th:href="@{/{boardType}(boardType=${boardType}, cp=${pagination.prevPage})}">&lt;</a></li> -->
+          <li><a th:href="@{/joonggo(cp=${pagination.prevPage})}">&lt;</a></li> 
 
 
         <!-- 특정 페이지로 이동 -->
@@ -890,16 +914,19 @@
 
             <!-- 현재 페이지를 제외한 나머지 -->
             <li th:unless="${pagination.currentPage == i}">
-                <a th:href="@{/{boardType}(boardType=${boardType}, cp=${i})}" th:text="${i}">나머지 페이지</a>
+               <!-- <a th:href="@{/{boardType}(boardType=${boardType}, cp=${i})}" th:text="${i}">나머지 페이지</a> -->
+               <a th:href="@{/joonggo(cp=${i})}" th:text="${i}">나머지 페이지</a>
             </li>
         </th:block>
 
 
         <!-- 다음 목록 시작 번호로 이동 -->
-        <li><a th:href="@{/{boardType}(boardType=${boardType}, cp=${pagination.nextPage})}">&gt;</a></li>
+        <!-- <li><a th:href="@{/{boardType}(boardType=${boardType}, cp=${pagination.nextPage})}">&gt;</a></li> -->
+             <li><a th:href="@{/joonggo(cp=${pagination.nextPage})}">&gt;</a></li> 
 
         <!-- 끝 페이지로 이동 -->
-        <li><a th:href="@{/{boardType}(boardType=${boardType}, cp=${pagination.maxPage})}">&gt;&gt;</a></li>
+        <!-- <li><a th:href="@{/{boardType}(boardType=${boardType}, cp=${pagination.maxPage})}">&gt;&gt;</a></li> -->
+             <li><a th:href="@{/joonggo(cp=${pagination.maxPage})}">&gt;&gt;</a></li>
         </ul>
 
     </div>
