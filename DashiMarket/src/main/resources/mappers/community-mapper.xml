@@ -419,4 +419,16 @@
 		WHERE BOARD_NO = #{boardNo}
 	</update>
 	
+	<!-- 커뮤니티 헤더 검색 - 게시글 제목 -->
+	<select id="communitySearch" parameterType="string" resultType="Community">
+		SELECT * FROM (
+			SELECT BOARD_NO, BOARD_TITLE 
+			FROM BOARD
+			WHERE DELETE_FL = 'N'
+			AND BOARD_NO LIKE 'C%'
+			AND BOARD_TITLE LIKE '%${query}%'
+			ORDER BY BOARD_NO DESC)
+		<![CDATA[ WHERE ROWNUM <= 10 ]]>
+	</select>
+	
 </mapper>

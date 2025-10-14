@@ -90,6 +90,14 @@ public interface JoonggoService {
 	 */
 	int updateReadCount(String joonggoNo);
 
+	
+	/** 중고 페이제에서 헤더 검색
+	 * @param query
+	 * @return list
+	 */
+	List<Joonggo> joonggoSearch(String query);
+
+	
 	// 중고목록(대분류) 카데고리 (KJK)
 	Map<String, Object> selectJoonggoCategoryList(String categoryId, int cp);
 

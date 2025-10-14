@@ -127,6 +127,32 @@ header>section> div:nth-child(2)>div>a:hover{
     font-size: 20px;
 }
 
+/* 검색창 결과 */
+#result{
+    list-style: none;
+    width: 715px;
+    padding: 10px 0;
+    z-index: 300;
+    margin-left: 40px;
+    background: white;
+    border: 1px solid #166549;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+#result > li:hover{
+    background-color: #ddd;
+}
+
+#result a{
+    height: 35px;
+    padding: 5px 10px;
+    font-size: 18px;
+    line-height: 20px;
+    display: block;
+}
+
+.close{ display: none;}
 
 /* search x 버튼 없애기 */
 #query::-webkit-search-cancel-button {

@@ -284,6 +284,12 @@ public class GoodsServiceImpl implements GoodsService {
 		return result;
 	}
 
+	// 굿즈 페이지에서 헤더 검색
+	@Override
+	public List<Goods> goodsSearch(String query) {
+		return mapper.goodsSearch(query);
+	}
+
 
 
 

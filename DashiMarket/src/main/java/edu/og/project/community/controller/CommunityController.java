@@ -33,6 +33,7 @@ import edu.og.project.common.dto.Comment;
 import edu.og.project.common.dto.Member;
 import edu.og.project.community.model.dto.Community;
 import edu.og.project.community.model.service.CommunityService;
+import edu.og.project.goods.model.dto.Goods;
 import edu.og.project.joonggo.model.dto.JoonggoWrite;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -406,6 +407,13 @@ public class CommunityController {
 		
 		ra.addFlashAttribute("message", message);
 		return path;
+	}
+	
+	// 커뮤니티 페이지에서 헤더 검색 - 게시글 제목
+	@GetMapping("/community/search")
+	@ResponseBody
+	public List<Community> commuitySearch(@RequestParam String query){
+		return service.communitySearch(query);
 	}
 	
 }

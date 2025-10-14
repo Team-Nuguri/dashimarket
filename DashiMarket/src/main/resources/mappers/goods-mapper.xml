@@ -413,5 +413,17 @@
 		WHERE S.MEMBER_NO = ${memberNo}
 	</select>
 	
+	<!-- 굿즈 페이지에서 헤더 검색 - 게시글 제목 -->
+	<select id="goodsSearch" parameterType="string" resultType="Goods">
+		SELECT * FROM (
+			SELECT BOARD_NO, BOARD_TITLE 
+			FROM GOODS
+			LEFT JOIN BOARD USING(BOARD_NO)
+			WHERE DELETE_FL = 'N'
+			AND BOARD_TITLE LIKE '%${query}%'
+			ORDER BY BOARD_NO DESC)
+		<![CDATA[ WHERE ROWNUM <= 10 ]]>
+	</select>
+	
 	
 </mapper>
