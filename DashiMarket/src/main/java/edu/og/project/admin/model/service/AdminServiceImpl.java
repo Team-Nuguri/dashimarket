@@ -12,7 +12,7 @@ import edu.og.project.admin.model.dto.Report;
 import edu.og.project.common.dto.Pagination;
 import edu.og.project.goods.model.dao.GoodsMapper;
 import edu.og.project.goods.model.dto.Goods;
-
+import edu.og.project.order.model.dto.OrderDto;
 import edu.og.project.admin.model.dao.AdminMapper;
 import edu.og.project.common.dto.Member;
 import edu.og.project.goods.model.dto.Goods;
@@ -36,6 +36,12 @@ public class AdminServiceImpl implements AdminService{
 	public Integer getTotalUserCount() {
 		return mapper.selectTotalUsercount();
 	}
+	
+	// 오늘 신고된 수
+	@Override
+	public Integer getTodayReportCount() {
+		return mapper.getTodayReportCount();
+	}
 
 	// 전체 회원 조회
 	@Override
@@ -52,6 +58,7 @@ public class AdminServiceImpl implements AdminService{
 	// 신고
 	@Override
 	public Map<String, Object> selectReportList(String keyword, String reportResult, int cp) {
+		
 		// 특정 게시판의 삭제되지 않은 게시글 수 조회
 		int listCount = mapper.getReportListCount(keyword, reportResult);
 
@@ -79,6 +86,36 @@ public class AdminServiceImpl implements AdminService{
 	public int updateReportResult(Map<String, Object> report) {
 		
 		return mapper.updateReportResult(report);
+	}
+
+	// (회원) 회원id 또는 닉네임으로 검색
+	@Override
+	public List<Member> searchMember(String keyword) {
+		return mapper.searchMember(keyword);
+	}
+
+	// (신고) 회원id 또는 게시글로 검색
+	@Override
+	public List<Report> searchReport(String keyword) {
+		return mapper.searchReport(keyword);
+	}
+
+	// (굿즈) 상품명으로 검색
+	@Override
+	public List<Goods> searchGoods(String keyword) {
+		return mapper.searchGoods(keyword);
+	}
+
+	// 굿즈 거래내역 상품명 또는 구매자명 검색
+	@Override
+	public List<OrderDto> searchOrder(String keyword) {
+		return mapper.searchOrder(keyword);
+	}
+
+	// 굿즈 거래내역 조회
+	@Override
+	public List<OrderDto> selectGoodsOrder(String sort) {
+		return mapper.selectGoodsOrder(sort);
 	}
 	
 }

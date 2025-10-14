@@ -40,8 +40,8 @@
                         <div class="search-box">
                             <label>검색</label>
                             <fieldset>
-                                <input type="text" name="query" placeholder="회원ID/닉네임을 입력하세요." autocomplete="off">
                                 <button class="searchBtn fa-solid fa-magnifying-glass"></button>
+                                <input type="text" name="keyword" id="search-query" placeholder="회원ID/닉네임을 입력하세요." autocomplete="off">
                             </fieldset>
                         </div>
     
@@ -58,7 +58,7 @@
                             <!-- 초기화/검색 버튼 -->
                             <div class="search-buttons">
                                 <button type="reset" class="basic-btn">초기화</button>
-                                <button type="submit" class="color-btn">검색</button>
+                                <button type="button" class="color-btn" id="searchBtn">검색</button>
                             </div>
                         </div>
                     </form>
@@ -90,6 +90,7 @@
                             <td>댓글 수</td>
                         </tr>
                     </thead>
+                    <tbody></tbody>
                 </table>
 
             </section>
@@ -97,7 +98,7 @@
     </main>
 
     <th:block th:replace="~{common/pagination}">pagination.html</th:block>
-
+    
     <script th:src="@{/js/adminPage/admin.js}"></script>
 </body>
 

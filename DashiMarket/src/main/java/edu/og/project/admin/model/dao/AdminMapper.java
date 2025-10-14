@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import edu.og.project.admin.model.dto.Report;
 import edu.og.project.common.dto.Member;
 import edu.og.project.goods.model.dto.Goods;
+import edu.og.project.order.model.dto.OrderDto;
 
 @Mapper
 public interface AdminMapper {
@@ -25,6 +26,9 @@ public interface AdminMapper {
 
 	// 굿즈 상품 조회
 	List<Goods> selectProducts(String sort);
+	
+	// 오늘 신고된 수
+	Integer getTodayReportCount();
 
 	// 신고
 	public int getReportListCount(String keyword, String reportResult);
@@ -33,8 +37,23 @@ public interface AdminMapper {
 
 	public Report selectReportDetail(int reportNo);
 
-	 int updateReportResult(Map<String, Object> report);
+	int updateReportResult(Map<String, Object> report);
 	 
-    // int updateReportResult(int reportNo, String resultType);
+
+	// (회원) 회원id 또는 닉네임으로 검색
+	List<Member> searchMember(String keyword);
+
+	// (신고) 회원id 또는 게시글로 검색
+	List<Report> searchReport(String keyword);
+
+	// (굿즈) 상품명으로 검색
+	List<Goods> searchGoods(String keyword);
+
+	// 굿즈 거래내역 상품명 또는 구매자명 검색
+	List<OrderDto> searchOrder(String keyword);
+
+	// 굿즈 거래내역 조회
+	List<OrderDto> selectGoodsOrder(String sort);
+	
 
 }
