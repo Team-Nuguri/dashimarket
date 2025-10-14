@@ -149,8 +149,7 @@ public class JoonggoController {
 	
 	
 	// 중고 상품  상세 조회
-	// @GetMapping("/{boardType}/{joonggoNo:J.*}")
-	@GetMapping("/joonggo/{joonggoNo:\\d+}")
+	@GetMapping("/{boardType}/{joonggoNo:J.*}")
 	public String selectJoonggoDetail(
 			@PathVariable("joonggoNo") String joonggoNo,
 			// @PathVariable("boardType") String boardType,
