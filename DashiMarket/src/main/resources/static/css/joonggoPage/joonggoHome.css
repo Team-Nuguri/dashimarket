@@ -648,3 +648,8 @@ nav {
 .comment-icon>div:last-child>div>img {
     margin-top: 6px;
 }
+
+.bold-text { 
+	font-weight: 700;
+	color:  #166549;
+	 }

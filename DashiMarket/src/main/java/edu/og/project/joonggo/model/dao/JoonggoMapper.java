@@ -101,6 +101,18 @@ public interface JoonggoMapper {
 	
 	// 조회수 증가
 	int updateReadCount(String joonggoNo);
+
+	// 카테고리 카운트(대분류) (KJK)
+	public int getJoonggoCategoryListCount(String categoryId);
+	
+	// 카테고리 카운트(중분류) (KJK)
+	public int getJoonggoCategoryListCount2(String categoryId);
+
+	// 카테고리 목록 (대분류) (KJK)
+	public List<Joonggo> selectJoonggoCategoryList(String categoryId, RowBounds rowBounds);
+
+	// 카테고리 목록 (중분류) (KJK)
+	public List<Joonggo> selectJoonggoCategoryList2(String categoryId, RowBounds rowBounds);
 	
 	
 }

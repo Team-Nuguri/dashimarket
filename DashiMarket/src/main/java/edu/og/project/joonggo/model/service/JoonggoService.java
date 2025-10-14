@@ -81,8 +81,7 @@ public interface JoonggoService {
     // 현재 로그인 중인 유저의 나의 위시리스트 (KJK)
 	List<Joonggo> selectJoonggoWishList(int memberNo);
 
-	// 중고목록 카데고리 (KJK)
-	// Map<String, Object> selectJoonggoCategoryList(String categoryId);
+	
 
 
 		/** 조회수 증가
@@ -90,6 +89,12 @@ public interface JoonggoService {
 	 * @return int 행 개수
 	 */
 	int updateReadCount(String joonggoNo);
+
+	// 중고목록(대분류) 카데고리 (KJK)
+	Map<String, Object> selectJoonggoCategoryList(String categoryId, int cp);
+
+	// 중고목록(중분류) 카데고리 (KJK)
+	Map<String, Object> selectJoonggoCategoryList2(String categoryId, int cp);
 
 
 }
