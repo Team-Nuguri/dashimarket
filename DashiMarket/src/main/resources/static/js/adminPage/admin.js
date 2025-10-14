@@ -439,10 +439,16 @@ document.addEventListener("DOMContentLoaded", ()=>{
     
             } else if (pageType === "order") {
                 tr.innerHTML = `
-                    <td>${item.reportNo}</td>
-                    <td>${item.reporter}</td>
-                    <td>${item.target}</td>
-                    <td>${item.reportDate}</td>`;
+                    <td>${item.orderNo}</td>
+                    <td>${item.deliveryStatus}</td>
+                    <td>${item.recipientName}</td>
+                    <td>${item.recipientTel}</td>
+                    <td>${item.orderedName}</td>
+                    <td>${item.orderQuantity}</td>
+                    <td>${item.address}</td>
+                    <td>${item.payMethod}</td>
+                    <td>${item.payPrice}</td>
+                    <td>${item.payDate}</td>`;
             }
     
             tbody.append(tr);
