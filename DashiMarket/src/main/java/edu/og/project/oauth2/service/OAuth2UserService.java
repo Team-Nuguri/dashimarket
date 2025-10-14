@@ -139,6 +139,7 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
 					.enrollDate(new Date())
 					.secessionFl("N")
 					.isAdmin("N")
+					.jibunAddress("서울 종로구 관철동 45-1") // 기본값
 					.build();
 			userRepository.save(user); 
 			// save() 상황에 따라 INSERT 또는 UPDATE를 자동으로 결정
