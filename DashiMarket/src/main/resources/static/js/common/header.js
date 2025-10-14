@@ -225,7 +225,7 @@ const iconImg = document.getElementsByClassName("icon-img")[0];
 const path = location.pathname; // 현재 경로
 
 if(path.includes("/joonggo")) {
-    iconImg.setAttribute("src", "/images/svg/하트.svg");
+   // iconImg.setAttribute("src", "/images/svg/하트.svg");
 }
 
 if(path.includes("/goods")) {
