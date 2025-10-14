@@ -865,7 +865,7 @@
             <th:block th:each="board : ${boardList}">
 
                 <!-- <a th:href="@{/{boardType}/{boardNo}(boardType=${boardType}, boardNo=${board.joonggoNo}, cp=${pagination.currentPage})}" class="joonggo-detail-area"> -->
-                <a th:href="@{/joonggo/{boardNo}(boardType='joonggo', boardNo=${board.joonggoNo}, cp=${pagination.currentPage})}" class="joonggo-detail-area">
+                <a th:href="@{/joonggo/{boardNo}( boardNo=${board.joonggoNo}, cp=${pagination.currentPage})}" class="joonggo-detail-area">
                     <!-- 이미지 -->
                     <div class="joonggo-img"><img th:src="${board.thumbnail}" alt=""><!--중고상품 이미지--></div>
                     <!-- 제품명 -->

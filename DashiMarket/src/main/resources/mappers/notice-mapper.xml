@@ -98,7 +98,7 @@
             SYSDATE,
             0,
             #{boardCode},
-            1,
+            #{memberNo},
             'N'
         )
     </insert>

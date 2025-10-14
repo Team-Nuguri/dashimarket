@@ -1,9 +1,9 @@
 
 
 main{
-  width: 700px;
+  width: 600px;
   text-align: center;
-  margin:0 auto;
+  margin: 0 auto;
 }
 
 fieldset {
@@ -108,7 +108,7 @@ textarea {
   border-radius: 10px;
 }
 
-#report-btn {
+#reportButton {
   border: 3px solid #166449;
   border-radius: 10%;
   background-color: #298c69;

@@ -16,33 +16,16 @@
 <body>
     <div class="container">
         <div class="header">
-            <!-- 작성 모드: "새 게시글 작성", 수정 모드: "게시글 수정" -->
             <h1 th:text="${mode == 'edit' ? '게시글 수정' : '새 게시글 작성'}">새 게시글 작성</h1>
         </div>
 
-        <!-- form action을 동적으로 설정 -->
         <form id="writeForm" th:action="${mode == 'edit' ? '/notice/edit/' + notice.noticeNo : '/notice/write'}"
             method="post" enctype="multipart/form-data">
 
-            <!-- mode와 notice 데이터를 JavaScript로 전달 -->
             <input type="hidden" id="pageMode" th:value="${mode}" />
             <input type="hidden" id="noticeNo" th:value="${notice != null ? notice.noticeNo : ''}" />
 
             <ul class="form-list">
-                <li class="form-item">
-                    <div class="label-area">
-                        <span class="form-label">게시판 종류</span>
-                    </div>
-                    <div class="field-area">
-                        <select class="form-control form-select" id="boardSelect" name="admWriteBoardSelect" required>
-                            <option value="notice" th:selected="${notice != null && notice.boardType == 'notice'}">공지사항
-                            </option>
-                            <option value="qna" th:selected="${notice != null && notice.boardType == 'qna'}">자주 묻는 질문
-                            </option>
-                        </select>
-                    </div>
-                </li>
-
                 <li class="form-item">
                     <div class="label-area">
                         <span class="form-label">제목</span>
@@ -88,11 +71,9 @@
             </ul>
 
             <div class="button-group">
-                <!-- 취소 버튼 -->
                 <button type="button" class="btn btn-cancel" id="cancelBtn">
                     취소하기
                 </button>
-                <!-- 제출 버튼 - 텍스트 동적 변경 -->
                 <button type="submit" class="btn btn-submit" th:text="${mode == 'edit' ? '수정하기' : '등록하기'}">
                     등록하기
                 </button>

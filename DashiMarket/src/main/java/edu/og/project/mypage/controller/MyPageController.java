@@ -1,6 +1,7 @@
 package edu.og.project.mypage.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,9 +57,8 @@ public class MyPageController {
             return "redirect:/";
         }
         
-        model.addAttribute("loginMember", memberInfo);
-        
-    	System.out.println(loginMember);
+        model.addAttribute("loginMember", memberInfo);        
+    	
     	
         return "myPage/myPage-profile";
     }
@@ -272,17 +272,23 @@ public class MyPageController {
 	}
 	
 	
-//	@GetMapping("/myPage/goods")
-//	@ResponseBody
-//	public String selectGoods (
-//			@RequestBody List<Map <String, Object> paramMap>,
-//			@SessionAttributes(value="loginMember") Member loginMember) {
-//		
-//		retun 
-//		
-//		
-//	}
+	@GetMapping("/goods")	
+	public String selectGoods () {
+		
+		return "/myPage/myPage-goods";		
+	}
 	
 	
+	@GetMapping("/goods/list") // 비동기
+	@ResponseBody
+	public List<Map<String, Object>> selectGoods (			
+			@SessionAttribute("loginMember") Member loginMember) {
+		
+		String MemberEmail = loginMember.getMemberEmail();
+		
+		return service.selectGoods(MemberEmail);		
+		
+	}
 	
 }
+
