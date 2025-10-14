@@ -23,14 +23,14 @@
 		
 	
 		<select id="login" resultMap="member_rm">
-		SELECT 
-            MEMBER_NO, MEMBER_EMAIL, MEMBER_NAME, MEMBER_NICKNAME, MEMBER_PW, 
-		    MEMBER_TEL, POST_CODE, LOAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, DEFAULT_DONG, 
-            PROFILE_PATH, IS_ADMIN, SECESSIONFL, 
-			TO_CHAR(ENROLL_DATE, 'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"') AS ENROLL_DATE
-		FROM MEMBER
-		WHERE SECESSIONFL ='N'  AND MEMBER_EMAIL = #{memberEmail}
-	</select>
+			SELECT 
+	            MEMBER_NO, MEMBER_EMAIL, MEMBER_NAME, MEMBER_NICKNAME, MEMBER_PW, 
+			    MEMBER_TEL, POST_CODE, LOAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, DEFAULT_DONG, 
+	            PROFILE_PATH, IS_ADMIN, SECESSIONFL, 
+				TO_CHAR(ENROLL_DATE, 'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"') AS ENROLL_DATE
+			FROM MEMBER
+			WHERE SECESSIONFL ='N'  AND MEMBER_EMAIL = #{memberEmail}
+		</select>
 	
 	<insert id="signUp" parameterType="Member">
 		INSERT INTO MEMBER (
@@ -53,6 +53,17 @@
             DEFAULT
         )
 	</insert>
+	
+	<!-- 신고게시글 유저 정보 조회-->
+	
+	<select id="selectMemberInfo" resultMap="member_rm">
+		SELECT * FROM MEMBER
+		WHERE MEMBER_NO = (SELECT MEMBER_NO FROM BOARD
+                    		WHERE BOARD_NO = #{targetNo})
+		
+		
+		
+	</select>
 	
 		
 </mapper>
