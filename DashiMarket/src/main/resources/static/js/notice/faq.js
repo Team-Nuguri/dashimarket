@@ -4,7 +4,6 @@ console.log("faq.js is loaded");
 function toggleAccordion(element) {
     const noticeItem = element.parentElement;
     const content = noticeItem.querySelector('.notice-content');
-    const contentInner = noticeItem.querySelector('.notice-content-inner');
     const faqNo = element.getAttribute('data-faq-no');
 
     // 다른 열린 아코디언 닫기
@@ -21,7 +20,9 @@ function toggleAccordion(element) {
         content.style.maxHeight = null;
     } else {
         noticeItem.classList.add('active');
-        content.style.maxHeight = contentInner.scrollHeight + 100 + 'px';
+        
+        // ✅ 전체 content의 scrollHeight를 사용 (이미지 + 텍스트 + 버튼 모두 포함)
+        content.style.maxHeight = content.scrollHeight + 'px';
         
         // 조회수 증가 (아코디언 열릴 때)
         if (faqNo) {

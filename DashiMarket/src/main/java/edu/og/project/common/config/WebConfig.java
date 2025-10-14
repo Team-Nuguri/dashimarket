@@ -14,10 +14,21 @@ public class WebConfig implements WebMvcConfigurer {
     @Value("${my.profile.webpath}")
     private String profileWebpath;
     
+    @Value("${my.notice.location}")
+    private String noticeLocation;
+    
+    @Value("${my.notice.webpath}")
+    private String noticeWebpath;
+    
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // 프로필 이미지 경로 매핑
         registry.addResourceHandler(profileWebpath + "**")
                 .addResourceLocations("file:///" + profileLocation);
+        
+	    // 공지사항/FAQ 이미지 경로 매핑
+	    registry.addResourceHandler(noticeWebpath + "**")
+	            .addResourceLocations("file:///" + noticeLocation);
+	    System.out.println("공지사항/FAQ: " + noticeWebpath + " -> " + noticeLocation);
     }
 }
