@@ -427,6 +427,12 @@ body, input, button, textarea, select {
     margin-left: auto;
 }
 
+/* 신고 테이블 a 태그 스타일 */
+td > a{
+    color: black;
+    text-decoration: none;
+}
+
 .table-content td:nth-last-child(1){border: none;}
 
 .table-title{
@@ -442,9 +448,7 @@ tr, td{
     color: transparent; /* 글자가 보이지 않게 처리 */
 }
 
-/* ============== */
-
-
+/* ================================================== */
 /* 신고 상세보기 테이블 */
 .table-content-detail {
     width: 100%;
@@ -474,6 +478,7 @@ tr, td{
     text-align: left;
     border-bottom: 1px solid #ddd;
 }
+
 
 /* 마지막 행 밑줄 제거 */
 .table-content-detail tr:last-child td {

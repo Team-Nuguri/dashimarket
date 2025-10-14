@@ -40,7 +40,7 @@
                             <label>검색</label>
                             <fieldset>
                                 <button class="searchBtn fa-solid fa-magnifying-glass"></button>
-                                <input type="text" name="keyword" id="search-query" placeholder="게시글 제목/회원ID를 입력하세요."
+                                <input type="text" name="keyword" id="search-query" placeholder="게시글 제목/ 게시글 유형을 입력하세요."
                                     autocomplete="off">
                             </fieldset>
                         </div>
@@ -83,7 +83,7 @@
 
                     <div id="view-box" class="box-style">
                         <p>오늘 신고</p>
-                        <p class="p-tag-value">0</p>
+                        <p id="todayReport" class="p-tag-value">0</p>
                     </div>
                 </div>
 
@@ -99,9 +99,9 @@
                                 <td><input type="checkbox" id="checkAll"></td>
                                 <td>신고번호</td>
                                 <td>신고자</td>
-                                <td>신고된 게시글</td>
+                                <td>신고된 게시글/채팅</td>
                                 <td>신고된 회원</td>
-                                <td>신고 사유</td>
+                                <td>신고 유형</td>
                                 <td>신고일</td>
                                 <td>처리 결과</td>
                                 <td>처리일</td>
@@ -111,21 +111,18 @@
                         <tbody>
                             <tr th:each="report : ${reportList}">
                                 <td><input type="checkbox" name="reportNo" th:value="${report.reportNo}"></td>
-                                <td th:text="${report.reportNo}">1</td>
-                                <td th:text="${report.reportMemberNo}">홍길동</td>
+                                <td th:text="${report.reportNo}">신고 번호(시퀀스)</td>
+                                <td th:text="${report.reportMember}">신고한 회원</td>
                                 <td>
                                     <!-- 게시글 제목 클릭 시 해당 신고게시글 내용으로 이동 -->
                                     <a th:href="@{'/admin/report/detail/' + ${report.reportNo}}"
-                                        th:text="${report.reportTarget} + '게시글 #' + ${report.reportTargetId}">게시글 보기</a>
+                                        th:utext="'# ' + ${report.reportTarget} + '<br>' + ${report.boardTitle}">게시글 보기</a>
                                     <!-- <a th:href="@{#}">게시글 보기</a> -->
 
                                 </td>
-                                <td th:text="${report.targetMemberNo}">회원ID</td>
-                                <td th:text="${report.reportReason}">욕설 및 비방</td>
-                                <td th:text="${report.reportDate}">2025-10-11</td>
-
-
-                                <!-- <td th:text="${report.reportResult}">대기</td> -->
+                                <td th:text="${report.targetMember}">신고된 회원</td>
+                                <td th:text="${report.reportName}">신고 유형</td>
+                                <td th:text="${report.reportDate}">신고 날짜</td>
 
                                 <td>
                                     <select name="reportResult" th:id="'result-' + ${report.reportNo}"
@@ -136,8 +133,6 @@
                                         <option value="회원탈퇴" th:selected="${report.reportResult == '회원탈퇴'}">회원탈퇴</option>
                                     </select>
                                 </td>
-
-
 
                                 <td th:text="${report.resultDate}">-</td>
                             </tr>
@@ -156,7 +151,7 @@
     </main>
 
 
-    <div class="pagination">
+    <!-- <div class="pagination">
         <a th:if="${pagination.prevPage}" th:href="@{'/admin/report'(cp=${pagination.prevPage})}">이전</a>
 
         <span th:each="pageNum : ${#numbers.sequence(pagination.startPage, pagination.endPage)}">
@@ -165,10 +160,10 @@
         </span>
 
         <a th:if="${pagination.nextPage}" th:href="@{'/admin/report'(cp=${pagination.nextPage})}">다음</a>
-    </div>
+    </div> -->
 
 
-    <!--    <th:block th:replace="~{common/pagination}">pagination.html</th:block>  -->
+    <th:block th:replace="~{common/pagination}">pagination.html</th:block> 
 
     <script th:src="@{/js/adminPage/admin.js}"></script>
 </body>

@@ -20,6 +20,7 @@ import edu.og.project.admin.model.service.AdminService;
 
 import edu.og.project.common.dto.Member;
 import edu.og.project.goods.model.dto.Goods;
+import edu.og.project.order.model.dto.OrderDto;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -35,7 +36,7 @@ public class AdminController {
 		return "admin/admin_user";
 	}
 
-	// 오늘 가입자 수 + 총 회원 수 조회
+	// 오늘 가입자 수 + 총 회원 수 조회 + 오늘 신고된 수
 	@GetMapping("/stats")
 	@ResponseBody
 	public Map<String, Integer> getTodayStats() {
@@ -43,6 +44,7 @@ public class AdminController {
 		Map<String, Integer> result = new HashMap<>();
 		result.put("todayJoinCount", service.getTodayJoinCount());
 		result.put("totalUserCount", service.getTotalUserCount());
+		result.put("todayReportCount", service.getTodayReportCount());
 		return result;
 	}
 
@@ -67,9 +69,7 @@ public class AdminController {
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
 
 		Map<String, Object> map = service.selectReportList(keyword, reportResult, cp);
-		// Map<String, Object> reportList = service.selectReportList(keyword,reportResult, cp);
 		model.addAttribute("reportList", map.get("reportList"));
-		// model.addAttribute("reportList", reportList);
 		model.addAttribute("pagination", map.get("pagination"));
 
 		return "admin/total_report";
@@ -126,7 +126,7 @@ public class AdminController {
 	}
 	
 	// 상품명으로 검색
-	@GetMapping("/product/search")
+	@GetMapping("/goods/search")
 	@ResponseBody
 	public List<Goods> searchGoods(@RequestParam String keyword){
 		return service.searchGoods(keyword);
@@ -139,9 +139,22 @@ public class AdminController {
 		return "admin/admin_goodsOrder";
 	}
 	
-	// 굿즈 거래내역 구매자명 또는 상품명으로 검색
+	// 굿즈 거래내역 조회
+	@GetMapping("/purchase")
+	@ResponseBody
+	public List<OrderDto> selectGoodsOrder(@RequestParam(required = false) String sort){
+		return service.selectGoodsOrder(sort);
+	}
 	
-
+	
+	// 굿즈 거래내역 구매자명 또는 상품명으로 검색
+	@GetMapping("/order/search")
+	@ResponseBody
+	public List<OrderDto> searchOrder(@RequestParam String keyword){
+		return service.searchOrder(keyword);
+	}
+	
+	
 //	// 데이터 - 이용자 수 페이지 요청
 //	@GetMapping("/data/user")
 //	public String dataUser() {

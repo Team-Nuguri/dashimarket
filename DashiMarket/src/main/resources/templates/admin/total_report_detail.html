@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>신고 상세</title>
     
- <!-- 폰트 -->
+    <!-- 폰트 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
@@ -20,7 +20,7 @@
 	
 	<main>
 		
-		  <section class="admin-content">
+		<section class="admin-content">
             <!-- 사이드 메뉴 -->
             <th:block th:replace="~{admin/sideMenu}">admin-sideMenu.html</th:block>
 
@@ -36,7 +36,7 @@
         </tr>
         <tr>
             <th>신고자</th>
-            <td th:text="${report.reportMemberNo}"></td>
+            <td th:text="${report.reportMember}"></td>
         </tr>
         <tr>
             <th>신고된 게시글</th>
@@ -46,7 +46,11 @@
         </tr>
         <tr>
             <th>신고된 회원</th>
-            <td th:text="${report.targetMemberNo}"></td>
+            <td th:text="${report.targetMember}"></td>
+        </tr>
+        <tr>
+            <th>신고 유형</th>
+            <td th:text="${report.reportName}"></td>
         </tr>
         <tr>
             <th>신고 사유</th>

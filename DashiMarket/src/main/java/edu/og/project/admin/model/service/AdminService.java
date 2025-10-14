@@ -5,6 +5,7 @@ import java.util.Map;
 
 import edu.og.project.common.dto.Member;
 import edu.og.project.goods.model.dto.Goods;
+import edu.og.project.order.model.dto.OrderDto;
 import edu.og.project.admin.model.dto.Report;
 
 public interface AdminService {
@@ -18,6 +19,11 @@ public interface AdminService {
 	 * @return result
 	 */
 	Integer getTotalUserCount();
+	
+	/** 오늘 신고된 수
+	 * @return result
+	 */
+	Integer getTodayReportCount();
 
 	/** 전체 회원 조회
 	 * @return List<Member>
@@ -55,6 +61,20 @@ public interface AdminService {
 	 * @return data
 	 */
 	List<Goods> searchGoods(String keyword);
+
+	/** 굿즈 거래내역 검색 - 상품명 또는 구매자명
+	 * @param keyword
+	 * @return data
+	 */
+	List<OrderDto> searchOrder(String keyword);
+
+	/** 굿즈 거래내역 조회
+	 * @param sort
+	 * @return orderList
+	 */
+	List<OrderDto> selectGoodsOrder(String sort);
+
+	
 
 
 }

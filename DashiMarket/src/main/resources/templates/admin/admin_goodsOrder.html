@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>굿즈 거래 내역</title>
+    <title>굿즈 주문/거래 내역</title>
 
     <!-- 폰트 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,7 +40,7 @@
                             <label>검색</label>
                             <fieldset>
                                 <button class="searchBtn fa-solid fa-magnifying-glass"></button>
-                                <input type="text" name="query" id="search-query" placeholder="구매자명을 입력하세요." autocomplete="off">
+                                <input type="text" name="query" id="search-query" placeholder="구매자명/상품명을 입력하세요." autocomplete="off">
                             </fieldset>
                         </div>
                         
@@ -48,7 +48,6 @@
                         <div class="detail-search">
                             <label>거래 상태</label>
                             <div class="checkbox-group">
-                                <input type="checkbox">전체
                                 <input type="checkbox">배송전
                                 <input type="checkbox">배송중
                                 <input type="checkbox">배송완료
@@ -75,9 +74,9 @@
                 </div>
 
                 <div class="result-middle">
-                    <select class="select-item">
-                        <option th:value="최신순">최신순</option>
-                        <option th:value="가격순">가격순</option>
+                    <select class="select-item" id="sortSelect" onchange="loadGoodsOrder()">
+                        <option th:value="'latest'">최신순</option>
+                        <option th:value="'price'">가격순</option>
                     </select>
                 </div>
                 
@@ -85,11 +84,12 @@
                 <table class="table-content">
                     <thead>
                         <tr class="table-title">
-                            <td>거래번호</td>
-                            <td>거래 상태</td>
-                            <td>구매자명</td>
+                            <td>주문번호</td>
+                            <td>배송상태</td>
+                            <td>수령인</td>
+                            <td>수령인 연락처</td>
                             <td>상품명</td>
-                            <td>구매자 연락처</td>
+                            <td>주문수량</td>
                             <td>배송지</td>
                             <td>결제수단</td>
                             <td>결제금액</td>
