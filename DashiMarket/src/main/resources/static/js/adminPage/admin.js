@@ -4,6 +4,16 @@ console.log("admin.js loaded...")
 // a태그 클릭시 해당 페이지로 이동 -> 글자색 52B291로 유지
 const move = document.querySelectorAll(".list-group a");
 
+// (희준추가) 로그아웃 버튼 이벤트 (모든 관리자 페이지 공통)
+const logoutBtn = document.getElementById("logout");
+if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+        if (confirm("로그아웃 하시겠습니까?")) {
+            location.href = "/member/logout";
+        }
+    });
+}
+
 move.forEach(link => {
     link.addEventListener("click", (e) => {
         //e.preventDefault(); // 페이지 이동 방지 (나중에 지우기)

@@ -51,7 +51,7 @@
 
                         <!-- 아코디언 내용 -->
                         <div class="notice-content">
-                            <div class="notice-content-inner" th:text="${faq.faqContent}">
+                            <div class="notice-content-inner" th:utext="${faq.faqContent}">
                                 상세 내용이 여기에 표시됩니다.
                             </div>
 
@@ -64,6 +64,7 @@
                                     onclick="deleteFaq(this)">삭제</button>
                             </div>
                         </div>
+
 
                     </div>
                 </div>
