@@ -367,7 +367,7 @@ public class JoonggoServiceImpl implements JoonggoService {
 	// 중고 상품 나의 위시리스트 목록 조회 (KJK)
 	@Override
 	public List<Joonggo> selectJoonggoWishList(int memberNo) {
-		return mapper.selectJonggoWishList(memberNo);
+		return mapper.selectJoonggoWishList(memberNo);
 	}
 
 	
@@ -421,6 +421,13 @@ public class JoonggoServiceImpl implements JoonggoService {
 		  map.put("boardList", boardList);
 		  
 		  return map;
+	}
+
+    // 위시리스트 품목삭제 (KJK)
+	@Override
+	public int deleteWishItem(int memberNo, String boardNo) {
+		
+		return mapper.deleteJoonggoWishList(memberNo, boardNo);
 	}
 
   

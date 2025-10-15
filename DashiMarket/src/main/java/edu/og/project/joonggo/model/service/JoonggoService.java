@@ -104,5 +104,8 @@ public interface JoonggoService {
 	// 중고목록(중분류) 카데고리 (KJK)
 	Map<String, Object> selectJoonggoCategoryList2(String categoryId, int cp);
 
+    // 나의 위시리스트 삭제 (KJK)
+	int deleteWishItem(int memberNo, String boardNo);
+
 
 }

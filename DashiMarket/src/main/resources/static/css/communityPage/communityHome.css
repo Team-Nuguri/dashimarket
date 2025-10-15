@@ -57,7 +57,8 @@ a {
 /* 선택 효과 */
 #category-drop-down-container a.active-category div {
     display: inline-block;
-    border-bottom: 2px solid #166549;
+    color: #166549;
+    font-weight: bold;
 }
 
 /* 정렬 */
@@ -726,4 +727,10 @@ nav {
     border-radius: 50%;
     color: white !important;
     letter-spacing: 0 !important;
+}
+
+#report-btn:hover{
+
+    cursor: pointer;
+
 }

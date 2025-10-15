@@ -47,7 +47,7 @@
 
                         <!-- 관리자만 볼 수 있게 -->
                         
-                        <div class="dropdown-menu" >
+                        <div class="goods-dropdown-menu" >
                             <button id="editBtn">수정하기</button>
                             <button id="deleteBtn">삭제하기</button>
                         </div>
@@ -336,25 +336,25 @@
 
 
 
-
+                            
                             <!-- 관리자 / 작성유저 조건   -->
                             <span style="width: 15%;">
                                 <!-- 1. 비밀글인 경우 isSecret == 'Y' -->
                                 <th:block th:unless="${com.isSecret == 'N'}">
                                     <!--  th:unless="${isPermission}" -->
-                                    <span class="status-secret">
+                                    <span th:unless="${isPermission}" class="status-secret">
                                         <!--  비밀글 && 답변 완료 -->
                                         <th:block th:if="${com.commentStatus == 'PUBLISHED'}">답변완료 🔒</th:block>
                                         <!-- 비밀글 && 미답변 -->
                                         <th:block th:if="${com.commentStatus == 'PENDING'}">미답변 🔒</th:block>
                                     </span>
 
-                                    <th:block th:if="${com.isSecret == 'N'}">
+                                    <th:block th:if="${isPermission}">
                                         <span th:if="${com.commentStatus == 'PUBLISHED'}" class="status-completed">
-                                            답변완료
+                                            답변완료 🔒
                                         </span>
                                         <span th:if="${com.commentStatus == 'PENDING'}" class="status-pending">
-                                            미답변
+                                            미답변 🔒
                                         </span>
                                     </th:block>
                                 </th:block>

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
+import org.springframework.data.repository.query.Param;
 
 import edu.og.project.common.dto.Image;
 import edu.og.project.goods.model.dto.Goods;
@@ -29,9 +30,6 @@ public interface JoonggoMapper {
 
 	// 중고상품 목록정렬 (높은가격순) (KJK)
 	public List<Joonggo> sortJoonggoHighPrice(String boardType, RowBounds rowBounds);
-	
-	// 마이페이지에서 중고상품 내가 찜한 목록 (KJK)
-	public List<Joonggo> selectJoonggoWishList(String boardType, RowBounds rowBounds);
 
 
 	// 중고 상품 상세 조회
@@ -116,6 +114,14 @@ public interface JoonggoMapper {
 
 	// 카테고리 목록 (중분류) (KJK)
 	public List<Joonggo> selectJoonggoCategoryList2(String categoryId, RowBounds rowBounds);
+	
+	// 마이페이지에서 중고상품 내가 찜한 목록 (KJK)
+	// public List<Joonggo> selectJoonggoWishList(@Param("memberNo") int memberNo, RowBounds rowBounds);
+	public List<Joonggo> selectJoonggoWishList(int memberNo);
+
+	// 마이페이지 나의 위시리스트 삭제 (KJK)
+	 public int deleteJoonggoWishList(@Param("memberNo") int memberNo, @Param("boardNo")  String boardNo);
+	// public int deleteJoonggoWishList(int memberNo, String boardNo);
 	
 	
 }
