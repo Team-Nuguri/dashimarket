@@ -45,15 +45,19 @@ public class JoonggoServiceImpl implements JoonggoService {
 
 	// 중고 상품 목록 조회 (KJK)
 	@Override
-	public Map<String, Object> selectJoonggoList(String boardType, int cp) {
+	public Map<String, Object> selectJoonggoList(String boardType, String finalDong, int cp) {
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("boardType", boardType);
+		param.put("finalDong", finalDong);
 		// 특정 게시판의 삭제되지 않은 게시글 수 조회
-		int listCount = mapper.getJoonggoListCount(boardType);
+		int listCount = mapper.getJoonggoListCount(param);
 
 		Pagination pagination = new Pagination(cp, listCount, 16);
 		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 
-		List<Joonggo> boardList = mapper.selectJoonggoList(boardType, rowBounds);
+		List<Joonggo> boardList = mapper.selectJoonggoList(param, rowBounds);
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("pagination", pagination);
@@ -65,9 +69,13 @@ public class JoonggoServiceImpl implements JoonggoService {
 
 	// 중고상품 목록 정렬 (KJK)
 	@Override
-	public Map<String, Object> sortJoonggoList(String boardType, int cp, String sortType) {
+	public Map<String, Object> sortJoonggoList(String boardType, String finalDong, int cp, String sortType) {
 		
-		int listCount = mapper.getJoonggoListCount(boardType);
+		Map<String, Object> param = new HashMap<>();
+		param.put("boardType", boardType);
+		param.put("finalDong", finalDong);
+		// 특정 게시판의 삭제되지 않은 게시글 수 조회
+		int listCount = mapper.getJoonggoListCount(param);
 
 		Pagination pagination = new Pagination(cp, listCount, 16);
 		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
@@ -79,13 +87,13 @@ public class JoonggoServiceImpl implements JoonggoService {
 		if(sortType != null) {
 
 			// 인기순(관심순, 조회수?)
-			if(sortType.equals("popular")) sortList = mapper.sortJoonggoViews(boardType, rowBounds);
+			if(sortType.equals("popular")) sortList = mapper.sortJoonggoViews(param, rowBounds);
 
 			// 낮은 가격순
-			if(sortType.equals("lowPrice")) sortList = mapper.sortJoonggoLowPrice(boardType, rowBounds);
+			if(sortType.equals("lowPrice")) sortList = mapper.sortJoonggoLowPrice(param, rowBounds);
 
 			// 높은 가격순
-			if(sortType.equals("highPrice")) sortList = mapper.sortJoonggoHighPrice(boardType, rowBounds);
+			if(sortType.equals("highPrice")) sortList = mapper.sortJoonggoHighPrice(param, rowBounds);
 		}
 
 		Map<String, Object> map = new HashMap<>();

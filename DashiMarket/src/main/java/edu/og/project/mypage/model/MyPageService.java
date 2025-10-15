@@ -66,11 +66,11 @@ public interface MyPageService {
 	
 	/**
 	 * 구매 확정
-	 * @param orderItemId 주문 아이템 ID
+	 * @param orderItemNo 주문 아이템 ID
 	 * @param memberNo 회원 번호
 	 * @return 업데이트 결과
 	 */
-	int confirmPurchase(int orderItemId, int memberNo);
+	int confirmPurchase(String orderItemNo, int memberNo);
 
 }
 
