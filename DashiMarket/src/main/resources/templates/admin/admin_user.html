@@ -90,7 +90,20 @@
                             <td>댓글 수</td>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                        <tr th:each="member : ${memberList}">
+                            <td th:text="${member.memberNo}">1</td>
+                            <td th:text="${member.memberEmail}">email</td>
+                            <td th:text="${member.memberName}">이름</td>
+                            <td th:text="${member.memberNickname}">닉네임</td>
+                            <td th:text="${member.memberTel}">전화번호</td>
+                            <td th:text="${member.address}">주소</td>
+                            <td th:text="${member.secessionFl}">N</td>
+                            <td th:text="${member.enrollDate}">2025-01-01</td>
+                            <td th:text="${member.boardCount}">0</td>
+                            <td th:text="${member.commentCount}">0</td>
+                        </tr>
+                    </tbody>
                 </table>
 
             </section>

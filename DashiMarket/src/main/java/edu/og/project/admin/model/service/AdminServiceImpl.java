@@ -48,13 +48,61 @@ public class AdminServiceImpl implements AdminService{
 	public List<Member> selectAllMembers() {
 		return mapper.selectAllMembers();
 	}
+	
+	// ✅ 회원 목록 조회 (페이지네이션)
+	@Override
+	public Map<String, Object> selectMemberList(int cp) {
+		// 전체 회원 수 조회
+		int listCount = mapper.getMemberCount();
+		
+		// Pagination 객체 생성 (페이지당 10개)
+		Pagination pagination = new Pagination(cp, listCount, 10);
+		
+		// RowBounds 설정
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		// 회원 목록 조회
+		List<Member> memberList = mapper.selectMemberListPaging(rowBounds);
+		
+		// 결과 반환
+		Map<String, Object> map = new HashMap<>();
+		map.put("pagination", pagination);
+		map.put("memberList", memberList);
+		
+		return map;
+	}
 
 	// 굿즈 상품 조회
 	@Override
 	public List<Goods> selectProducts(String sort) {
 		return mapper.selectProducts(sort);
 	}
-
+	
+	// ✅ 상품 목록 조회 (페이지네이션)
+	@Override
+	public Map<String, Object> selectGoodsList(int cp, String sort) {
+		// 전체 상품 수 조회
+		int listCount = mapper.getGoodsCount();
+		
+		// Pagination 객체 생성 (페이지당 10개)
+		Pagination pagination = new Pagination(cp, listCount, 10);
+		
+		// RowBounds 설정
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		// 상품 목록 조회
+		List<Goods> goodsList = mapper.selectGoodsListPaging(sort, rowBounds);
+		
+		// 결과 반환
+		Map<String, Object> map = new HashMap<>();
+		map.put("pagination", pagination);
+		map.put("goodsList", goodsList);
+		
+		return map;
+	}
+	
 	// 신고
 	@Override
 	public Map<String, Object> selectReportList(String keyword, String reportResult, int cp) {
@@ -117,5 +165,30 @@ public class AdminServiceImpl implements AdminService{
 	public List<OrderDto> selectGoodsOrder(String sort) {
 		return mapper.selectGoodsOrder(sort);
 	}
+	
+	// ✅ 거래 내역 조회 (페이지네이션)
+	@Override
+	public Map<String, Object> selectOrderList(int cp, String sort) {
+		// 전체 거래 수 조회
+		int listCount = mapper.getOrderCount();
+		
+		// Pagination 객체 생성 (페이지당 10개)
+		Pagination pagination = new Pagination(cp, listCount, 10);
+		
+		// RowBounds 설정
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		// 거래 목록 조회
+		List<OrderDto> orderList = mapper.selectOrderListPaging(sort, rowBounds);
+		
+		// 결과 반환
+		Map<String, Object> map = new HashMap<>();
+		map.put("pagination", pagination);
+		map.put("orderList", orderList);
+		
+		return map;
+	}
+	
 	
 }

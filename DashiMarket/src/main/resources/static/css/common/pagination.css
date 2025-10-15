@@ -7,7 +7,9 @@
     list-style: none;
 }
 
-.pagination button {
+/* button과 a 태그 공통 스타일 */
+.pagination button,
+.pagination a {
     width: 35px;
     height: 35px;
     border: none;
@@ -19,20 +21,25 @@
     align-items: center;
     justify-content: center;
     transition: all 0.2s;
+    text-decoration: none; /* a 태그 밑줄 제거 */
 }
 
-.pagination button:hover {
+.pagination button:hover,
+.pagination a:hover:not(.current) {
     background-color: #f8f9fa;
 }
 
-.pagination .pagination-btn:hover{
+.pagination .pagination-btn:hover {
     background-color: #166549;
     color: white;
 }
 
-.pagination button[aria-current="page"] {
+/* 현재 페이지 강조 */
+.pagination button[aria-current="page"],
+.pagination a.current {
     background-color: #166549;
     color: white;
+    pointer-events: none; /* 현재 페이지는 클릭 방지 */
 }
 
 .pagination .pagination-btn {

@@ -29,12 +29,18 @@ public interface AdminService {
 	 * @return List<Member>
 	 */
 	List<Member> selectAllMembers();
+	
+	// 회원 목록 조회 (페이징)
+	Map<String, Object> selectMemberList(int cp);
 
 	/** 굿즈 상품 조회
 	 * @param sort 
 	 * @return products
 	 */
 	List<Goods> selectProducts(String sort);
+	
+	// 상품 목록 조회 (페이징)
+	Map<String, Object> selectGoodsList(int cp, String sort);
 
 	// 신고 
 	Map<String, Object> selectReportList(String keyword, String reportResult, int cp);
@@ -73,8 +79,7 @@ public interface AdminService {
 	 * @return orderList
 	 */
 	List<OrderDto> selectGoodsOrder(String sort);
-
 	
-
-
+	// 거래 내역 조회 (페이징)
+	Map<String, Object> selectOrderList(int cp, String sort);
 }
