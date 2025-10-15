@@ -61,7 +61,10 @@
                 <a th:href="@{/{boardType}/{boardNo}(boardType=${boardType}, boardNo=${board.boardNo}, cp=${pagination.currentPage})}"
                     class="goods-detail-area">
                     <!-- 이미지 -->
-                    <div class="goods-img"><img th:src="${board.thumbnail}" alt="">굿즈 이미지</div>
+                    <div class="goods-img">
+                        <img th:unless="${board.goodsStock == 0}" th:src="${board.thumbnail}" alt="">
+                        <img th:if="${board.goodsStock == 0}" th:src="@{/images/goods/soldout.jpg}">
+                    </div>
                     <!-- 제품명 -->
                     <div class="goods-name text-size-16 medium-text" th:text="${board.boardTitle}">굿즈 이름</div>
                     <!-- 가격 -->
