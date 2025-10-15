@@ -7,6 +7,7 @@
   <title>신고하기</title>
 </head>
 
+<link rel="stylesheet" th:href="@{/css/common/font.css}">
 <link rel="stylesheet" th:href="@{/css/common/report.css}">
 
 <body>
@@ -28,7 +29,7 @@
 
       </div>
 
-      <div class="div-content" id="div3"  th:text="${member.memberNickname}">게시글 올린 사람 닉네임</div>
+      <div class="div-content medium-text" id="div3"  th:text="${member.memberNickname}">게시글 올린 사람 닉네임</div>
 
       <div class="div-content" id="div4">
         <hr>
@@ -43,7 +44,7 @@
       <fieldset>
 
         <div class="report-select">
-          <div class="selected">== 선택해주세요 ==</div>
+          <div class="selected bold-text"> 신고 유형을 선택해주세요 🚨</div>
           <div class="options">
             <div class="option" data-value="1">스팸</div>
             <div class="option" data-value="2">불법</div>

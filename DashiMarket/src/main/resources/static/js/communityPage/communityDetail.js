@@ -506,14 +506,12 @@ document.getElementById('report-btn').addEventListener('click', () => {
     }
 
     const width = 500;
-    const height = 600;
 
     const left = (window.screen.width-width)/2;
-    const top = (window.screen.width-height)/2;
     window.open(
         '/commnunity/report/'+boardNo,  // 팝업으로 띄울 HTML 경로
         'reportPopup',   // 팝업 이름
-        'width=500,height=600,resizable=yes,scrollbars=no, left='+left+",top="+top
+        'width=500,height=600,resizable=yes,scrollbars=no, left='+left+",top=300"
     
     );
 }); 
