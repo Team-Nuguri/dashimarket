@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.session.RowBounds;
+
 import edu.og.project.common.dto.Member;
 
 @Mapper
@@ -30,6 +32,17 @@ public interface MyPageMapper {
 	String selectEncPw(int memberNo);
 	
 	// 굿즈 거래
-	List<Map<String, Object>> selectGoods(String memberEmail);
+	List<Map<String, Object>> selectGoods(Map<String, Object> paramMap);
+	
+	  // 굿즈 거래 - 전체 개수 조회
+    int getGoodsListCount(Map<String, Object> paramMap);
+    
+    // 굿즈 거래 - 목록 조회 (RowBounds 사용)
+    List<Map<String, Object>> selectGoodsList(Map<String, Object> paramMap, RowBounds rowBounds);
+    
+    /**
+     * 구매 확정
+     */
+    int confirmPurchase(Map<String, Object> paramMap);
 	
 }
