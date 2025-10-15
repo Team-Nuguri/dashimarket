@@ -22,6 +22,7 @@
       <result property="memberNo" column="MEMBER_NO"/>
       <result property="profileImage" column="PROFILE_PATH"/>
       <result property="defaultDong" column="DEFAULT_DONG"/>
+      <result property="sellerRating" column="SELLER_RATING"/>
       
       <!--카테고리-->
       <result property="categoryId" column="CATEGORY_ID"/>
@@ -349,6 +350,7 @@
 	</delete>
 
 	
+	<!--중고 상세 조회-->
 	<select id="selectJoonggoDetail" resultMap="joonggo_rm">
 		SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT,
 				<![CDATA[
@@ -371,6 +373,14 @@
         		MEMBER_NICKNAME, PROFILE_PATH, JOONGGO_PRICE, BOARD_TYPE, DEFAULT_DONG
         		, (SELECT COUNT(*) FROM "LIKE"
         			WHERE POST_NO = BOARD_NO) LIKE_COUNT
+        			
+        		, (SELECT ROUND(AVG((QUESTION1 + QUESTION2 + QUESTION3 + QUESTION4) / 4), 1) 
+					FROM REVIEW_QUESTION
+					WHERE REVIEW_NO IN (SELECT REVIEW_NO FROM REVIEW
+					                    WHERE BOARD_NO IN (SELECT BOARD_NO FROM BOARD
+					                                        WHERE MEMBER_NO = (SELECT MEMBER_NO
+					                                                            FROM BOARD
+					                                                            WHERE BOARD_NO = #{joonggoNo}))))SELLER_RATING
 		FROM BOARD B
 		JOIN CATEGORY SUB ON(B.CATEGORY_ID = SUB.CATEGORY_ID)
 		JOIN CATEGORY MAIN ON(SUB.PARENT_CATEGORY_NO = MAIN.CATEGORY_ID)

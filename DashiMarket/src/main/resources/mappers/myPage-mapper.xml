@@ -70,4 +70,30 @@
     AND SECESSIONFL = 'N'
 	</select>
 	
+	<select id="selectGoods" parameterType="String" resultType="map">
+	    
+	    SELECT 
+	        G.GOODS_TITLE AS 제품명,
+	        G.GOODS_PRICE AS 단가,
+	        OI.ORDER_QUANTITY AS 수량,
+	        (G.GOODS_PRICE * OI.ORDER_QUANTITY) AS 총가격,
+	        P.PAY_DATE AS 결제날짜,
+	        OS.STATUS_NAME AS 구매상태  -- O.ORDER_STATUS 대신 JOIN된 OS.STATUS_NAME 사용
+	    FROM 
+	        ORDERS O
+	    JOIN 
+	        ORDER_ITEM OI ON O.ORDER_ID = OI.ORDER_ID
+	    JOIN 
+	        GOODS G ON OI.GOODS_ID = G.GOODS_ID
+	    JOIN 
+	        PAYMENT P ON O.ORDER_ID = P.ORDER_ID
+	    JOIN 
+	        ORDER_STATUS OS ON O.STATUS_CODE = OS.STATUS_CODE
+	    WHERE 
+	        O.MEMBER_ID = #{memberEmail} 
+	    ORDER BY 
+	        O.ORDER_DATE DESC
+	        
+	</select>
+	
 </mapper>

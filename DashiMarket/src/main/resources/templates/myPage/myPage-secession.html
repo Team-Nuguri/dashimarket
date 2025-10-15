@@ -21,20 +21,27 @@
 
     
 <!--왼쪽 사이드메뉴-->
+
 <section class="myPage-content">
 
 <section class="left-side">
+
     <nav>
+
     <div class="left-title text-size-28 bold-text">마이페이지</div>
+
 
     <ul class="left-menu">
         <li class="text-size-18 bold-text">
             <img th:src="@{/images/myPage/shopping.png}" alt="주문내역/구매내역" width="40px" height="40px">
             주문내역/구매내역
+
             <ul>
-                <li><a href="myPage_order.html">직거래</a></li>
-                <li><a href="myPage_order.html">굿즈</a></li>
-                <li><a href="myPage_order.html">나눔</a></li>
+                    
+                    <li class="myPage-a"><a th:href="@{/myPage/order}">중고거래</a></li>
+                
+                    <li class="myPage-a"><a th:href="@{/myPage/goods}">굿즈</a></li>                                  
+                
             </ul>        
         </li>
     </ul>
@@ -45,6 +52,7 @@
             상품관리
             <ul class="left-submenu">
                 <li><a th:href="@{/myPage/wishlist}">내가 찜한 상품</a></li>
+                
             </ul>
         </li>
     </ul>
@@ -54,12 +62,17 @@
             <img th:src="@{/images//myPage/myinfo.png}" alt="내 정보 관리" width="40px" height="40px">
             내 정보 관리       
             <ul class="left-submenu">
-                <li><a th:href="@{/myPage/profile}">프로필 관리</a></li>
-                <li><a th:href="@{/myPage/secession}">회원탈퇴</a></li>
+                
+                
+                    <li class="myPage-a"><a th:href="@{/myPage/profile}">프로필 관리</a></li>
+                
+                    <li class="myPage-a"><a th:href="@{myPage/secession}">회원 탈퇴</a></li>
+                       
             </ul>
         </li>   
     </ul>
     </nav>
+    
 </section>
 
 <!-- 회원탈퇴 -->

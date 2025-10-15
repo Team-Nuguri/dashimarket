@@ -42,6 +42,7 @@ public class Joonggo {
 	private int memberNo;
 	private String profileImage;
 	private String defaultDong;
+	private Double sellerRating;
 	
 	
 	List<Image> imageList;

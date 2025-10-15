@@ -222,4 +222,14 @@ document.getElementById('report-btn').addEventListener('click', () => {
         'width=500,height=600,resizable=yes,scrollbars=no, left='+left+",top="+top
     
     );
+
 }); 
+
+
+
+document.getElementById("goToList").addEventListener("click", e => {
+
+    e.preventDefault();
+
+    location.href = "/joonggo"+location.search;
+})

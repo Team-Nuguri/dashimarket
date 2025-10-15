@@ -14,6 +14,12 @@
         SELECT COUNT(*)FROM MEMBER
     </select>
     
+    <!-- 오늘 신고된 수 -->
+    <select id="getTodayReportCount" resultType="int">
+    	SELECT COUNT(*) FROM REPORT
+    	WHERE TRUNC(REPORT_DATE) = TRUNC(SYSDATE)
+    </select>
+    
     <!-- 전체 회원 조회 -->
     <select id="selectAllMembers" resultType="Member">
     	SELECT
@@ -35,7 +41,7 @@
     
     <!-- 굿즈 상품 조회 -->
     <select id="selectProducts" resultType="Goods">
-        SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT, GOODS_PRICE, GOODS_STOCK,
+        SELECT BOARD_NO, BOARD_TITLE, GOODS_PRICE, GOODS_STOCK,
         	TO_CHAR(TRUNC(BOARD_CREATE_DATE), 'YYYY-MM-DD') AS BOARD_CREATE_DATE
         FROM GOODS
         LEFT JOIN BOARD USING(BOARD_NO)
@@ -48,7 +54,7 @@
 
             <!-- 가격순 -->
             <when test="sort == 'price'">
-                ORDER BY GOODS_PRICE
+                ORDER BY GOODS_PRICE DESC
             </when>
 
             <!-- 기본: 상품 이름 오름차순 -->
@@ -56,8 +62,8 @@
                 ORDER BY BOARD_TITLE
             </otherwise>
         </choose>
-        
-    </select>
+    </select>    
+    
     <!-- 신고 게시글 수 조회 -->
 	<select id="getReportListCount">
 		SELECT COUNT(*) FROM REPORT
@@ -65,46 +71,168 @@
 	</select>
 	
 	<!-- 신고 게시글 전체 조회 -->
-<select id="selectReportList" resultType="Report">
-  SELECT
-      REPORT_NO,
-      REPORT_TARGET,
-      REPORT_TARGET_ID,
-      REPORT_REASON,
-      TO_CHAR(REPORT_DATE, 'YYYY-MM-DD') AS REPORT_DATE,
-      TO_CHAR(RESULT_DATE, 'YYYY-MM-DD') AS RESULT_DATE,
-      REPORT_CODE,
-      REPORT_MEMBER_NO,
-      TARGET_MEMBER_NO,
-      REPORT_RESULT
-  FROM REPORT
-  ORDER BY REPORT_NO DESC
-</select>
+	<select id="selectReportList" resultType="Report">
+		SELECT
+		    REPORT_NO,
+		    REPORT_TARGET,
+		    BOARD_TITLE,
+		    REPORT_TARGET_ID,
+		    REPORT_REASON,
+		    TO_CHAR(REPORT_DATE, 'YYYY-MM-DD') AS REPORT_DATE,
+		    TO_CHAR(RESULT_DATE, 'YYYY-MM-DD') AS RESULT_DATE,
+		    REPORT_NAME,
+		    M.MEMBER_EMAIL REPORT_MEMBER,
+    		E.MEMBER_EMAIL TARGET_MEMBER,
+		    REPORT_RESULT
+		FROM REPORT
+		JOIN REPORT_CODE USING(REPORT_CODE)
+		LEFT JOIN BOARD ON(BOARD_NO = REPORT_TARGET_ID)
+		JOIN MEMBER M ON(REPORT_MEMBER_NO = M.MEMBER_NO)
+		JOIN MEMBER E ON(TARGET_MEMBER_NO = E.MEMBER_NO)
+		ORDER BY REPORT_NO DESC
+	</select>
 
 	
 	<!-- 신고 상세 조회-->
 	<select id="selectReportDetail" resultType="Report">
-		 SELECT
-      REPORT_NO,
-      REPORT_TARGET,
-      REPORT_TARGET_ID,
-      REPORT_REASON,
-      TO_CHAR(REPORT_DATE, 'YYYY-MM-DD') AS REPORT_DATE,
-      TO_CHAR(RESULT_DATE, 'YYYY-MM-DD') AS RESULT_DATE,
-      REPORT_CODE,
-      REPORT_MEMBER_NO,
-      TARGET_MEMBER_NO,
-      REPORT_RESULT
-  FROM REPORT
-  WHERE REPORT_NO = #{reportNo}
-		
+		SELECT
+			REPORT_NO,
+			REPORT_TARGET,
+			REPORT_TARGET_ID,
+			REPORT_REASON,
+			TO_CHAR(REPORT_DATE, 'YYYY-MM-DD') AS REPORT_DATE,
+			TO_CHAR(RESULT_DATE, 'YYYY-MM-DD') AS RESULT_DATE,
+			REPORT_NAME,
+			M.MEMBER_EMAIL REPORT_MEMBER,
+			E.MEMBER_EMAIL TARGET_MEMBER,
+			REPORT_RESULT
+		FROM REPORT
+		JOIN REPORT_CODE USING(REPORT_CODE)
+		LEFT JOIN BOARD ON(BOARD_NO = REPORT_TARGET_ID)
+		JOIN MEMBER M ON(REPORT_MEMBER_NO = M.MEMBER_NO)
+		JOIN MEMBER E ON(TARGET_MEMBER_NO = E.MEMBER_NO)
+		WHERE REPORT_NO = #{reportNo}
 	</select>
 	
+
+	<!-- 신고 처리완료 -->
     <update id="updateReportResult" >
-    UPDATE REPORT
-    SET REPORT_RESULT =  #{resultType}, 
-        RESULT_DATE = SYSDATE
-    WHERE REPORT_NO =  #{reportNo}
+	    UPDATE REPORT SET 
+	    	REPORT_RESULT =  #{resultType}, 
+	        RESULT_DATE = SYSDATE
+	    WHERE REPORT_NO =  #{reportNo}
     </update>
-	
+    
+    <!-- (회원) 회원id 또는 닉네임으로 검색 -->
+    <select id="searchMember" resultType="Member">
+		SELECT
+		    M.MEMBER_NO, M.MEMBER_EMAIL, M.MEMBER_NAME,
+		    M.MEMBER_NICKNAME, M.MEMBER_TEL,
+		    ('(' || M.POST_CODE || ') ' || M.LOAD_ADDRESS || ' ' ||  M.DETAIL_ADDRESS) AS ADDRESS,
+		    TO_CHAR(TRUNC(M.ENROLL_DATE), 'YYYY-MM-DD') AS ENROLL_DATE, M.SECESSIONFL,
+		    
+		    -- 게시글 수 
+		    NVL((SELECT COUNT(B.BOARD_NO) FROM BOARD B WHERE B.MEMBER_NO = M.MEMBER_NO), 0) AS BOARD_COUNT,
+		    
+		    -- 댓글 수 
+		    NVL((SELECT COUNT(C.COMMENT_NO) FROM "COMMENT" C WHERE C.MEMBER_NO = M.MEMBER_NO), 0) AS COMMENT_COUNT
+		    
+		FROM MEMBER M
+		WHERE IS_ADMIN = 'N'
+		AND (M.MEMBER_EMAIL LIKE '%${keyword}%' OR M.MEMBER_NICKNAME LIKE '%${keyword}%')
+		ORDER BY M.MEMBER_NO DESC
+    </select>
+    
+    <!-- (신고) 게시글 유형 또는 게시글로 검색 -->
+    <select id="searchReport" resultType="Report">
+    	SELECT
+		    REPORT_NO,
+		    REPORT_TARGET,
+		    BOARD_TITLE,
+		    REPORT_TARGET_ID,
+		    REPORT_REASON,
+		    TO_CHAR(REPORT_DATE, 'YYYY-MM-DD') AS REPORT_DATE,
+		    TO_CHAR(RESULT_DATE, 'YYYY-MM-DD') AS RESULT_DATE,
+		    REPORT_NAME,
+		    M.MEMBER_EMAIL REPORT_MEMBER,
+    		E.MEMBER_EMAIL TARGET_MEMBER,
+		    REPORT_RESULT
+		FROM REPORT
+		JOIN REPORT_CODE USING(REPORT_CODE)
+		LEFT JOIN BOARD ON(BOARD_NO = REPORT_TARGET_ID)
+		JOIN MEMBER M ON(REPORT_MEMBER_NO = M.MEMBER_NO)
+		JOIN MEMBER E ON(TARGET_MEMBER_NO = E.MEMBER_NO)
+		WHERE (BOARD_TITLE LIKE '%${keyword}%' OR REPORT_TARGET LIKE '${keyword}%')
+		ORDER BY REPORT_NO DESC
+    </select>
+    
+    <!-- 상품명으로 검색 -->
+    <select id="searchGoods" resultType="Goods">
+    	SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT, GOODS_PRICE, GOODS_STOCK,
+        	TO_CHAR(TRUNC(BOARD_CREATE_DATE), 'YYYY-MM-DD') AS BOARD_CREATE_DATE
+        FROM GOODS
+        LEFT JOIN BOARD USING(BOARD_NO)
+        WHERE BOARD_TITLE LIKE '%${keyword}%'
+        ORDER BY BOARD_TITLE DESC
+    </select>
+    
+    <!-- (굿즈 거래)수령인 또는 상품명으로 검색 -->
+    <select id="searchOrder" resultType="OrderDto">
+    	SELECT
+		    S.ORDER_NO,
+		    S.RECIPIENT_NAME,
+		    S.RECIPIENT_TEL,
+		    ('(' || S.POSTCODE || ') ' || S.ADDRESS_BASE || ' ' || S.ADDRESS_DETAIL) AS ADDRESS,
+		    S.DELIVERY_STATUS,
+		    P.PAY_METHOD,
+		    P.PAT_DATE AS PAY_DATE,
+		    P.PRICE AS PAY_PRICE,
+		    O.ORDER_QUANTITY,
+		    O.ORDER_ITEM_NO,
+		    B.BOARD_TITLE ORDERED_NAME
+		FROM SHIPPING S
+		JOIN PAYMENT P ON S.ORDER_NO = P.ORDER_NO
+		JOIN ORDER_ITEM O ON S.ORDER_NO = O.ORDER_NO
+		JOIN BOARD B ON O.ORDER_ITEM_NO = B.BOARD_NO
+		WHERE (B.BOARD_TITLE  LIKE '%${keyword}%' OR S.RECIPIENT_NAME LIKE '%${keyword}%')
+		ORDER BY S.ORDER_NO DESC
+    </select>
+    
+    <!-- 굿즈 거래내역 조회 -->
+    <select id="selectGoodsOrder" resultType="OrderDto">
+    	SELECT
+		    S.ORDER_NO,
+		    S.RECIPIENT_NAME,
+		    S.RECIPIENT_TEL,
+		    ('(' || S.POSTCODE || ') ' || S.ADDRESS_BASE || ' ' || S.ADDRESS_DETAIL) AS ADDRESS,
+		    S.DELIVERY_STATUS,
+		    P.PAY_METHOD,
+		    P.PAT_DATE AS PAY_DATE,
+		    P.PRICE AS PAY_PRICE,
+		    O.ORDER_QUANTITY,
+		    O.ORDER_ITEM_NO,
+		    B.BOARD_TITLE ORDERED_NAME
+		FROM SHIPPING S
+		JOIN PAYMENT P ON S.ORDER_NO = P.ORDER_NO
+		JOIN ORDER_ITEM O ON S.ORDER_NO = O.ORDER_NO
+		JOIN BOARD B ON O.ORDER_ITEM_NO = B.BOARD_NO
+		<choose>
+            <!-- 최신순 -->
+            <when test="sort == 'latest'">
+                ORDER BY PAY_DATE DESC
+            </when>
+
+            <!-- 가격순 -->
+            <when test="sort == 'price'">
+                ORDER BY PAY_PRICE DESC
+            </when>
+
+            <!-- 기본: 상품 이름 오름차순 -->
+            <otherwise>
+                ORDER BY S.ORDER_NO
+            </otherwise>
+        </choose>
+    </select>
+
+
 </mapper>

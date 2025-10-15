@@ -159,7 +159,6 @@ public class NoticeController {
 	// =========== 관리자 전용 글쓰기 등록 처리 ===========
 	@PostMapping("/notice/write")
 	public String noticeWriteSubmit(
-			@RequestParam("admWriteBoardSelect") String boardType,
 			@RequestParam("admWriteTitle") String title, 
 			@RequestParam("admWriteContent") String content,
 			@RequestParam(value = "admWriteFileInput", required = false) MultipartFile file,
@@ -168,19 +167,14 @@ public class NoticeController {
 		
 		// 관리자 권한 체크
 		if (loginMember == null || !"Y".equals(loginMember.getIsAdmin())) {
-            return "redirect:/notice";
-        }
+	        return "redirect:/notice";
+	    }
 
 		Notice notice = new Notice();
-		notice.setBoardType(boardType);
 		notice.setNoticeTitle(title);
 		notice.setNoticeContent(content);
-
-		if ("notice".equals(boardType)) {
-			notice.setBoardCode(4);
-		} else if ("faq".equals(boardType)) {
-			notice.setBoardCode(5);
-		}
+		notice.setMemberNo(loginMember.getMemberNo());
+		notice.setBoardCode(4);  // 공지사항 고정
 		
 		// 게시글 등록 (selectKey로 noticeNo가 자동 생성됨)
 		int result = service.insertNotice(notice);
@@ -193,7 +187,7 @@ public class NoticeController {
 	            image.setImagePath(noticeWebPath + savedFileName);
 	            image.setImageRename(savedFileName);
 	            image.setImageOrder(0);
-	            image.setBoardNo(notice.getNoticeNo());  // selectKey로 생성된 noticeNo 사용
+	            image.setBoardNo(notice.getNoticeNo());
 	            
 	            service.insertImage(image);
 	        }
@@ -237,7 +231,6 @@ public class NoticeController {
 	@PostMapping("/notice/edit/{noticeNo}")
 	public String noticeEditSubmit(
 			@PathVariable("noticeNo") int noticeNo,
-			@RequestParam("admWriteBoardSelect") String boardType, 
 			@RequestParam("admWriteTitle") String title,
 			@RequestParam("admWriteContent") String content,
 			@RequestParam(value = "admWriteFileInput", required = false) MultipartFile file, 
@@ -251,15 +244,10 @@ public class NoticeController {
 		
 		Notice notice = new Notice();	
 		notice.setNoticeNo(String.valueOf(noticeNo));
-		notice.setBoardType(boardType);
 		notice.setNoticeTitle(title);
 		notice.setNoticeContent(content);
-		
-		if ("notice".equals(boardType)) {
-			notice.setBoardCode(4);
-		} else if ("faq".equals(boardType)) {
-			notice.setBoardCode(5);
-		}
+		notice.setMemberNo(loginMember.getMemberNo());
+		notice.setBoardCode(4);  // 공지사항 고정
 		
 		int result = service.updateNotice(notice);
 		
@@ -280,8 +268,6 @@ public class NoticeController {
 	            service.insertImage(image);
 	        }
 	    }
-		
-
 
 		if (result > 0) {
 			ra.addFlashAttribute("message", "공지사항이 수정되었습니다.");	
