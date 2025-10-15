@@ -13,19 +13,21 @@ public interface JoonggoService {
 	
 	/** 중고 상품 목록 조회 (KJK)
 	 * @param boardType
+	 * @param finalDong 
 	 * @param cp
 	 * @return map
 	 */
-	Map<String, Object> selectJoonggoList(String boardType, int cp);
+	Map<String, Object> selectJoonggoList(String boardType, String finalDong, int cp);
 	
 	
 	/** 중고상품 목록 정렬 (인기순, 낮은가격순, 높은가격순) (KJK)
 	 * @param boardType
+	 * @param finalDong 
 	 * @param cp
 	 * @param sortType
 	 * @return map
 	 */
-	Map<String, Object> sortJoonggoList(String boardType, int cp, String sortType);
+	Map<String, Object> sortJoonggoList(String boardType, String finalDong, int cp, String sortType);
 
 	
 	

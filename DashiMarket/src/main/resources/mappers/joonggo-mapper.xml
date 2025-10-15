@@ -82,8 +82,15 @@
 	<select id="getJoonggoListCount">
 		SELECT COUNT(*) FROM BOARD
 		JOIN BOARD_TYPE USING(BOARD_CODE)
+		JOIN "MEMBER" USING(MEMBER_NO)
 		WHERE BOARD_TYPE = #{boardType}
 		AND DELETE_FL = 'N'
+		
+		<!-- MEMBER 테이블과 조인 후 작성하세요 -->
+		<if test="finalDong != null and finalDong != ''">
+			AND JIBUN_ADDRESS LIKE '%${finalDong}%'
+		</if>
+		
 	</select>
 	
 	  <!-- 카테고리(대분류) 게시글 수 조회 (KJK) -->
@@ -141,6 +148,11 @@
 		JOIN "JOONGGO" J ON(J.BOARD_NO = B.BOARD_NO)
 		WHERE DELETE_FL = 'N'
 		AND BOARD_TYPE = 'joonggo'
+		
+		<if test="finalDong != null and finalDong != ''">
+			AND JIBUN_ADDRESS LIKE '%${finalDong}%'
+		</if>
+		
 		ORDER BY BOARD_CREATE_DATE DESC
 	</select>
 	
@@ -253,6 +265,11 @@
 		JOIN "JOONGGO" J ON(J.BOARD_NO = B.BOARD_NO)
 		WHERE DELETE_FL = 'N'
 		AND BOARD_TYPE = 'joonggo'
+		
+		<if test="finalDong != null and finalDong != ''">
+			AND JIBUN_ADDRESS LIKE '%${finalDong}%'
+		</if>
+		
 		ORDER BY POST_VIEWS DESC
 	</select>
 	
@@ -288,6 +305,11 @@
 		JOIN "JOONGGO" J ON(J.BOARD_NO = B.BOARD_NO)
 		WHERE DELETE_FL = 'N'
 		AND BOARD_TYPE = 'joonggo'
+		
+		<if test="finalDong != null and finalDong != ''">
+			AND JIBUN_ADDRESS LIKE '%${finalDong}%'
+		</if>
+		
 		ORDER BY JOONGGO_PRICE ASC
 	</select>
 	
@@ -323,6 +345,11 @@
 		JOIN "JOONGGO" J ON(J.BOARD_NO = B.BOARD_NO)
 		WHERE DELETE_FL = 'N'
 		AND BOARD_TYPE = 'joonggo'
+		
+		<if test="finalDong != null and finalDong != ''">
+			AND JIBUN_ADDRESS LIKE '%${finalDong}%'
+		</if>
+		
 		ORDER BY JOONGGO_PRICE DESC
 	</select>
 	
