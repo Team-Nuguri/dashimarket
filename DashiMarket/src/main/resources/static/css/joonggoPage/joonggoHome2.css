@@ -118,9 +118,20 @@
 
 /* 이미지 정사각형으로 통일하기 */
 .joonggo-img {
+    position: relative;
     aspect-ratio: 1 / 1; /* 정사각형 박스 */
     overflow: hidden;
     border-radius: 10px;
+}
+
+#trade-complete{
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    padding-left: 4px;
+    background-color: #52B291;
+    border-radius: 10px;
+
 }
 
 .joonggo-img img {

@@ -37,6 +37,5 @@ public class Report {
 	private String reportName;
 	
 	private int chattingNo; // 신고/나가기 할때 채팅방 번호
-	private int targetMemberNo; // 신고 대상 회원 번호
 
 }

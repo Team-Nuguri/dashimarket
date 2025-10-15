@@ -30,6 +30,9 @@
       <result property="mainCategory" column="MAIN"/>
       <result property="subCategory" column="SUB"/>
       
+      <!--거래 완료 여부-->
+      <result property="tradeCheck" column="TRADE_CHECK" />
+      
             
       <result property="boardCode" column="BOARD_CODE"/>
       <result property="boardType" column="BOARD_TYPE"/>
@@ -140,7 +143,10 @@
 		    
 		    (SELECT IMG_PATH || IMG_RENAME FROM IMAGE I
 		    WHERE I.BOARD_NO = B.BOARD_NO
-		    AND IMG_ORDER = 0) THUMBNAIL
+		    AND IMG_ORDER = 0) THUMBNAIL,
+		    
+		    (SELECT COUNT(*) FROM TRADE T
+		    WHERE T.BOARD_NO = B.BOARD_NO) TRADE_CHECK
 		    
 		FROM "BOARD" B
 		JOIN "MEMBER" USING(MEMBER_NO)
@@ -408,6 +414,8 @@
 					                                        WHERE MEMBER_NO = (SELECT MEMBER_NO
 					                                                            FROM BOARD
 					                                                            WHERE BOARD_NO = #{joonggoNo}))))SELLER_RATING
+                , (SELECT COUNT(*) FROM TRADE
+            		WHERE BOARD_NO = #{joonggoNo}) AS TRADE_CHECK
 		FROM BOARD B
 		JOIN CATEGORY SUB ON(B.CATEGORY_ID = SUB.CATEGORY_ID)
 		JOIN CATEGORY MAIN ON(SUB.PARENT_CATEGORY_NO = MAIN.CATEGORY_ID)
