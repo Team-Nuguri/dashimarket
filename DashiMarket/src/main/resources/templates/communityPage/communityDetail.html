@@ -233,7 +233,7 @@
 
     <th:block th:replace="~{common/footer}"></th:block>
 
-    <th:block th:if="${session.loginMember}" th:replace="~{chatting/chatting}">chatting.html</th:block>
+    <!-- <th:block th:if="${session.loginMember}" th:replace="~{chatting/chatting}">chatting.html</th:block> -->
 
     <script th:inline="javascript">
         let commLoginMemberNo = /*[[${session.loginMember?.memberNo}]]*/ "로그인한 회원 번호";
