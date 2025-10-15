@@ -61,8 +61,7 @@
 
                         <!-- 로그인한 상태: 회원가입시 저장된 기본 동네 -->
                         <span th:if="${session.loginMember}">
-                            [[${session.loginMember.jibunAddress.split('
-                            ')[#arrays.length(session.loginMember.jibunAddress.split(' ')) - 2]}]]
+                            [[${session.loginMember.jibunAddress.split('')[#arrays.length(session.loginMember.jibunAddress.split(' ')) - 2]}]]
                         </span>
 
                         <!-- 로그인 안 한 상태: 현재 위치 -->
