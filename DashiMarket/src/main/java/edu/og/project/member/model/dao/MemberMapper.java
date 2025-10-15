@@ -10,8 +10,4 @@ public interface MemberMapper {
 	Member login(Member inputMember);
 	
 	int signUp(Member inputMember);
-	
-	
-	// 신고 게시글 올린 유저 조회
-	Member selectMemberInfo(String targetNo);
 }
