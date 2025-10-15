@@ -24,5 +24,9 @@ public class ChattingRoom {
 	private String productNo; // 중고 상품 번호
 	private int sellerNo;   // 판매자 회원 번호
     private int buyerNo;   // 채팅 요청자 (현재 로그인 회원 번호)
+    
+    // 채팅 신고
+    private int reportedMemberNo;
+    private String reportReason;
 	
 }
