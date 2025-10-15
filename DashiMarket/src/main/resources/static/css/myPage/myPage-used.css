@@ -1,0 +1,177 @@
+/*----------------------------*/
+/*주문 내역/ 거래 내역*/ 
+
+
+.divider {
+    border-top: 1px solid black;
+    margin: 50px 0;
+    width: 100%;
+}
+
+/*사이드 메뉴 & 프로필 관리 박스*/
+.myPage-content{
+    display: flex;
+    max-width: 1200px;    
+    min-width: 700px;    
+    margin: 50px auto;
+    justify-content: center; 
+}
+
+.myPage-order {
+    width: 100%;
+
+    margin-left: 20px ;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.myPage-orderTitle {
+    margin-bottom: 70px;
+    margin-left: 20px;
+    margin-top: 40px;
+}
+
+fieldset {
+    overflow: auto;
+    margin-left: 20px;
+    border: none;
+    display: flex;
+    align-items: center;
+}
+
+legend {
+    float: left;
+    margin-right: 10px;
+    padding-left: 0px;
+
+}
+
+.myPage-orderSearch input {
+    border-radius: 10px;
+    width: 400px;
+    height: 40px;
+    padding-left: 40px;
+    box-sizing: border-box;
+}
+
+.myPage-orderSelect {
+    display: flex;
+    justify-content: flex-end;
+    border-radius: 10px ;
+    padding-right: 10px;
+}
+
+.myPage-orderStatus {
+    margin-bottom: 40px;
+    margin-left: 0px;
+}
+
+.myPage-orderDetail {
+
+    margin-left: 20px;
+    padding-right: 30px;
+}
+
+.myPage-orderButtonGroup {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+        "review review"
+        "confirm delivery";
+
+        gap: 5px;
+
+}
+
+.myPage-orderPostWrite {
+    grid-area: review;
+    border-radius: 10px;
+    background-color: #166549;
+    color: white;
+
+}
+
+.myPage-orderConfirm {
+    grid-area: confirm;
+    border-radius: 10px;
+    background-color: #166549;
+    color: white;
+
+
+}
+
+.myPage-orderDelivery {
+    grid-area: delivery;
+    border-radius: 10px;
+    background-color: #166549;
+    color: white;
+
+
+}
+
+.myPage-pagination ul {
+    display: flex;
+    justify-content: space-around;
+    padding: 100px;
+
+}
+
+.page-link, .first-page, .prev-group, .next-group, .last-page {
+    text-decoration: none;
+}
+
+
+
+
+
+
+
+/*----------------------------*/
+/*사이드 메뉴*/ 
+
+/*사이드메뉴 박스*/
+.left-side{
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;    
+    
+    width: 30% ;    
+
+    margin-top: 0px;
+    margin-bottom: 400px;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5);   
+    
+    padding: 10px;
+    box-sizing: border-box;
+
+}
+
+/*사이드메뉴 제목*/
+.left-title{    
+
+    display: flex;        
+    justify-content: center;    
+    align-items: center;
+    height: 100px;
+}
+
+/*사이드메뉴 소제목*/
+ul, li{
+    list-style: none;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 10px;
+}
+
+/*사이드  대제목 간격*/
+.left-menu {
+    margin-bottom: 70px;
+}
+
+.myPage-a a {
+    text-decoration: none;
+    color: black;
+}
