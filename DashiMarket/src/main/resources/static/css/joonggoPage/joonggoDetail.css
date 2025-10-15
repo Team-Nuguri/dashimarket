@@ -55,6 +55,17 @@
     position: relative;
 }
 
+#trade-complete{
+        
+    position: absolute;
+    top: 5px;
+    left: 20px;
+    padding-left: 5px;
+    background-color: #949292;
+    border-radius: 10px;
+}
+
+
 #imageSlide>img{
     width: 500px;
     height: 500px;
