@@ -222,6 +222,7 @@ document.getElementById('report-btn').addEventListener('click', () => {
         'width=500,height=600,resizable=yes,scrollbars=no, left='+left+",top="+top
     
     );
+
 }); 
 
 
