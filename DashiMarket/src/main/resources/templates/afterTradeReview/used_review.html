@@ -16,7 +16,7 @@
 
   <main>
 	  
-	  <form id="uploadForm" method="post"  action="/review/write" enctype="multipart/form-data">
+	  <form id="uploadForm" method="post" th:action="@{/review/write}" enctype="multipart/form-data">
 		  
     <div class="logo-container">
       <div class="logo">
@@ -95,7 +95,7 @@
           <label for="image">
             <i class="fas fa-camera"></i>
           </label>
-          <input type="file" id="reviewImage" name="reviewImage" accept="image/*" style="display: none;">
+          <input type="file" id="image" name="reviewImage" accept="image/*" style="display: none;">
           <div class="preview" id="preview"></div>
         </div>
 
@@ -104,10 +104,10 @@
     </div>
     
      <!-- rating1~rating4 별점 hidden -->
-  <input type="hidden" name="rating1" id="hidden-rating1">
-  <input type="hidden" name="rating2" id="hidden-rating2">
-  <input type="hidden" name="rating3" id="hidden-rating3">
-  <input type="hidden" name="rating4" id="hidden-rating4">
+  <input type="hidden" name="question1" id="hidden-rating1">
+  <input type="hidden" name="question2" id="hidden-rating2">
+  <input type="hidden" name="question3" id="hidden-rating3">
+  <input type="hidden" name="question4" id="hidden-rating4">
   
   <input type="hidden" name="reviewType" value="joonggo">
   <input type="hidden" name="buyerNo" value="1"> <!-- 추후 변경요망 -->
