@@ -40,7 +40,6 @@ public class NoticeController {
 	@Autowired
 	private NoticeService service;
 	
-	// config.properties에서 공지사항 경로 읽어오기
 	@Value("${my.notice.location}")
     private String noticeLocation;
 	
@@ -55,23 +54,17 @@ public class NoticeController {
 			Model model,
 			@SessionAttribute(value = "loginMember", required = false) Member loginMember) {
 
-		// 페이지당 게시글 수
 		int pageSize = 10;
 
-		// 검색어 처리
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("query", query);
 		paramMap.put("offset", (currentPage - 1) * pageSize);
 		paramMap.put("pageSize", pageSize);
 
-		// 목록 조회
 		List<Notice> noticeList = service.selectNoticeList(paramMap);
-		// 전체 게시글 수 조회
 		int totalCount = service.getNoticeCount(query);
-		// 전체 페이지 수 계산
 		int totalPages = (int) Math.ceil((double) totalCount / pageSize);
 
-		// 페이지 그룹 계산 (1~10, 11~20, ...)
 		int pageGroupSize = 10;
 		int currentPageGroup = (currentPage - 1) / pageGroupSize;
 		int startPage = currentPageGroup * pageGroupSize + 1;
@@ -99,12 +92,10 @@ public class NoticeController {
     	String cookieName = "noticeView_" + noticeNo;
     	boolean isViewCountUpdated = false;
     	
-    	// 쿠키 체크
     	Cookie[] cookies = request.getCookies();
     	if(cookies != null) {
     		for (Cookie c : cookies) {
     			if (cookieName.equals(c.getName())) {
-    				// 이미 조회했으면 -> 조회수 증가 제한
     				isViewCountUpdated = true;
     				break;
     			}
@@ -112,26 +103,21 @@ public class NoticeController {
     	}
     	
     	if (!isViewCountUpdated) {
-            // 쿠키가 없으면 조회수 증가 및 쿠키 생성
             service.increaseViewCount(noticeNo);
 
             Cookie newCookie = new Cookie(cookieName, "true");
-            newCookie.setMaxAge(60 * 60 * 24); // 1일간 유지
-            newCookie.setPath("/"); // 모든 경로에서 유효
+            newCookie.setMaxAge(60 * 60 * 24);
+            newCookie.setPath("/");
             response.addCookie(newCookie);
         }
         
-        // 공지사항 상세 조회
         Notice notice = service.selectNoticeDetail(noticeNo);
         
         if(notice == null) {
             return "redirect:/notice";
         }
         
-        // 이전글 조회
         Notice prevNotice = service.selectPrevNotice(noticeNo);
-        
-        // 다음글 조회
         Notice nextNotice = service.selectNextNotice(noticeNo);
         
         model.addAttribute("notice", notice);
@@ -146,7 +132,6 @@ public class NoticeController {
 	public String noticeWriteForm(Model model,
 			@SessionAttribute(value = "loginMember", required = false) Member loginMember) {
 		
-		// 관리자 권한 체크
         if (loginMember == null || !"Y".equals(loginMember.getIsAdmin())) {
             return "redirect:/notice";
         }
@@ -165,7 +150,6 @@ public class NoticeController {
 			@SessionAttribute(value = "loginMember", required = false) Member loginMember,
 			RedirectAttributes ra) {
 		
-		// 관리자 권한 체크
 		if (loginMember == null || !"Y".equals(loginMember.getIsAdmin())) {
 	        return "redirect:/notice";
 	    }
@@ -174,12 +158,10 @@ public class NoticeController {
 		notice.setNoticeTitle(title);
 		notice.setNoticeContent(content);
 		notice.setMemberNo(loginMember.getMemberNo());
-		notice.setBoardCode(4);  // 공지사항 고정
+		notice.setBoardCode(4);
 		
-		// 게시글 등록 (selectKey로 noticeNo가 자동 생성됨)
 		int result = service.insertNotice(notice);
 		
-		// IMAGE 테이블에 이미지 등록
 	    if (result > 0 && file != null && !file.isEmpty()) {
 	        String savedFileName = saveFile(file);
 	        if (savedFileName != null) {
@@ -208,20 +190,17 @@ public class NoticeController {
 			Model model,
 			@SessionAttribute(value = "loginMember", required = false) Member loginMember) {
 		
-		// 관리자 권한 체크
 		if(loginMember == null || !"Y".equals(loginMember.getIsAdmin())) {
 			return "redirect:/notice";
 		}
 		
-		// 기존 게시글 정보 조회
 		Notice notice = service.selectNoticeDetail(noticeNo);
 
 		if (notice == null) {
 			return "redirect:/notice";
 		}
 		
-		// 모델에 데이터 추가
-		model.addAttribute("mode", "edit"); // 수정 모드
+		model.addAttribute("mode", "edit");
 		model.addAttribute("notice", notice);
 		
 		return "notice/notice-adminWrite";
@@ -237,7 +216,6 @@ public class NoticeController {
 			RedirectAttributes ra,
 			@SessionAttribute(value = "loginMember", required = false) Member loginMember) {
 		
-		// 관리자 권한 체크
 	    if (loginMember == null || !"Y".equals(loginMember.getIsAdmin())) {
 	        return "redirect:/notice";
 	    }
@@ -247,16 +225,13 @@ public class NoticeController {
 		notice.setNoticeTitle(title);
 		notice.setNoticeContent(content);
 		notice.setMemberNo(loginMember.getMemberNo());
-		notice.setBoardCode(4);  // 공지사항 고정
+		notice.setBoardCode(4);
 		
 		int result = service.updateNotice(notice);
 		
-		// 새 파일 업로드 시 기존 이미지 삭제 후 새로 등록
 	    if (result > 0 && file != null && !file.isEmpty()) {
-	        // 기존 이미지 삭제
 	        service.deleteImagesByBoardNo(String.valueOf(noticeNo));
 	        
-	        // 새 이미지 등록
 	        String savedFileName = saveFile(file);
 	        if (savedFileName != null) {
 	            Image image = new Image();
@@ -278,46 +253,42 @@ public class NoticeController {
 		}
 	}
 
-	// =========== 공지사항 삭제 처리 (DELETE 메서드로 변경) ===========
-		@DeleteMapping("/notice/delete/{noticeNo}")
-		@ResponseBody
-		public ResponseEntity<?> noticeDelete(
-				@PathVariable("noticeNo") int noticeNo,
-				@SessionAttribute(value = "loginMember", required = false) Member loginMember) {
-			
-			// 관리자 권한 체크
-	        if (loginMember == null || !"Y".equals(loginMember.getIsAdmin())) {
-	        	return ResponseEntity.status(HttpStatus.FORBIDDEN).body("권한이 없습니다.");
-	        }
+	// =========== 공지사항 삭제 처리 ===========
+	@DeleteMapping("/notice/delete/{noticeNo}")
+	@ResponseBody
+	public ResponseEntity<?> noticeDelete(
+			@PathVariable("noticeNo") int noticeNo,
+			@SessionAttribute(value = "loginMember", required = false) Member loginMember) {
+		
+        if (loginMember == null || !"Y".equals(loginMember.getIsAdmin())) {
+        	return ResponseEntity.status(HttpStatus.FORBIDDEN).body("권한이 없습니다.");
+        }
+	    	
+		int result = service.deleteNotice(noticeNo);
 
-			int result = service.deleteNotice(noticeNo);
-
-			if (result > 0) {
-				return ResponseEntity.ok("삭제 성공");
-			} else {
-				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("삭제 실패");
-			}
+		if (result > 0) {
+			return ResponseEntity.ok("삭제 성공");
+		} else {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("삭제 실패");
 		}
+	}
 	
-	// =========== 파일 저장 메서드 (중복 제거용 메서드) ===========
+	// =========== 파일 저장 메서드 ===========
     private String saveFile(MultipartFile file) {
         try {
-            // 업로드 디렉토리 생성
             File uploadDir = new File(noticeLocation);
             if (!uploadDir.exists()) {
                 uploadDir.mkdirs();
             }
 
-            // 파일명 중복 방지 (UUID 사용)
             String originalFilename = file.getOriginalFilename();
             String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
             String savedFileName = UUID.randomUUID().toString() + extension;
 
-            // 파일 저장 (실제 파일 시스템 경로에 저장)
             Path filePath = Paths.get(noticeLocation + savedFileName);
             Files.write(filePath, file.getBytes());
 
-            return savedFileName; // 파일명만 반환
+            return savedFileName;
         } catch (IOException e) {
             e.printStackTrace();
             return null;
