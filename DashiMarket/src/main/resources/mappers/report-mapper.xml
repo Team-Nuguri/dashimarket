@@ -4,6 +4,42 @@
 <mapper namespace="edu.og.project.admin.model.dao.ReportMapper">
 	
 	
+	<!--신고 조회-->
+	<select id="selectReportCheck" resultType="_int">
+		SELECT COUNT(*) FROM REPORT
+		WHERE REPORT_TARGET_ID = #{reportTargetId}
+		AND REPORT_MEMBER_NO = ${reportMemberNo}
+		
+	</select>
+	
+	
+	
+	
+	
+	<!--신고 insert-->
+	<insert id="insertReport" useGeneratedKeys="true">
+		
+		<selectKey order="BEFORE" resultType="_int" keyProperty="reportNo">
+			SELECT SEQ_REPORT_NO.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		INSERT INTO REPORT VALUES(
+			
+			${reportNo},
+			#{reportTarget},
+			#{reportTargetId},
+			#{reportReason},
+			SYSDATE,
+			NULL,
+			${reportCode},
+			${reportMemberNo},
+			${targetMemberNo},
+			default
+
+		)		
+		
+		
+	</insert>
 	
  
  

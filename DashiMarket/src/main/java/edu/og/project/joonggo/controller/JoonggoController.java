@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.og.project.common.dto.Member;
 import edu.og.project.goods.model.dto.Goods;
@@ -138,13 +139,49 @@ public class JoonggoController {
 	
 	// 로그인한 회원의 나의 위시리스트 (KJK)
 	@GetMapping("/myPage/wishlist")
-	public String wishListPage(Model model, @AuthenticationPrincipal Member loginMember) {
+	public String wishListPage(
+			 Model model, 
+			 @SessionAttribute(value = "loginMember", required = false) Member loginMember,
+			 RedirectAttributes ra
+			 ) {
+		
+		// 로그인 체크
+        if (loginMember == null) {
+            ra.addFlashAttribute("message", "로그인이 필요합니다.");
+            return "redirect:/member/login";
+        }
+       
+        String message = null;
 
 	    List<Joonggo> wishList = service.selectJoonggoWishList(loginMember.getMemberNo());
+	    
 	    model.addAttribute("wishList", wishList);
 
 	    return "myPage/myPage-wishlist";
 	}
+	
+	// 위시리스트 삭제
+	@DeleteMapping("/myPage/wishlist/delete/{boardNo}")
+	@ResponseBody
+	public String deleteWishItem(
+	        @PathVariable("boardNo") String boardNo,
+	        @SessionAttribute(value = "loginMember", required = false) Member loginMember,
+			RedirectAttributes ra
+	 ) 
+	
+	{
+
+		// 로그인 체크
+        if (loginMember == null) {
+            ra.addFlashAttribute("message", "로그인이 필요합니다.");
+            return "redirect:/member/login";
+        }
+      
+	    int result = service.deleteWishItem(loginMember.getMemberNo(), boardNo);
+
+	    return result > 0 ? "success" : "fail";
+	}
+
 
 	
 	
