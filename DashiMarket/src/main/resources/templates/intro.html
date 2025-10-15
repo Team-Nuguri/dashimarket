@@ -20,18 +20,26 @@
 
         <!-- 상단 로그인 버튼 -->
         <div id="header-login">
-            <a th:href="@{/member/login}" th:unless="${session.loginMember}" class="text-size-18 bold-text">로그인</a>
-            <span class="text-size-18 bold-text"
-                th:if="${session.loginMember}">[[${session.loginMember.memberNickname}]]님 환영합니다!</span>
+            <div class="header-actions">
+                <a th:href="@{/member/login}" th:unless="${session.loginMember}"
+                    class="text-size-18 bold-text login-link">로그인</a>
 
-            <!-- ✅ 관리자 페이지 버튼만 추가 -->
-            <a th:if="${session.loginMember != null and session.loginMember.isAdmin == 'Y'}" th:href="@{/admin/main}"
-                class="admin-page-btn">
-                관리자 페이지
-            </a>
-            
-            <a th:href="@{/member/logout}" th:if="${session.loginMember}" class="text-size-18 bold-text"
-                id="logoutBtn">로그아웃</a>
+                <div th:if="${session.loginMember}" class="user-info">
+                    <span class="text-size-18 bold-text welcome-text">
+                        [[${session.loginMember.memberNickname}]]님 환영합니다!
+                    </span>
+                    <div class="action-buttons">
+                        <a th:href="@{/member/logout}" class="btn-logout">로그아웃</a>
+                        <a th:if="${session.loginMember.isAdmin == 'Y'}" th:href="@{/admin/main}" class="btn-admin">
+                            <svg class="admin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"
+                                    stroke-width="2" />
+                            </svg>
+                            관리자 페이지
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
 
 
@@ -61,7 +69,7 @@
 
                         <!-- 로그인한 상태: 회원가입시 저장된 기본 동네 -->
                         <span th:if="${session.loginMember}">
-                            [[${session.loginMember.jibunAddress.split('')[#arrays.length(session.loginMember.jibunAddress.split(' ')) - 2]}]]
+                            [[${session.loginMember.jibunAddress.split(' ')[#arrays.length(session.loginMember.jibunAddress.split(' ')) - 2]}]]
                         </span>
 
                         <!-- 로그인 안 한 상태: 현재 위치 -->
