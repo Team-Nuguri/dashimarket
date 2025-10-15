@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>판매자 정보</title>
+
+    <link rel="stylesheet" th:href="@{/css/common/header.css}">
+    <link rel="stylesheet" th:href="@{/css/common/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/common/font.css}">
+    <link rel="stylesheet" th:href="@{/css/seller/seller-profile.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <th:block th:replace="~{common/header}"></th:block>
+
+    <main class="container">
+        <!-- 판매자 프로필 섹션 -->
+        <section class="seller-info">
+            <div class="profile-container">
+                <img th:unless="${seller.profilePath}" th:src="@{/images/common/user.png}" class="profile-img">
+                <img th:if="${seller.profilePath}" th:src="${seller.profilePath}" class="profile-img">
+
+                <div class="seller-details">
+                    <div class="seller-name-container">
+                        <h2 th:text="${seller.memberNickname}">판매자 닉네임</h2>
+                        <span class="location" th:text="${seller.defaultDong}">관철동</span>
+                    </div>
+
+                    <div class="rating-container">
+                        <!-- 별점 동적 생성 -->
+                        <div class="rating-stars">
+                            <th:block th:each="i : ${#numbers.sequence(1, 5)}">
+                                <i th:if="${i <= avgRating}" class="fa-solid fa-star"></i>
+                                <i th:if="${i > avgRating && i - avgRating < 1}"
+                                    class="fa-solid fa-star-half-stroke"></i>
+                                <i th:if="${i > avgRating && i - avgRating >= 1}" class="fa-regular fa-star"></i>
+                            </th:block>
+                            <span class="rating-score" th:text="${avgRating}">4.8</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 탭 메뉴 -->
+        <section class="tab-menu">
+            <button class="tab-btn active" data-tab="products">
+                <span>판매 물품</span>
+                <span class="count" th:text="${productCount}">11</span>
+            </button>
+            <button class="tab-btn" data-tab="reviews">
+                <span>거래후기</span>
+                <span class="count" th:text="${reviewCount}">3</span>
+            </button>
+        </section>
+
+        <!-- 판매 물품 영역 -->
+        <section id="products-container" class="content-area active">
+            <div class="loading">로딩 중...</div>
+            <div class="product-list"></div>
+        </section>
+
+        <!-- 거래후기 영역 -->
+        <section id="reviews-container" class="content-area">
+            <div class="loading">로딩 중...</div>
+            <div class="review-list"></div>
+        </section>
+    </main>
+
+    <th:block th:replace="~{common/footer}"></th:block>
+
+    <script th:inline="javascript">
+        const memberNo = /*[[${seller.memberNo}]]*/ '';
+    </script>
+    <script th:src="@{/js/seller/seller-profile.js}"></script>
+</body>
+
+</html>

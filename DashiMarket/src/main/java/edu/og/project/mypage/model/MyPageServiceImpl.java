@@ -1,6 +1,8 @@
 package edu.og.project.mypage.model;
 
 import java.io.File;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -172,6 +174,12 @@ public class MyPageServiceImpl implements MyPageService {
    public boolean sendSecessionEmail(Member loginMember, java.util.List<String> reasons, String detailedReason) {
        return emailService.sendSecessionReasonEmail(loginMember, reasons, detailedReason);
    }
+
+@Override
+public List<Map<String, Object>> selectGoods(String MemberEmail) {
+	
+	return mapper.selectGoods(MemberEmail);
+}
 	
    
 }

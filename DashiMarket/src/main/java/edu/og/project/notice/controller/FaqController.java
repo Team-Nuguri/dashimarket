@@ -1,17 +1,10 @@
 package edu.og.project.notice.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,10 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import edu.og.project.common.dto.Image;
 import edu.og.project.common.dto.Member;
 import edu.og.project.notice.model.dto.Faq;
 import edu.og.project.notice.model.service.FaqService;
@@ -39,12 +30,6 @@ public class FaqController {
 
 	@Autowired
 	private FaqService service;
-	
-	@Value("${my.notice.location}")
-	private String faqLocation;
-	
-	@Value("${my.notice.webpath}")
-	private String faqWebPath;
 	
 	// =========== FAQ 목록 조회 (검색 + 페이징) ===========
 	@GetMapping("/faq")
@@ -116,9 +101,8 @@ public class FaqController {
 	// =========== 관리자 전용 글쓰기 등록 처리 ===========
 	@PostMapping("/faq/write")
 	public String faqWriteSubmit(
-			@RequestParam("admWriteTitle") String title,
-			@RequestParam("admWriteContent") String content,
-			@RequestParam(value = "admWriteFileInput", required = false) MultipartFile file,
+			@RequestParam("faqQuestion") String question,
+			@RequestParam("faqAnswer") String answer,
 			@SessionAttribute(value = "loginMember", required = false) Member loginMember,
 			RedirectAttributes ra) {
 		
@@ -127,25 +111,12 @@ public class FaqController {
 		}
 		
 		Faq faq = new Faq();
-		faq.setBoardType("faq");
-		faq.setFaqTitle(title);
-		faq.setFaqContent(content);
+		faq.setFaqTitle(question);
+		faq.setFaqContent(answer);
 		faq.setBoardCode(5);
+		faq.setMemberNo(loginMember.getMemberNo());
 		
 		int result = service.insertFaq(faq);
-		
-		if (result > 0 && file != null && !file.isEmpty()) {
-			String savedFileName = saveFile(file);
-			if (savedFileName != null) {
-				Image image = new Image();
-				image.setImagePath(faqWebPath + savedFileName);
-				image.setImageRename(savedFileName);
-				image.setImageOrder(0);
-				image.setBoardNo(faq.getFaqNo());
-				
-				service.insertImage(image);
-			}
-		}
 		
 		if (result > 0) {
 			ra.addFlashAttribute("message", "FAQ가 등록되었습니다.");
@@ -182,9 +153,8 @@ public class FaqController {
 	@PostMapping("/faq/edit/{faqNo}")
 	public String faqEditSubmit(
 			@PathVariable("faqNo") int faqNo,
-			@RequestParam("admWriteTitle") String title,
-			@RequestParam("admWriteContent") String content,
-			@RequestParam(value = "admWriteFileInput", required = false) MultipartFile file,
+			@RequestParam("faqQuestion") String question,
+			@RequestParam("faqAnswer") String answer,
 			RedirectAttributes ra,
 			@SessionAttribute(value = "loginMember", required = false) Member loginMember) {
 		
@@ -194,27 +164,12 @@ public class FaqController {
 		
 		Faq faq = new Faq();
 		faq.setFaqNo(String.valueOf(faqNo));
-		faq.setBoardType("faq");
-		faq.setFaqTitle(title);
-		faq.setFaqContent(content);
+		faq.setFaqTitle(question);
+		faq.setFaqContent(answer);
 		faq.setBoardCode(5);
+		faq.setMemberNo(loginMember.getMemberNo()); 
 		
 		int result = service.updateFaq(faq);
-		
-		if (result > 0 && file != null && !file.isEmpty()) {
-			service.deleteImagesByBoardNo(String.valueOf(faqNo));
-			
-			String savedFileName = saveFile(file);
-			if (savedFileName != null) {
-				Image image = new Image();
-				image.setImagePath(faqWebPath + savedFileName);
-				image.setImageRename(savedFileName);
-				image.setImageOrder(0);
-				image.setBoardNo(String.valueOf(faqNo));
-				
-				service.insertImage(image);
-			}
-		}
 		
 		if (result > 0) {
 			ra.addFlashAttribute("message", "FAQ가 수정되었습니다.");
@@ -242,28 +197,6 @@ public class FaqController {
 			return ResponseEntity.ok("삭제 성공");
 		} else {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("삭제 실패");
-		}
-	}
-	
-	// =========== 파일 저장 메서드 ===========
-	private String saveFile(MultipartFile file) {
-		try {
-			File uploadDir = new File(faqLocation);
-			if (!uploadDir.exists()) {
-				uploadDir.mkdirs();
-			}
-			
-			String originalFilename = file.getOriginalFilename();
-			String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
-			String savedFileName = UUID.randomUUID().toString() + extension;
-			
-			Path filePath = Paths.get(faqLocation + savedFileName);
-			Files.write(filePath, file.getBytes());
-			
-			return savedFileName;
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
 		}
 	}
 	
@@ -301,5 +234,4 @@ public class FaqController {
 	    
 	    return ResponseEntity.ok("이미 조회");
 	}
-
 }

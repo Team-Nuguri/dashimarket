@@ -1,5 +1,8 @@
 package edu.og.project.mypage.model;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.web.multipart.MultipartFile;
 import edu.og.project.common.dto.Member;
 
@@ -44,6 +47,16 @@ public interface MyPageService {
 	 * @param detailedReason 상세 사유
 	 * @return 이메일 전송 성공 시 true, 실패 시 false
 	 */
-	boolean sendSecessionEmail(Member loginMember, java.util.List<String> reasons, String detailedReason);
+	boolean sendSecessionEmail(Member loginMember, List<String> reasons, String detailedReason);
 
+
+	/**
+	 * 굿즈 거래
+	 * @param 
+	 * @param 
+	 * @param 
+	 * @return 
+	 */
+	List<Map<String, Object>> selectGoods(String memberEmail);
+	
 }
