@@ -48,13 +48,13 @@
             <result property="imagePath" column="IMG_PATH"/>
             <result property="imageRename" column="IMG_RENAME"/>
             <result property="imageOrder" column="IMG_ORDER"/>
-            <result property="boardNo" column="BOARD_NO"/>
+            <result property="boardNo" column="IMG_BOARD_NO"/>
         </collection>
     </resultMap>
     
-    <select id="selectNoticeDetail" resultMap="NoticeResultMap">
+    <select id="selectNoticeDetail" parameterType="int" resultMap="NoticeResultMap">
         SELECT
-            B.BOARD_NO,
+            B.BOARD_NO AS BOARD_NO,
             B.BOARD_TITLE,
             B.BOARD_CONTENT,
             TO_CHAR(B.BOARD_CREATE_DATE, 'YYYY-MM-DD') AS NOTICE_CREATE_DATE,
@@ -67,19 +67,20 @@
             I.IMG_NO,
             I.IMG_PATH,
             I.IMG_RENAME,
-            I.IMG_ORDER
+            I.IMG_ORDER,
+            I.BOARD_NO AS IMG_BOARD_NO
         FROM BOARD B
         LEFT JOIN IMAGE I ON B.BOARD_NO = I.BOARD_NO
-        WHERE B.BOARD_NO = #{noticeNo}
+        WHERE B.BOARD_NO = TO_CHAR(#{noticeNo})
         AND B.BOARD_CODE = 4
         AND B.DELETE_FL = 'N'
-        ORDER BY I.IMG_ORDER ASC
+        ORDER BY NVL(I.IMG_ORDER, 0) ASC
     </select>
 
     <!-- 공지사항 글 등록 (selectKey로 noticeNo 미리 생성) -->
     <insert id="insertNotice" parameterType="edu.og.project.notice.model.dto.Notice">
         <selectKey keyProperty="noticeNo" resultType="string" order="BEFORE">
-            SELECT SEQ_NOTICE_NO.NEXTVAL FROM DUAL
+            SELECT TO_CHAR(SEQ_NOTICE_NO.NEXTVAL) FROM DUAL
         </selectKey>
         
         INSERT INTO BOARD (
@@ -121,28 +122,28 @@
     </insert>
 
     <!-- 이전글 조회 -->
-    <select id="selectPrevNotice" resultType="edu.og.project.notice.model.dto.Notice">
+    <select id="selectPrevNotice" parameterType="int" resultType="edu.og.project.notice.model.dto.Notice">
         SELECT
             BOARD_NO AS noticeNo,
             BOARD_TITLE AS noticeTitle
         FROM BOARD
-        WHERE BOARD_NO <![CDATA[<]]> #{noticeNo}
+        WHERE TO_NUMBER(BOARD_NO) <![CDATA[<]]> #{noticeNo}
         AND BOARD_CODE = 4
         AND DELETE_FL = 'N'
-        ORDER BY BOARD_NO DESC
+        ORDER BY TO_NUMBER(BOARD_NO) DESC
         FETCH FIRST 1 ROWS ONLY
     </select>
 
     <!-- 다음글 조회 -->
-    <select id="selectNextNotice" resultType="edu.og.project.notice.model.dto.Notice">
+    <select id="selectNextNotice" parameterType="int" resultType="edu.og.project.notice.model.dto.Notice">
         SELECT
             BOARD_NO AS noticeNo,
             BOARD_TITLE AS noticeTitle
         FROM BOARD
-        WHERE BOARD_NO > #{noticeNo}
+        WHERE TO_NUMBER(BOARD_NO) > #{noticeNo}
         AND BOARD_CODE = 4
         AND DELETE_FL = 'N'
-        ORDER BY BOARD_NO ASC
+        ORDER BY TO_NUMBER(BOARD_NO) ASC
         FETCH FIRST 1 ROWS ONLY
     </select>
 
@@ -158,27 +159,26 @@
     </update>
     
     <!-- 게시글에 연결된 이미지 삭제 -->
-    <delete id="deleteImagesByBoardNo">
+    <delete id="deleteImagesByBoardNo" parameterType="String">
         DELETE FROM IMAGE
         WHERE BOARD_NO = #{boardNo}
     </delete>
 
     <!-- 공지사항 삭제 (논리 삭제) -->
-    <update id="deleteNotice">
+    <update id="deleteNotice" parameterType="int">
         UPDATE BOARD
         SET DELETE_FL = 'Y'
-        WHERE BOARD_NO = #{noticeNo}
+        WHERE BOARD_NO = TO_CHAR(#{noticeNo})
         AND BOARD_CODE = 4
     </update>
 
     <!-- 조회수 증가 -->
-    <update id="increaseViewCount">
+    <update id="increaseViewCount" parameterType="int">
         UPDATE BOARD
         SET POST_VIEWS = POST_VIEWS + 1
-        WHERE BOARD_NO = #{noticeNo}
+        WHERE BOARD_NO = TO_CHAR(#{noticeNo})
         AND BOARD_CODE = 4
         AND DELETE_FL = 'N'
     </update>
-
 
 </mapper>
