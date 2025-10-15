@@ -52,6 +52,10 @@ public class Joonggo {
 	private String boardNo;
 	private String boardTitle;
 	
+	// 거래 완료 여부
+	// 0 이면 거래 x 아니면 거래 완
+	private int tradeCheck;
+	
 	
 
 }
