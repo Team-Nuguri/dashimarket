@@ -226,3 +226,28 @@ section {
     color: white;
 }
 
+/* 관리자 페이지 버튼 스타일 */
+.admin-page-btn {
+    display: inline-block;
+    margin-left: 20px;
+    padding: 8px 18px;
+    background: linear-gradient(135deg, #52B291 0%, #3D9974 100%);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(82, 178, 145, 0.3);
+    transition: all 0.3s ease;
+}
+
+.admin-page-btn:hover {
+    background: linear-gradient(135deg, #3D9974 0%, #2A7A5C 100%);
+    box-shadow: 0 6px 15px rgba(82, 178, 145, 0.5);
+    transform: translateY(-2px);
+}
+
+.admin-page-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(82, 178, 145, 0.3);
+}
