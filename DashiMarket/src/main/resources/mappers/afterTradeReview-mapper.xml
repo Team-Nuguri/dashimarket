@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.og.project.afterTradeReview.model.dao.afterTradeReviewMapper">
+	
+	<!-- 1️. 중고상품/굿즈 후기 본문 INSERT -->
+    <!-- <insert id="reviewInsert"
+            parameterType="edu.og.project.afterTradeReview.model.dto.ReviewWrite"
+            useGeneratedKeys="true"
+            keyProperty="reviewNo">  -->
+            
+    <insert id="reviewInsert" parameterType="ReviewWrite">
+		
+      <selectKey keyProperty="reviewNo" resultType="long" order="BEFORE">
+        SELECT SEQ_REVIEW_NO.NEXTVAL FROM DUAL
+      </selectKey>
+
+        INSERT INTO REVIEW (
+            REVIEW_NO,
+            "COMMENT",
+            REVIEW_FILE_PATH,
+            REVIEW_FILE_NAME,
+            REVIEW_DATE, 
+             BUYER_NO,
+             BOARD_NO
+             
+        ) VALUES (
+            #{reviewNo},   
+            #{comment},
+            #{reviewFilePath},
+            #{reviewFileName},
+            SYSDATE, 
+            #{buyerNo},
+            #{boardNo}
+        )
+    </insert>
+
+
+    <!-- 2️. 중고상품/굿즈 후기 별점 INSERT -->
+    <insert id="reviewRatingInsert"
+            parameterType="edu.og.project.afterTradeReview.model.dto.ReviewWrite">
+
+        INSERT INTO REVIEW_QUESTION (
+            REVIEW_NO,
+            QUESTION1,
+            QUESTION2,
+            QUESTION3,
+            QUESTION4
+        ) VALUES (
+            #{reviewNo},   <!-- 첫 insert에서 set된 reviewNo 사용 -->
+            #{question1},
+            #{question2},
+            #{question3},
+            #{question4}
+        )
+    </insert>
+ 
+ 
+</mapper>

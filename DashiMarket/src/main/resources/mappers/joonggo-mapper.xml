@@ -342,15 +342,13 @@
 		ORDER BY BOARD_CREATE_DATE DESC
 	</select>
 	
-	<!-- 찜한 중고상품목록 삭제 (KJK) -->
+	<!-- 중고상품 위시리스트 목록 삭제 (KJK) -->
 	<delete id="deleteJoonggoWishList">
 		DELETE FROM "LIKE"
-		WHERE POST_NO = #{boardNo}
-		AND MEMBER_NO = ${memberNo}
+		WHERE POST_NO = #{param2}
+		AND MEMBER_NO = #{param1}
 	</delete>
 
-
-	
 	
 	<!--중고 상세 조회-->
 	<select id="selectJoonggoDetail" resultMap="joonggo_rm">
