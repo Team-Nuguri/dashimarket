@@ -18,7 +18,9 @@
             PROFILE_PATH as profilePath,
             TO_CHAR(ENROLL_DATE, 'YYYY"년" MM"월" DD"일"') AS enrollDate,
             SECESSIONFL as secessionFl,
-            IS_ADMIN as isAdmin
+            IS_ADMIN as isAdmin,
+            JIBUN_ADDRESS as jibunAddress
+            
         FROM MEMBER
         WHERE MEMBER_NO = #{memberNo}
           AND SECESSIONFL = 'N'

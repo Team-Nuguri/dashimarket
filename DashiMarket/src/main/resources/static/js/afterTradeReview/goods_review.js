@@ -68,6 +68,6 @@
 
     // 폼 제출
     document.getElementById('uploadForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      alert('굿즈거래 후기가 제출되었습니다!');
+      // e.preventDefault();
+      // alert('굿즈거래 후기가 제출되었습니다!');
     });

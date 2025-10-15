@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>굿즈 거래 내역</title>
+    <title>굿즈 주문/거래 내역</title>
 
     <!-- 폰트 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,8 +39,8 @@
                         <div class="search-box">
                             <label>검색</label>
                             <fieldset>
-                                <input type="text" name="query" placeholder="구매자명을 입력하세요." autocomplete="off">
                                 <button class="searchBtn fa-solid fa-magnifying-glass"></button>
+                                <input type="text" name="query" id="search-query" placeholder="구매자명/상품명을 입력하세요." autocomplete="off">
                             </fieldset>
                         </div>
                         
@@ -48,7 +48,6 @@
                         <div class="detail-search">
                             <label>거래 상태</label>
                             <div class="checkbox-group">
-                                <input type="checkbox">전체
                                 <input type="checkbox">배송전
                                 <input type="checkbox">배송중
                                 <input type="checkbox">배송완료
@@ -68,124 +67,36 @@
                             <!-- 초기화/검색 버튼 -->
                             <div class="search-buttons">
                                 <button type="reset" class="basic-btn">초기화</button>
-                                <button type="submit" class="color-btn">검색</button>
+                                <button type="button" class="color-btn" id="searchBtn">검색</button>
                             </div>
                         </div>
                     </form>
                 </div>
 
                 <div class="result-middle">
-                    <select class="select-item">
-                        <option th:value="최신순">최신순</option>
-                        <option th:value="가격순">가격순</option>
+                    <select class="select-item" id="sortSelect" onchange="loadGoodsOrder()">
+                        <option th:value="'latest'">최신순</option>
+                        <option th:value="'price'">가격순</option>
                     </select>
                 </div>
                 
-                <!-- 회원조회 테이블 -->
+                <!-- 상품 거래내역 테이블 -->
                 <table class="table-content">
-                    <tr class="table-title">
-                        <td>거래번호</td>
-                        <td>거래 상태</td>
-                        <td>구매자명</td>
-                        <td>상품명</td>
-                        <td>구매자 연락처</td>
-                        <td>배송지</td>
-                        <td>결제수단</td>
-                        <td>결제금액</td>
-                        <td>결제일</td>
-                    </tr>
-                    <tr>
-                        <td>23</td>
-                        <td>배송전</td>
-                        <td>너구리</td>
-                        <td>다시마 피규어</td>
-                        <td>01045678999</td>
-                        <td>서울특별시 종로구 관철동 대왕빌딩 9층 903호</td>
-                        <td>카드결제</td>
-                        <td>21,000</td>
-                        <td>2025.09.28</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                    <thead>
+                        <tr class="table-title">
+                            <td>주문번호</td>
+                            <td>배송상태</td>
+                            <td>수령인</td>
+                            <td>수령인 연락처</td>
+                            <td>상품명</td>
+                            <td>주문수량</td>
+                            <td>배송지</td>
+                            <td>결제수단</td>
+                            <td>결제금액</td>
+                            <td>결제일</td>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
                 </table>
 
             </section>

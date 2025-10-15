@@ -24,6 +24,9 @@ public class OrderDto {
 	private String recipientName; // 수령자 이름
 	private String recipientTel; //수령자 번호
 	private String address; // 배송 주소
+	private String deliveryStatus; // 배송 상태
+	private String orderedName; // 주문한 상품명
+	private int orderQuantity; // 주문 수량
 	
 	
 	// 결제 정보
