@@ -69,11 +69,12 @@ public class JoonggoServiceImpl implements JoonggoService {
 
 	// 중고상품 목록 정렬 (KJK)
 	@Override
-	public Map<String, Object> sortJoonggoList(String boardType, String finalDong, int cp, String sortType) {
+	public Map<String, Object> sortJoonggoList(String boardType, String finalDong, int cp, String sortType, String categoryId) {
 		
 		Map<String, Object> param = new HashMap<>();
 		param.put("boardType", boardType);
 		param.put("finalDong", finalDong);
+		param.put("categoryId", categoryId);
 		// 특정 게시판의 삭제되지 않은 게시글 수 조회
 		int listCount = mapper.getJoonggoListCount(param);
 
@@ -86,8 +87,8 @@ public class JoonggoServiceImpl implements JoonggoService {
 
 		if(sortType != null) {
 
-			// 인기순(관심순, 조회수?)
-			if(sortType.equals("popular")) sortList = mapper.sortJoonggoViews(param, rowBounds);
+			// 최신순
+			if(sortType.equals("latest")) sortList = mapper.sortJoonggoLatest(param, rowBounds);
 
 			// 낮은 가격순
 			if(sortType.equals("lowPrice")) sortList = mapper.sortJoonggoLowPrice(param, rowBounds);
@@ -389,15 +390,21 @@ public class JoonggoServiceImpl implements JoonggoService {
 	
 	// 중고 상품 카테고리(대분류) 목록 조회 (KJK)
 	@Override
-	public Map<String, Object> selectJoonggoCategoryList(String categoryId, int cp) {
+	public Map<String, Object> selectJoonggoCategoryList(String categoryId, String finalDong, int cp, String sortType) {
 		
-		 int listCount = mapper.getJoonggoCategoryListCount(categoryId);
+		Map<String, Object> param = new HashMap<>();
+		param.put("categoryId", categoryId);
+		param.put("finalDong", finalDong);
+		param.put("sortType", sortType);
+		
+		// 특정 게시판의 삭제되지 않은 게시글 수 조회
+		 int listCount = mapper.getJoonggoCategoryListCount(param);
 		 
 		  Pagination pagination = new Pagination(cp, listCount, 16); int offset =
 		 (pagination.getCurrentPage() - 1) * pagination.getLimit(); RowBounds
 		  rowBounds = new RowBounds(offset, pagination.getLimit());
 		  
-		  List<Joonggo> boardList = mapper.selectJoonggoCategoryList(categoryId, rowBounds);
+		  List<Joonggo> boardList = mapper.selectJoonggoCategoryList(param, rowBounds);
 		  
 		  Map<String, Object> map = new HashMap<>(); map.put("pagination", pagination);
 		  map.put("boardList", boardList);
@@ -407,17 +414,23 @@ public class JoonggoServiceImpl implements JoonggoService {
 
 	// 중고 상품 카테고리(중분류) 목록 조회 (KJK)
 	@Override
-	public Map<String, Object> selectJoonggoCategoryList2(String categoryId, int cp) {
+	public Map<String, Object> selectJoonggoCategoryList2(String categoryId, String finalDong, int cp, String sortType) {
 		
-		 int listCount = mapper.getJoonggoCategoryListCount2(categoryId);
+		Map<String, Object> param = new HashMap<>();
+		param.put("categoryId", categoryId);
+		param.put("finalDong", finalDong);
+		param.put("sortType", sortType);
+		
+		 int listCount = mapper.getJoonggoCategoryListCount2(param);
 		 
 		  Pagination pagination = new Pagination(cp, listCount, 16); int offset =
 		 (pagination.getCurrentPage() - 1) * pagination.getLimit(); RowBounds
 		  rowBounds = new RowBounds(offset, pagination.getLimit());
 		  
-		  List<Joonggo> boardList = mapper.selectJoonggoCategoryList2(categoryId, rowBounds);
+		  List<Joonggo> boardList = mapper.selectJoonggoCategoryList2(param, rowBounds);
 		  
-		  Map<String, Object> map = new HashMap<>(); map.put("pagination", pagination);
+		  Map<String, Object> map = new HashMap<>(); 
+		  map.put("pagination", pagination);
 		  map.put("boardList", boardList);
 		  
 		  return map;
