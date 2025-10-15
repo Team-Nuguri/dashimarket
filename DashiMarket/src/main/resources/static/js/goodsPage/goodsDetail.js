@@ -183,7 +183,7 @@ function goodsQnaList(boardNo, cp = 1, canScroll = false) {
 /* 수정 삭제 */
 document.getElementById("ud-menu")?.addEventListener("click", () => {
 
-    document.querySelector(".dropdown-menu").classList.toggle("show");
+    document.querySelector(".goods-dropdown-menu").classList.toggle("show");
 
 
 })
