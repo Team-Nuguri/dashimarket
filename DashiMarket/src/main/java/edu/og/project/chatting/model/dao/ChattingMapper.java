@@ -38,6 +38,9 @@ public interface ChattingMapper {
 
 	// (중고)새 채팅방 생성
 	public int insertJoonggoRoom(ChattingRoom chat);
+
+	// 채팅방 그냥 나가기
+	public boolean exitChatRoom(Map<String, Integer> map);
 	
 
 

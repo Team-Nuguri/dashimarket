@@ -80,7 +80,8 @@
 		    WHERE M.CHATTING_NO = R.CHATTING_NO) MAX_MESSAGE_NO
 		
 		FROM CHATTING_ROOM R
-		WHERE OPEN_MEMBER = ${memberNo} OR PARTCIPANT = ${memberNo}
+		WHERE (OPEN_MEMBER = ${memberNo} OR PARTCIPANT = ${memberNo})
+		AND R.CHAT_DELETE_FL = 'N'
 		ORDER BY MAX_MESSAGE_NO DESC NULLS LAST
 	</select>
 	
@@ -131,6 +132,7 @@
         WHERE PRODUCT_NO = #{productNo}
         AND ((PARTCIPANT = #{sellerNo} AND OPEN_MEMBER = #{buyerNo}) 
         	OR (PARTCIPANT = #{buyerNo} AND OPEN_MEMBER = #{sellerNo}))
+        AND CHAT_DELETE_FL = 'N'
 	</select>
 	
 	<!-- (중고)새 채팅방 생성 -->
@@ -142,6 +144,15 @@
 		INSERT INTO CHATTING_ROOM (CHATTING_NO, PRODUCT_NO, PARTCIPANT, OPEN_MEMBER, CHATTING_DATE)
         VALUES (#{chattingNo}, #{productNo}, #{sellerNo}, #{buyerNo}, SYSDATE)
 	</insert>
+	
+	<!-- 채팅방 그냥 나가기 -->
+	<update id="exitChatRoom">
+		UPDATE CHATTING_ROOM SET
+		CHAT_DELETE_FL = 'Y'
+		WHERE CHATTING_NO = #{chattingNo}
+		AND (OPEN_MEMBER = ${memberNo} AND PARTCIPANT = ${targetNo})
+		OR (OPEN_MEMBER = ${targetNo} AND PARTCIPANT = ${memberNo})
+	</update>
 
 
 </mapper>

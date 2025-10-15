@@ -122,10 +122,6 @@ jChatBtn?.addEventListener("click", (e)=>{
     const sellerNo = e.currentTarget.getAttribute("data-seller");
     const buyerNo = loginMemberNo;
 
-    console.log(productNo)
-    console.log(sellerNo)
-    console.log(buyerNo)
-
     joonggoChatEnter(productNo, sellerNo, buyerNo); 
 })
 
@@ -244,6 +240,11 @@ function chattingEnter(e) {
     .then(resp => resp.text())
     .then(chattingNo => {
 
+        console.log(targetNo)
+        console.log(chattingNo)
+        console.log(location.href)
+
+
         // 채팅방 목록 조회 - 새롭게 비동기로 화면 만듬
         selectRoomList();
 
@@ -271,11 +272,12 @@ function chattingEnter(e) {
 
 // 비동기로 채팅방 목록 조회
 function selectRoomList(){
-    //console.log("현재 선택되어야 할 채팅방 번호 (selectChattingNo):", selectChattingNo); 
+    console.log("📡 selectRoomList() 호출됨");
     fetch("/chatting/roomList")
     .then(resp => resp.json())
     .then(roomList => {
-        //console.log(roomList)
+        console.log("📦 서버에서 받은 roomList:", roomList);
+        console.log(roomList)
 
         const chattingList = document.querySelector(".chatting-list")
         chattingList.innerHTML = "";
@@ -392,7 +394,7 @@ function selectMessage() {
     fetch("/chatting/selectMessageList?chattingNo=" + selectChattingNo + "&memberNo=" + loginMemberNo)
     .then(resp => resp.json())
     .then(messageList => {
-        //console.log(messageList)
+        console.log(messageList)
 
         const ul = document.querySelector(".display-chatting");
         ul.innerHTML = "";
@@ -504,6 +506,21 @@ function selectMessage() {
     .catch(err => console.log(err))
 }
 
+// 판매자만 예약, 거래완료 버튼 보이게함
+function showSellerButtons(loginMemberNo, currentSellerNo) {
+    console.log(loginMemberNo)
+    console.log(currentSellerNo)
+
+    if (loginMemberNo === currentSellerNo) {
+        reserve.style.display = "inline-block";
+        complete.style.display = "inline-block";
+    } else {
+        reserve.style.display = "none";
+        complete.style.display = "none";
+    }
+}
+
+
 // 예약, 거래완료 버튼 클릭시 이벤트
 const reserve = document.getElementById("reserve")
 const complete = document.getElementById("complete")
@@ -530,20 +547,6 @@ reserve?.addEventListener("click", () => {
         }
     }
 });
-
-// 판매자만 예약, 거래완료 버튼 보이게함
-function showSellerButtons(loginMemberNo, currentSellerNo) {
-    console.log(loginMemberNo)
-    console.log(currentSellerNo)
-
-    if (loginMemberNo === currentSellerNo) {
-        reserve.style.display = "inline-block";
-        complete.style.display = "inline-block";
-    } else {
-        reserve.style.display = "none";
-        complete.style.display = "none";
-    }
-}
 
 // 예약, 거래완료 상태 변경 함수
 function updateProductStatus(status) {
@@ -596,27 +599,79 @@ document?.addEventListener("click", (e) => {
     }
 });
 
-// 신고후 나가기, 나가기 confirm으로 처리
+// 나가기/신고 후 나가기
 const reportExit = document.getElementById("report-exit")
 const justExit = document.getElementById("just-exit")
 
 // 신고후 나가기
 reportExit?.addEventListener("click", () => {
     if (confirm("정말 신고 후 나가시겠습니까?")) {
-        // 확인 눌렀을 때 실행
-        alert("신고 후 나가기 처리되었습니다.");
-        // 여기서 신고 처리 + 나가기 로직 실행
+        const reason = prompt("신고 사유를 입력해주세요.");
+        if (!reason || reason.trim() === "") {
+            alert("신고 사유를 입력해야 합니다.");
+            return;
+        }
+
+        const data = {
+            chattingNo: chattingNo,
+            reportedMemberNo: otherMemberNo,
+            reportReason: reason
+        };
+
+        fetch("/chatting/reportExit", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(data)
+        })
+        .then(resp => resp.text())
+        .then(result => {
+            if (result === "success") {
+                alert("신고 후 나가기 처리되었습니다.");
+                location.href = "/chatting/list";
+            } else {
+                alert("처리 중 오류가 발생했습니다.");
+            }
+        })
+        .catch(err => console.error("신고후 나가기 오류:", err));
     } else {
         alert("취소되었습니다.");
     }
 });
 
+
 // 그냥 나가기
 justExit?.addEventListener("click", () => {
-    if (confirm("해당 메세지는 사라집니다. 정말 나가시겠습니까?")) {
-        // 확인 눌렀을 때 실행
-        alert("나가기 처리되었습니다.");
-        // 나가기 로직 실행
+    if (confirm("해당 채팅방을 나가시겠습니까?")) {
+
+        const data = { 
+            chattingNo: selectChattingNo, 
+            targetNo : selectTargetNo
+        };
+
+        fetch("/chatting/exit", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(data)
+        })
+        .then(resp => resp.text())
+        .then(result => {
+            if (result === "success") {
+                alert("나가기 처리되었습니다.");
+                location.reload();
+                
+                document.querySelector(".chatting-list").innerHTML = "";
+                document.getElementById("selectTargetName").innerText = "";
+
+                console.log("✅ 나가기 성공! 채팅 목록 새로고침 시작");
+                selectRoomList();
+
+                selectChattingNo = null;
+
+            } else {
+                alert("오류가 발생했습니다.");
+            }
+        })
+        .catch(err => console.error("나가기 오류:", err));
     } else {
         alert("취소되었습니다.");
     }
@@ -646,42 +701,42 @@ if(loginMemberNo != ""){
     };
 }
 
-// 이미지 전송 처리
-const imageInput = document.getElementById("imageInput");
+// // 이미지 전송 처리
+// const imageInput = document.getElementById("imageInput");
 
-imageInput.addEventListener("change", e => {
-    const file = e.target.files[0];
-    if (!file) return;
+// imageInput.addEventListener("change", e => {
+//     const file = e.target.files[0];
+//     if (!file) return;
 
-    if (!chattingSock || chattingSock.readyState !== SockJS.OPEN) {
-        alert("채팅 서버와 연결되지 않았습니다.");
-        return;
-    }
+//     if (!chattingSock || chattingSock.readyState !== SockJS.OPEN) {
+//         alert("채팅 서버와 연결되지 않았습니다.");
+//         return;
+//     }
 
-    sendImage(file);
+//     sendImage(file);
 
-    // 이미지 전송 후 알림 보내기
-    const url = `${location.pathname}?chat-no=${selectChattingNo}`;
-    const content = `${memberNickname}님에게 이미지가 전송되었습니다.`;
-    sendNotification("chatting", url, selectTargetNo, content);
+//     // 이미지 전송 후 알림 보내기
+//     const url = `${location.pathname}?chat-no=${selectChattingNo}`;
+//     const content = `${memberNickname}님에게 이미지가 전송되었습니다.`;
+//     sendNotification("chatting", url, selectTargetNo, content);
     
-    imageInput.value = ""; 
-});
+//     imageInput.value = ""; 
+// });
 
-// 이미지 파일 전송 함수
-function sendImage(file) {
-    const reader = new FileReader();
+// // 이미지 파일 전송 함수
+// function sendImage(file) {
+//     const reader = new FileReader();
 
-    reader.onload = function(e) {
-        const arrayBuffer = e.target.result;
+//     reader.onload = function(e) {
+//         const arrayBuffer = e.target.result;
 
-        // SockJS에서는 바이너리 전송을 위해 Blob으로 감싸야 함
-        chattingSock.send(arrayBuffer);
-        console.log("이미지 전송 완료:", file.name);
-    };
+//         // SockJS에서는 바이너리 전송을 위해 Blob으로 감싸야 함
+//         chattingSock.send(arrayBuffer);
+//         console.log("이미지 전송 완료:", file.name);
+//     };
 
-    reader.readAsArrayBuffer(file);
-}
+//     reader.readAsArrayBuffer(file);
+// }
 
 // 채팅 입력시
 const send = document.getElementById("send");

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import edu.og.project.chatting.model.dto.ChattingRoom;
 import edu.og.project.common.dto.Member;
+import edu.og.project.admin.model.dto.Report;
 import edu.og.project.chatting.model.dto.ChattingMessage;
 
 public interface ChattingService {
@@ -56,5 +57,23 @@ public interface ChattingService {
 	 * @return chattingNo(중고상품 번호)
 	 */
 	int enterJoonggoChat(ChattingRoom chat);
+
+
+	/** 그냥 나가기 
+	 * @param chattingNo
+	 * @param memberNo
+	 * @return true/false
+	 */
+	boolean exitChatRoom(Map<String, Integer> map);
+
+
+	/** 신고 후 나가기
+	 * @param request
+	 * @param reporterNo
+	 * @return true/false
+	 */
+	boolean reportAndExit(Report request, int reporterNo);
+
+
 
 }
