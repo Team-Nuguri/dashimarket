@@ -23,8 +23,8 @@ body{
     z-index: 200;
     margin: auto;
     position: fixed;
-    top: 80px;
-    right: 180px;
+    top: 160px;
+    right: 150px;
     display: none;
     flex-flow: column;
     box-shadow: 0 0 5px rgba(0,0,0,0.1);
@@ -184,7 +184,7 @@ body{
     margin-top: 5px;
 }
 
-.button-img-box > button{
+.button-img-box  button{
     border: none;
     background-color: transparent;
     cursor: pointer;
@@ -203,11 +203,15 @@ body{
     flex-direction: column;
 }
 
+.exit-dropdown-div{
+    position: relative;
+}
+
 /* 드롭다운 */
 .chat-dropdown {
     position: absolute;
-    right: 150px; 
-    top: 130px;    
+    left: 10px;
+    top: 35px;   
     background: #fff;
     border: 1px solid #ddd;
     border-radius: 10px;

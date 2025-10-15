@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import edu.og.project.admin.model.dto.Report;
 import edu.og.project.chatting.model.dao.ChattingMapper;
 import edu.og.project.chatting.model.dto.ChattingRoom;
 import edu.og.project.chatting.model.dto.ChattingMessage;
@@ -90,6 +91,18 @@ public class ChattingServiceImpl implements ChattingService{
 		}
 		
 		return chattingNo;
+	}
+
+	// 신고 후 나가기
+	@Override
+	public boolean reportAndExit(Report request, int reporterNo) {
+		return false;
+	}
+
+	// 그냥 나가기 
+	@Override
+	public boolean exitChatRoom(Map<String, Integer> map) {
+		return mapper.exitChatRoom(map);
 	}
 
 	

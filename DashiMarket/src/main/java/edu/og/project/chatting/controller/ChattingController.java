@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import edu.og.project.admin.model.dto.Report;
 import edu.og.project.chatting.model.dto.ChattingMessage;
 import edu.og.project.chatting.model.dto.ChattingRoom;
 import edu.og.project.chatting.model.service.ChattingService;
 import edu.og.project.common.dto.Member;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class ChattingController {
@@ -94,7 +96,31 @@ public class ChattingController {
     }
 	
 	// 나가기 -> 채팅 메세지 삭제
-	
+	@PostMapping("/chatting/exit")
+	@ResponseBody
+    public String exitChat(@RequestBody ChattingRoom request, 
+    		@SessionAttribute("loginMember") Member loginMember) {
+        
+		int memberNo = loginMember.getMemberNo();
+		
+		Map<String, Integer> map = new HashMap<>();
+		map.put("chattingNo", request.getChattingNo());
+		map.put("targetNo", request.getTargetNo());
+		map.put("memberNo", memberNo);
+		
+        boolean result = service.exitChatRoom(map);
+        return result ? "success" : "fail";
+    }
+
+	// 신고 후 나가기 -> 신고 테이블에 삽입
+    @PostMapping("/chatting/reportExit")
+    public String reportAndExit(@RequestBody Report request, 
+    		@SessionAttribute("loginMember") Member loginMember) {
+        
+    	int reporterNo = loginMember.getMemberNo();
+        boolean result = service.reportAndExit(request, reporterNo);
+        return result ? "success" : "fail";
+    }
 	
 	
 }

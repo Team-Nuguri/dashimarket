@@ -34,9 +34,7 @@
                     <input type="text" id="name-search" placeholder="닉네임을 입력하세요." autocomplete="off">
                 </div>
     
-                <ul id="resultArea" class="hidden">
-                    <li class="result-row">유저일번</li>
-                </ul>
+                <ul id="resultArea" class="hidden"></ul>
     
                 <!-- 채팅 목록 -->
                 <ul class="chatting-list">
@@ -62,7 +60,7 @@
                                 </div>
                             </div>
                         </li>
-    
+
                     </th:block>
                 </ul>
             </div>
@@ -80,45 +78,22 @@
                             <img th:src="@{/images/svg/거래완료.svg}" class="img-set">
                             <p>거래완료</p>
                         </button>
-                        <button id="exit">
-                            <img th:src="@{/images/svg/Menu Vertical.svg}" class="img-set">
-                        </button>
-
-                        <!-- 드롭다운 -->
-                        <div id="chatDropdown" class="chat-dropdown hidden">
-                            <p id="report-exit">신고후 나가기</p>
-                            <p id="just-exit">나가기</p>
+                        <div class="exit-dropdown-div">
+                            <button id="exit">
+                                <img th:src="@{/images/svg/Menu Vertical.svg}" class="img-set">
+                            </button>
+    
+                            <!-- 드롭다운 -->
+                            <div id="chatDropdown" class="chat-dropdown hidden">
+                                <p id="report-exit">신고후 나가기</p>
+                                <p id="just-exit">나가기</p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <ul class="display-chatting">
-                    <!-- 날짜 표시
-                    <li>
-                        <div class="chat-date-line">
-                            <hr class="line">
-                            <span class="chat-date-text">2025.09.22</span>
-                            <hr class="line">
-                        </div>
-                    </li>
-
-                    <li class="my-chat">
-                        <span class="chat-date">오후 5시30분</span>
-                        <p class="chat">안녕하세요^^</p>
-                    </li>
-
-                    <li class="target-chat">
-                        <img th:src="@{/images/member/짱구.jpg}">
-
-                        <div>
-                            <b>다시맛</b>
-                            <div class="my-chat">
-                                <p class="target">안녕하세요 ㅎㅎ</p>
-                                <span class="chat-date">오후 5시30분</span>
-                            </div>
-                        </div>
-                    </li> -->
-                </ul>
+                <ul class="display-chatting"></ul>
+                
                 <div class="content-send">
                     <label for="imageInput" id="img-send"><img th:src="@{/images/svg/image-btn.svg}"></label>
                     <input type="file" name="imgSend" id="imageInput" accept="image/*">
@@ -129,15 +104,15 @@
         </div>
     </div>
 
-    <!-- <th:block th:replace="~{common/header}">header.html</th:block> -->
-
+    
     <!----------- sockjs를 이용한 WebSocket 구현을 위해 라이브러리 추가 ------------->
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
-
+    
     <script th:inline="javascript">
         
         const loginMemberNo = /*[[${session.loginMember?.memberNo}]]*/ "로그인한 회원 번호";
         const memberNickname = /*[[${session.loginMember?.memberNickname}]]*/ "로그인한 회원의 닉네임";
+        
     </script>
 
     <script th:src="@{/js/chatting/chatting.js}"></script>
