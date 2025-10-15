@@ -79,23 +79,16 @@
     <main>
         <section class="myPage-order">
            
-            <div class="myPage-orderTitle text-size-24 bold-text">주문 내역 / 거래 내역</div>
+            <div class="myPage-orderTitle text-size-24 bold-text"> 굿즈 주문 내역 / 거래 내역</div>
 
             <fieldset class="myPage-orderSearch">
                 <legend class="text-size-20 bold-text">검색</legend>
                 <input type="text">
             </fieldset>
 
-            <div class="divider"></div>
+            <div class="divider"></div>     
 
-            <div class="myPage-orderSelect">
-                <select name="" id="">
-                <option value="">직거래</option>
-                <option value="">굿즈</option>               
-                </select>
-
-            </div>           
-
+            <!-- myPage-orderDetail: JavaScript가 동적으로 채움 -->
             <section class="myPage-orderDetail">
                 <div style="text-align: center; padding: 60px 20px; color: #999;">
                     <p style="font-size: 16px;">데이터를 불러오는 중...</p>
@@ -105,26 +98,10 @@
 
             <div class="divider"></div>
 
+
+            <!-- 페이지네이션: JavaScript가 동적으로 채움 -->
             <div class="myPage-pagination">
-                <ul>
-                    <li><img th:src="@{/images/pagination/pagn-previous-btn.svg}" class="next-group" alt="">&lt;</li>
-                    
-
-                    <li><a href="" class="page-link">1</a></li>
-                    <li><a href="" class="page-link">2</a></li>
-                    <li><a href="" class="page-link">3</a></li>
-                    <li><a href="" class="page-link">4</a></li>
-                    <li><a href="" class="page-link">5</a></li>
-                    <li><a href="" class="page-link">6</a></li>
-                    <li><a href="" class="page-link">7</a></li>
-                    <li><a href="" class="page-link">8</a></li>
-                    <li><a href="" class="page-link">9</a></li>
-                    <li><a href="" class="page-link">10</a></li>
-
-                    <li><img th:src="@{/images/pagination/pagn-next-btn.svg}" class="last-page" alt="">&gt;</li>
-
-                </ul>
-
+                <!-- JavaScript가 여기에 페이지네이션 생성 -->
             </div>
 
         </section>

@@ -73,7 +73,12 @@ public class MemberController {
 			cookie.setPath("/");
 		
 			resp.addCookie(cookie);
-		
+			
+			// 관리자라면 관리자 메인으로 이동
+	        if("Y".equals(loginMember.getIsAdmin())) {
+	            return "redirect:/admin/main";
+	        }
+			
 		}else {
 			ra.addFlashAttribute("message", "아이디 또는 비밀번호가 일치하지 않습니다.");
 		}
