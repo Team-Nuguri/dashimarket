@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import edu.og.project.common.dto.Member;
 import edu.og.project.common.dto.Review; 
@@ -17,6 +18,7 @@ import edu.og.project.seller.model.service.SellerService;
 
 @Controller
 @RequestMapping("/seller")
+@SessionAttributes("seller")
 public class SellerController {
 
     @Autowired

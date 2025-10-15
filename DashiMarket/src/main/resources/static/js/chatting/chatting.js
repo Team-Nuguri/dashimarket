@@ -116,14 +116,21 @@ closeBtn?.addEventListener("click", ()=>{
 
 // 중고 상세페이지에서 채팅하기 버튼 클릭시 채팅방 입장
 const jChatBtn = document.getElementById("chatting-btn");
+const tradeComplete = document.getElementById("trade-complete");
 
 jChatBtn?.addEventListener("click", (e)=>{
     const productNo = e.currentTarget.getAttribute("data-item");
     const sellerNo = e.currentTarget.getAttribute("data-seller");
     const buyerNo = loginMemberNo;
 
+    if(tradeComplete){
+        alert("이미 거래가 완료된 상품입니다.");
+        return;
+    }
+
     joonggoChatEnter(productNo, sellerNo, buyerNo); 
 })
+
 
 // 중고 상세 페이지에서 채팅방 입장 함수
 function joonggoChatEnter(productNo, sellerNo, buyerNo) {
@@ -510,6 +517,7 @@ function selectMessage() {
 function showSellerButtons(loginMemberNo, currentSellerNo) {
     console.log(loginMemberNo)
     console.log(currentSellerNo)
+    console.log(sellerNo)
 
     if (loginMemberNo === currentSellerNo) {
         reserve.style.display = "inline-block";

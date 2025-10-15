@@ -31,12 +31,14 @@ public class ChattingController {
 
 	// 채팅 요청
 	@GetMapping("/chatting")
-	public String chatting(Model model, @SessionAttribute("loginMember") Member loginMember) {
+	public String chatting(Model model, @SessionAttribute("loginMember") Member loginMember
+			, @SessionAttribute("seller") Member loginSeller) {
 		
 		// 채팅방 목록 조회
 		List<ChattingRoom> roomList = service.selectRoomList(loginMember.getMemberNo());
 		
 		model.addAttribute("roomList", roomList);
+		model.addAttribute("seller", loginSeller);
 		
 		return "chatting/chatting";
 	}

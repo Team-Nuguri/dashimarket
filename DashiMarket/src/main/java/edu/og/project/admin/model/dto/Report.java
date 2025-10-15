@@ -36,6 +36,6 @@ public class Report {
 	private String boardTitle;
 	private String reportName;
 	
-	private int chattingNo; // 신고/나가기 할때 채팅방 번호
+	private int chattingNo; // 신고 후 나가기 채팅방 번호
 
 }
