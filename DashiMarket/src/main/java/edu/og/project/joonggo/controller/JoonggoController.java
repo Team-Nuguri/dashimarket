@@ -166,67 +166,8 @@ public class JoonggoController {
 		return "joonggoPage/joonggoHome";
 	}
 
-	// 로그인한 회원의 나의 위시리스트 (KJK)
-	@GetMapping("/myPage/wishlist")
-	public String wishListPage(
-			 Model model, 
-			 @SessionAttribute(value = "loginMember", required = false) Member loginMember,
-			 RedirectAttributes ra
-			 ) {
-		
-		// 로그인 체크
-        if (loginMember == null) {
-            ra.addFlashAttribute("message", "로그인이 필요합니다.");
-            return "redirect:/member/login";
-        }
-       
-        String message = null;
-
-<<<<<<< HEAD
-	    List<Joonggo> wishList = service.selectJoonggoWishList(loginMember.getMemberNo());
-	    
-	    model.addAttribute("wishList", wishList);
-
-=======
-	   
-		List<Joonggo> wishList = service.selectJoonggoWishList(loginMember.getMemberNo());
-		model.addAttribute("wishList", wishList);
->>>>>>> 333485370ce60bf8c10f31b947c58f11d5ee0de2
-
-		return "myPage/myPage-wishlist";
-	}
-
-	
-	// 위시리스트 삭제
-	@DeleteMapping("/myPage/wishlist/delete/{boardNo}")
-	@ResponseBody
-	public String deleteWishItem(
-	        @PathVariable("boardNo") String boardNo,
-	        @SessionAttribute(value = "loginMember", required = false) Member loginMember,
-			RedirectAttributes ra
-	 ) 
-	
-	{
-
-		// 로그인 체크
-        if (loginMember == null) {
-            ra.addFlashAttribute("message", "로그인이 필요합니다.");
-            return "redirect:/member/login";
-        }
-      
-	    int result = service.deleteWishItem(loginMember.getMemberNo(), boardNo);
-
-	    return result > 0 ? "success" : "fail";
-	}
-
-<<<<<<< HEAD
-=======
 
 
-
-	
-	
->>>>>>> 333485370ce60bf8c10f31b947c58f11d5ee0de2
 
 	// 중고 상품 상세 조회
 	@GetMapping("/{boardType}/{joonggoNo:J.*}")

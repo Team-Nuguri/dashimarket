@@ -360,27 +360,6 @@
 	</select>
 	
 	
-	 <!-- 중고상품 위시리스트 목록 조회 (KJK) -->
-	<select id="selectJoonggoWishList" resultMap="joonggo_rm">
-		SELECT B.BOARD_NO, BOARD_TITLE,  JOONGGO_PRICE,
-		  (SELECT IMG_PATH || IMG_RENAME FROM IMAGE I
-		    WHERE I.BOARD_NO = B.BOARD_NO
-		    AND IMG_ORDER = 0) THUMBNAIL
-		FROM "BOARD" B
-		JOIN "JOONGGO" J ON(J.BOARD_NO = B.BOARD_NO)
-		JOIN "LIKE" L ON(L.POST_NO = B.BOARD_NO)
-		WHERE DELETE_FL = 'N'
-		AND BOARD_CODE = 1
-		AND L.MEMBER_NO = ${memberNo}
-		ORDER BY BOARD_CREATE_DATE DESC
-	</select>
-	
-	<!-- 중고상품 위시리스트 목록 삭제 (KJK) -->
-	<delete id="deleteJoonggoWishList">
-		DELETE FROM "LIKE"
-		WHERE POST_NO = #{param2}
-		AND MEMBER_NO = #{param1}
-	</delete>
 
 	
 	<!--중고 상세 조회-->

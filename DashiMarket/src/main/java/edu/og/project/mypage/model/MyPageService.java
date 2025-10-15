@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 import edu.og.project.common.dto.Member;
+import edu.og.project.joonggo.model.dto.Joonggo;
 
 public interface MyPageService {
     
@@ -71,6 +72,12 @@ public interface MyPageService {
 	 * @return 업데이트 결과
 	 */
 	int confirmPurchase(String orderItemNo, int memberNo);
+
+	/* 나의 중고상품 위시리스트 조회 (KJK) */
+	List<Joonggo> selectJoonggoWishList(int memberNo);
+
+	/* 나의 중고상품 위시리스트 삭제 (KJK) */
+	int deleteWishItem(int memberNo, String boardNo);
 
 }
 

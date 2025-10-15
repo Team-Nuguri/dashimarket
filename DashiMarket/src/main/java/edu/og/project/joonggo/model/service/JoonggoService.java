@@ -80,11 +80,6 @@ public interface JoonggoService {
 	// 현재 로그인 중인 유저가 좋아요 눌렀는지 확인
 	int likeSelect(Map<String, Object> map);
 
-    // 현재 로그인 중인 유저의 나의 위시리스트 (KJK)
-	List<Joonggo> selectJoonggoWishList(int memberNo);
-
-	
-
 
 		/** 조회수 증가
 	 * @param joonggoNo
@@ -106,8 +101,7 @@ public interface JoonggoService {
 	// 중고목록(중분류) 카데고리 (KJK)
 	Map<String, Object> selectJoonggoCategoryList2(String categoryId, int cp);
 
-    // 나의 위시리스트 삭제 (KJK)
-	int deleteWishItem(int memberNo, String boardNo);
+    
 
 
 }
