@@ -17,19 +17,23 @@ import edu.og.project.joonggo.model.dto.SimilarItem;
 public interface JoonggoMapper {
 	
 	// 중고상품 특정 게시판의 게시글 수 조회 (KJK)
-	public int getJoonggoListCount(String boardType);
+	public int getJoonggoListCount(Map<String, Object> param);
 
 	// 중고상품 특정 게시판에서 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회 (KJK)
-	public List<Joonggo> selectJoonggoList(String boardType, RowBounds rowBounds);
+	public List<Joonggo> selectJoonggoList(Map<String, Object> param, RowBounds rowBounds);
 
 	// 중고상품 목록정렬 (인기순) (KJK)
-	public List<Joonggo> sortJoonggoViews(String boardType, RowBounds rowBounds);
+	public List<Joonggo> sortJoonggoViews(Map<String, Object> param, RowBounds rowBounds);
 
 	// 중고상품 목록정렬 (낮은가격순) (KJK)
-	public List<Joonggo> sortJoonggoLowPrice(String boardType, RowBounds rowBounds);
+	public List<Joonggo> sortJoonggoLowPrice(Map<String, Object> param, RowBounds rowBounds);
 
 	// 중고상품 목록정렬 (높은가격순) (KJK)
 	public List<Joonggo> sortJoonggoHighPrice(String boardType, RowBounds rowBounds);
+	public List<Joonggo> sortJoonggoHighPrice(Map<String, Object> param, RowBounds rowBounds);
+	
+	// 마이페이지에서 중고상품 내가 찜한 목록 (KJK)
+	public List<Joonggo> selectJoonggoWishList(String boardType, RowBounds rowBounds);
 
 
 	// 중고 상품 상세 조회
