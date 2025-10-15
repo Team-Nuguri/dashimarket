@@ -67,21 +67,13 @@ public class FaqController {
 		return "notice/faq";
 	}
 	
-	// =========== FAQ 상세 조회 ===========
+	// =========== FAQ 상세 조회 (사용 안 함 - 아코디언 방식) ===========
 	@GetMapping("/faq/detail/{faqNo}")
-	public String selectFaqDetail(
-			@PathVariable("faqNo") int faqNo,
-			Model model) {
-		
-		Faq faq = service.selectFaqDetail(faqNo);
-		
-		if (faq == null) {
-			return "redirect:/faq";
-		}
-		
-		model.addAttribute("faq", faq);
-		return "notice/faqDetail";
+	public String selectFaqDetail(@PathVariable("faqNo") int faqNo) {
+	    // FAQ는 아코디언 방식이므로 상세 페이지 없음
+	    return "redirect:/faq";
 	}
+
 	
 	// =========== 관리자 전용 글쓰기 폼 ===========
 	@GetMapping("/faq/write")

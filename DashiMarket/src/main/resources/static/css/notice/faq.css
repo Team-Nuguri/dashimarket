@@ -1,3 +1,8 @@
+a {
+    text-decoration: none !important;
+    color: black !important;
+}
+
 .container {
     max-width: 800px;
     margin: 0 auto;
