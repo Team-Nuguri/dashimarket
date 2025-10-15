@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
 import edu.og.project.common.dto.Member;
+import edu.og.project.joonggo.model.dto.Joonggo;
 
 @Mapper
 public interface MyPageMapper { 
@@ -44,5 +45,11 @@ public interface MyPageMapper {
      * 구매 확정
      */
     int confirmPurchase(Map<String, Object> paramMap);
+
+    // 마이페이지 나의 위시리스트 조회 (KJK)
+	List<Joonggo> selectJoonggoWishList(int memberNo);
+
+	// 마이페이지 나의 위시리스트 삭제 (KJK)
+	int deleteJoonggoWishList(int memberNo, String boardNo);
 	
 }

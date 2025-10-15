@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.og.project.common.dto.Member;
+import edu.og.project.joonggo.model.dto.Joonggo;
 import edu.og.project.mypage.model.MyPageService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -364,6 +367,52 @@ public class MyPageController {
 	    return "myPage/myPage-goods";		
 	}
 	
+	
+	// 로그인한 회원의 나의 중고상품 위시리스트 (KJK)
+	@GetMapping("/wishlist")
+	public String wishListPage(
+			 Model model, 
+			 @SessionAttribute(value = "loginMember", required = false) Member loginMember,
+			 RedirectAttributes ra
+			 ) {
+		
+		// 로그인 체크
+        if (loginMember == null) {
+            ra.addFlashAttribute("message", "로그인이 필요합니다.");
+            return "redirect:/member/login";
+        }
+       
+        String message = null;
+
+	    List<Joonggo> wishList = service.selectJoonggoWishList(loginMember.getMemberNo());
+	    
+	    model.addAttribute("wishList", wishList);
+
+		return "myPage/myPage-wishlist";
+	}
+
+	
+	// 나의 중고상품 위시리스트 삭제 (KJK)
+	@DeleteMapping("/wishlist/delete/{boardNo}")
+	@ResponseBody
+	public String deleteWishItem(
+	        @PathVariable("boardNo") String boardNo,
+	        @SessionAttribute(value = "loginMember", required = false) Member loginMember,
+			RedirectAttributes ra
+	 ) 
+	
+	{
+
+		// 로그인 체크
+        if (loginMember == null) {
+            ra.addFlashAttribute("message", "로그인이 필요합니다.");
+            return "redirect:/member/login";
+        }
+      
+	    int result = service.deleteWishItem(loginMember.getMemberNo(), boardNo);
+
+	    return result > 0 ? "success" : "fail";
+	}
 
 }
 
