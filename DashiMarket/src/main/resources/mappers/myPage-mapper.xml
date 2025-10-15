@@ -70,30 +70,95 @@
     AND SECESSIONFL = 'N'
 	</select>
 	
-	<select id="selectGoods" parameterType="String" resultType="map">
-	    
-	    SELECT 
-	        G.GOODS_TITLE AS 제품명,
-	        G.GOODS_PRICE AS 단가,
-	        OI.ORDER_QUANTITY AS 수량,
-	        (G.GOODS_PRICE * OI.ORDER_QUANTITY) AS 총가격,
-	        P.PAY_DATE AS 결제날짜,
-	        OS.STATUS_NAME AS 구매상태  -- O.ORDER_STATUS 대신 JOIN된 OS.STATUS_NAME 사용
-	    FROM 
-	        ORDERS O
-	    JOIN 
-	        ORDER_ITEM OI ON O.ORDER_ID = OI.ORDER_ID
-	    JOIN 
-	        GOODS G ON OI.GOODS_ID = G.GOODS_ID
-	    JOIN 
-	        PAYMENT P ON O.ORDER_ID = P.ORDER_ID
-	    JOIN 
-	        ORDER_STATUS OS ON O.STATUS_CODE = OS.STATUS_CODE
-	    WHERE 
-	        O.MEMBER_ID = #{memberEmail} 
-	    ORDER BY 
-	        O.ORDER_DATE DESC
-	        
+	<!-- 굿즈 거래내역 목록 조회 -->
+	<select id="selectGoods" parameterType="int" resultType="map">
+		SELECT
+		    oi.ORDER_ITEM_ID AS orderItemId,
+		    o.ORDER_NO AS orderNo,
+		    s.RECIPIENT_NAME AS recipientName,
+		    s.RECIPIENT_TEL AS recipientTel,
+		    s.POSTCODE AS postcode,
+		    s.ADDRESS_BASE AS addressBase,
+		    s.ADDRESS_DETAIL AS addressDetail,
+		    s.TRACKING_NUMBER AS trackingNumber,
+		    s.DELIVERY_STATUS AS 구매상태,
+		    b.BOARD_TITLE AS 제품명,
+		    oi.UNIT_PRICE AS 단가,
+		    oi.ORDER_QUANTITY AS 수량,
+		    (oi.UNIT_PRICE * oi.ORDER_QUANTITY) AS 총가격,
+		    p.PAT_DATE AS 결제날짜,
+		    p.PAY_METHOD AS payMethod,
+		    p.PRICE AS price
+		FROM ORDER_ITEM oi
+		INNER JOIN "ORDER" o ON oi.ORDER_NO = o.ORDER_NO
+		LEFT JOIN SHIPPING s ON o.ORDER_NO = s.ORDER_NO
+		LEFT JOIN PAYMENT p ON o.ORDER_NO = p.ORDER_NO
+		LEFT JOIN BOARD b ON oi.ORDER_ITEM_NO = b.BOARD_NO
+		WHERE o.MEMBER_NO = #{memberNo}
+		
+		<if test="keyword != null and keyword != ''">
+			AND b.BOARD_TITLE LIKE '%' || #{keyword} || '%'
+		</if>
+		
+		ORDER BY p.PAT_DATE DESC
+
 	</select>
+	
+	<!-- 굿즈 거래 전체 개수 조회 (추가!) -->
+		<select id="getGoodsListCount" parameterType="map" resultType="int">
+		SELECT COUNT(*)
+		FROM ORDER_ITEM oi
+		INNER JOIN "ORDER" o ON oi.ORDER_NO = o.ORDER_NO
+		LEFT JOIN BOARD b ON oi.ORDER_ITEM_NO = b.BOARD_NO
+		WHERE o.MEMBER_NO = #{memberNo}
+		<if test="keyword != null and keyword != ''">
+		    AND b.BOARD_TITLE LIKE '%' || #{keyword} || '%'
+</if>
+</select>
+	
+<!-- 굿즈 거래내역 목록 조회 (페이지네이션 - RowBounds) -->
+<select id="selectGoodsList" parameterType="map" resultType="map">
+SELECT
+    oi.ORDER_ITEM_ID AS orderItemId,
+    o.ORDER_NO AS orderNo,
+    s.RECIPIENT_NAME AS recipientName,
+    s.RECIPIENT_TEL AS recipientTel,
+    s.POSTCODE AS postcode,
+    s.ADDRESS_BASE AS addressBase,
+    s.ADDRESS_DETAIL AS addressDetail,
+    s.TRACKING_NUMBER AS trackingNumber,
+    s.DELIVERY_STATUS AS 구매상태,
+    b.BOARD_TITLE AS 제품명,
+    oi.UNIT_PRICE AS 단가,
+    oi.ORDER_QUANTITY AS 수량,
+    (oi.UNIT_PRICE * oi.ORDER_QUANTITY) AS 총가격,
+    p.PAT_DATE AS 결제날짜,
+    p.PAY_METHOD AS payMethod,
+    p.PRICE AS price,
+    b.BOARD_CONTENT AS imagePath
+FROM ORDER_ITEM oi
+INNER JOIN "ORDER" o ON oi.ORDER_NO = o.ORDER_NO
+LEFT JOIN SHIPPING s ON o.ORDER_NO = s.ORDER_NO
+LEFT JOIN PAYMENT p ON o.ORDER_NO = p.ORDER_NO
+LEFT JOIN BOARD b ON oi.ORDER_ITEM_NO = b.BOARD_NO
+WHERE o.MEMBER_NO = #{memberNo}
+<if test="keyword != null and keyword != ''">
+    AND b.BOARD_TITLE LIKE '%' || #{keyword} || '%'
+</if>
+ORDER BY p.PAT_DATE DESC
+</select>
+
+<!-- 구매 확정 -->
+<update id="confirmPurchase" parameterType="map">
+    UPDATE SHIPPING
+    SET DELIVERY_STATUS = '구매확정'
+    WHERE ORDER_NO = (
+        SELECT o.ORDER_NO
+        FROM ORDER_ITEM oi
+        JOIN "ORDER" o ON oi.ORDER_NO = o.ORDER_NO
+        WHERE oi.ORDER_ITEM_ID = #{orderItemId}
+          AND o.MEMBER_NO = #{memberNo}
+    )
+</update>
 	
 </mapper>
