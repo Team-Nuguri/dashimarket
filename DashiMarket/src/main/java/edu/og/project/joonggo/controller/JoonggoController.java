@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.og.project.common.dto.Member;
 import edu.og.project.goods.model.dto.Goods;
@@ -40,17 +41,63 @@ public class JoonggoController {
 
 	@Autowired
 	private JoonggoService service;
+	
+	// 동기, 비동기 요청 로직이 같으므로 한 메소드로 빼서 사용 (목록 조회 서비스 호출)
+	private String getMemberDong(String selectDong, Member loginMember) {
+		
+		// 선택된 동네값 최종 저장 변수
+		String finalDong = null;
+		
+		// 세션에 selectDong이 있는 경우 (맵 선택 or 현재위치)
+		if(selectDong != null && !selectDong.trim().isEmpty()) {
+			finalDong = selectDong; // 세션에 있는 동네값으로 세팅
+		} 
+		
+		// 로그인만 한 상태인 경우(맵 선택 x, 세션에 동네 값 없음)
+		else if(loginMember != null) {
+			String hDongStr = loginMember.getJibunAddress();
+			
+			if(hDongStr != null && !hDongStr.trim().isEmpty()) {
+				String hDongArr[] = hDongStr.split(" ");
+				
+				if(hDongArr.length >= 2) {
+					finalDong = hDongArr[hDongArr.length - 2];
+				} else {
+					finalDong = null;
+				}
+				
+			}
+		}
+		
+		int loginMemberNo;
+		
+		// 로그인이 되어있지 않다면 회원 번호를 가져올 수 없음
+		if(loginMember != null) {
+			loginMemberNo = loginMember.getMemberNo();
+		} else {
+			// 로그인이 되어있지 않은 경우 0 반환 => 0인 경우 목록 조회시 좋아요 여부 확인 x
+			loginMemberNo = 0;
+		}
+		
+		System.out.println("최종 조회 동네 : " + finalDong);
+		return finalDong;
+	}
 
 	// 중고상품 목록 조회 (KJK)
 	// @GetMapping("/{boardType:j.*}")
 	@GetMapping("/joonggo")
 	public String selectJoonggoList(
 			// @PathVariable("boardType") String boardType,
-			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model,
+			@SessionAttribute(value="selectDong", required=false) String selectDong, /* 동네 확인 */
+			@SessionAttribute(value="loginMember", required=false) Member loginMember) {
+		
+		// 동네 가져오기
+		String finalDong = getMemberDong(selectDong, loginMember);
 
 		// System.out.println(boardType); joonggo 로 넘어옴
 		// Map<String, Object> map = service.selectJoonggoList(boardType, cp); // 사용X
-		Map<String, Object> map = service.selectJoonggoList("joonggo", cp);
+		Map<String, Object> map = service.selectJoonggoList("joonggo", finalDong, cp);
 
 		if (map == null) {
 			System.out.println("map is null");
@@ -72,11 +119,16 @@ public class JoonggoController {
 	public String sortJoonggoList(
 			// @PathVariable("boardType") String boardType,
 			@PathVariable("sortType") String sortType,
-			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model,
+			@SessionAttribute(value="selectDong", required=false) String selectDong, /* 동네 확인 */
+			@SessionAttribute(value="loginMember", required=false) Member loginMember) {
 
+		// 동네 가져오기
+		String finalDong = getMemberDong(selectDong, loginMember);
+		
 		// System.out.println(boardType); joonggo 로 넘어옴
 		// Map<String, Object> map = service.selectJoonggoList(boardType, cp); // 사용X
-		Map<String, Object> map = service.sortJoonggoList("joonggo", cp, sortType);
+		Map<String, Object> map = service.sortJoonggoList("joonggo", finalDong, cp, sortType);
 
 		// System.out.println(map);
 
@@ -84,21 +136,6 @@ public class JoonggoController {
 		model.addAttribute("sortType", sortType);
 
 		return "joonggoPage/joonggoHome";
-	}
-
-	// 중고상품 목록 정렬 (비동기) (KJK)
-	@GetMapping(value = "/{boardType:j.*}/sort", produces = "application/html; charset=UTF-8") /*
-	 * json이 아닌 html 형태로
-	 * 보내주기
-	 */
-	public String sortJoonggoList(@PathVariable("boardType") String boardType,
-			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model,
-			@RequestParam("sortType") String sortType) {
-		// 정렬 방식 넘겨주기
-		Map<String, Object> resultMap = service.sortJoonggoList(boardType, cp, sortType);
-		model.addAllAttributes(resultMap); // return에 바로 resultMap을 담지 않고, model로 넘겨줌
-
-		return "joonggoPage/joonggoHome :: #joonggo-container"; // 동적으로 바뀔 부분의 아이디
 	}
 
 	// 중고상품 카테고리(대분류) 목록 조회 (KJK)
@@ -131,13 +168,53 @@ public class JoonggoController {
 
 	// 로그인한 회원의 나의 위시리스트 (KJK)
 	@GetMapping("/myPage/wishlist")
-	public String wishListPage(Model model, @AuthenticationPrincipal Member loginMember) {
+	public String wishListPage(
+			 Model model, 
+			 @SessionAttribute(value = "loginMember", required = false) Member loginMember,
+			 RedirectAttributes ra
+			 ) {
+		
+		// 로그인 체크
+        if (loginMember == null) {
+            ra.addFlashAttribute("message", "로그인이 필요합니다.");
+            return "redirect:/member/login";
+        }
+       
+        String message = null;
 
+	   
 		List<Joonggo> wishList = service.selectJoonggoWishList(loginMember.getMemberNo());
 		model.addAttribute("wishList", wishList);
 
 		return "myPage/myPage-wishlist";
 	}
+
+	
+	// 위시리스트 삭제
+	@DeleteMapping("/myPage/wishlist/delete/{boardNo}")
+	@ResponseBody
+	public String deleteWishItem(
+	        @PathVariable("boardNo") String boardNo,
+	        @SessionAttribute(value = "loginMember", required = false) Member loginMember,
+			RedirectAttributes ra
+	 ) 
+	
+	{
+
+		// 로그인 체크
+        if (loginMember == null) {
+            ra.addFlashAttribute("message", "로그인이 필요합니다.");
+            return "redirect:/member/login";
+        }
+      
+	    int result = service.deleteWishItem(loginMember.getMemberNo(), boardNo);
+
+	    return result > 0 ? "success" : "fail";
+	}
+
+
+
+
 	
 	
 

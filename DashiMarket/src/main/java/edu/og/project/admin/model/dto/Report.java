@@ -6,20 +6,23 @@ import java.util.List;
 import edu.og.project.common.dto.Comment;
 import edu.og.project.common.dto.Image;
 import edu.og.project.common.dto.Review;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class Report {
 	
 	private int reportNo;          // 신고 번호
 	private String reportTarget;   // 신고 대상 (게시글, 댓글 등)
-	// private int reportTargetId;    // 신고된 대상의 번호
 	private String reportTargetId;    // 신고된 대상의 번호
-	private String reportReason;   // 신고 사유
+	private String reportReason;   // 사용자가 입력한 신고 사유
 	private String reportDate;       // 신고 일자
 	private String resultDate;       // 처리 완료 일자
 	private int reportCode;        // 신고 유형 코드
@@ -32,5 +35,8 @@ public class Report {
 	
 	private String boardTitle;
 	private String reportName;
+	
+	private int chattingNo; // 신고/나가기 할때 채팅방 번호
+	private int targetMemberNo; // 신고 대상 회원 번호
 
 }

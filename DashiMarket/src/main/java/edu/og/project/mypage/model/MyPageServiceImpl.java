@@ -210,9 +210,9 @@ public Map<String, Object> selectGoodsWithPagination(Map<String, Object> paramMa
 }
 
 	@Override
-	public int confirmPurchase(int orderItemId, int memberNo) {
+	public int confirmPurchase(String orderItemNo, int memberNo) {
 	    Map<String, Object> paramMap = new HashMap<>();
-	    paramMap.put("orderItemId", orderItemId);
+	    paramMap.put("orderItemNo", orderItemNo);
 	    paramMap.put("memberNo", memberNo);
 	    
 	    return mapper.confirmPurchase(paramMap);

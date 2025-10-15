@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/myPage/myPage-goods.css}">
+    <link rel="stylesheet" th:href="@{/css/myPage/myPage-order.css}">
     <link rel="stylesheet" th:href="@{/css/common/header.css}">
     <link rel="stylesheet" th:href="@{/css/common/footer.css}">
     <link rel="stylesheet" th:href="@{/css/common/font.css}">    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
-    <title>굿즈 거래내역</title>
+    <title>중고 거래내역</title>
 </head>
 <body>
     
@@ -79,7 +79,7 @@
     <main>
         <section class="myPage-order">
            
-            <div class="myPage-orderTitle text-size-24 bold-text"> 굿즈 주문 내역</div>
+            <div class="myPage-orderTitle text-size-24 bold-text"> 중고 주문 내역 / 거래 내역</div>
 
             <fieldset class="myPage-orderSearch">
                 <legend class="text-size-20 bold-text">검색</legend>
@@ -87,6 +87,14 @@
             </fieldset>
 
             <div class="divider"></div>     
+
+                <div class="myPage-orderSelect">
+                <select name="" id="">
+                <option value="">구매내역</option>
+                <option value="">판매내역</option>               
+                </select>
+
+            </div>      
 
             <!-- myPage-orderDetail: JavaScript가 동적으로 채움 -->
             <section class="myPage-orderDetail">
@@ -113,7 +121,7 @@
 <th:block th:replace="~{common/footer}"></th:block>
 
 
-<script th:src="@{/js/myPage/myPage-goods.js}"></script>
+<script th:src="@{/js/myPage/myPage-order.js}"></script>
 
 
 </body>
