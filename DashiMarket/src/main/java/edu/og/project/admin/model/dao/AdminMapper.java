@@ -23,9 +23,21 @@ public interface AdminMapper {
 
 	// 전체 회원 조회
 	List<Member> selectAllMembers();
+	
+	// 전체 회원 수
+	int getMemberCount();
+
+	// 회원 목록 조회 (페이징)
+	List<Member> selectMemberListPaging(RowBounds rowBounds);
 
 	// 굿즈 상품 조회
 	List<Goods> selectProducts(String sort);
+	
+	// 전체 상품 수
+	int getGoodsCount();
+
+	// 상품 목록 조회 (페이징)
+	List<Goods> selectGoodsListPaging(@Param("sort") String sort, RowBounds rowBounds);
 	
 	// 오늘 신고된 수
 	Integer getTodayReportCount();
@@ -54,6 +66,13 @@ public interface AdminMapper {
 
 	// 굿즈 거래내역 조회
 	List<OrderDto> selectGoodsOrder(String sort);
+
+	// 전체 거래 수
+	int getOrderCount();
+
+	// 거래 목록 조회 (페이징)
+	List<OrderDto> selectOrderListPaging(@Param("sort") String sort, RowBounds rowBounds);
+
 	
 
 }

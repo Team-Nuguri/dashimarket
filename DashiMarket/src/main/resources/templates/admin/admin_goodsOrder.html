@@ -96,7 +96,20 @@
                             <td>결제일</td>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                        <tr th:each="order : ${orderList}">
+                            <td th:text="${order.orderNo}">1</td>
+                            <td th:text="${order.deliveryStatus}">배송중</td>
+                            <td th:text="${order.recipientName}">수령인</td>
+                            <td th:text="${order.recipientTel}">전화번호</td>
+                            <td th:text="${order.orderedName}">상품명</td>
+                            <td th:text="${order.orderQuantity}">수량</td>
+                            <td th:text="${order.address}">주소</td>
+                            <td th:text="${order.payMethod}">카드</td>
+                            <td th:text="${order.payPrice}">가격</td>
+                            <td th:text="${order.payDate}">2025-01-01</td>
+                        </tr>
+                    </tbody>
                 </table>
 
             </section>
