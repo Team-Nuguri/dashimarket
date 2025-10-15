@@ -48,19 +48,16 @@ faqWriteForm.addEventListener('submit', function(e) {
 // 취소 버튼 이벤트
 cancelBtn.addEventListener('click', function() {
     let cancelMessage;
-    let redirectUrl;
     
     if (pageMode === 'edit') {
-        // 수정 모드: 상세 페이지로 돌아가기
-        cancelMessage = '수정을 취소하고 상세 페이지로 돌아가시겠습니까?';
-        redirectUrl = '/faq/detail/' + faqNo;
+        // 수정 모드: 목록으로 돌아가기 (상세 페이지 없음)
+        cancelMessage = '수정을 취소하고 목록으로 돌아가시겠습니까?';
     } else {
         // 작성 모드: 목록으로 돌아가기
         cancelMessage = '작성을 취소하고 목록으로 돌아가시겠습니까?';
-        redirectUrl = '/faq';
     }
     
     if (confirm(cancelMessage)) {
-        window.location.href = redirectUrl;
+        window.location.href = '/faq';  // 항상 목록으로 이동
     }
 });

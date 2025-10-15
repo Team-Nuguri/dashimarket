@@ -273,22 +273,97 @@ public class MyPageController {
 	
 	
 	@GetMapping("/goods")	
-	public String selectGoods () {
-		
-		return "/myPage/myPage-goods";		
+	public String selectGoods (
+	        @SessionAttribute("loginMember") Member loginMember,
+	        @RequestParam(value = "cp", defaultValue = "1") int cp,
+	        @RequestParam(value = "keyword", required = false) String keyword,
+	        Model model) {
+	    
+	    Map<String, Object> paramMap = new HashMap<>();
+	    paramMap.put("memberNo", loginMember.getMemberNo());
+	    paramMap.put("keyword", keyword);
+	    paramMap.put("cp", cp);
+	    
+	    // 페이지네이션과 함께 데이터 조회
+	    Map<String, Object> resultMap = service.selectGoodsWithPagination(paramMap);
+	    
+	    model.addAttribute("goodsList", resultMap.get("goodsList"));
+	    model.addAttribute("pagination", resultMap.get("pagination"));
+	    model.addAttribute("keyword", keyword);
+	    
+	    return "myPage/myPage-goods";		
 	}
 	
 	
-	@GetMapping("/goods/list") // 비동기
+	@GetMapping("/api/goods/list") // 비동기
 	@ResponseBody
-	public List<Map<String, Object>> selectGoods (			
-			@SessionAttribute("loginMember") Member loginMember) {
-		
-		String MemberEmail = loginMember.getMemberEmail();
-		
-		return service.selectGoods(MemberEmail);		
-		
+	public Map<String, Object> selectGoodsApi(
+	        @SessionAttribute("loginMember") Member loginMember,
+	        @RequestParam(value = "cp", defaultValue = "1") int cp,
+	        @RequestParam(value = "keyword", required = false) String keyword) {
+	    
+	    // DB에 전달할 Map 생성 및 데이터 담기
+	    Map<String, Object> paramMap = new HashMap<>();
+	    paramMap.put("memberNo", loginMember.getMemberNo());
+	    paramMap.put("keyword", keyword);
+	    paramMap.put("cp", cp); //
+	    
+	    // 페이지네이션 포함된 결과 반환
+	    return service.selectGoodsWithPagination(paramMap);
 	}
 	
+	@PostMapping("/api/goods/confirm")
+	@ResponseBody
+	public Map<String, Object> confirmPurchase(
+	        @RequestParam("orderItemNo") String orderItemNo,
+	        @SessionAttribute("loginMember") Member loginMember) {
+	    
+	    Map<String, Object> result = new HashMap<>();
+	    System.out.println("구매확정input" + orderItemNo);
+	    try {
+	        // 구매 확정 처리 (SHIPPING 테이블의 DELIVERY_STATUS 업데이트)
+	        int updateResult = service.confirmPurchase(orderItemNo, loginMember.getMemberNo());
+	        
+	        if (updateResult > 0) {
+	            result.put("success", true);
+	            result.put("message", "구매가 확정되었습니다.");
+	        } else {
+	            result.put("success", false);
+	            result.put("message", "구매 확정에 실패했습니다.");
+	        }
+	    } catch (Exception e) {
+	        result.put("success", false);
+	        result.put("message", "오류가 발생했습니다: " + e.getMessage());
+	    }
+	    
+	    System.out.println("구매확정" + result);
+	    
+	    return result;
+	}
+	
+	// 중고거래 내역
+	@GetMapping("/order")	
+	public String selectUsedOrder (
+	        @SessionAttribute("loginMember") Member loginMember,
+	        @RequestParam(value = "cp", defaultValue = "1") int cp,
+	        @RequestParam(value = "keyword", required = false) String keyword,
+	        Model model) {
+	    
+	    Map<String, Object> paramMap = new HashMap<>();
+	    paramMap.put("memberNo", loginMember.getMemberNo());
+	    paramMap.put("keyword", keyword);
+	    paramMap.put("cp", cp);
+	    
+	    // 페이지네이션과 함께 데이터 조회
+	    Map<String, Object> resultMap = service.selectGoodsWithPagination(paramMap);
+	    
+	    model.addAttribute("goodsList", resultMap.get("goodsList"));
+	    model.addAttribute("pagination", resultMap.get("pagination"));
+	    model.addAttribute("keyword", keyword);
+	    
+	    return "myPage/myPage-goods";		
+	}
+	
+
 }
 

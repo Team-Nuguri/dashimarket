@@ -1,9 +1,11 @@
 package edu.og.project.mypage.model;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.og.project.common.dto.Member;
+import edu.og.project.common.dto.Pagination;
 import edu.og.project.common.utility.Util;
 import edu.og.project.member.model.service.EmailService;
 import edu.og.project.mypage.dao.MyPageMapper;
@@ -176,10 +179,43 @@ public class MyPageServiceImpl implements MyPageService {
    }
 
 @Override
-public List<Map<String, Object>> selectGoods(String MemberEmail) {
+public List<Map<String, Object>> selectGoods(Map<String, Object> paramMap) {
 	
-	return mapper.selectGoods(MemberEmail);
+	return mapper.selectGoods(paramMap);
 }
-	
-   
+
+@Override
+public Map<String, Object> selectGoodsWithPagination(Map<String, Object> paramMap) {
+    int cp = (int) paramMap.get("cp");
+    
+    // 전체 게시글 수 조회
+    int listCount = mapper.getGoodsListCount(paramMap);
+    
+    // 페이지네이션 객체 생성
+    Pagination pagination = new Pagination(cp, listCount);
+    
+    // RowBounds 사용 (동료 스타일)
+    int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+    RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+    
+    // 데이터 조회 (RowBounds 사용)
+    List<Map<String, Object>> goodsList = mapper.selectGoodsList(paramMap, rowBounds);
+    
+    // 조회 결과 return
+    Map<String, Object> map = new HashMap<>();
+    map.put("pagination", pagination);
+    map.put("goodsList", goodsList);
+    
+    return map;
+}
+
+	@Override
+	public int confirmPurchase(String orderItemNo, int memberNo) {
+	    Map<String, Object> paramMap = new HashMap<>();
+	    paramMap.put("orderItemNo", orderItemNo);
+	    paramMap.put("memberNo", memberNo);
+	    
+	    return mapper.confirmPurchase(paramMap);
+}
+
 }

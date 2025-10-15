@@ -14,4 +14,5 @@ public interface afterTradeReviewMapper {
 	// 중고상품, 굿즈 후기 별점 insert
 	public int reviewRatingInsert(ReviewWrite reviewWrite);
 
+
 }

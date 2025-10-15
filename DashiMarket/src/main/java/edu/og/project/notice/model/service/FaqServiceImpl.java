@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import edu.og.project.common.dto.Image;
 import edu.og.project.notice.model.dao.FaqMapper;
 import edu.og.project.notice.model.dto.Faq;
 
@@ -40,20 +39,8 @@ public class FaqServiceImpl implements FaqService {
 	
 	@Transactional
 	@Override
-	public int insertImage(Image image) {
-		return mapper.insertImage(image);
-	}
-	
-	@Transactional
-	@Override
 	public int updateFaq(Faq faq) {
 		return mapper.updateFaq(faq);
-	}
-	
-	@Transactional
-	@Override
-	public int deleteImagesByBoardNo(String boardNo) {
-		return mapper.deleteImagesByBoardNo(boardNo);
 	}
 	
 	@Transactional
@@ -67,5 +54,4 @@ public class FaqServiceImpl implements FaqService {
 	public int increaseViewCount(int faqNo) {
 	    return mapper.increaseViewCount(faqNo);
 	}
-
 }

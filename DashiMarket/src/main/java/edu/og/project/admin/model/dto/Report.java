@@ -30,6 +30,9 @@ public class Report {
 	private String targetMember;    // 신고 대상 회원 아이디
 	private String reportResult;   // 신고 처리 결과 (처리중, 완료 등)
 	
+	private int targetMemberNo;    // 신고 대상 회원 번호
+	private int reportMemberNo;    // 신고자 회원 번호
+	
 	private String boardTitle;
 	private String reportName;
 	

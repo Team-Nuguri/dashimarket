@@ -59,14 +59,14 @@
 
     <ul class="left-menu">
         <li class="text-size-18 bold-text">
-            <img th:src="@{/images//myPage/myinfo.png}" alt="내 정보 관리" width="40px" height="40px">
+            <img th:src="@{/images/myPage/myinfo.png}" alt="내 정보 관리" width="40px" height="40px">
             내 정보 관리       
             <ul class="left-submenu">
                 
                 
-                    <li><a href="myPage-profile.html">프로필 관리</a></li>
+                    <li><a th:href="@{/myPage/profile}">프로필 관리</a></li>
                 
-                    <li><a href="myPage_secession.html">회원관리</a></li>
+                    <li><a th:href="@{/myPage/secession}">회원탈퇴</a></li>
                        
             </ul>
         </li>   
@@ -100,8 +100,7 @@
       </div>
 
       <div class="actions">
-        <button class="btn btn-delete"
-                th:attr="data-id=${item.boardNo}, data-action='delete'">
+        <button class="btn btn-delete" th:attr="data-id=${item.joonggoNo}, data-action='delete'">
           삭제
         </button>
       </div>
@@ -191,7 +190,7 @@
 </main>
 
 
-
+<!--
       <nav aria-label="페이지네이션">
         <ul class="pagination">
           <li><button type="button" class="pagination-btn" aria-label="이전 페이지"><img src="../../../resources/static/images/pagination/pagn-previous-btn.svg"></button></li>
@@ -207,59 +206,13 @@
           <li><button type="button" aria-label="10페이지">10</button></li>
           <li><button type="button" class="pagination-btn" aria-label="다음 페이지"><img src="../../../resources/static/images/pagination/pagn-next-btn.svg"></button></li>
         </ul>
-      </nav>
+      </nav>-->
   
-        
-    <footer>
-        <section>
-            <div class="footer-top">
-                <a th:href="@{#}"><img src="../../../resources/static/images/logo.png" width="100px" style="vertical-align: middle;"></a>
-                <a th:href="@{#}">회사 소개</a>
-                <span>|</span>
-                <a th:href="@{#}">서비스 소개</a>
-                <span>|</span>
-                <a th:href="@{#}">블로그</a>
-                <span>|</span>
-                <a th:href="@{#}">채용제휴 문의</a>
-                <span>|</span>
-                <a th:href="@{#}">광고 문의</a>
-            </div>
+    
+  <!--footer-->
+  <th:block th:replace="~{common/footer}"></th:block>
 
-            <hr>
-
-            <div class="footer-bottom">
-
-                <div class="footer-left">
-                    (주) 다시마켓 <br>
-                    대표 너구리 <br>
-                    사업자번호 168-87-57386 <br>
-                    직업정보제공사업 신고번호J1200020200016 <br>
-                    통신판매신고번호 제2024-서울강남-06966호 <br>
-                    호스팅 사업자 Amazon Web Service(AWS)<br>
-                    주소 서울특별시 종로구 우정국로2길 21 9층, 903호 <br>
-                    전화 1877-9292 <br>
-                    고객문의 kelp@dasimacat.com
-                </div>
-                <div class="footer-right">
-                    <a href="#">공지사항</a>
-                    <a href="#">자주묻는 질문</a> <br><br>
-
-                    <a href="#">이용약관</a>
-                    <a href="#">개인정보처리방침</a>
-
-                    <a href="#">운영정책</a>
-
-                    <a href="#">위치기반서비스 이용약관</a>
-
-                    <a href="#">게시글</a>
-
-                </div>
-
-            </div>
-        </section>
-    </footer>  
-
-  
+  <script th:src="@{/js/myPage/myPage-wishlist.js}"></script>
 
   
 </body>

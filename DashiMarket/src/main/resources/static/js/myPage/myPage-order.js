@@ -25,7 +25,7 @@ function setupSearchFunction() {
 }
 
 /**
- * 굿즈 거래내역 목록 조회
+ * 중고 거래내역 목록 조회
  */
 function loadGoodsList(cp = 1) {
     const keyword = currentKeyword || '';
@@ -167,8 +167,8 @@ function renderGoodsList(dataList) {
         buttonGroup.innerHTML = `
             <button 
                 class="myPage-orderPostWrite text-size-12 bold-text" 
-                id="review-btn-${item.orderItemId}" 
-                onclick="writeReview('${item.orderItemId}', '${item.orderNo}')"
+                id="review-btn-${item.orderItemNo}" 
+                onclick="writeReview('${item.orderItemNo}', '${item.orderNo}')"
                 ${item.구매상태 === '구매확정' ? '' : 'disabled'}
                 style="white-space: nowrap; ${item.구매상태 === '구매확정' ? '' : 'opacity: 0.5; cursor: not-allowed;'}"
             >
@@ -177,8 +177,8 @@ function renderGoodsList(dataList) {
             <div style="display: flex; gap: 10px;">
                 <button 
                     class="myPage-orderConfirm text-size-12 bold-text" 
-                    id="confirm-btn-${item.orderItemId || 0}"
-                    onclick="confirmPurchase('${item.orderItemId}', '${item.orderNo}')"
+                    id="confirm-btn-${item.orderItemNo || 0}"
+                    onclick="confirmPurchase('${item.orderItemNo}')"
                     style="white-space: nowrap;"
                 >
                     구매확정
@@ -303,8 +303,8 @@ function formatDate(dateStr) {
 /**
  * 거래 후기 작성
  */
-function writeReview(orderItemId, orderNo) {
-    console.log('거래 후기 작성:', orderItemId, orderNo);
+function writeReview(orderItemNo, orderNo) {
+    console.log('거래 후기 작성:', orderItemNo, orderNo);
     alert('거래 후기 작성 기능은 준비중입니다.');
 }
 
@@ -313,14 +313,14 @@ function writeReview(orderItemId, orderNo) {
  *//**
  * 구매 확정
  */
-function confirmPurchase(orderItemId, orderNo) {
+function confirmPurchase(orderItemNo) {
     if (confirm('구매를 확정하시겠습니까?')) {        
         fetch('/myPage/api/goods/confirm', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: `orderItemId=${orderItemId}`
+            body: `orderItemNo=${orderItemNo}&orderNo=${orderNo}`
         })
         .then(response => response.json())
         .then(result => {

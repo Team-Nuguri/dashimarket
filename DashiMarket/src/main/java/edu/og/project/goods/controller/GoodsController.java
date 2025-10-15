@@ -171,6 +171,8 @@ public class GoodsController {
 		goodsWrite.setBoardType(boardType);
 		goodsWrite.setMemberNo(loginMember.getMemberNo());
 		
+		System.out.println("테스트" + loginMember.getMemberNo());
+		
 		String result = service.goodsInsert(goodsWrite);
 		
 		String path = null;

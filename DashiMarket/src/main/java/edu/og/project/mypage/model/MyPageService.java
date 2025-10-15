@@ -57,6 +57,21 @@ public interface MyPageService {
 	 * @param 
 	 * @return 
 	 */
-	List<Map<String, Object>> selectGoods(String memberEmail);
+	List<Map<String, Object>> selectGoods(Map<String, Object> paramMap);
+
+	/**
+	 * 굿즈 거래 목록 + 페이지네이션
+	 */
+	Map<String, Object> selectGoodsWithPagination(Map<String, Object> paramMap);
 	
+	/**
+	 * 구매 확정
+	 * @param orderItemNo 주문 아이템 ID
+	 * @param memberNo 회원 번호
+	 * @return 업데이트 결과
+	 */
+	int confirmPurchase(String orderItemNo, int memberNo);
+
 }
+
+

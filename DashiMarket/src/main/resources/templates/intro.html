@@ -21,8 +21,17 @@
         <!-- 상단 로그인 버튼 -->
         <div id="header-login">
             <a th:href="@{/member/login}" th:unless="${session.loginMember}" class="text-size-18 bold-text">로그인</a>
-            <span class="text-size-18 bold-text" th:if="${session.loginMember}">[[${session.loginMember.memberNickname}]]님 환영합니다!</span>
-            <a th:href="@{/member/logout}" th:if="${session.loginMember}" class="text-size-18 bold-text" id="logoutBtn">로그아웃</a>
+            <span class="text-size-18 bold-text"
+                th:if="${session.loginMember}">[[${session.loginMember.memberNickname}]]님 환영합니다!</span>
+
+            <!-- ✅ 관리자 페이지 버튼만 추가 -->
+            <a th:if="${session.loginMember != null and session.loginMember.isAdmin == 'Y'}" th:href="@{/admin/main}"
+                class="admin-page-btn">
+                관리자 페이지
+            </a>
+            
+            <a th:href="@{/member/logout}" th:if="${session.loginMember}" class="text-size-18 bold-text"
+                id="logoutBtn">로그아웃</a>
         </div>
 
 
@@ -52,14 +61,15 @@
 
                         <!-- 로그인한 상태: 회원가입시 저장된 기본 동네 -->
                         <span th:if="${session.loginMember}">
-                            [[${session.loginMember.jibunAddress.split(' ')[#arrays.length(session.loginMember.jibunAddress.split(' ')) - 2]}]]
+                            [[${session.loginMember.jibunAddress.split('
+                            ')[#arrays.length(session.loginMember.jibunAddress.split(' ')) - 2]}]]
                         </span>
 
                         <!-- 로그인 안 한 상태: 현재 위치 -->
                         <span th:unless="${session.loginMember}">[[${session.selectDong}]]</span>
 
                     </span>
-                    
+
                 </div>
             </div>
 
@@ -107,7 +117,8 @@
     <th:block th:replace="~{common/footer}"></th:block>
 
     <!-- 카카오맵 API -->
-    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=4eadace8a189e8fb36d8ccf3d8aa6233&libraries=services"></script>
+    <script type="text/javascript"
+        src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=4eadace8a189e8fb36d8ccf3d8aa6233&libraries=services"></script>
     <script th:src="@{/js/intro.js}"></script>
     <script th:inline="javascript">
         const isLogin = /*[[${session.loginMember != null}]]*/ "로그인 정보";

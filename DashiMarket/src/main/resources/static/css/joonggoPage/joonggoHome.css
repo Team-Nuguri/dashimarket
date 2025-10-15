@@ -9,75 +9,23 @@ a {
     align-items: center;
 }
 
-
-/* 동네 선택 드롭다운 */
 .show {
     display: block !important;
 }
 
-#drop-down-box {
-    margin-left: 100px;
-}
-
+/* 동네 선택 */
 #select-city {
     display: flex;
-    background-color: #166549;
-    width: 200px;
-    margin-top: 20px;
+    margin-top: 40px;
     border-radius: 10px;
-    justify-content: center;
-    padding: 20px 10px;
 }
 
-#city-name {
-    width: 60%;
-    text-align: center;
-    color: white;
+#show-city-name > span {
+    color: #166549;
 }
 
-#drop-down-icon {
-    display: flex;
-    align-items: center;
-}
-
-#drop-down-icon:hover {
+#select-city:hover {
     cursor: pointer;
-}
-
-#select-city-box {
-    display: none;
-    position: absolute;
-    background-color: white;
-    border: 2px solid #298C69;
-    border-radius: 10px;
-    padding: 10px;
-    width: 200px;
-    z-index: 100;
-    gap: 10px;
-    text-align: center;
-}
-
-/* 동 텍스트 */
-#select-city-box a>div {
-    text-align: center;
-    padding: 5px;
-    color: black;
-    border-bottom: 2px solid transparent;
-}
-
-#select-city-box a div:hover {
-    border-bottom: 2px solid #166549;
-}
-
-
-#select-sort-box a>div {
-    text-align: center;
-    padding: 5px;
-    color: black;
-}
-
-#select-sort-box a div:hover {
-    border-bottom: 2px solid #166549;
 }
 
 

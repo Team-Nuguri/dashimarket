@@ -14,7 +14,9 @@ public interface afterTradeReviewService {
 	 * @throws IOException 
 	 * @throws IllegalStateException 
 	 */
-	String reviewInsert(ReviewWrite reviewWrite) throws IllegalStateException, IOException;
+	// String reviewInsert(ReviewWrite reviewWrite) throws IllegalStateException, IOException;
+
+	int insertReview(ReviewWrite reviewWrite);
 	
 	
 }
