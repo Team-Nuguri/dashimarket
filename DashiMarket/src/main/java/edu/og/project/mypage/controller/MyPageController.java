@@ -344,28 +344,43 @@ public class MyPageController {
 	    return result;
 	}
 	
-	// 중고거래 내역
-	@GetMapping("/order")	
-	public String selectUsedOrder (
-	        @SessionAttribute("loginMember") Member loginMember,
-	        @RequestParam(value = "cp", defaultValue = "1") int cp,
-	        @RequestParam(value = "keyword", required = false) String keyword,
-	        Model model) {
-	    
-	    Map<String, Object> paramMap = new HashMap<>();
-	    paramMap.put("memberNo", loginMember.getMemberNo());
-	    paramMap.put("keyword", keyword);
-	    paramMap.put("cp", cp);
-	    
-	    // 페이지네이션과 함께 데이터 조회
-	    Map<String, Object> resultMap = service.selectGoodsWithPagination(paramMap);
-	    
-	    model.addAttribute("goodsList", resultMap.get("goodsList"));
-	    model.addAttribute("pagination", resultMap.get("pagination"));
-	    model.addAttribute("keyword", keyword);
-	    
-	    return "myPage/myPage-goods";		
-	}
+	
+	    /**
+	     * 중고 거래 페이지 이동
+	     */
+	    @GetMapping("/order")
+	    public String orderPage() {
+	        return "myPage/myPage-order";
+	    }
+
+	    /**
+	     * 중고 거래 목록 조회 (AJAX)
+	     */
+	    @GetMapping("/orderList")
+	    @ResponseBody
+	    public Map<String, Object> getOrderList(
+	            @SessionAttribute("loginMember") Member loginMember,
+	            @RequestParam(value = "tradeType", defaultValue = "buy") String tradeType,
+	            @RequestParam(value = "cp", defaultValue = "1") int cp,
+	            @RequestParam(value = "keyword", required = false) String keyword
+	    ) {
+	        
+	        // 파라미터 맵 생성
+	        Map<String, Object> paramMap = new HashMap<>();
+	        paramMap.put("memberNo", loginMember.getMemberNo());
+	        paramMap.put("tradeType", tradeType);
+	        paramMap.put("cp", cp);
+	        paramMap.put("keyword", keyword);
+	        
+	        // 서비스 호출
+	        Map<String, Object> result = service.selectOrderWithPagination(paramMap);
+	        
+	        System.out.println("컨트롤러 결과: " + result);
+	        
+	        return result;
+	    }
+
+	
 	
 	
 	// 로그인한 회원의 나의 중고상품 위시리스트 (KJK)

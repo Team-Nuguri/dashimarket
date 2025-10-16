@@ -78,6 +78,9 @@ public interface MyPageService {
 
 	/* 나의 중고상품 위시리스트 삭제 (KJK) */
 	int deleteWishItem(int memberNo, String boardNo);
+	
+	//중고거래
+	Map<String, Object> selectOrderWithPagination(Map<String, Object> paramMap);
 
 }
 
