@@ -110,8 +110,9 @@
   <input type="hidden" name="question4" id="hidden-rating4">
   
   <input type="hidden" name="reviewType" value="joonggo">
-  <input type="hidden" name="buyerNo" value="1"> <!-- 추후 변경요망 -->
-  <input type="hidden" name="boardNo" value="1"> <!-- 추후 변경요망 -->
+  <input type="hidden" name="boardNo" th:value="${boardNo}">
+  <input type="hidden" name="buyerNo" th:value="${memberNo}">
+  
      </form>
   </main>
 

@@ -75,6 +75,13 @@ public class afterTradeReviewServiceImpl implements afterTradeReviewService {
 			 return result;
 		 }
 		 
+		 // 중고상품, 굿즈 후기작성여부 update
+		 result = mapper.reviewFlagUpdate(reviewWrite);
+		 
+		 if(result == 0) { 
+			 return result;
+		 }
+		 
 		 return result;
 		
 	}
