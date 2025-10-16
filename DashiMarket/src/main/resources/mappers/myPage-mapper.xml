@@ -2,6 +2,70 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="edu.og.project.mypage.dao.MyPageMapper">
+	
+	<resultMap type="Joonggo" id="joonggo_rm">
+   
+      <id property="joonggoNo" column="BOARD_NO"/>
+      
+      <result property="joonggoTitle" column="BOARD_TITLE"/>
+      <result property="joonggoContent" column="BOARD_CONTENT"/>
+      <result property="joonggoCreateDate" column="BOARD_CREATE_DATE"/>
+      <result property="joonggoUpdateDate" column="BOARD_UPDATE_DATE"/>
+      <result property="readCount" column="POST_VIEWS"/>
+      <result property="likeCount" column="LIKE_COUNT"/>
+      <result property="joonggoPrice" column="JOONGGO_PRICE" />
+      <result property="thumbnail" column="THUMBNAIL" />
+      
+      
+      <!--회원 -->
+      <result property="memberNickname" column="MEMBER_NICKNAME"/>
+      <result property="memberNo" column="MEMBER_NO"/>
+      <result property="profileImage" column="PROFILE_PATH"/>
+      <result property="defaultDong" column="DEFAULT_DONG"/>
+      <result property="sellerRating" column="SELLER_RATING"/>
+      
+      <!--카테고리-->
+      <result property="categoryId" column="CATEGORY_ID"/>
+      <result property="parentCategoryNo" column="PARENT_CATEGORY_NO"/>
+      <result property="mainCategory" column="MAIN"/>
+      <result property="subCategory" column="SUB"/>
+      
+            
+      <result property="boardCode" column="BOARD_CODE"/>
+      <result property="boardType" column="BOARD_TYPE"/>
+      
+       
+        
+       
+      
+      
+      <!-- collection 태그  
+		- select로 조회된 결과를 컬렉션(List)에 담아 지정된 필드에 세팅
+        - property : list에 담을 DTO 필드명
+        - select : 실행할 select의 id 	 
+        - column : 조회 결과 중 지정된 컬럼의 값을 파라미터로 전달
+        - javaType : List(컬렉션)의 타입 지정 
+        - ofType : List(컬레션)의 제네릭 지정
+      -->
+      <collection property="imageList" select="selectImageList" 
+      			  column="BOARD_NO" javaType="java.util.ArrayList"  
+      			  ofType="Image" 
+      			  >     
+      </collection>
+      
+      
+   </resultMap>
+   
+    <!--이미지 rm-->
+   <resultMap id="image_rm" type="Image">
+	   
+	  <id property="imageNo" column="IMG_NO"/>
+      
+      <result property="imagePath" column="IMG_PATH"/>
+      <result property="imageRename" column="IMG_RENAME"/>
+      <result property="imageOrder" column="IMG_ORDER"/>
+      <result property="boardNo" column="BOARD_NO"/>   
+   </resultMap>
 
     <!-- 회원 정보 조회 (비밀번호 제외) -->
     <select id="selectMember" parameterType="int" resultType="Member">
@@ -162,5 +226,34 @@ ORDER BY p.PAT_DATE DESC
           AND o.MEMBER_NO = #{memberNo}
     )
 </update>
+
+   <!-- 중고상품 위시리스트 목록 조회 (KJK) -->
+	<select id="selectJoonggoWishList" resultMap="joonggo_rm">
+		SELECT B.BOARD_NO, BOARD_TITLE,  JOONGGO_PRICE,
+		  (SELECT IMG_PATH || IMG_RENAME FROM IMAGE I
+		    WHERE I.BOARD_NO = B.BOARD_NO
+		    AND IMG_ORDER = 0) THUMBNAIL
+		FROM "BOARD" B
+		JOIN "JOONGGO" J ON(J.BOARD_NO = B.BOARD_NO)
+		JOIN "LIKE" L ON(L.POST_NO = B.BOARD_NO)
+		WHERE DELETE_FL = 'N'
+		AND BOARD_CODE = 1
+		AND L.MEMBER_NO = ${memberNo}
+		ORDER BY BOARD_CREATE_DATE DESC
+	</select>
+	
+	<!-- 중고상품 위시리스트 목록 삭제 (KJK) -->
+	<delete id="deleteJoonggoWishList">
+		DELETE FROM "LIKE"
+		WHERE POST_NO = #{param2}
+		AND MEMBER_NO = #{param1}
+	</delete>
+	
+	<!-- 중고상품 위시리스트 목록 조회관련 (KJK) -->
+	<select id="selectImageList" resultMap ="image_rm">
+		SELECT * FROM IMAGE
+		WHERE BOARD_NO = #{boardNo}
+		ORDER BY IMG_ORDER	
+	</select>
 	
 </mapper>

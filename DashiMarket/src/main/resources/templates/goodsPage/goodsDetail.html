@@ -15,8 +15,6 @@
 
 <body>
     <th:block th:replace="~{/common/header}">header.html</th:block>
-    <!-- ----------------------------------------- -->
-
 
     <main>
         <section class="center" id="item-detail">
@@ -323,7 +321,7 @@
                         등록된 QnA가 없습니다. 첫 질문을 남겨보세요!
                     </h2>
                 </div>
-
+no
                 <li class="qna-item" th:each="com : ${qnaList}">
 
 
@@ -332,7 +330,7 @@
                         th:with=" isLogin = ${session.loginMember != null}
                                     , adminYN = ${isLogin && session.loginMember.isAdmin == 'Y'}
                                     ,isPermission = ${isLogin && (session.loginMember.memberNo == com.memberNo || session.loginMember.isAdmin == 'Y')}">
-                        <div class="qna-header" th:if="${com.level == 1}" th:data-comment-no="${com.commentNo}">
+                        <div class="qna-header" th:if="${com.level == 1}" th:id="|c*{com.commentNo}|" th:data-comment-no="${com.commentNo}">
 
 
 
@@ -555,6 +553,8 @@
         const loginMember = /*[[${session.loginMember}]]*/ '';
 
         const boardNo = /*[[${goods.boardNo}]]*/ '게시글 번호';
+
+        const goodsName = /*[[${goods.boardTitle}]]*/ '상품 이름 = 게시글 제목';
 
     </script>
 

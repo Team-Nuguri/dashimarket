@@ -3,6 +3,7 @@
 
 <mapper namespace="edu.og.project.sse.model.dao.SseMapper">
 	
+	<!-- 알림 삽입 -->
 	<insert id="insertNotification" parameterType="Notification" useGeneratedKeys="true">
 		<selectKey order="BEFORE" resultType="_int" keyProperty="notificationNo">
 			SELECT SEQ_NOTI_NO.NEXTVAL FROM DUAL
@@ -22,14 +23,15 @@
 			#{sendMemberNo},
 			
 			<choose>
-				<!-- 알림 종류가 댓글 작성 또는 좋아요 [pkNo : 게시글 번호] -->
-				<when test="notificationType == 'communityComment' or
-							notificationType == 'boardLike'">
+				<!-- 알림 종류가 게시글 좋아요 [pkNo : 게시글 번호] -->
+				<when test="notificationType == 'boardLike' or
+							notificationType == 'communityComment'">
 					(SELECT MEMBER_NO FROM BOARD WHERE BOARD_NO = #{pkNo})				
 				</when>
 				
-				<!-- 알림 종류가 답글 [pkNo : 부모 댓글 번호] -->
-				<when test="notificationType == 'communityChildComment'">
+				<!-- 알림 종류가 답글 또는 QnA [pkNo : 부모 댓글 번호] -->
+				<when test="notificationType == 'communityChildComment' or
+							notificationType == 'qna'">
 					(SELECT MEMBER_NO FROM "COMMENT" WHERE COMMENT_NO = #{pkNo})				
 				</when>
 				

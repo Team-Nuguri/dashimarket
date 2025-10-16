@@ -147,12 +147,42 @@
 	
 	<!-- 채팅방 그냥 나가기 -->
 	<update id="exitChatRoom">
-		UPDATE CHATTING_ROOM SET
+	<!-- 	UPDATE CHATTING_ROOM SET
 		CHAT_DELETE_FL = 'Y'
 		WHERE CHATTING_NO = #{chattingNo}
 		AND (OPEN_MEMBER = ${memberNo} AND PARTCIPANT = ${targetNo})
-		OR (OPEN_MEMBER = ${targetNo} AND PARTCIPANT = ${memberNo})
+		OR (OPEN_MEMBER = ${targetNo} AND PARTCIPANT = ${memberNo}) -->
+		
+		UPDATE CHATTING_ROOM
+		SET CHAT_DELETE_FL = 'Y'
+		WHERE CHATTING_NO IN (
+		    SELECT CR.CHATTING_NO
+		    FROM CHATTING_ROOM CR
+		    JOIN BOARD B ON CR.PRODUCT_NO = B.BOARD_NO
+		    WHERE B.BOARD_NO = #{productNo}  -- 특정 게시글 번호
+		)
+		AND (
+		    (OPEN_MEMBER = ${memberNo} AND PARTCIPANT = ${targetNo})
+		    OR
+		    (OPEN_MEMBER = ${targetNo} AND PARTCIPANT = ${memberNo})
+		)
 	</update>
+	
+	<!-- 신고된 채팅방의 유저 정보 조회 -->
+	<select id="selectChattingInfo" parameterType="map" resultType="Member">
+	    SELECT 
+	        M.MEMBER_NO,
+	        M.MEMBER_NICKNAME,
+	        M.MEMBER_EMAIL,
+	        M.PROFILE_PATH
+	    FROM CHATTING_ROOM C
+	    JOIN MEMBER M 
+	      ON (CASE 
+	            WHEN C.PARTICIPANT = #{loginMemberNo} THEN C.OPEN_MEMBER
+	            ELSE C.PARTICIPANT
+	          END) = M.MEMBER_NO
+	    WHERE C.CHATTING_NO = #{chattingNo}
+	</select>
 
 
 </mapper>

@@ -101,6 +101,14 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (result == 1) {
                         alert("답글이 등록되었습니다.")
                         goodsQnaList(boardNo)
+
+                         // 관리자가 답변한 알림 보내기
+                        const url = `${location.pathname}?cn=${commentNo}`;
+                        const content = `관리자가 <b>${goodsName}</b> 상품에
+                                        <br>답변을 작성했습니다.`;
+
+                        sendNotification("qna", url, commentNo, content)
+
                     } else {
                         alert("답글 등록 실패")
                     }

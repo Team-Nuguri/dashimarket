@@ -1,5 +1,6 @@
 package edu.og.project.sse.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ public class SseServiceImpl implements SseService{
 	public Map<String, Object> insertNotification(Notification notification) {
 		
 		// 결과 저장용
-		Map<String, Object> map = null;
+		Map<String, Object> map = new HashMap<>();
 		
 		// 알림 삽입
 		int result = mapper.insertNotification(notification);

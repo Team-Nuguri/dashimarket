@@ -4,6 +4,7 @@ let selectChattingNo; // 선택한 채팅방 번호
 let selectTargetNo; // 현재 채팅 대상
 let selectTargetName; // 채팅 상대 이름
 let selectTargetProfile; // 채팅 상대 프로필
+let selectProductNo; // 선택한 중고 상품 번호
 
 // 문서 로딩 완료 후 수행할 기능
 document.addEventListener("DOMContentLoaded", ()=>{
@@ -116,19 +117,20 @@ closeBtn?.addEventListener("click", ()=>{
 
 // 중고 상세페이지에서 채팅하기 버튼 클릭시 채팅방 입장
 const jChatBtn = document.getElementById("chatting-btn");
-const tradeComplete = document.getElementById("trade-complete");
+// const tradeComplete = document.getElementById("trade-complete");
 
 jChatBtn?.addEventListener("click", (e)=>{
     const productNo = e.currentTarget.getAttribute("data-item");
     const sellerNo = e.currentTarget.getAttribute("data-seller");
     const buyerNo = loginMemberNo;
-
-    if(tradeComplete){
-        alert("이미 거래가 완료된 상품입니다.");
-        return;
-    }
-
+    
     joonggoChatEnter(productNo, sellerNo, buyerNo); 
+    
+    // if(tradeComplete){
+    //     alert("이미 거래가 완료된 상품입니다.");
+    //     return;
+    // }
+
 })
 
 
@@ -158,10 +160,12 @@ function joonggoChatEnter(productNo, sellerNo, buyerNo) {
             
             // 전역 변수 업데이트: 새로 생성/입장한 채팅방 번호 저장
             selectChattingNo = chatNo; 
+            selectProductNo = productNo;
+            console.log("중고상품 번호 : " + selectProductNo)
             
             // 팝업 열기
             chattingPopup.classList.add("show"); 
-            showSellerButtons(loginMemberNo, currentSellerNo)
+            // showSellerButtons(loginMemberNo, currentSellerNo)
             
             // 채팅방 목록 조회
             selectRoomList(); 
@@ -284,7 +288,6 @@ function selectRoomList(){
     .then(resp => resp.json())
     .then(roomList => {
         console.log("📦 서버에서 받은 roomList:", roomList);
-        console.log(roomList)
 
         const chattingList = document.querySelector(".chatting-list")
         chattingList.innerHTML = "";
@@ -596,7 +599,6 @@ const exit = document.getElementById("exit")
 const chatDropdown = document.getElementById("chatDropdown");
 
 exit?.addEventListener("click", ()=>{
-    
     chatDropdown.classList.toggle("hidden");
 })
 
@@ -613,34 +615,58 @@ const justExit = document.getElementById("just-exit")
 
 // 신고후 나가기
 reportExit?.addEventListener("click", () => {
+    
     if (confirm("정말 신고 후 나가시겠습니까?")) {
-        const reason = prompt("신고 사유를 입력해주세요.");
-        if (!reason || reason.trim() === "") {
-            alert("신고 사유를 입력해야 합니다.");
-            return;
-        }
+        window.handleReportSubmit = (reason) => {
+            if (!reason || reason.trim() === "") {
+                alert("신고 사유를 입력해야 합니다.");
+                return;
+            }
 
-        const data = {
-            chattingNo: chattingNo,
-            reportedMemberNo: otherMemberNo,
-            reportReason: reason
+            const data = {
+                chattingNo: selectChattingNo,
+                reportedMemberNo: selectTargetNo,
+                reportReason: reason
+            };
+
+            fetch("/chatting/reportExit", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(data)
+            })
+            .then(resp => resp.text())
+            .then(result => {
+                if (result === "success") {
+                    alert("신고 후 나가기 처리되었습니다.");
+                    location.reload();
+
+                    document.querySelector(".chatting-list").innerHTML = "";
+                    document.getElementById("selectTargetName").innerText = "";
+
+                    console.log("신고 후 나가기 성공! 채팅 목록 새로고침 시작");
+                    selectRoomList();
+
+                    // selectChattingNo = null;
+                    // selectTargetNo = null;
+
+                } else {
+                    alert("처리 중 오류가 발생했습니다.");
+                }
+            })
+            .catch(err => console.error("신고후 나가기 오류:", err));
+            delete window.handleReportSubmit;
         };
 
-        fetch("/chatting/reportExit", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(data)
-        })
-        .then(resp => resp.text())
-        .then(result => {
-            if (result === "success") {
-                alert("신고 후 나가기 처리되었습니다.");
-                location.href = "/chatting/list";
-            } else {
-                alert("처리 중 오류가 발생했습니다.");
-            }
-        })
-        .catch(err => console.error("신고후 나가기 오류:", err));
+        const width = 500;
+
+        const left = (window.screen.width-width)/2;
+        window.open(
+            '/chatting/report/'+ selectChattingNo,  // 팝업으로 띄울 HTML 경로
+            'reportPopup',   // 팝업 이름
+            'width=500,height=600,resizable=yes,scrollbars=no, left='+left+",top=300"
+        
+    );
+
     } else {
         alert("취소되었습니다.");
     }
@@ -673,7 +699,7 @@ justExit?.addEventListener("click", () => {
                 console.log("✅ 나가기 성공! 채팅 목록 새로고침 시작");
                 selectRoomList();
 
-                selectChattingNo = null;
+                // selectChattingNo = null;
 
             } else {
                 alert("오류가 발생했습니다.");

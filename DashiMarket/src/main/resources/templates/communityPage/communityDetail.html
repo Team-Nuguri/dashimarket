@@ -141,7 +141,7 @@
 
                     <!-- 댓글 하나 -->
                     <div th:class="|parent-comment ${comment.parentCommentNo != 0 ? 'child-comment' : ''}|"
-                         th:data-comment-no="${comment.commentNo}">
+                        th:id="|c*{comment.commentNo}|" th:data-comment-no="${comment.commentNo}">
 
                         <!-- 프로필 사진 -->
                         <div class="comment-profile-img">

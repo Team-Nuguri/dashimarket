@@ -31,7 +31,10 @@ body{
     background-color: white;
 }
 
-.show{display: flex;}
+.show{
+    display: flex;
+    flex-direction: column;
+}
 
 /* 팝업 상단 헤더 */
 .popup-header{
