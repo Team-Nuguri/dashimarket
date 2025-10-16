@@ -243,13 +243,21 @@ replySubmitBtn.forEach(submit => {
     .then(resp => resp.text())
     .then(result => {
         console.log(result);
-
+        
         if(result != 0) {
+            console.log(location.pathname)
             alert("답글이 등록 되었습니다.");
             commentArea.value = "";
 
             /* 댓글 비동기 조회 */
             selectCommentList("sort", "latest");
+
+            // 답글 알림 보내기
+            const url = `${location.pathname}?cn=${parentNo}`;
+            const content = `${commMemberNickname}님이 ${boardTitle} 게시글에 <br> 답글을 작성했습니다.`;
+
+            sendNotification("communityChildComment", url, parentNo, content)
+
         } else {
             alert("답글 등록에 실패했습니다");
         }
@@ -309,7 +317,7 @@ commentBtn.addEventListener("click", e => {
 
     /* 댓글 작성 비동기 요청 */
     const data = {
-        "commentContent" : commentArea.value,
+        "commentContent" : commentArea.value.trim(),
         memberNo : commLoginMemberNo,
         "postNo" : boardNo
     }
@@ -321,14 +329,23 @@ commentBtn.addEventListener("click", e => {
     })
     .then(resp => resp.text())
     .then(result => {
-        console.log(result);
+        console.log("댓글등록 : " + result);
 
         if(result != 0) {
             alert("댓글이 등록 되었습니다.");
+            
+            // 댓글 알림 보내기
+            const url = `${location.pathname}?cn=${result}`;
+            const content = `${commMemberNickname}님이 <b>${boardTitle}</b> 게시글에
+                                <br> 댓글 작성했습니다.`;
+
+            sendNotification("communityComment", url, boardNo , content)
             commentArea.value = "";
 
             /* 가본 최신순 정렬로 조회하기 */
             selectCommentList("sort", "latest");
+
+
         } else {
             alert("댓글 등록에 실패했습니다");
         }
@@ -491,9 +508,6 @@ if(deleteBtn != null) {
 }
 
 
-
-
-/*  신고 버튼 클릭 시  */
 
 // 신고 버튼 클릭 시
 document.getElementById('report-btn').addEventListener('click', () => {

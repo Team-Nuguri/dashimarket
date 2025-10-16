@@ -103,16 +103,12 @@ public interface JoonggoService {
 	// 중고목록(중분류) 카데고리 (KJK)
 	Map<String, Object> selectJoonggoCategoryList2(String categoryId, String finalDong, int cp, String sortType);
 
-	
-	
-	
+
 	/** 메인 카테고리 조회
 	 * @return List
 	 */ 
 	List<Category> selectMainCategory();
 
-	
-	
 	
 	/** 서브 카테고리 조회
 	 * @param parentCategoryId

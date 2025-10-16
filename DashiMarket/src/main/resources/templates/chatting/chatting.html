@@ -70,14 +70,18 @@
                 <div class="content-header">
                     <p id="selectTargetName">너구리</p>
                     <div class="button-img-box">
-                        <button id="reserve">
-                            <img th:src="@{/images/svg/예약.svg}" class="img-set">
-                            <p>예약</p>
-                        </button>
-                        <button id="complete">
-                            <img th:src="@{/images/svg/거래완료.svg}" class="img-set">
-                            <p>거래완료</p>
-                        </button>
+
+                        <th:block th:if="${session.loginMember}">
+                            <button id="reserve" >
+                                <img th:src="@{/images/svg/예약.svg}" class="img-set">
+                                <p>예약</p>
+                            </button>
+                            <button id="complete">
+                                <img th:src="@{/images/svg/거래완료.svg}" class="img-set">
+                                <p>거래완료</p>
+                            </button>
+                        </th:block>
+
                         <div class="exit-dropdown-div">
                             <button id="exit">
                                 <img th:src="@{/images/svg/Menu Vertical.svg}" class="img-set">
@@ -109,10 +113,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
     
     <script th:inline="javascript">
-        
         const loginMemberNo = /*[[${session.loginMember?.memberNo}]]*/ "로그인한 회원 번호";
         const memberNickname = /*[[${session.loginMember?.memberNickname}]]*/ "로그인한 회원의 닉네임";
-        
     </script>
 
     <script th:src="@{/js/chatting/chatting.js}"></script>

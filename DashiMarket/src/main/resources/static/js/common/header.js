@@ -65,7 +65,7 @@ const connectSse = () => {
 }
 
 // 알림 메세지 전송 함수
-const sendNotification = (type, url, pkNo, content, targetNo) => {
+const sendNotification = (type, url, pkNo, content) => {
 
     // 로그인X -> 함수 종료
     if (notificationLoginCheck === false) return;
@@ -161,12 +161,16 @@ const selectNotificationList = () => {
                 noticeDate.innerText = data.notificationDate;
 
                 // 삭제 버튼
-                const noticeDelete = document.createElement("span");
+                const noticeDelete = document.createElement("p");
                 noticeDelete.className = 'notice-deleteBtn';
                 noticeDelete.innerHTML = '&times;';
 
                 // 삭제 버튼 클릭 -> 비동기로 알림 지우기
-                noticeDelete.addEventListener("click", () => {
+                noticeDelete.addEventListener("click", (e) => {
+
+                    e.preventDefault();
+                    e.stopPropagation();
+
                     fetch("/notification", {
                         method: "DELETE",
                         headers: { "Content-Type": "application/json" },
@@ -242,12 +246,13 @@ if (iconImg) {
 }
 
 
-
+// 장바구니
 document.getElementById("cartListBtn")?.addEventListener("click", e => {
 
     location.href = "/goods/shoppingcart"
 })
 
+// 커뮤니티 좋아요한 게시글
 document.getElementById("communityLikeBtn")?.addEventListener("click", () => {
     location.href = "/community/likeLists";
 })
@@ -283,8 +288,6 @@ document.addEventListener("DOMContentLoaded", () => {
             notificationList.classList.add("show")
         }
     })
-
-    // 창 스크롤 -> URL 이동시 해당 게시글로 이동
 
     // 중고, 굿즈, 커뮤니티 해당 게시글 제목으로 검색
     const query = document.getElementById("query");
@@ -342,6 +345,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
         e.preventDefault();
     });
+
+    // 창 스크롤 -> 알림 클릭 후 URL 이동시 해당 게시글 부분으로 이동
+    // cn 번호가 존재하는 경우 - 화면 스크롤 이동
+    const params = new URLSearchParams(location.search)
+    const cn = params.get("cn"); // cn값 얻어오기
+    //console.log(cn)
+    
+    if(cn != null){
+        const targetId = "c" + cn;
+        console.log(targetId)
+
+        const target = document.getElementById(targetId);
+        console.log(target)
+
+        const scrollPosition = target.offsetTop
+
+        // 창 스크롤
+        window.scrollTo({
+            top : scrollPosition -50, // 스크롤할 길이
+            behavior : "smooth" // 부트럽게 동작
+        })
+    }
 })
 
 
