@@ -1,7 +1,6 @@
 /*----------------------------*/
 /*주문 내역/ 거래 내역*/ 
 
-
 .divider {
     border-top: 1px solid black;
     margin: 50px 0;
@@ -19,8 +18,7 @@
 
 .myPage-order {
     width: 100%;
-
-    margin-left: 20px ;
+    margin-left: 20px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -44,7 +42,6 @@ legend {
     float: left;
     margin-right: 10px;
     padding-left: 0px;
-
 }
 
 .myPage-orderSearch input {
@@ -58,100 +55,244 @@ legend {
 .myPage-orderSelect {
     display: flex;
     justify-content: flex-end;
-    border-radius: 10px ;
+    border-radius: 10px;
     padding-right: 10px;
 }
 
 .myPage-orderStatus {
-    margin-bottom: 40px;
+    margin-bottom: 15px;
     margin-left: 0px;
 }
 
 .myPage-orderDetail {
-
     margin-left: 20px;
     padding-right: 30px;
 }
 
-.myPage-orderButtonGroup {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-areas:
-        "review review"
-        "confirm delivery";
-
-        gap: 5px;
-
-}
-
-.myPage-orderPostWrite {
-    grid-area: review;
-    border-radius: 10px;
-    background-color: #166549;
-    color: white;
-
-}
-
-.myPage-orderConfirm {
-    grid-area: confirm;
-    border-radius: 10px;
-    background-color: #166549;
-    color: white;
-
-
-}
-
+/* 버튼 스타일 - 커뮤니티와 동일한 색상 */
+.myPage-orderPostWrite,
+.myPage-orderConfirm,
 .myPage-orderDelivery {
-    grid-area: delivery;
+    padding: 10px 20px;
+    border: none;
     border-radius: 10px;
-    background-color: #166549;
+    background-color: #166549;  /* 커뮤니티와 동일 */
     color: white;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
 
+.myPage-orderPostWrite:hover:not(:disabled),
+.myPage-orderConfirm:hover,
+.myPage-orderDelivery:hover {
+    background-color: #298C69;  /* 호버 시 밝은 초록색 */
+}
 
+.myPage-orderPostWrite:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* 페이지네이션 스타일 - 원래대로 복구 */
+.myPage-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 30px;
+    padding: 20px 0;
 }
 
 .myPage-pagination ul {
+    list-style: none;
     display: flex;
-    justify-content: space-around;
-    padding: 100px;
-
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding: 0;
+    margin: 0;
 }
 
-.page-link, .first-page, .prev-group, .next-group, .last-page {
+.myPage-pagination li {
+    display: inline-block;
+}
+
+.myPage-pagination a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 35px;
+    height: 35px;
+    padding: 0 10px;
+    border: 1px solid #ddd;
+    background-color: white;
+    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 50%;
     text-decoration: none;
+    transition: all 0.2s ease;
 }
 
+.myPage-pagination a:hover {
+    background-color: #f5f5f5;
+    border-color: #999;
+}
 
+.myPage-pagination a.current {
+    background-color: #166549;
+    color: white;
+    border-color: #166549;
+    font-weight: 600;
+}
 
-
-
-
+.myPage-pagination a.current:hover {
+    background-color: #298C69;
+    border-color: #298C69;
+}
 
 /*----------------------------*/
 /*사이드 메뉴*/ 
 
 /*사이드메뉴 박스*/
 .left-side{
-
     display: flex;
     justify-content: center;
     align-items: flex-start;    
-    
-    width: 30% ;    
-
+    width: 30%;    
     margin-top: 0px;
     margin-bottom: 400px;
     border-radius: 20px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5);   
-    
     padding: 10px;
     box-sizing: border-box;
-
 }
 
 /*사이드메뉴 제목*/
 .left-title{    
+    display: flex;        
+    justify-content: center;    
+    align-items: center;
+    height: 100px;
+}
 
+/*사이드메뉴 소제목*/
+ul, li{
+    list-style: none;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 10px;
+}
+
+/*사이드  대제목 간격*/
+.left-menu {
+    margin-bottom: 70px;
+}
+
+.myPage-a a {
+    text-decoration: none;
+    color: black;
+}
+
+/* 페이지네이션 스타일 - 중고 거래내역과 동일 */
+.myPage-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 30px;
+    padding: 20px 0;
+}
+
+.myPage-pagination button {
+    min-width: 36px;
+    height: 36px;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    background-color: white;
+    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.myPage-pagination button:hover {
+    background-color: #f5f5f5;
+    border-color: #999;
+}
+
+.myPage-pagination button.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+    font-weight: 600;
+}
+
+.myPage-pagination button.active:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.myPage-pagination button:disabled {
+    background-color: #f5f5f5;
+    color: #ccc;
+    border-color: #e0e0e0;
+    cursor: not-allowed;
+}
+
+/* 이전/다음 버튼 스타일 */
+.myPage-pagination button:first-child,
+.myPage-pagination button:last-child {
+    padding: 8px 16px;
+    font-weight: 600;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .myPage-pagination {
+        gap: 4px;
+    }
+    
+    .myPage-pagination button {
+        min-width: 32px;
+        height: 32px;
+        padding: 6px 10px;
+        font-size: 13px;
+    }
+    
+    .myPage-pagination button:first-child,
+    .myPage-pagination button:last-child {
+        padding: 6px 12px;
+    }
+}
+
+/*----------------------------*/
+/*사이드 메뉴*/ 
+
+/*사이드메뉴 박스*/
+.left-side{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;    
+    width: 30%;    
+    margin-top: 0px;
+    margin-bottom: 400px;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5);   
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/*사이드메뉴 제목*/
+.left-title{    
     display: flex;        
     justify-content: center;    
     align-items: center;
