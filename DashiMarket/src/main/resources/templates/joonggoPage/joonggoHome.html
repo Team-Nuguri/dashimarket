@@ -44,7 +44,7 @@
 
 
         <!-- <div id="category-container" style="display: block;"> -->
-			<div id="category-container" th:if="${categoryId == null}" style="display: block;">
+			<div id="category-container" th:if="${!isCategoryPage}" style="display: block;">
 
             <!-- 카테고리 선택 드롭다운 -->
              <div id="category-drop-down-container">
@@ -88,7 +88,7 @@
                 </a>
 
                 <a th:href="@{/joonggoCategory(categoryId=J1200)}">
-                    <div class="text-size-20 medium-text" id="div12">패션 엑세서리</div>
+                    <div class="text-size-20 medium-text" id="div12">패션 액세서리</div>
                 </a>
                 <a th:href="@{/joonggoCategory(categoryId=J1300)}">
                     <div class="text-size-20 medium-text" id="div13">도서/문구</div>

@@ -98,6 +98,7 @@ public class JoonggoController {
 
 
 		model.addAttribute("map", map);
+		model.addAttribute("isCategoryPage", false);
 		return "joonggoPage/joonggoHome";
 	}
 
@@ -125,7 +126,7 @@ public class JoonggoController {
 	    else if (sortType.equals("highPrice")) model.addAttribute("sortText", "높은 가격순");
 	    else model.addAttribute("latest", "최신순");
 		
-
+	    model.addAttribute("isCategoryPage", false);
 		return "joonggoPage/joonggoHome";
 	}
 
@@ -143,6 +144,7 @@ public class JoonggoController {
 		Map<String, Object> map = service.selectJoonggoCategoryList(categoryId, finalDong, cp, sortType);
 		model.addAttribute("map", map);
 		model.addAttribute("categoryId", categoryId);
+		model.addAttribute("isCategoryPage", true);
 
 		return "joonggoPage/joonggoHome";
 	}
@@ -162,6 +164,7 @@ public class JoonggoController {
 		model.addAttribute("map", map);
 		model.addAttribute("categoryId", categoryId);
 		model.addAttribute("sortType", sortType);
+		model.addAttribute("isCategoryPage", true);
 
 		return "joonggoPage/joonggoHome";
 	}
