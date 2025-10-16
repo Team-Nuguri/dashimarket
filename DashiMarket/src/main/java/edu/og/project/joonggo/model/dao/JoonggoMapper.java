@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import edu.og.project.common.dto.Image;
 import edu.og.project.goods.model.dto.Goods;
+import edu.og.project.joonggo.model.dto.Category;
 import edu.og.project.joonggo.model.dto.Joonggo;
 import edu.og.project.joonggo.model.dto.JoonggoWrite;
 import edu.og.project.joonggo.model.dto.SimilarItem;
@@ -125,6 +126,16 @@ public interface JoonggoMapper {
 	// 마이페이지 나의 위시리스트 삭제 (KJK)
 	 public int deleteJoonggoWishList(@Param("memberNo") int memberNo, @Param("boardNo")  String boardNo);
 	// public int deleteJoonggoWishList(int memberNo, String boardNo);
+	 
+	 
+	 
+	 
+	 // 메인 카테고리 조회
+	public List<Category> selectMainCategory();
+	
+	
+	// 서브카테고리 조회
+	public List<Category> selectSubCategory(String parentCategoryId);
 
 	
 	

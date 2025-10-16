@@ -27,6 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.og.project.common.dto.Member;
 import edu.og.project.goods.model.dto.Goods;
+import edu.og.project.joonggo.model.dto.Category;
 import edu.og.project.joonggo.model.dto.Joonggo;
 import edu.og.project.joonggo.model.dto.JoonggoWrite;
 import edu.og.project.joonggo.model.dto.SimilarItem;
@@ -284,11 +285,35 @@ public class JoonggoController {
 
 		// 중고 상품 등록 페이지 전환
 		@GetMapping("/joonggo/write")
-		public String joonggoWriteForward() {
+		public String joonggoWriteForward(Model model) {
+			
+			List<Category> mainCategory = service.selectMainCategory();
+			
+			System.out.println(mainCategory);
+			
+			model.addAttribute("mainCategory", mainCategory);
 
 			return "joonggoPage/joonggoWrite";
 
 		}
+		
+		
+		// 서브 카테고리 목록 가져오기
+		@GetMapping(value ="/joonggo/selectSubCatery", produces="application/html; charset=UTF-8")
+		public String selectSubCatery(
+				String parentCategoryId,
+				Model model
+				) {
+			
+			List<Category> subCategory = service.selectSubCategory(parentCategoryId);
+			
+			model.addAttribute("subCategory",subCategory);
+			
+			return "/joonggoPage/joonggoWrite :: #sub-category";
+		}
+			
+			
+			
 
 		// 중고 상품 등록
 		@PostMapping("/{boardType:j.*}/write")
