@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,26 +18,35 @@ import edu.og.project.afterTradeReview.model.dto.ReviewWrite;
 import edu.og.project.afterTradeReview.model.service.afterTradeReviewService;
 
 @Controller
-@RequestMapping("/review")
+// @RequestMapping("/review")
 public class afterTradeReviewController {
 	
 	@Autowired
 	private afterTradeReviewService service;
 	
-	@GetMapping("/joonggo")
-	public String jonnggoReview() {
-		
-		return "afterTradeReview/used_review";
+	@GetMapping("/myPage/myOrderTest")
+	public String goTestUrl() {
+	    return "myPage/myPage-order-test";
 	}
 	
-	@GetMapping("/goods")
-	public String goodsReview() {
-		
-		return "afterTradeReview/goods_review";
+	// 중고상품 후기 페이지 이동
+	@GetMapping("/review/joonggo")
+	public String jonnggoReview(@RequestParam("boardNo") String boardNo, @RequestParam("memberNo") int memberNo, Model model) {
+	    model.addAttribute("boardNo", boardNo);
+	    model.addAttribute("memberNo", memberNo);
+	    return "afterTradeReview/used_review";
+	}
+	
+	// 굿즈상품 후기 페이지 이동
+	@GetMapping("/review/goods")
+	public String goodsReview(@RequestParam("boardNo") String boardNo, @RequestParam("memberNo") int memberNo, Model model) {
+	    model.addAttribute("boardNo", boardNo);
+	    model.addAttribute("memberNo", memberNo);
+	    return "afterTradeReview/goods_review";
 	}
 	
 	// 중고상품,굿즈 후기 등록
-	@PostMapping("/write")
+	@PostMapping("/review/write")
 	public String writeReview(
 	 	/*  @RequestParam int question1,
             @RequestParam int question2,
@@ -48,7 +58,7 @@ public class afterTradeReviewController {
             @RequestParam int buyerNo,
             @RequestParam String BoardNo, */
 			@ModelAttribute ReviewWrite reviewWrite,
-            RedirectAttributes ra
+            Model model
           ) throws IllegalStateException, IOException 
 	  { 
 	        // Mapper나 Service로 전달하여 DB 저장 처리
@@ -58,21 +68,18 @@ public class afterTradeReviewController {
 	    // System.out.println(reviewWrite.getComment());
 	    // System.out.println(reviewWrite.getReviewImage().getOriginalFilename());
 
-		// 서비스 호출
+		// 서비스
 	    int result = service.insertReview(reviewWrite);
+	    
+	    if(result > 0) {
+	        model.addAttribute("message", "후기가 등록되었습니다.");
+	    } else {
+	        model.addAttribute("message", "후기 등록이 실패하였습니다.");
+	    }
+
+	    // reviewPopupClose.html 뷰 반환
+	    return "afterTradeReview/reviewPopupClose";
 		
-		String path = null;
-		
-		if(result > 0) {
-			// path = "redirect:/"+ result;
-			path = "redirect:/review/goods";
-			ra.addFlashAttribute("message", "후기가 등록되었습니다.");
-		}else {
-			path = "redirect:/review/goods";
-			ra.addFlashAttribute("message", "후기 등록이 실패하였습니다.");
-		}
-		
-		return path;
 	}
 
 }
