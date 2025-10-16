@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import edu.og.project.common.dto.Member;
 import edu.og.project.common.dto.Pagination;
 import edu.og.project.common.utility.Util;
+import edu.og.project.joonggo.model.dto.Joonggo;
 import edu.og.project.member.model.service.EmailService;
 import edu.og.project.mypage.dao.MyPageMapper;
 
@@ -217,5 +218,22 @@ public Map<String, Object> selectGoodsWithPagination(Map<String, Object> paramMa
 	    
 	    return mapper.confirmPurchase(paramMap);
 }
+
+	
+	// 나의 중고상품 위시리스트 목록 조회 (KJK)
+	@Override
+	public List<Joonggo> selectJoonggoWishList(int memberNo) {
+		return mapper.selectJoonggoWishList(memberNo);
+	}
+
+	
+
+	 // 나의 중고상품 위시리스트 품목삭제 (KJK)
+	@Override
+		public int deleteWishItem(int memberNo, String boardNo) {
+			
+			return mapper.deleteJoonggoWishList(memberNo, boardNo);
+		}
+
 
 }

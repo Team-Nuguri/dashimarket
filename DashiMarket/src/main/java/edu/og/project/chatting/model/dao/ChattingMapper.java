@@ -40,8 +40,6 @@ public interface ChattingMapper {
 	public int insertJoonggoRoom(ChattingRoom chat);
 
 	// 채팅방 그냥 나가기
-	public boolean exitChatRoom(Map<String, Integer> map);
+	public boolean exitChatRoom(Map<String, Object> map);
 	
-
-
 }

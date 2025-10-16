@@ -64,7 +64,7 @@ public interface ChattingService {
 	 * @param memberNo
 	 * @return true/false
 	 */
-	boolean exitChatRoom(Map<String, Integer> map);
+	boolean exitChatRoom(Map<String, Object> map);
 
 
 	/** 신고 후 나가기
@@ -72,7 +72,9 @@ public interface ChattingService {
 	 * @param reporterNo
 	 * @return true/false
 	 */
-	boolean reportAndExit(Report request, int reporterNo);
+	boolean reportAndExit(Map<String, Integer> map);
+
+
 
 
 

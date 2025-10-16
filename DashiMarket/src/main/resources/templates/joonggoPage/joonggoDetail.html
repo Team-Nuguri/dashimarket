@@ -48,7 +48,7 @@
                     <div th:unless="${#lists.size(joonggo.imageList) > 1}" id="dot-area">
                         <img th:src="@{/images/svg/dot.svg}" class="dot">
                     </div>
-                    <span  id="trade-complete" class="text-size-16 medium-text">거래완료</span>
+                    <span th:if="${joonggo.tradeCheck != 0}"  id="trade-complete" class="text-size-16 medium-text">거래완료</span>
 
                 </div>
 
@@ -129,8 +129,9 @@
                     <i class="fa-regular fa-heart fa-solid" style="color: #52B291;" th:if="${likeCheck == 'like'}" id="like-heart"></i>
                     <!-- 채팅하기 -->
                     <th:block th:if="${session.loginMember}">
-                        <button id="chatting-btn"  th:data-item="${joonggo.joonggoNo}" th:data-seller="${joonggo.memberNo}" th:data-buyer="${session.loginMember.memberNo}">채팅하기</button>
-
+                        <button id="chatting-btn"  th:data-item="${joonggo.joonggoNo}" 
+                            th:data-seller="${joonggo.memberNo}" 
+                            th:data-buyer="${session.loginMember.memberNo}">채팅하기</button>
                     </th:block>
                 </div>
             </div>
@@ -182,6 +183,8 @@
         const loginMember = /*[[${session.loginMember}]]*/ '';
         
         const joonggoNo =/*[[${joonggo.joonggoNo}]]*/ '중고 상품 번호';
+
+        const joonggoTitle = /*[[${joonggo.joonggoTitle}]]*/'중고 상품 제목';
 
         const currentSellerNo = /*[[${joonggo.memberNo}]]*/ '판매자';
 

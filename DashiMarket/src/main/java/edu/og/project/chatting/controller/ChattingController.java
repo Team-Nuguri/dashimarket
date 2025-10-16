@@ -38,7 +38,6 @@ public class ChattingController {
 		List<ChattingRoom> roomList = service.selectRoomList(loginMember.getMemberNo());
 		
 		model.addAttribute("roomList", roomList);
-		model.addAttribute("seller", loginSeller);
 		
 		return "chatting/chatting";
 	}
@@ -105,10 +104,11 @@ public class ChattingController {
         
 		int memberNo = loginMember.getMemberNo();
 		
-		Map<String, Integer> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<>();
 		map.put("chattingNo", request.getChattingNo());
 		map.put("targetNo", request.getTargetNo());
 		map.put("memberNo", memberNo);
+		map.put("productNo", request.getProductNo());
 		
         boolean result = service.exitChatRoom(map);
         return result ? "success" : "fail";
@@ -116,11 +116,18 @@ public class ChattingController {
 
 	// 신고 후 나가기 -> 신고 테이블에 삽입
     @PostMapping("/chatting/reportExit")
-    public String reportAndExit(@RequestBody Report request, 
+    @ResponseBody
+    public String reportAndExit(@RequestBody ChattingRoom request, 
     		@SessionAttribute("loginMember") Member loginMember) {
         
     	int reporterNo = loginMember.getMemberNo();
-        boolean result = service.reportAndExit(request, reporterNo);
+    	
+    	Map<String, Integer> map = new HashMap<>();
+		map.put("chattingNo", request.getChattingNo());
+		map.put("targetNo", request.getTargetNo());
+		map.put("memberNo", reporterNo);
+    	
+        boolean result = service.reportAndExit(map);
         return result ? "success" : "fail";
     }
 	

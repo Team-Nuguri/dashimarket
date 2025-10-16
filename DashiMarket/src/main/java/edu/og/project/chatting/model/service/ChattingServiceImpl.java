@@ -93,16 +93,16 @@ public class ChattingServiceImpl implements ChattingService{
 		return chattingNo;
 	}
 
-	// 신고 후 나가기
-	@Override
-	public boolean reportAndExit(Report request, int reporterNo) {
-		return false;
-	}
-
 	// 그냥 나가기 
 	@Override
-	public boolean exitChatRoom(Map<String, Integer> map) {
+	public boolean exitChatRoom(Map<String, Object> map) {
 		return mapper.exitChatRoom(map);
+	}
+
+	// 신고 후 나가기
+	@Override
+	public boolean reportAndExit(Map<String, Integer> map) {
+		return false;
 	}
 
 	

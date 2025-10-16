@@ -838,7 +838,10 @@
                 <!-- <a th:href="@{/{boardType}/{boardNo}(boardType=${boardType}, boardNo=${board.joonggoNo}, cp=${pagination.currentPage})}" class="joonggo-detail-area"> -->
                 <a th:href="@{/joonggo/{boardNo}( boardNo=${board.joonggoNo}, cp=${pagination.currentPage})}" class="joonggo-detail-area">
                     <!-- 이미지 -->
-                    <div class="joonggo-img"><img th:src="${board.thumbnail}" alt=""><!--중고상품 이미지--></div>
+                    <div class="joonggo-img">
+                        <img th:src="${board.thumbnail}" alt=""><!--중고상품 이미지-->
+                        <span th:if="${board.tradeCheck != 0}"  id="trade-complete" class="text-size-14 medium-text">거래완료</span>
+                    </div>
                     <!-- 제품명 -->
                     <div class="joonggo-name text-size-16 medium-text" th:text="${board.joonggoTitle}">중고상품 이름</div>
                     <!-- 가격 -->

@@ -1,9 +1,10 @@
 
 
 main{
-  width: 600px;
+  width: 500px;
   text-align: center;
   margin: 0 auto;
+  padding-left: 60px;
 }
 
 fieldset {
@@ -12,18 +13,17 @@ fieldset {
   border-radius: 10px;
   background-color: white;
   margin-bottom: 20px;
-
   text-align: center;
-  width: 480px;
+  width: 400px;
 }
 
 #section1 {
-  width: 500px;
+  width: 400px;
   text-align: center;
 }
 
 .div-content {
-  width: 500px;
+  width: 400px;
 }
 
 #div1 {
@@ -73,20 +73,19 @@ fieldset {
 
 #div8 {
   text-align: left;
-  padding-left:70px;
   font-size: 10pt;
   color:gray
 }
 
 hr {
-  width: 500px;
+  width: 400px;
 }
 
 
 /* ************* 프로필 화면 ************* */
 .profile-image-area{
-    width: 150px;
-    height: 150px;
+    width: 75px;
+    height: 75px;
     border: 3px solid #ccc;
     border-radius: 50%;
 
@@ -106,18 +105,25 @@ hr {
 textarea {
   border: 2px solid #298c69;
   border-radius: 10px;
+  width: 400px;
+  resize: none;
 }
 
 #reportButton {
-  border: 3px solid #166449;
+  border: 3px solid #298c69;
   border-radius: 10%;
   background-color: #298c69;
   color: white;
   height: 40px;
 }
 
+#reportButton:hover{
+  cursor: pointer;
+}
+
+
 .report-select {
-  width: 200px;
+  width: 98%;
   position: relative;
   user-select: none;
   cursor: pointer;
@@ -141,7 +147,6 @@ textarea {
   border-top: none;
   background-color: white;
   display: none; /* 기본 숨김 */
-  max-height: 150px;
   overflow-y: auto;
   z-index: 10;
 }
@@ -151,5 +156,10 @@ textarea {
 }
 
 .options .option:hover {
-  background-color: #eee;
+  background-color: #ddd;
 }
+
+
+main:-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
+    }
