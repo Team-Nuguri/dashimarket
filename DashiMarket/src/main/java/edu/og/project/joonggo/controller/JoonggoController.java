@@ -27,11 +27,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.og.project.common.dto.Member;
 import edu.og.project.goods.model.dto.Goods;
+import edu.og.project.joonggo.model.dto.Category;
 import edu.og.project.joonggo.model.dto.Joonggo;
 import edu.og.project.joonggo.model.dto.JoonggoWrite;
 import edu.og.project.joonggo.model.dto.SimilarItem;
 import edu.og.project.joonggo.model.service.JoonggoService;
-import edu.og.project.joonggo.model.service.JoonggoServiceImpl;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -95,22 +95,11 @@ public class JoonggoController {
 		// 동네 가져오기
 		String finalDong = getMemberDong(selectDong, loginMember);
 
-		// System.out.println(boardType); joonggo 로 넘어옴
-		// Map<String, Object> map = service.selectJoonggoList(boardType, cp); // 사용X
 		Map<String, Object> map = service.selectJoonggoList("joonggo", finalDong, cp);
 
-		if (map == null) {
-			System.out.println("map is null");
-		} else if (map.isEmpty()) {
-			System.out.println("map is empty");
-		} else {
-			System.out.println("map = " + map);
-		}
-
-		System.out.println(map);
 
 		model.addAttribute("map", map);
-		// model.addAttribute("boardType", boardType);
+		model.addAttribute("isCategoryPage", false);
 		return "joonggoPage/joonggoHome";
 	}
 
@@ -121,33 +110,42 @@ public class JoonggoController {
 			@PathVariable("sortType") String sortType,
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model,
 			@SessionAttribute(value="selectDong", required=false) String selectDong, /* 동네 확인 */
-			@SessionAttribute(value="loginMember", required=false) Member loginMember) {
+			@SessionAttribute(value="loginMember", required=false) Member loginMember,
+			@RequestParam(name = "categoryId", required = false) String categoryId) {
 
 		// 동네 가져오기
 		String finalDong = getMemberDong(selectDong, loginMember);
 		
-		// System.out.println(boardType); joonggo 로 넘어옴
-		// Map<String, Object> map = service.selectJoonggoList(boardType, cp); // 사용X
-		Map<String, Object> map = service.sortJoonggoList("joonggo", finalDong, cp, sortType);
-
-		// System.out.println(map);
+		Map<String, Object> map = service.sortJoonggoList("joonggo", finalDong, cp, sortType, categoryId);
 
 		model.addAttribute("map", map);
 		model.addAttribute("sortType", sortType);
-
+		model.addAttribute("categoryId", categoryId);
+		
+		// 정렬 텍스트 표시
+	    if (sortType.equals("lowPrice")) model.addAttribute("sortText", "낮은 가격순");
+	    else if (sortType.equals("highPrice")) model.addAttribute("sortText", "높은 가격순");
+	    else model.addAttribute("latest", "최신순");
+		
+	    model.addAttribute("isCategoryPage", false);
 		return "joonggoPage/joonggoHome";
 	}
 
 	// 중고상품 카테고리(대분류) 목록 조회 (KJK)
 	@GetMapping("/joonggoCategory")
 	public String selectJoonggoCategoryList(@RequestParam(name = "categoryId", required = false) String categoryId,
-			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model,
+			@SessionAttribute(value="selectDong", required=false) String selectDong, /* 동네 확인 */
+			@SessionAttribute(value="loginMember", required=false) Member loginMember,
+			@RequestParam(name = "sortType", required = false) String sortType) {
+		
+		// 동네 가져오기
+		String finalDong = getMemberDong(selectDong, loginMember);
 
-		System.out.println("temp");
-
-		Map<String, Object> map = service.selectJoonggoCategoryList(categoryId, cp);
+		Map<String, Object> map = service.selectJoonggoCategoryList(categoryId, finalDong, cp, sortType);
 		model.addAttribute("map", map);
 		model.addAttribute("categoryId", categoryId);
+		model.addAttribute("isCategoryPage", true);
 
 		return "joonggoPage/joonggoHome";
 	}
@@ -155,13 +153,19 @@ public class JoonggoController {
 	// 중고상품 카테고리(중분류) 목록 조회 (KJK)
 	@GetMapping("/joonggoCategory2")
 	public String selectJoonggoCategoryList2(@RequestParam(name = "categoryId", required = false) String categoryId,
-			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model,
+			@SessionAttribute(value="selectDong", required=false) String selectDong, /* 동네 확인 */
+			@SessionAttribute(value="loginMember", required=false) Member loginMember,
+			@RequestParam(name = "sortType", required = false) String sortType) {
+		
+		// 동네 가져오기
+		String finalDong = getMemberDong(selectDong, loginMember);
 
-		System.out.println("temp2");
-
-		Map<String, Object> map = service.selectJoonggoCategoryList2(categoryId, cp);
+		Map<String, Object> map = service.selectJoonggoCategoryList2(categoryId, finalDong, cp, sortType);
 		model.addAttribute("map", map);
 		model.addAttribute("categoryId", categoryId);
+		model.addAttribute("sortType", sortType);
+		model.addAttribute("isCategoryPage", true);
 
 		return "joonggoPage/joonggoHome";
 	}
@@ -281,11 +285,35 @@ public class JoonggoController {
 
 		// 중고 상품 등록 페이지 전환
 		@GetMapping("/joonggo/write")
-		public String joonggoWriteForward() {
+		public String joonggoWriteForward(Model model) {
+			
+			List<Category> mainCategory = service.selectMainCategory();
+			
+			System.out.println(mainCategory);
+			
+			model.addAttribute("mainCategory", mainCategory);
 
 			return "joonggoPage/joonggoWrite";
 
 		}
+		
+		
+		// 서브 카테고리 목록 가져오기
+		@GetMapping(value ="/joonggo/selectSubCatery", produces="application/html; charset=UTF-8")
+		public String selectSubCatery(
+				String parentCategoryId,
+				Model model
+				) {
+			
+			List<Category> subCategory = service.selectSubCategory(parentCategoryId);
+			
+			model.addAttribute("subCategory",subCategory);
+			
+			return "/joonggoPage/joonggoWrite :: #sub-category";
+		}
+			
+			
+			
 
 		// 중고 상품 등록
 		@PostMapping("/{boardType:j.*}/write")

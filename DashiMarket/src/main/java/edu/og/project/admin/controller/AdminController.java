@@ -30,11 +30,20 @@ public class AdminController {
 
 	private final AdminService service;
 
-	// 회원 조회 페이지 요청
+	// ✅ 회원 조회 (검색 기능 추가)
 	@GetMapping("/main")
-	public String main() {
-		return "admin/admin_user";
+	public String main(
+	    @RequestParam(value = "cp", defaultValue = "1") int cp,
+	    @RequestParam(value = "keyword", required = false) String keyword,
+	    @RequestParam(value = "searchType", required = false) String searchType,
+	    Model model
+	) {
+	    Map<String, Object> map = service.selectMemberList(cp, keyword, searchType);
+	    model.addAttribute("memberList", map.get("memberList"));
+	    model.addAttribute("pagination", map.get("pagination"));
+	    return "admin/admin_user";
 	}
+
 
 	// 오늘 가입자 수 + 총 회원 수 조회 + 오늘 신고된 수
 	@GetMapping("/stats")
@@ -62,17 +71,22 @@ public class AdminController {
 		return service.searchMember(keyword);
 	}
 
-	// 통합 신고 페이지 요청
+	// ✅ 통합 신고 페이지 (필터 기능 추가)
 	@GetMapping("/report")
-	public String report(@RequestParam(value = "keyword", required = false) String keyword,
-			@RequestParam(value = "reportResult", required = false) String reportResult,
-			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
-
-		Map<String, Object> map = service.selectReportList(keyword, reportResult, cp);
-		model.addAttribute("reportList", map.get("reportList"));
-		model.addAttribute("pagination", map.get("pagination"));
-
-		return "admin/total_report";
+	public String report(
+	    @RequestParam(value = "keyword", required = false) String keyword,
+	    @RequestParam(value = "reportType", required = false) String reportType,
+	    @RequestParam(value = "reportStatus", required = false) String reportStatus,
+	    @RequestParam(value = "startDate", required = false) String startDate,
+	    @RequestParam(value = "endDate", required = false) String endDate,
+	    @RequestParam(value = "cp", defaultValue = "1") int cp, 
+	    Model model
+	) {
+	    Map<String, Object> map = service.selectReportList(keyword, reportType, reportStatus, startDate, endDate, cp);
+	    model.addAttribute("reportList", map.get("reportList"));
+	    model.addAttribute("pagination", map.get("pagination"));
+	    
+	    return "admin/total_report";
 	}
 
 	// 신고 상세 페이지 요청
@@ -112,10 +126,17 @@ public class AdminController {
 		return service.searchReport(keyword);
 	}
 
-	// 상품 관리 페이지 요청
+	// ✅ 상품 관리
 	@GetMapping("/goods")
-	public String goods() {
-		return "admin/admin_goods";
+	public String goods(
+	    @RequestParam(value = "cp", defaultValue = "1") int cp,
+	    @RequestParam(value = "sort", required = false) String sort,
+	    Model model
+	) {
+	    Map<String, Object> map = service.selectGoodsList(cp, sort);
+	    model.addAttribute("goodsList", map.get("goodsList"));
+	    model.addAttribute("pagination", map.get("pagination"));
+	    return "admin/admin_goods";
 	}
 	
 	// 상품 정보 조회
@@ -133,10 +154,17 @@ public class AdminController {
 	}
 
 
-	// 굿즈 거래 페이지 요청
+	// ✅ 거래 내역
 	@GetMapping("/order")
-	public String order() {
-		return "admin/admin_goodsOrder";
+	public String order(
+	    @RequestParam(value = "cp", defaultValue = "1") int cp,
+	    @RequestParam(value= "sort", required = false) String sort,
+	    Model model
+	) {
+	    Map<String, Object> map = service.selectOrderList(cp, sort);
+	    model.addAttribute("orderList", map.get("orderList"));
+	    model.addAttribute("pagination", map.get("pagination"));
+	    return "admin/admin_goodsOrder";
 	}
 	
 	// 굿즈 거래내역 조회

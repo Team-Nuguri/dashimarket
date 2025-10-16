@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import edu.og.project.joonggo.model.dto.Category;
 import edu.og.project.joonggo.model.dto.Joonggo;
 import edu.og.project.joonggo.model.dto.JoonggoWrite;
 import edu.og.project.joonggo.model.dto.SimilarItem;
@@ -25,9 +26,10 @@ public interface JoonggoService {
 	 * @param finalDong 
 	 * @param cp
 	 * @param sortType
+	 * @param categoryId 
 	 * @return map
 	 */
-	Map<String, Object> sortJoonggoList(String boardType, String finalDong, int cp, String sortType);
+	Map<String, Object> sortJoonggoList(String boardType, String finalDong, int cp, String sortType, String categoryId);
 
 	
 	
@@ -96,10 +98,23 @@ public interface JoonggoService {
 
 	
 	// 중고목록(대분류) 카데고리 (KJK)
-	Map<String, Object> selectJoonggoCategoryList(String categoryId, int cp);
+	Map<String, Object> selectJoonggoCategoryList(String categoryId, String finalDong, int cp, String sortType);
 
 	// 중고목록(중분류) 카데고리 (KJK)
-	Map<String, Object> selectJoonggoCategoryList2(String categoryId, int cp);
+	Map<String, Object> selectJoonggoCategoryList2(String categoryId, String finalDong, int cp, String sortType);
+
+
+	/** 메인 카테고리 조회
+	 * @return List
+	 */ 
+	List<Category> selectMainCategory();
+
+	
+	/** 서브 카테고리 조회
+	 * @param parentCategoryId
+	 * @return List
+	 */
+	List<Category> selectSubCategory(String parentCategoryId);
 
     
 

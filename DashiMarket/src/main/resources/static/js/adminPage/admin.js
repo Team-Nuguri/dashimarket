@@ -161,7 +161,7 @@ if (location.href == "http://localhost/admin/report") {
 }
 
 
-// 회원조회 페이지에서만 수행
+/* // 회원조회 페이지에서만 수행
 if (location.href == "http://localhost/admin/main") {
 
     // 모든 문서 로딩후
@@ -237,9 +237,82 @@ if (location.href == "http://localhost/admin/main") {
         })
         .catch(err => console.error("회원 정보를 가지고 올 수 없습니다.", err))
     }
+} */
+
+// ========================================
+// ✅ 회원 조회 페이지 - 검색 기능
+// ========================================
+if (location.href.includes("/admin/main")) {
+    document.addEventListener("DOMContentLoaded", () => {
+        
+        // 통계 조회
+        const loadStats = () => {
+            fetch("/admin/stats")
+            .then(resp => resp.json())
+            .then(data => {
+                const todayJoin = document.getElementById("todayJoin");
+                const totalUser = document.getElementById("totalUser");
+
+                // 부드럽게 처리
+                if (todayJoin && todayJoin.innerText != data.todayJoinCount) {
+                    todayJoin.style.opacity = 0;
+                    setTimeout(() => {
+                        todayJoin.innerText = data.todayJoinCount;
+                        todayJoin.style.opacity = 1;
+                    }, 200);
+                }
+
+                if (totalUser && totalUser.innerText != data.totalUserCount) {
+                    totalUser.style.opacity = 0;
+                    setTimeout(() => {
+                        totalUser.innerText = data.totalUserCount;
+                        totalUser.style.opacity = 1;
+                    }, 200);
+                }
+            })
+            .catch(err => console.error("통계 불러오기 오류:", err));
+        };
+        
+        loadStats();
+        setInterval(loadStats, 10 * 60 * 1000);
+
+        // 초기화 버튼
+        const resetBtn = document.getElementById("resetBtn");
+        if (resetBtn) {
+            resetBtn.addEventListener("click", () => {
+                location.href = "/admin/main";
+            });
+        }
+
+        // 검색 폼 제출 전 처리
+        const searchArea = document.getElementById("search-area");
+        if (searchArea) {
+            searchArea.addEventListener("submit", (e) => {
+                const keyword = document.getElementById("search-query").value.trim();
+                const checkboxes = document.querySelectorAll('input[name="searchType"]:checked');
+                
+                // 키워드가 없고 상세검색도 선택되지 않은 경우
+                if (!keyword && checkboxes.length === 0) {
+                    e.preventDefault();
+                    alert("검색어를 입력하거나 상세검색 옵션을 선택하세요.");
+                    return false;
+                }
+
+                // 키워드는 있는데 2글자 미만
+                if (keyword && keyword.length < 2) {
+                    e.preventDefault();
+                    alert("검색어는 2글자 이상 입력해주세요.");
+                    return false;
+                }
+            });
+        }
+    });
 }
 
-// 상품관리 페이지에서만 수행
+
+
+
+/* // 상품관리 페이지에서만 수행
 if (location.href == "http://localhost/admin/goods") {
 
     // 상품 정보 조회 테이블
@@ -284,10 +357,26 @@ if (location.href == "http://localhost/admin/goods") {
 
     // 페이지 로드시 기본 목록 표시
     document.addEventListener("DOMContentLoaded", loadProducts);
+} */
+
+
+// ========================================
+// ✅ 상품 관리 (수정됨)
+// ========================================
+if (location.href.includes("/admin/goods")) {
+    // 정렬 변경시 현재 페이지 유지하면서 이동
+    document.getElementById("sortSelect")?.addEventListener("change", (e) => {
+        const sort = e.target.value;
+        const urlParams = new URLSearchParams(window.location.search);
+        const cp = urlParams.get('cp') || 1;
+        location.href = `/admin/goods?cp=${cp}&sort=${sort}`;
+    });
+    
+    // ❌ loadProducts() 함수 삭제됨!
 }
 
 
-// 굿즈 거래내역 페이지에서만 실행
+/* // 굿즈 거래내역 페이지에서만 실행
 if(location.href == "http://localhost/admin/order"){
 
     // 굿즈 주문/거래 내역 조회 테이블
@@ -330,6 +419,22 @@ if(location.href == "http://localhost/admin/order"){
 
     // 페이지 로드시 기본 목록 표시
     document.addEventListener("DOMContentLoaded", loadGoodsOrder);
+} */
+
+
+// ========================================
+// ✅ 거래 내역 (수정됨)
+// ========================================
+if (location.href.includes("/admin/order")) {
+    // 정렬 변경시 현재 페이지 유지하면서 이동
+    document.getElementById("sortSelect")?.addEventListener("change", (e) => {
+        const sort = e.target.value;
+        const urlParams = new URLSearchParams(window.location.search);
+        const cp = urlParams.get('cp') || 1;
+        location.href = `/admin/order?cp=${cp}&sort=${sort}`;
+    });
+    
+    // ❌ loadGoodsOrder() 함수 삭제됨!
 }
 
 

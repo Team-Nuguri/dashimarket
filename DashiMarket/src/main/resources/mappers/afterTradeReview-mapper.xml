@@ -54,6 +54,13 @@
             #{question4}
         )
     </insert>
+    
+    <!-- 3. 중고상품/굿즈 후기작성여부 UPDATE -->
+    <update id="reviewFlagUpdate" parameterType="edu.og.project.afterTradeReview.model.dto.ReviewWrite">
+		UPDATE TRADE
+		SET REVIEW_FL = 'Y'
+		WHERE BOARD_NO = #{boardNo}
+	</update>
  
  
 </mapper>

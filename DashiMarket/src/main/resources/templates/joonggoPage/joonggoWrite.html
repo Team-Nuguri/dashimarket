@@ -71,60 +71,22 @@
                     </div>
                     <div class="category-area">
                         <ul id="mainCategory">
-                            <li>
-                                <button type="button" class="main-category" data-category="J100">가전제품</button>
+                            <li th:each="main : ${mainCategory}">
+                                <button type="button" class="main-category" th:attr="data-category=${main.categoryId}" th:text="${main.categoryName}">메인 카테고리</button>
                             </li>
-                            <li>
-                                <button type="button" class="main-category" data-category="J200">의류</button>
-                            </li>
-                            <li>
-                                <button type="button" class="main-category" data-category="J300">스포츠/레저</button>
-                            </li>
-                            <li>
-                                <button type="button" class="main-category" data-category="J400">신발</button>
-                            </li>
-                            <li>
-                                <button type="button" class="main-category" data-category="J500">뷰티/미용</button>
-                            </li>
-                            <li>
-                                <button type="button" class="main-category" data-category="J600">게임</button>
-                            </li>
-                            <li>
-                                <button type="button" class="main-category" data-category="J700">생활</button>
-                            </li>
-                            <li>
-                                <button type="button" class="main-category" data-category="J800">차량/오토바이</button>
-                            </li>
-                            <li>
-                                <button type="button" class="main-category" data-category="J900">가구/인테리어</button>
-                            </li>
-                            <li>
-                                <button type="button" class="main-category" data-category="J1000">디지털</button>
-                            </li>
-                            <li>
-                                <button type="button" class="main-category" data-category="J1100">음반/악기</button>
-                            </li>
-                            <li>
-                                <button type="button" class="main-category" data-category="J1200">패션 액세서리</button>
-                            </li>
-                            <li>
-                                <button type="button" class="main-category" data-category="J1300">도서/문구</button>
-                            </li>
-                            <li>
-                                <button type="button" class="main-category" data-category="J1400">예술/희귀</button>
-                            </li>
-                            <li>
-                                <button type="button" class="main-category" data-category="J1500">공구/산업용품</button>
-                            </li>
+                            
 
                             <input type="hidden" name="mainCategory" id="mainCategory" value="">
 
                         </ul>
 
                         <ul id="sub-category">
+                            <li th:each="sub : ${subCategory}">
+                                <button class="sub-category" type="button" th:attr="data-sub-Category=${sub.categoryId}" th:text="${sub.categoryName}"> 서브 카테고리 이름</button>
+                            </li>
                             
+                            <input type="hidden" name="categoryId" id="categoryId" value="">
                         </ul>
-                        <input type="hidden" name="categoryId" id="categoryId" value="">
                     </div>
 
                 </li>

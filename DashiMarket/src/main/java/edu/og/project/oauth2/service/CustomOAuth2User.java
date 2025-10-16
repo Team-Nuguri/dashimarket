@@ -26,7 +26,7 @@ public class CustomOAuth2User implements OAuth2User, Serializable {
     // 소셜 로그인 제공자로부터 받은 원본 속성 (ID, 닉네임, 이메일 등)
     private final Map<String, Object> attributes;
     
-    // 사용자 ID를 식별하는 키 (예: 카카오의 'id')
+    // 사용자 ID를 식별하는 키 
     private final String nameAttributeKey; 
 
     // 권한 목록 (임시로 ROLE_USER 권한 부여)

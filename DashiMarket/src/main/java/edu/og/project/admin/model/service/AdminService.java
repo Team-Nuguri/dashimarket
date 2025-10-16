@@ -29,15 +29,37 @@ public interface AdminService {
 	 * @return List<Member>
 	 */
 	List<Member> selectAllMembers();
+	
+	/** 회원 목록 조회 (페이징 + 검색)
+	 * @param cp 현재 페이지
+	 * @param keyword 검색어
+	 * @param searchType 검색 유형 (email, nickname, tel, secession)
+	 * @return Map (memberList, pagination)
+	 */
+	Map<String, Object> selectMemberList(int cp, String keyword, String searchType);
+
 
 	/** 굿즈 상품 조회
 	 * @param sort 
 	 * @return products
 	 */
 	List<Goods> selectProducts(String sort);
+	
+	// 상품 목록 조회 (페이징)
+	Map<String, Object> selectGoodsList(int cp, String sort);
 
-	// 신고 
-	Map<String, Object> selectReportList(String keyword, String reportResult, int cp);
+	/** 신고 목록 조회 (페이징 + 검색 + 필터)
+	 * @param keyword 검색어
+	 * @param reportType 신고 유형
+	 * @param reportStatus 처리 상태
+	 * @param startDate 신고일 시작
+	 * @param endDate 신고일 종료
+	 * @param cp 현재 페이지
+	 * @return Map (reportList, pagination)
+	 */
+	Map<String, Object> selectReportList(String keyword, String reportType, String reportStatus, 
+	                                      String startDate, String endDate, int cp);
+
 
 	Report selectReportDetail(int reportNo);
 
@@ -73,8 +95,7 @@ public interface AdminService {
 	 * @return orderList
 	 */
 	List<OrderDto> selectGoodsOrder(String sort);
-
 	
-
-
+	// 거래 내역 조회 (페이징)
+	Map<String, Object> selectOrderList(int cp, String sort);
 }

@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 // Member 엔티티의 DB 작업을 위한 Repository
-// 기본적인 CRUD 메서드를 제공하며, 추가적인 쿼리 메서드를 정의합니다.
 public interface MemberRepository extends JpaRepository<User, Long> {
 
     /**

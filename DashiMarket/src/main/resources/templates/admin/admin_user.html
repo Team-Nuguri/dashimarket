@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.thymeleaf.org">
+<html lang="ko" xmlns="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -35,13 +35,16 @@
                 </div>
 
                 <div class="admin-group-top">
-                    <form id="search-area">
+                    <form id="search-area" th:action="@{/admin/main}" method="get">
                         <!-- 검색창 -->
                         <div class="search-box">
                             <label>검색</label>
                             <fieldset>
-                                <button class="searchBtn fa-solid fa-magnifying-glass"></button>
-                                <input type="text" name="keyword" id="search-query" placeholder="회원ID/닉네임을 입력하세요." autocomplete="off">
+                                <button type="submit" class="searchBtn fa-solid fa-magnifying-glass"></button>
+                                <input type="text" name="keyword" id="search-query" 
+                                       th:value="${param.keyword}" 
+                                       placeholder="회원ID/닉네임을 입력하세요." 
+                                       autocomplete="off">
                             </fieldset>
                         </div>
     
@@ -49,18 +52,35 @@
                         <div class="detail-search">
                             <label>상세검색</label>
                             <div class="checkbox-group">
-                                <input type="checkbox"> 회원ID
-                                <input type="checkbox"> 닉네임
-                                <input type="checkbox"> 전화번호
-                                <input type="checkbox"> 탈퇴회원
+                                <label>
+                                    <input type="checkbox" name="searchType" value="email" 
+                                        th:checked="${param.searchType != null and #strings.contains(param.searchType, 'email')}"> 
+                                    회원ID
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="searchType" value="nickname" 
+                                        th:checked="${param.searchType != null and #strings.contains(param.searchType, 'nickname')}"> 
+                                    닉네임
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="searchType" value="tel" 
+                                        th:checked="${param.searchType != null and #strings.contains(param.searchType, 'tel')}"> 
+                                    전화번호
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="searchType" value="secession" 
+                                        th:checked="${param.searchType != null and #strings.contains(param.searchType, 'secession')}"> 
+                                    탈퇴회원
+                                </label>
                             </div>
-    
+
                             <!-- 초기화/검색 버튼 -->
                             <div class="search-buttons">
-                                <button type="reset" class="basic-btn">초기화</button>
-                                <button type="button" class="color-btn" id="searchBtn">검색</button>
+                                <button type="button" class="basic-btn" id="resetBtn">초기화</button>
+                                <button type="submit" class="color-btn" id="searchBtn">검색</button>
                             </div>
                         </div>
+
                     </form>
     
                     <div id="view-box" class="box-style">
@@ -90,14 +110,30 @@
                             <td>댓글 수</td>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                        <tr th:each="member : ${memberList}">
+                            <td th:text="${member.memberNo}">1</td>
+                            <td th:text="${member.memberEmail}">email</td>
+                            <td th:text="${member.memberName}">이름</td>
+                            <td th:text="${member.memberNickname}">닉네임</td>
+                            <td th:text="${member.memberTel}">전화번호</td>
+                            <td th:text="${member.address}">주소</td>
+                            <td th:text="${member.secessionFl}">N</td>
+                            <td th:text="${member.enrollDate}">2025-01-01</td>
+                            <td th:text="${member.boardCount}">0</td>
+                            <td th:text="${member.commentCount}">0</td>
+                        </tr>
+                    </tbody>
                 </table>
+
+                <!-- 페이지네이션 -->
+                <div style="margin-top: 40px;">
+                    <th:block th:replace="~{common/pagination}">pagination.html</th:block>
+                </div>
 
             </section>
         </section>
     </main>
-
-    <th:block th:replace="~{common/pagination}">pagination.html</th:block>
     
     <script th:src="@{/js/adminPage/admin.js}"></script>
 </body>
