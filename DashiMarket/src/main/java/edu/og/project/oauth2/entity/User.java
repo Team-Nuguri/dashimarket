@@ -40,52 +40,40 @@ public class User {
 	@Column(name = "MEMBER_PW", length = 300)
 	private String memberPw;
 
-	// 이름 (VARCHAR2(30), Not Null)
 	@Column(name = "MEMBER_NAME", nullable = false, length = 30)
 	private String memberName;
 
-	// 닉네임 (VARCHAR2(30), Not Null). 유니크 제약조건은 DB 레벨에서 필요
 	@Column(name = "MEMBER_NICKNAME", nullable = false, length = 30)
 	private String memberNickname;
 
-	// 전화번호 (VARCHAR2(13), Not Null - 스키마 기준)
 	@Column(name = "MEMBER_TEL", nullable = false, length = 13)
 	private String memberTel;
 
-	// 우편번호 (VARCHAR2(6), Not Null - 스키마 기준)
 	@Column(name = "POST_CODE", nullable = false, length = 6)
 	private String postCode;
 
-	// 도로명 주소 (VARCHAR2(50), Not Null - 스키마 기준)
 	@Column(name = "LOAD_ADDRESS", nullable = false, length = 50)
 	private String loadAddress;
 
-	// 상세 주소 (VARCHAR2(50), Not Null - 스키마 기준)
 	@Column(name = "DETAIL_ADDRESS", nullable = false, length = 50)
 	private String detailAddress;
 
-	// 동/읍/면 (VARCHAR2(30), Not Null - 스키마 기준)
 	@Column(name = "DEFAULT_DONG", nullable = false, length = 30)
 	private String defaultDong;
 
-	// 프로필 이미지 경로 (VARCHAR2(100), Nullable)
 	@Column(name = "PROFILE_PATH", length = 100)
 	private String profilePath;
 
-	// 가입일 (DATE, Not Null, 기본값 SYSDATE)
 	@Temporal(TemporalType.DATE)
 	@Column(name = "ENROLL_DATE", nullable = false)
 	private Date enrollDate; 
 
-	// 탈퇴 여부 (CHAR(1), Not Null, 기본값 'N')
 	@Column(name = "SECESSIONFL", nullable = false, length = 1)
 	private String secessionFl;
 
-	// 관리자 여부 (CHAR(1), Not Null, 기본값 'N')
 	@Column(name = "IS_ADMIN", nullable = false, length = 1)
 	private String isAdmin;
 	
-	// 지번 주소
 	@Column(name = "JIBUN_ADDRESS", length = 200 )
 	private String jibunAddress;
 

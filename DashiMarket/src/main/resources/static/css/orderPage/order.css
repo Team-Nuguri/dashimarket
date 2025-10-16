@@ -214,6 +214,7 @@
 
 /* 주문버튼 */
 #purchaseBtn{
+    border: none;
 
     position: absolute;
     background-color: #166449;

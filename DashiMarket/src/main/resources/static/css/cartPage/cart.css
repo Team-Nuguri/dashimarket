@@ -186,7 +186,7 @@
 
 /* 구매버튼 */
 #purchaseBtn{
-
+    border: none;
     position: absolute;
     background-color: #166449;
     color: white;

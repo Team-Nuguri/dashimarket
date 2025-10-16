@@ -62,8 +62,10 @@
                     class="goods-detail-area">
                     <!-- 이미지 -->
                     <div class="goods-img">
-                        <img th:unless="${board.goodsStock == 0}" th:src="${board.thumbnail}" alt="">
-                        <img th:if="${board.goodsStock == 0}" th:src="@{/images/goods/soldout.jpg}">
+                        <!-- <img th:unless="${board.goodsStock == 0}" th:src="${board.thumbnail}" alt="">
+                        <img th:if="${board.goodsStock == 0}" class="sold-out" th:src="@{/images/goods/soldout.jpg}"> -->
+                        <img  th:src="${board.thumbnail}" alt="">
+                        <img  th:if="${board.goodsStock == 0}" class="sold-out" th:src="@{/images/goods/soldout.jpg}">
                     </div>
                     <!-- 제품명 -->
                     <div class="goods-name text-size-16 medium-text" th:text="${board.boardTitle}">굿즈 이름</div>
