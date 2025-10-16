@@ -81,6 +81,9 @@
    </resultMap>
    
    
+   
+   
+   
    <!-- 게시글 수 조회 (KJK) -->
 	<select id="getJoonggoListCount">
 		SELECT COUNT(*) FROM BOARD B
@@ -705,6 +708,26 @@
 			AND BOARD_TITLE LIKE '%${query}%'
 			ORDER BY BOARD_NO DESC)
 		<![CDATA[ WHERE ROWNUM <= 10 ]]>
+	</select>
+		
+	
+	
+	<select id="selectMainCategory" resultType="Category">
+		SELECT CATEGORY_ID AS categoryId
+		, CATEGORY_NAME AS categoryName 
+		FROM CATEGORY
+		WHERE CATEGORY_ID LIKE 'J%'
+		AND PARENT_CATEGORY_NO IS NULL
+		ORDER BY TO_NUMBER(SUBSTR(categoryId,2))
+		
+	</select>
+	
+	
+	
+	<select id="selectSubCategory" resultType="Category">
+		SELECT CATEGORY_ID, CATEGORY_NAME FROM CATEGORY
+		WHERE CATEGORY_ID LIKE 'J%'
+		AND PARENT_CATEGORY_NO = #{parentCategoryId}	
 	</select>
 	
 </mapper>
