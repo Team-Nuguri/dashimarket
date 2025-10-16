@@ -240,10 +240,12 @@ if (location.href == "http://localhost/admin/main") {
 } */
 
 // ========================================
-// ✅ 회원 조회 (수정됨)
+// ✅ 회원 조회 페이지 - 검색 기능
 // ========================================
 if (location.href.includes("/admin/main")) {
     document.addEventListener("DOMContentLoaded", () => {
+        
+        // 통계 조회
         const loadStats = () => {
             fetch("/admin/stats")
             .then(resp => resp.json())
@@ -251,8 +253,8 @@ if (location.href.includes("/admin/main")) {
                 const todayJoin = document.getElementById("todayJoin");
                 const totalUser = document.getElementById("totalUser");
 
-                // 값이 바뀔 때만 부드럽게 애니메이션처럼 교체
-                if (todayJoin.innerText != data.todayJoinCount) {
+                // 부드럽게 처리
+                if (todayJoin && todayJoin.innerText != data.todayJoinCount) {
                     todayJoin.style.opacity = 0;
                     setTimeout(() => {
                         todayJoin.innerText = data.todayJoinCount;
@@ -260,7 +262,7 @@ if (location.href.includes("/admin/main")) {
                     }, 200);
                 }
 
-                if (totalUser.innerText != data.totalUserCount) {
+                if (totalUser && totalUser.innerText != data.totalUserCount) {
                     totalUser.style.opacity = 0;
                     setTimeout(() => {
                         totalUser.innerText = data.totalUserCount;
@@ -273,10 +275,40 @@ if (location.href.includes("/admin/main")) {
         
         loadStats();
         setInterval(loadStats, 10 * 60 * 1000);
+
+        // 초기화 버튼
+        const resetBtn = document.getElementById("resetBtn");
+        if (resetBtn) {
+            resetBtn.addEventListener("click", () => {
+                location.href = "/admin/main";
+            });
+        }
+
+        // 검색 폼 제출 전 처리
+        const searchArea = document.getElementById("search-area");
+        if (searchArea) {
+            searchArea.addEventListener("submit", (e) => {
+                const keyword = document.getElementById("search-query").value.trim();
+                const checkboxes = document.querySelectorAll('input[name="searchType"]:checked');
+                
+                // 키워드가 없고 상세검색도 선택되지 않은 경우
+                if (!keyword && checkboxes.length === 0) {
+                    e.preventDefault();
+                    alert("검색어를 입력하거나 상세검색 옵션을 선택하세요.");
+                    return false;
+                }
+
+                // 키워드는 있는데 2글자 미만
+                if (keyword && keyword.length < 2) {
+                    e.preventDefault();
+                    alert("검색어는 2글자 이상 입력해주세요.");
+                    return false;
+                }
+            });
+        }
     });
-    
-    // ❌ loadAllList() 함수 삭제됨! (서버에서 이미 페이징된 데이터를 보내줌)
 }
+
 
 
 

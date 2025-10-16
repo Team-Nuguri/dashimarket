@@ -24,11 +24,12 @@ public interface AdminMapper {
 	// 전체 회원 조회
 	List<Member> selectAllMembers();
 	
-	// 전체 회원 수
-	int getMemberCount();
+	// 검색 조건에 맞는 회원 수
+	int getMemberCount(Map<String, Object> paramMap);
 
-	// 회원 목록 조회 (페이징)
-	List<Member> selectMemberListPaging(RowBounds rowBounds);
+	// 회원 목록 조회 (페이징 + 검색)
+	List<Member> selectMemberListPaging(Map<String, Object> paramMap, RowBounds rowBounds);
+
 
 	// 굿즈 상품 조회
 	List<Goods> selectProducts(String sort);
@@ -43,9 +44,12 @@ public interface AdminMapper {
 	Integer getTodayReportCount();
 
 	// 신고
-	public int getReportListCount(String keyword, String reportResult);
+	
+	// ✅ 신고 수 조회 (Map 버전으로 수정)
+    int getReportListCount(Map<String, Object> paramMap);
 
-	public List<Report> selectReportList(String keyword, String reportResult, RowBounds rowBounds);
+    // ✅ 신고 목록 조회 (Map 버전으로 수정)
+    List<Report> selectReportList(Map<String, Object> paramMap, RowBounds rowBounds);
 
 	public Report selectReportDetail(int reportNo);
 

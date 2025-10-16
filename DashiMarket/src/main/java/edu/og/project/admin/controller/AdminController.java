@@ -30,17 +30,20 @@ public class AdminController {
 
 	private final AdminService service;
 
-	// ✅ 회원 조회
+	// ✅ 회원 조회 (검색 기능 추가)
 	@GetMapping("/main")
 	public String main(
 	    @RequestParam(value = "cp", defaultValue = "1") int cp,
+	    @RequestParam(value = "keyword", required = false) String keyword,
+	    @RequestParam(value = "searchType", required = false) String searchType,
 	    Model model
 	) {
-	    Map<String, Object> map = service.selectMemberList(cp);
+	    Map<String, Object> map = service.selectMemberList(cp, keyword, searchType);
 	    model.addAttribute("memberList", map.get("memberList"));
 	    model.addAttribute("pagination", map.get("pagination"));
 	    return "admin/admin_user";
 	}
+
 
 	// 오늘 가입자 수 + 총 회원 수 조회 + 오늘 신고된 수
 	@GetMapping("/stats")
@@ -68,17 +71,22 @@ public class AdminController {
 		return service.searchMember(keyword);
 	}
 
-	// 통합 신고 페이지 요청
+	// ✅ 통합 신고 페이지 (필터 기능 추가)
 	@GetMapping("/report")
-	public String report(@RequestParam(value = "keyword", required = false) String keyword,
-			@RequestParam(value = "reportResult", required = false) String reportResult,
-			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
-
-		Map<String, Object> map = service.selectReportList(keyword, reportResult, cp);
-		model.addAttribute("reportList", map.get("reportList"));
-		model.addAttribute("pagination", map.get("pagination"));
-
-		return "admin/total_report";
+	public String report(
+	    @RequestParam(value = "keyword", required = false) String keyword,
+	    @RequestParam(value = "reportType", required = false) String reportType,
+	    @RequestParam(value = "reportStatus", required = false) String reportStatus,
+	    @RequestParam(value = "startDate", required = false) String startDate,
+	    @RequestParam(value = "endDate", required = false) String endDate,
+	    @RequestParam(value = "cp", defaultValue = "1") int cp, 
+	    Model model
+	) {
+	    Map<String, Object> map = service.selectReportList(keyword, reportType, reportStatus, startDate, endDate, cp);
+	    model.addAttribute("reportList", map.get("reportList"));
+	    model.addAttribute("pagination", map.get("pagination"));
+	    
+	    return "admin/total_report";
 	}
 
 	// 신고 상세 페이지 요청
