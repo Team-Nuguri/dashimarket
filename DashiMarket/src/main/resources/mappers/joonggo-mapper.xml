@@ -522,6 +522,7 @@
 		        AND BOARD_NO != #{boardNo}
 		        AND DELETE_FL = 'N'
 		        AND IMG_ORDER = 0
+		        AND BOARD_NO NOT IN(SELECT BOARD_NO FROM TRADE)
 		        ORDER BY DBMS_RANDOM.VALUE)
 		 <![CDATA[
 		 	WHERE ROWNUM <= 20
