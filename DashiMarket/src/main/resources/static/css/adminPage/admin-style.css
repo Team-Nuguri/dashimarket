@@ -637,3 +637,212 @@ tr, td{
 footer{
     padding-left: 300px;
 }
+
+/* ================================================== */
+/* ✅ 체크박스 스타일 개선 (가독성 향상) */
+/* ================================================== */
+
+.checkbox-group label,
+.checkbox-group2 label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.checkbox-group input[type="checkbox"],
+.checkbox-group2 input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #52B291; /* 체크박스 색상 */
+}
+
+.checkbox-group label:hover,
+.checkbox-group2 label:hover {
+    color: #52B291;
+}
+
+/* ================================================== */
+/* ✅ 검색 버튼 호버 효과 추가 */
+/* ================================================== */
+
+.basic-btn:hover {
+    background-color: #f8f9fa;
+    border-color: #166549;
+}
+
+.color-btn:hover {
+    background-color: #166549;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.basic-btn:active,
+.color-btn:active {
+    transform: translateY(0);
+}
+
+/* ================================================== */
+/* ✅ 테이블 호버 효과 추가 */
+/* ================================================== */
+
+.table-content tbody tr:hover {
+    background-color: #f8f9fa;
+    transition: background-color 0.2s ease;
+}
+
+.table-content tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+/* ================================================== */
+/* ✅ 체크박스 커서 포인터 추가 */
+/* ================================================== */
+
+.table-content input[type="checkbox"] {
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    accent-color: #52B291;
+}
+
+#checkAll {
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    accent-color: #52B291;
+}
+
+/* ================================================== */
+/* ✅ 신고 상세보기 링크 스타일 개선 */
+/* ================================================== */
+
+td > a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+td > a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* ================================================== */
+/* ✅ 처리 결과 select 스타일 개선 */
+/* ================================================== */
+
+.report-result-select,
+.table-item {
+    border-radius: 5px;
+    border: 2px solid #52B291;
+    width: 120px;
+    height: 40px;
+    text-align: center;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 16px;
+    transition: all 0.2s ease;
+}
+
+.report-result-select:hover,
+.table-item:hover {
+    border-color: #166549;
+    background-color: #f8f9fa;
+}
+
+.report-result-select:focus,
+.table-item:focus {
+    outline: none;
+    border-color: #166549;
+    box-shadow: 0 0 0 3px rgba(82, 178, 145, 0.2);
+}
+
+/* ================================================== */
+/* ✅ 페이지네이션 여백 추가 */
+/* ================================================== */
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    list-style: none;
+    margin: 40px 0;
+    padding: 20px 0;
+}
+
+/* ================================================== */
+/* ✅ 빈 데이터 메시지 스타일 */
+/* ================================================== */
+
+.table-content tbody tr td[colspan] {
+    padding: 40px;
+    color: #666;
+    font-size: 18px;
+    text-align: center;
+}
+
+/* ================================================== */
+/* ✅ 통합 신고 페이지 - 필터 영역 추가 스타일 */
+/* ================================================== */
+
+/* 필터 드롭다운 (신고 유형, 처리 상태) */
+.filter-select {
+    padding: 8px 15px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: white;
+    transition: all 0.2s ease;
+    min-width: 140px;
+}
+
+.filter-select:hover {
+    border-color: #52B291;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: #52B291;
+    box-shadow: 0 0 0 3px rgba(82, 178, 145, 0.2);
+}
+
+/* 날짜 필터 */
+.date-filter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.date-filter label {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.date-filter input[type="date"] {
+    padding: 8px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.date-filter input[type="date"]:hover {
+    border-color: #52B291;
+}
+
+.date-filter input[type="date"]:focus {
+    outline: none;
+    border-color: #52B291;
+    box-shadow: 0 0 0 3px rgba(82, 178, 145, 0.2);
+}
+
+.date-filter span {
+    font-size: 16px;
+    color: #666;
+}

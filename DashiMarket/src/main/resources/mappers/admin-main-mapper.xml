@@ -2,110 +2,278 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="edu.og.project.admin.model.dao.AdminMapper">
-	
+
 	<!-- 오늘 가입한 회원 수 -->
 	<select id="selectTodayJoincount" resultType="int">
-		SELECT COUNT (*) FROM MEMBER
+		SELECT COUNT(*) FROM MEMBER
 		WHERE TRUNC(ENROLL_DATE) = TRUNC(SYSDATE)
 	</select>
-	
+
 	<!-- 가입한 총 회원 수 -->
 	<select id="selectTotalUsercount" resultType="int">
-        SELECT COUNT(*)FROM MEMBER
-    </select>
-    
-    <!-- 오늘 신고된 수 -->
-    <select id="getTodayReportCount" resultType="int">
-    	SELECT COUNT(*) FROM REPORT
-    	WHERE TRUNC(REPORT_DATE) = TRUNC(SYSDATE)
-    </select>
-    
-    <!-- 전체 회원 조회 -->
-    <select id="selectAllMembers" resultType="Member">
-    	SELECT
-		    M.MEMBER_NO, M.MEMBER_EMAIL, M.MEMBER_NAME,
-		    M.MEMBER_NICKNAME, M.MEMBER_TEL,
-		    ('(' || M.POST_CODE || ') ' || M.LOAD_ADDRESS || ' ' ||  M.DETAIL_ADDRESS) AS ADDRESS,
-		    TO_CHAR(TRUNC(M.ENROLL_DATE), 'YYYY-MM-DD') AS ENROLL_DATE, M.SECESSIONFL,
-		    
-		    -- 게시글 수 
-		    NVL((SELECT COUNT(B.BOARD_NO) FROM BOARD B WHERE B.MEMBER_NO = M.MEMBER_NO), 0) AS BOARD_COUNT,
-		    
-		    -- 댓글 수 
-		    NVL((SELECT COUNT(C.COMMENT_NO) FROM "COMMENT" C WHERE C.MEMBER_NO = M.MEMBER_NO), 0) AS COMMENT_COUNT
-		    
+		SELECT COUNT(*) FROM MEMBER
+	</select>
+
+	<!-- 오늘 신고된 수 -->
+	<select id="getTodayReportCount" resultType="int">
+		SELECT COUNT(*) FROM REPORT
+		WHERE TRUNC(REPORT_DATE) = TRUNC(SYSDATE)
+	</select>
+
+	<!-- ✅ 전체 회원 조회 (수정됨) -->
+	<select id="selectAllMembers" resultType="Member">
+		SELECT
+		M.MEMBER_NO, M.MEMBER_EMAIL, M.MEMBER_NAME,
+		M.MEMBER_NICKNAME, M.MEMBER_TEL,
+		('(' || M.POST_CODE || ') ' || M.LOAD_ADDRESS || ' ' || M.DETAIL_ADDRESS)
+		AS ADDRESS,
+		TO_CHAR(TRUNC(M.ENROLL_DATE), 'YYYY-MM-DD') AS ENROLL_DATE,
+		M.SECESSIONFL AS SECESSION_FL,  <!-- ✅ 수정 -->
+
+		NVL((SELECT COUNT(B.BOARD_NO) FROM BOARD B WHERE B.MEMBER_NO =
+		M.MEMBER_NO), 0) AS BOARD_COUNT,
+		NVL((SELECT COUNT(C.COMMENT_NO) FROM "COMMENT" C WHERE C.MEMBER_NO =
+		M.MEMBER_NO), 0) AS COMMENT_COUNT
 		FROM MEMBER M
 		WHERE IS_ADMIN = 'N'
 		ORDER BY M.MEMBER_NO
-    </select>
-    
-    <!-- 굿즈 상품 조회 -->
-    <select id="selectProducts" resultType="Goods">
-        SELECT BOARD_NO, BOARD_TITLE, GOODS_PRICE, GOODS_STOCK,
-        	TO_CHAR(TRUNC(BOARD_CREATE_DATE), 'YYYY-MM-DD') AS BOARD_CREATE_DATE
-        FROM GOODS
-        LEFT JOIN BOARD USING(BOARD_NO)
-        
-        <choose>
-            <!-- 최신순 -->
-            <when test="sort == 'latest'">
-                ORDER BY BOARD_CREATE_DATE DESC
-            </when>
-
-            <!-- 가격순 -->
-            <when test="sort == 'price'">
-                ORDER BY GOODS_PRICE DESC
-            </when>
-
-            <!-- 기본: 상품 이름 오름차순 -->
-            <otherwise>
-                ORDER BY BOARD_TITLE
-            </otherwise>
-        </choose>
-    </select>    
-    
-    <!-- 신고 게시글 수 조회 -->
-	<select id="getReportListCount">
-		SELECT COUNT(*) FROM REPORT
-		JOIN REPORT_CODE USING(REPORT_CODE)
 	</select>
-	
-	<!-- 신고 게시글 전체 조회 -->
-	<select id="selectReportList" resultType="Report">
+
+	<!-- ✅ 검색 조건에 맞는 회원 수 (수정됨) -->
+	<select id="getMemberCount" resultType="int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE IS_ADMIN = 'N'
+		<if test="keyword != null and keyword != ''">
+			<choose>
+				<when test="searchType == null or searchType == ''">
+					AND (MEMBER_EMAIL LIKE '%' || #{keyword} || '%'
+					OR MEMBER_NICKNAME LIKE '%' || #{keyword} || '%')
+				</when>
+				<otherwise>
+					AND (
+					<if test="searchType.contains('email')">
+						MEMBER_EMAIL LIKE '%' || #{keyword} || '%'
+					</if>
+					<if test="searchType.contains('nickname')">
+						<if test="searchType.contains('email')">OR</if>
+						MEMBER_NICKNAME LIKE '%' || #{keyword} || '%'
+					</if>
+					<if test="searchType.contains('tel')">
+						<if
+							test="searchType.contains('email') or searchType.contains('nickname')">OR</if>
+						MEMBER_TEL LIKE '%' || #{keyword} || '%'
+					</if>
+					)
+				</otherwise>
+			</choose>
+		</if>
+		<if test="searchType != null and searchType.contains('secession')">
+			AND SECESSIONFL = 'Y'  <!-- ✅ 수정 (언더스코어 제거) -->
+		</if>
+	</select>
+
+	<!-- ✅ 회원 목록 조회 (페이징 + 검색) (수정됨) -->
+	<select id="selectMemberListPaging" resultType="Member">
 		SELECT
-		    REPORT_NO,
-		    REPORT_TARGET,
-		    BOARD_TITLE,
-		    REPORT_TARGET_ID,
-		    REPORT_REASON,
-		    TO_CHAR(REPORT_DATE, 'YYYY-MM-DD') AS REPORT_DATE,
-		    TO_CHAR(RESULT_DATE, 'YYYY-MM-DD') AS RESULT_DATE,
-		    REPORT_NAME,
-		    M.MEMBER_EMAIL REPORT_MEMBER,
-    		E.MEMBER_EMAIL TARGET_MEMBER,
-		    REPORT_RESULT
-		FROM REPORT
-		JOIN REPORT_CODE USING(REPORT_CODE)
-		LEFT JOIN BOARD ON(BOARD_NO = REPORT_TARGET_ID)
-		JOIN MEMBER M ON(REPORT_MEMBER_NO = M.MEMBER_NO)
-		JOIN MEMBER E ON(TARGET_MEMBER_NO = E.MEMBER_NO)
-		ORDER BY REPORT_NO DESC
+		M.MEMBER_NO, M.MEMBER_EMAIL, M.MEMBER_NAME,
+		M.MEMBER_NICKNAME, M.MEMBER_TEL,
+		('(' || M.POST_CODE || ') ' || M.LOAD_ADDRESS || ' ' || M.DETAIL_ADDRESS)
+		AS ADDRESS,
+		TO_CHAR(TRUNC(M.ENROLL_DATE), 'YYYY-MM-DD') AS ENROLL_DATE,
+		M.SECESSIONFL AS SECESSION_FL,  <!-- ✅ 수정 -->
+		NVL((SELECT COUNT(B.BOARD_NO) FROM BOARD B WHERE B.MEMBER_NO =
+		M.MEMBER_NO), 0) AS BOARD_COUNT,
+		NVL((SELECT COUNT(C.COMMENT_NO) FROM "COMMENT" C WHERE C.MEMBER_NO =
+		M.MEMBER_NO), 0) AS COMMENT_COUNT
+		FROM MEMBER M
+		WHERE IS_ADMIN = 'N'
+		<if test="keyword != null and keyword != ''">
+			<choose>
+				<when test="searchType == null or searchType == ''">
+					AND (M.MEMBER_EMAIL LIKE '%' || #{keyword} || '%'
+					OR M.MEMBER_NICKNAME LIKE '%' || #{keyword} || '%')
+				</when>
+				<otherwise>
+					AND (
+					<if test="searchType.contains('email')">
+						M.MEMBER_EMAIL LIKE '%' || #{keyword} || '%'
+					</if>
+					<if test="searchType.contains('nickname')">
+						<if test="searchType.contains('email')">OR</if>
+						M.MEMBER_NICKNAME LIKE '%' || #{keyword} || '%'
+					</if>
+					<if test="searchType.contains('tel')">
+						<if
+							test="searchType.contains('email') or searchType.contains('nickname')">OR</if>
+						M.MEMBER_TEL LIKE '%' || #{keyword} || '%'
+					</if>
+					)
+				</otherwise>
+			</choose>
+		</if>
+		<if test="searchType != null and searchType.contains('secession')">
+			AND M.SECESSIONFL = 'Y'  <!-- ✅ 수정 (언더스코어 제거) -->
+		</if>
+		ORDER BY M.MEMBER_NO DESC
 	</select>
 
+	<!-- ✅ (회원) 회원id 또는 닉네임으로 검색 (수정됨) -->
+	<select id="searchMember" resultType="Member">
+		SELECT
+		M.MEMBER_NO, M.MEMBER_EMAIL, M.MEMBER_NAME,
+		M.MEMBER_NICKNAME, M.MEMBER_TEL,
+		('(' || M.POST_CODE || ') ' || M.LOAD_ADDRESS || ' ' || M.DETAIL_ADDRESS)
+		AS ADDRESS,
+		TO_CHAR(TRUNC(M.ENROLL_DATE), 'YYYY-MM-DD') AS ENROLL_DATE,
+		M.SECESSIONFL AS SECESSION_FL,  <!-- ✅ 수정 -->
+
+		NVL((SELECT COUNT(B.BOARD_NO) FROM BOARD B WHERE B.MEMBER_NO =
+		M.MEMBER_NO), 0) AS BOARD_COUNT,
+		NVL((SELECT COUNT(C.COMMENT_NO) FROM "COMMENT" C WHERE C.MEMBER_NO =
+		M.MEMBER_NO), 0) AS COMMENT_COUNT
+		FROM MEMBER M
+		WHERE IS_ADMIN = 'N'
+		AND (M.MEMBER_EMAIL LIKE '%' || #{keyword} || '%' OR M.MEMBER_NICKNAME
+		LIKE '%' || #{keyword} || '%')
+		ORDER BY M.MEMBER_NO DESC
+	</select>
+
+	<!-- 굿즈 상품 조회 -->
+	<select id="selectProducts" resultType="Goods">
+		SELECT BOARD_NO, BOARD_TITLE, GOODS_PRICE, GOODS_STOCK,
+		TO_CHAR(TRUNC(BOARD_CREATE_DATE), 'YYYY-MM-DD') AS BOARD_CREATE_DATE
+		FROM GOODS
+		LEFT JOIN BOARD USING(BOARD_NO)
+		<choose>
+			<when test="sort == 'latest'">
+				ORDER BY BOARD_CREATE_DATE DESC
+			</when>
+			<when test="sort == 'price'">
+				ORDER BY GOODS_PRICE DESC
+			</when>
+			<otherwise>
+				ORDER BY BOARD_TITLE
+			</otherwise>
+		</choose>
+	</select>
+
+	<!-- ✅ 신고 게시글 수 조회 (검색 + 필터) -->
+	<select id="getReportListCount" resultType="int">
+	    SELECT COUNT(*) 
+	    FROM REPORT R
+	    JOIN REPORT_CODE RC ON R.REPORT_CODE = RC.REPORT_CODE
+	    LEFT JOIN BOARD B ON R.REPORT_TARGET_ID = B.BOARD_NO
+	    JOIN MEMBER M ON R.REPORT_MEMBER_NO = M.MEMBER_NO
+	    JOIN MEMBER E ON R.TARGET_MEMBER_NO = E.MEMBER_NO
+	    <where>
+	        <!-- 키워드 검색 -->
+	        <if test="keyword != null and keyword != ''">
+	            AND (M.MEMBER_EMAIL LIKE '%' || #{keyword} || '%' 
+	                 OR E.MEMBER_EMAIL LIKE '%' || #{keyword} || '%'
+	                 OR B.BOARD_TITLE LIKE '%' || #{keyword} || '%')
+	        </if>
+	        
+	        <!-- 신고 유형 필터 -->
+	        <if test="reportType != null and reportType != ''">
+	            AND RC.REPORT_NAME = #{reportType}
+	        </if>
+	        
+	        <!-- 처리 상태 필터 -->
+	        <if test="reportStatus != null and reportStatus != ''">
+	            <choose>
+	                <when test="reportStatus == 'pending'">
+	                    AND R.REPORT_RESULT = '-'
+	                </when>
+	                <when test="reportStatus == 'completed'">
+	                    AND R.REPORT_RESULT != '-'
+	                </when>
+	            </choose>
+	        </if>
+	        
+	        <!-- 신고일 필터 (시작일) -->
+	        <if test="startDate != null and startDate != ''">
+	            AND TRUNC(R.REPORT_DATE) &gt;= TO_DATE(#{startDate}, 'YYYY-MM-DD')
+	        </if>
+	        
+	        <!-- 신고일 필터 (종료일) -->
+	        <if test="endDate != null and endDate != ''">
+	            AND TRUNC(R.REPORT_DATE) &lt;= TO_DATE(#{endDate}, 'YYYY-MM-DD')
+	        </if>
+	    </where>
+	</select>
 	
-	<!-- 신고 상세 조회-->
+	<!-- ✅ 신고 게시글 전체 조회 (페이징 + 검색 + 필터) -->
+	<select id="selectReportList" resultType="Report">
+	    SELECT
+	        R.REPORT_NO,
+	        R.REPORT_TARGET,
+	        B.BOARD_TITLE,
+	        R.REPORT_TARGET_ID,
+	        R.REPORT_REASON,
+	        TO_CHAR(R.REPORT_DATE, 'YYYY-MM-DD') AS REPORT_DATE,
+	        TO_CHAR(R.RESULT_DATE, 'YYYY-MM-DD') AS RESULT_DATE,
+	        RC.REPORT_NAME,
+	        M.MEMBER_EMAIL AS REPORT_MEMBER,
+	        E.MEMBER_EMAIL AS TARGET_MEMBER,
+	        R.REPORT_RESULT
+	    FROM REPORT R
+	    JOIN REPORT_CODE RC ON R.REPORT_CODE = RC.REPORT_CODE
+	    LEFT JOIN BOARD B ON R.REPORT_TARGET_ID = B.BOARD_NO
+	    JOIN MEMBER M ON R.REPORT_MEMBER_NO = M.MEMBER_NO
+	    JOIN MEMBER E ON R.TARGET_MEMBER_NO = E.MEMBER_NO
+	    <where>
+	        <!-- 키워드 검색 -->
+	        <if test="keyword != null and keyword != ''">
+	            AND (M.MEMBER_EMAIL LIKE '%' || #{keyword} || '%' 
+	                 OR E.MEMBER_EMAIL LIKE '%' || #{keyword} || '%'
+	                 OR B.BOARD_TITLE LIKE '%' || #{keyword} || '%')
+	        </if>
+	        
+	        <!-- 신고 유형 필터 -->
+	        <if test="reportType != null and reportType != ''">
+	            AND RC.REPORT_NAME = #{reportType}
+	        </if>
+	        
+	        <!-- 처리 상태 필터 -->
+	        <if test="reportStatus != null and reportStatus != ''">
+	            <choose>
+	                <when test="reportStatus == 'pending'">
+	                    AND R.REPORT_RESULT = '-'
+	                </when>
+	                <when test="reportStatus == 'completed'">
+	                    AND R.REPORT_RESULT != '-'
+	                </when>
+	            </choose>
+	        </if>
+	        
+	        <!-- 신고일 필터 (시작일) -->
+	        <if test="startDate != null and startDate != ''">
+	            AND TRUNC(R.REPORT_DATE) &gt;= TO_DATE(#{startDate}, 'YYYY-MM-DD')
+	        </if>
+	        
+	        <!-- 신고일 필터 (종료일) -->
+	        <if test="endDate != null and endDate != ''">
+	            AND TRUNC(R.REPORT_DATE) &lt;= TO_DATE(#{endDate}, 'YYYY-MM-DD')
+	        </if>
+	    </where>
+	    ORDER BY R.REPORT_NO DESC
+	</select>
+
+
+	<!-- 신고 상세 조회 -->
 	<select id="selectReportDetail" resultType="Report">
 		SELECT
-			REPORT_NO,
-			REPORT_TARGET,
-			REPORT_TARGET_ID,
-			REPORT_REASON,
-			TO_CHAR(REPORT_DATE, 'YYYY-MM-DD') AS REPORT_DATE,
-			TO_CHAR(RESULT_DATE, 'YYYY-MM-DD') AS RESULT_DATE,
-			REPORT_NAME,
-			M.MEMBER_EMAIL REPORT_MEMBER,
-			E.MEMBER_EMAIL TARGET_MEMBER,
-			REPORT_RESULT
+		REPORT_NO,
+		REPORT_TARGET,
+		REPORT_TARGET_ID,
+		REPORT_REASON,
+		TO_CHAR(REPORT_DATE, 'YYYY-MM-DD') AS REPORT_DATE,
+		TO_CHAR(RESULT_DATE, 'YYYY-MM-DD') AS RESULT_DATE,
+		REPORT_NAME,
+		M.MEMBER_EMAIL REPORT_MEMBER,
+		E.MEMBER_EMAIL TARGET_MEMBER,
+		REPORT_RESULT
 		FROM REPORT
 		JOIN REPORT_CODE USING(REPORT_CODE)
 		LEFT JOIN BOARD ON(BOARD_NO = REPORT_TARGET_ID)
@@ -113,207 +281,164 @@
 		JOIN MEMBER E ON(TARGET_MEMBER_NO = E.MEMBER_NO)
 		WHERE REPORT_NO = #{reportNo}
 	</select>
-	
 
 	<!-- 신고 처리완료 -->
-    <update id="updateReportResult" >
-	    UPDATE REPORT SET 
-	    	REPORT_RESULT =  #{resultType}, 
-	        RESULT_DATE = SYSDATE
-	    WHERE REPORT_NO =  #{reportNo}
-    </update>
-    
-    <!-- (회원) 회원id 또는 닉네임으로 검색 -->
-    <select id="searchMember" resultType="Member">
+	<update id="updateReportResult">
+		UPDATE REPORT SET
+		REPORT_RESULT = #{resultType},
+		RESULT_DATE = SYSDATE
+		WHERE REPORT_NO = #{reportNo}
+	</update>
+
+	<!-- (신고) 게시글 유형 또는 게시글로 검색 -->
+	<select id="searchReport" resultType="Report">
 		SELECT
-		    M.MEMBER_NO, M.MEMBER_EMAIL, M.MEMBER_NAME,
-		    M.MEMBER_NICKNAME, M.MEMBER_TEL,
-		    ('(' || M.POST_CODE || ') ' || M.LOAD_ADDRESS || ' ' ||  M.DETAIL_ADDRESS) AS ADDRESS,
-		    TO_CHAR(TRUNC(M.ENROLL_DATE), 'YYYY-MM-DD') AS ENROLL_DATE, M.SECESSIONFL,
-		    
-		    -- 게시글 수 
-		    NVL((SELECT COUNT(B.BOARD_NO) FROM BOARD B WHERE B.MEMBER_NO = M.MEMBER_NO), 0) AS BOARD_COUNT,
-		    
-		    -- 댓글 수 
-		    NVL((SELECT COUNT(C.COMMENT_NO) FROM "COMMENT" C WHERE C.MEMBER_NO = M.MEMBER_NO), 0) AS COMMENT_COUNT
-		    
-		FROM MEMBER M
-		WHERE IS_ADMIN = 'N'
-		AND (M.MEMBER_EMAIL LIKE '%${keyword}%' OR M.MEMBER_NICKNAME LIKE '%${keyword}%')
-		ORDER BY M.MEMBER_NO DESC
-    </select>
-    
-    <!-- (신고) 게시글 유형 또는 게시글로 검색 -->
-    <select id="searchReport" resultType="Report">
-    	SELECT
-		    REPORT_NO,
-		    REPORT_TARGET,
-		    BOARD_TITLE,
-		    REPORT_TARGET_ID,
-		    REPORT_REASON,
-		    TO_CHAR(REPORT_DATE, 'YYYY-MM-DD') AS REPORT_DATE,
-		    TO_CHAR(RESULT_DATE, 'YYYY-MM-DD') AS RESULT_DATE,
-		    REPORT_NAME,
-		    M.MEMBER_EMAIL REPORT_MEMBER,
-    		E.MEMBER_EMAIL TARGET_MEMBER,
-		    REPORT_RESULT
+		REPORT_NO,
+		REPORT_TARGET,
+		BOARD_TITLE,
+		REPORT_TARGET_ID,
+		REPORT_REASON,
+		TO_CHAR(REPORT_DATE, 'YYYY-MM-DD') AS REPORT_DATE,
+		TO_CHAR(RESULT_DATE, 'YYYY-MM-DD') AS RESULT_DATE,
+		REPORT_NAME,
+		M.MEMBER_EMAIL REPORT_MEMBER,
+		E.MEMBER_EMAIL TARGET_MEMBER,
+		REPORT_RESULT
 		FROM REPORT
 		JOIN REPORT_CODE USING(REPORT_CODE)
 		LEFT JOIN BOARD ON(BOARD_NO = REPORT_TARGET_ID)
 		JOIN MEMBER M ON(REPORT_MEMBER_NO = M.MEMBER_NO)
 		JOIN MEMBER E ON(TARGET_MEMBER_NO = E.MEMBER_NO)
-		WHERE (BOARD_TITLE LIKE '%${keyword}%' OR REPORT_TARGET LIKE '${keyword}%')
+		WHERE (BOARD_TITLE LIKE '%' || #{keyword} || '%' OR REPORT_TARGET LIKE '%'
+		|| #{keyword} || '%')
 		ORDER BY REPORT_NO DESC
-    </select>
-    
-    <!-- 상품명으로 검색 -->
-    <select id="searchGoods" resultType="Goods">
-    	SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT, GOODS_PRICE, GOODS_STOCK,
-        	TO_CHAR(TRUNC(BOARD_CREATE_DATE), 'YYYY-MM-DD') AS BOARD_CREATE_DATE
-        FROM GOODS
-        LEFT JOIN BOARD USING(BOARD_NO)
-        WHERE BOARD_TITLE LIKE '%${keyword}%'
-        ORDER BY BOARD_TITLE DESC
-    </select>
-    
-    <!-- (굿즈 거래)수령인 또는 상품명으로 검색 -->
-    <select id="searchOrder" resultType="OrderDto">
-    	SELECT
-		    S.ORDER_NO,
-		    S.RECIPIENT_NAME,
-		    S.RECIPIENT_TEL,
-		    ('(' || S.POSTCODE || ') ' || S.ADDRESS_BASE || ' ' || S.ADDRESS_DETAIL) AS ADDRESS,
-		    S.DELIVERY_STATUS,
-		    P.PAY_METHOD,
-		    P.PAT_DATE AS PAY_DATE,
-		    P.PRICE AS PAY_PRICE,
-		    O.ORDER_QUANTITY,
-		    O.ORDER_ITEM_NO,
-		    B.BOARD_TITLE ORDERED_NAME
+	</select>
+
+	<!-- 상품명으로 검색 -->
+	<select id="searchGoods" resultType="Goods">
+		SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT, GOODS_PRICE, GOODS_STOCK,
+		TO_CHAR(TRUNC(BOARD_CREATE_DATE), 'YYYY-MM-DD') AS BOARD_CREATE_DATE
+		FROM GOODS
+		LEFT JOIN BOARD USING(BOARD_NO)
+		WHERE BOARD_TITLE LIKE '%' || #{keyword} || '%'
+		ORDER BY BOARD_TITLE DESC
+	</select>
+
+	<!-- (굿즈 거래)수령인 또는 상품명으로 검색 -->
+	<select id="searchOrder" resultType="OrderDto">
+		SELECT
+		S.ORDER_NO,
+		S.RECIPIENT_NAME,
+		S.RECIPIENT_TEL,
+		('(' || S.POSTCODE || ') ' || S.ADDRESS_BASE || ' ' || S.ADDRESS_DETAIL)
+		AS ADDRESS,
+		S.DELIVERY_STATUS,
+		P.PAY_METHOD,
+		P.PAT_DATE AS PAY_DATE,
+		P.PRICE AS PAY_PRICE,
+		O.ORDER_QUANTITY,
+		O.ORDER_ITEM_NO,
+		B.BOARD_TITLE ORDERED_NAME
 		FROM SHIPPING S
 		JOIN PAYMENT P ON S.ORDER_NO = P.ORDER_NO
 		JOIN ORDER_ITEM O ON S.ORDER_NO = O.ORDER_NO
 		JOIN BOARD B ON O.ORDER_ITEM_NO = B.BOARD_NO
-		WHERE (B.BOARD_TITLE  LIKE '%${keyword}%' OR S.RECIPIENT_NAME LIKE '%${keyword}%')
+		WHERE (B.BOARD_TITLE LIKE '%' || #{keyword} || '%' OR S.RECIPIENT_NAME LIKE
+		'%' || #{keyword} || '%')
 		ORDER BY S.ORDER_NO DESC
-    </select>
-    
-    <!-- 굿즈 거래내역 조회 -->
-    <select id="selectGoodsOrder" resultType="OrderDto">
-    	SELECT
-		    S.ORDER_NO,
-		    S.RECIPIENT_NAME,
-		    S.RECIPIENT_TEL,
-		    ('(' || S.POSTCODE || ') ' || S.ADDRESS_BASE || ' ' || S.ADDRESS_DETAIL) AS ADDRESS,
-		    S.DELIVERY_STATUS,
-		    P.PAY_METHOD,
-		    P.PAT_DATE AS PAY_DATE,
-		    P.PRICE AS PAY_PRICE,
-		    O.ORDER_QUANTITY,
-		    O.ORDER_ITEM_NO,
-		    B.BOARD_TITLE ORDERED_NAME
+	</select>
+
+	<!-- 굿즈 거래내역 조회 -->
+	<select id="selectGoodsOrder" resultType="OrderDto">
+		SELECT
+		S.ORDER_NO,
+		S.RECIPIENT_NAME,
+		S.RECIPIENT_TEL,
+		('(' || S.POSTCODE || ') ' || S.ADDRESS_BASE || ' ' || S.ADDRESS_DETAIL)
+		AS ADDRESS,
+		S.DELIVERY_STATUS,
+		P.PAY_METHOD,
+		P.PAT_DATE AS PAY_DATE,
+		P.PRICE AS PAY_PRICE,
+		O.ORDER_QUANTITY,
+		O.ORDER_ITEM_NO,
+		B.BOARD_TITLE ORDERED_NAME
 		FROM SHIPPING S
 		JOIN PAYMENT P ON S.ORDER_NO = P.ORDER_NO
 		JOIN ORDER_ITEM O ON S.ORDER_NO = O.ORDER_NO
 		JOIN BOARD B ON O.ORDER_ITEM_NO = B.BOARD_NO
 		<choose>
-            <!-- 최신순 -->
-            <when test="sort == 'latest'">
-                ORDER BY PAY_DATE DESC
-            </when>
-
-            <!-- 가격순 -->
-            <when test="sort == 'price'">
-                ORDER BY PAY_PRICE DESC
-            </when>
-
-            <!-- 기본: 상품 이름 오름차순 -->
-            <otherwise>
-                ORDER BY S.ORDER_NO
-            </otherwise>
-        </choose>
-    </select>
-    
-    
-    <!-- ✅ 전체 회원 수 (페이징용) -->
-	<select id="getMemberCount" resultType="int">
-	    SELECT COUNT(*) FROM MEMBER WHERE IS_ADMIN = 'N'
+			<when test="sort == 'latest'">
+				ORDER BY PAY_DATE DESC
+			</when>
+			<when test="sort == 'price'">
+				ORDER BY PAY_PRICE DESC
+			</when>
+			<otherwise>
+				ORDER BY S.ORDER_NO
+			</otherwise>
+		</choose>
 	</select>
-	
-	<!-- ✅ 회원 목록 조회 (페이징) -->
-	<select id="selectMemberListPaging" resultType="Member">
-	    SELECT
-	        M.MEMBER_NO, M.MEMBER_EMAIL, M.MEMBER_NAME,
-	        M.MEMBER_NICKNAME, M.MEMBER_TEL,
-	        ('(' || M.POST_CODE || ') ' || M.LOAD_ADDRESS || ' ' ||  M.DETAIL_ADDRESS) AS ADDRESS,
-	        TO_CHAR(TRUNC(M.ENROLL_DATE), 'YYYY-MM-DD') AS ENROLL_DATE, M.SECESSIONFL,
-	        NVL((SELECT COUNT(B.BOARD_NO) FROM BOARD B WHERE B.MEMBER_NO = M.MEMBER_NO), 0) AS BOARD_COUNT,
-	        NVL((SELECT COUNT(C.COMMENT_NO) FROM "COMMENT" C WHERE C.MEMBER_NO = M.MEMBER_NO), 0) AS COMMENT_COUNT
-	    FROM MEMBER M
-	    WHERE IS_ADMIN = 'N'
-	    ORDER BY M.MEMBER_NO DESC
-	</select>
-	
+
 	<!-- ✅ 전체 상품 수 (페이징용) -->
 	<select id="getGoodsCount" resultType="int">
-	    SELECT COUNT(*) FROM GOODS
+		SELECT COUNT(*) FROM GOODS
 	</select>
-	
+
 	<!-- ✅ 상품 목록 조회 (페이징) -->
 	<select id="selectGoodsListPaging" resultType="Goods">
-	    SELECT BOARD_NO, BOARD_TITLE, GOODS_PRICE, GOODS_STOCK,
-	        TO_CHAR(TRUNC(BOARD_CREATE_DATE), 'YYYY-MM-DD') AS BOARD_CREATE_DATE
-	    FROM GOODS
-	    LEFT JOIN BOARD USING(BOARD_NO)
-	    <choose>
-	        <when test="sort == 'latest'">
-	            ORDER BY BOARD_CREATE_DATE DESC
-	        </when>
-	        <when test="sort == 'price'">
-	            ORDER BY GOODS_PRICE DESC
-	        </when>
-	        <otherwise>
-	            ORDER BY BOARD_TITLE
-	        </otherwise>
-	    </choose>
+		SELECT BOARD_NO, BOARD_TITLE, GOODS_PRICE, GOODS_STOCK,
+		TO_CHAR(TRUNC(BOARD_CREATE_DATE), 'YYYY-MM-DD') AS BOARD_CREATE_DATE
+		FROM GOODS
+		LEFT JOIN BOARD USING(BOARD_NO)
+		<choose>
+			<when test="sort == 'latest'">
+				ORDER BY BOARD_CREATE_DATE DESC
+			</when>
+			<when test="sort == 'price'">
+				ORDER BY GOODS_PRICE DESC
+			</when>
+			<otherwise>
+				ORDER BY BOARD_TITLE
+			</otherwise>
+		</choose>
 	</select>
-	
+
 	<!-- ✅ 전체 거래 수 (페이징용) -->
 	<select id="getOrderCount" resultType="int">
-	    SELECT COUNT(*) FROM SHIPPING
+		SELECT COUNT(*) FROM SHIPPING
 	</select>
-	
+
 	<!-- ✅ 거래 목록 조회 (페이징) -->
 	<select id="selectOrderListPaging" resultType="OrderDto">
-	    SELECT
-	        S.ORDER_NO,
-	        S.RECIPIENT_NAME,
-	        S.RECIPIENT_TEL,
-	        ('(' || S.POSTCODE || ') ' || S.ADDRESS_BASE || ' ' || S.ADDRESS_DETAIL) AS ADDRESS,
-	        S.DELIVERY_STATUS,
-	        P.PAY_METHOD,
-	        P.PAT_DATE AS PAY_DATE,
-	        P.PRICE AS PAY_PRICE,
-	        O.ORDER_QUANTITY,
-	        O.ORDER_ITEM_NO,
-	        B.BOARD_TITLE ORDERED_NAME
-	    FROM SHIPPING S
-	    JOIN PAYMENT P ON S.ORDER_NO = P.ORDER_NO
-	    JOIN ORDER_ITEM O ON S.ORDER_NO = O.ORDER_NO
-	    JOIN BOARD B ON O.ORDER_ITEM_NO = B.BOARD_NO
-	    <choose>
-	        <when test="sort == 'latest'">
-	            ORDER BY PAY_DATE DESC
-	        </when>
-	        <when test="sort == 'price'">
-	            ORDER BY PAY_PRICE DESC
-	        </when>
-	        <otherwise>
-	            ORDER BY S.ORDER_NO
-	        </otherwise>
-	    </choose>
+		SELECT
+		S.ORDER_NO,
+		S.RECIPIENT_NAME,
+		S.RECIPIENT_TEL,
+		('(' || S.POSTCODE || ') ' || S.ADDRESS_BASE || ' ' || S.ADDRESS_DETAIL)
+		AS ADDRESS,
+		S.DELIVERY_STATUS,
+		P.PAY_METHOD,
+		P.PAT_DATE AS PAY_DATE,
+		P.PRICE AS PAY_PRICE,
+		O.ORDER_QUANTITY,
+		O.ORDER_ITEM_NO,
+		B.BOARD_TITLE ORDERED_NAME
+		FROM SHIPPING S
+		JOIN PAYMENT P ON S.ORDER_NO = P.ORDER_NO
+		JOIN ORDER_ITEM O ON S.ORDER_NO = O.ORDER_NO
+		JOIN BOARD B ON O.ORDER_ITEM_NO = B.BOARD_NO
+		<choose>
+			<when test="sort == 'latest'">
+				ORDER BY PAY_DATE DESC
+			</when>
+			<when test="sort == 'price'">
+				ORDER BY PAY_PRICE DESC
+			</when>
+			<otherwise>
+				ORDER BY S.ORDER_NO
+			</otherwise>
+		</choose>
 	</select>
-    
-
 
 </mapper>

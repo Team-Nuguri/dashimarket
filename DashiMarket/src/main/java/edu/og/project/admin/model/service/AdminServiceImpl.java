@@ -49,29 +49,36 @@ public class AdminServiceImpl implements AdminService{
 		return mapper.selectAllMembers();
 	}
 	
-	// ✅ 회원 목록 조회 (페이지네이션)
+	// ✅ 회원 목록 조회 (페이지네이션 + 검색)
 	@Override
-	public Map<String, Object> selectMemberList(int cp) {
-		// 전체 회원 수 조회
-		int listCount = mapper.getMemberCount();
-		
-		// Pagination 객체 생성 (페이지당 10개)
-		Pagination pagination = new Pagination(cp, listCount, 10);
-		
-		// RowBounds 설정
-		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
-		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
-		
-		// 회원 목록 조회
-		List<Member> memberList = mapper.selectMemberListPaging(rowBounds);
-		
-		// 결과 반환
-		Map<String, Object> map = new HashMap<>();
-		map.put("pagination", pagination);
-		map.put("memberList", memberList);
-		
-		return map;
+	public Map<String, Object> selectMemberList(int cp, String keyword, String searchType) {
+	    // 파라미터를 Map으로 전달
+	    Map<String, Object> paramMap = new HashMap<>();
+	    paramMap.put("keyword", keyword);
+	    paramMap.put("searchType", searchType);
+	    
+	    // 검색 조건에 맞는 회원 수 조회
+	    int listCount = mapper.getMemberCount(paramMap);
+	    
+	    // Pagination 객체 생성 (페이지당 10개)
+	    Pagination pagination = new Pagination(cp, listCount, 10);
+	    
+	    // RowBounds 설정
+	    int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+	    RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+	    
+	    // 회원 목록 조회
+	    List<Member> memberList = mapper.selectMemberListPaging(paramMap, rowBounds);
+	    
+	    // 결과 반환
+	    Map<String, Object> map = new HashMap<>();
+	    map.put("pagination", pagination);
+	    map.put("memberList", memberList);
+	    
+	    return map;
 	}
+
+
 
 	// 굿즈 상품 조회
 	@Override
@@ -103,25 +110,39 @@ public class AdminServiceImpl implements AdminService{
 		return map;
 	}
 	
-	// 신고
+	// ✅ 신고 목록 조회 (페이징 + 검색 + 필터)
 	@Override
-	public Map<String, Object> selectReportList(String keyword, String reportResult, int cp) {
-		
-		// 특정 게시판의 삭제되지 않은 게시글 수 조회
-		int listCount = mapper.getReportListCount(keyword, reportResult);
-
-		Pagination pagination = new Pagination(cp, listCount, 16);
-		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
-		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
-
-		List<Report> reportList = mapper.selectReportList(keyword, reportResult, rowBounds);
-
-		Map<String, Object> map = new HashMap<>();
-		map.put("pagination", pagination);
-		map.put("reportList", reportList);
-
-		return map;
+	public Map<String, Object> selectReportList(String keyword, String reportType, String reportStatus, 
+	                                              String startDate, String endDate, int cp) {
+	    // 파라미터를 Map으로 전달
+	    Map<String, Object> paramMap = new HashMap<>();
+	    paramMap.put("keyword", keyword);
+	    paramMap.put("reportType", reportType);
+	    paramMap.put("reportStatus", reportStatus);
+	    paramMap.put("startDate", startDate);
+	    paramMap.put("endDate", endDate);
+	    
+	    // 검색 조건에 맞는 신고 수 조회
+	    int listCount = mapper.getReportListCount(paramMap);
+	    
+	    // Pagination 객체 생성
+	    Pagination pagination = new Pagination(cp, listCount, 16);
+	    
+	    // RowBounds 설정
+	    int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+	    RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+	    
+	    // 신고 목록 조회
+	    List<Report> reportList = mapper.selectReportList(paramMap, rowBounds);
+	    
+	    // 결과 반환
+	    Map<String, Object> map = new HashMap<>();
+	    map.put("pagination", pagination);
+	    map.put("reportList", reportList);
+	    
+	    return map;
 	}
+
 
 	@Override
 	public Report selectReportDetail(int reportNo) {
