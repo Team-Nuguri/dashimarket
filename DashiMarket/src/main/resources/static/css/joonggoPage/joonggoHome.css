@@ -13,11 +13,19 @@ a {
     display: block !important;
 }
 
+/* 게시글 없는 경우 */
+#no-post {
+    text-align: center;
+    color: rgb(173, 173, 173);
+    padding: 20px 0;
+}
+
 /* 동네 선택 */
 #select-city {
     display: flex;
     margin-top: 40px;
     border-radius: 10px;
+    font-weight: bold;
 }
 
 #show-city-name > span {

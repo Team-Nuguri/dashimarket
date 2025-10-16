@@ -27,13 +27,11 @@
 
     <!-- <main> -->
 
-
-
     <!-- 상품 정렬(가격순, 인기순), 상품등록 -->
     <section class="body">
 
         <!-- 동네 -->
-        <div id="select-city" class="bold-text">
+        <div id="select-city">
             <div id="drop-down-icon"><img th:src="@{/images/svg/location_green.svg}"></div>
             <div id="show-city-name" class="text-size-24">여기는
                 " <span id="show-region"
@@ -46,7 +44,7 @@
 
 
         <!-- <div id="category-container" style="display: block;"> -->
-			<div id="category-container" th:if="${categoryId == null}" style="display: block;">
+			<div id="category-container" th:if="${!isCategoryPage}" style="display: block;">
 
             <!-- 카테고리 선택 드롭다운 -->
              <div id="category-drop-down-container">
@@ -90,7 +88,7 @@
                 </a>
 
                 <a th:href="@{/joonggoCategory(categoryId=J1200)}">
-                    <div class="text-size-20 medium-text" id="div12">패션 엑세서리</div>
+                    <div class="text-size-20 medium-text" id="div12">패션 액세서리</div>
                 </a>
                 <a th:href="@{/joonggoCategory(categoryId=J1300)}">
                     <div class="text-size-20 medium-text" id="div13">도서/문구</div>
@@ -749,19 +747,19 @@
 
             <!-- 상품 정렬 -->
             <div id="select-sort">
-                <div id="sort-text" class="text-size-16 medium-text">관심순</div>
+                <div id="sort-text" class="text-size-16 medium-text">최신순</div>
                 <div id="drop-down-icon2"><img th:src="@{/images/svg/drop-down.svg}"></div>
             </div>
 
             <!-- 드롭다운 메뉴 -->
             <div id="select-sort-box">
-                <a th:href="@{/joonggo/popular}">
-                    <div class="text-size-14">관심순</div>
+                <a th:href="@{/joonggo/latest(categoryId=${categoryId})}">
+                    <div class="text-size-14">최신순</div>
                 </a>
-                <a th:href="@{/joonggo/lowPrice}">
+                <a th:href="@{/joonggo/lowPrice(categoryId=${categoryId})}">
                     <div class="text-size-14">낮은 가격순</div>
                 </a>
-                <a th:href="@{/joonggo/highPrice}">
+                <a th:href="@{/joonggo/highPrice(categoryId=${categoryId})}">
                     <div class="text-size-14">높은 가격순</div>
                 </a>
             </div>
@@ -772,62 +770,6 @@
                 <div id="upload-goods-text" class="text-size-16 medium-text">상품 등록</div>
             </a>
         </div>
-
-        <!-- 제품 보여지는 전체 컨테이너 -->
-        <!--  <div id="goods-container">
-            
-             상품들 
-            <a th:href="@{}" class="goods-detail-area">
-                 이미지 
-                <div class="goods-img"><img th:src="@{/images/goods/tumbler.png}" alt=""></div>
-                 제품명 
-                <div class="goods-name text-size-16 medium-text">다시마 로고 텀블러</div>
-                 가격 
-                <div class="goods-price">25,000원</div>
-            </a>
-            <a th:href="@{}" class="goods-detail-area">
-                <div class="goods-img"><img th:src="@{/images/goods/figures.png}" alt=""></div>
-                <div class="goods-name text-size-16 medium-text">다시마 피규어</div>
-                <div class="goods-price">18,000원</div>
-            </a>
-            <a th:href="@{}" class="goods-detail-area">
-                <div class="goods-img"><img th:src="@{/images/goods/socks.png}" alt=""></div>
-                <div class="goods-name text-size-16 medium-text">다시마 캐릭터 양말</div>
-                <div class="goods-price">4,500원</div>
-            </a>
-            <a th:href="@{}" class="goods-detail-area">
-                <div class="goods-img"><img th:src="@{/images/goods/cushion.png}" alt=""></div>
-                <div class="goods-name text-size-16 medium-text">다시마 캐릭터 쿠션</div>
-                <div class="goods-price">28,000원</div>
-            </a>
-            <a th:href="@{}" class="goods-detail-area">
-                <div class="goods-img"><img th:src="@{/images/goods/echo-bag.png}" alt=""></div>
-                <div class="goods-name text-size-16 medium-text">다시마 로고 에코백</div>
-                <div class="goods-price">12,000원</div>
-            </a>
-            <a th:href="@{}" class="goods-detail-area">
-                <div class="goods-img"><img th:src="@{/images/goods/key ring.png}" alt=""></div>
-                <div class="goods-name text-size-16 medium-text">다시마 캐릭터 키링</div>
-                <div class="goods-price">7,000원</div>
-            </a>
-            <a th:href="@{}" class="goods-detail-area">
-                <div class="goods-img"><img th:src="@{/images/goods/blanket.png}" alt=""></div>
-                <div class="goods-name text-size-16 medium-text">따끈따끈 다시마 캐릭터 담요</div>
-                <div class="goods-price">15,000원</div>
-            </a>
-            <a th:href="@{}" class="goods-detail-area">
-                <div class="goods-img"><img th:src="@{/images/goods/note.png}" alt=""></div>
-                <div class="goods-name text-size-16 medium-text">왕다시마 캐릭터 노트</div>
-                <div class="goods-price">9,000원</div>
-            </a>
-            <a th:href="@{}" class="goods-detail-area">
-                <div class="goods-img"><img th:src="@{/images/goods/sticker.png}" alt=""></div>
-                <div class="goods-name text-size-16 medium-text">다시마 캐릭터 스티커</div>
-                <div class="goods-price">9,000원</div>
-            </a>
-            
-        </div>
--->
 
 
         <!-- 제품 보여지는 전체 컨테이너(조회 결과가 있는 경우) -->
@@ -856,7 +798,9 @@
        
          <!-- 상품이 없는 경우 -->
          <div id="joonggo-container" th:unless="${#lists.size(boardList) > 0}">
-             <p class="text-center text-gray-600"  style="width:1200px; text-align: center;">현재 등록된 상품이 없습니다.</p>
+             <p class="text-size-20 medium-text"  style="width:1200px; text-align: center;" id="no-post">           
+                등록된 게시글이 없습니다.<br>
+                첫 게시글의 주인공이 되어보세요!</p>
           </div>
 
 
@@ -865,43 +809,42 @@
 
 
     <!-- 게시글이 있을 때만 페이지네이션 보이기! -->
-    <div th:if="${#lists.size(boardList) > 0}" class="pagination">
+    <div th:if="${#lists.size(boardList) > 0}" class="pagination" th:with="baseUrl=${
+            categoryId != null
+                ? (#strings.endsWith(categoryId, '00') ? '/joonggoCategory' : '/joonggoCategory2')
+                : (sortType != null ? '/joonggo/' + sortType : '/joonggo')
+        }">
 
-        <!-- 첫 페이지로 이동 -->
-        <!-- boardCode : @PathVariable로 request scope에 세팅된 값 -->
-        <!-- <li><a th:href="@{/{boardType}(boardType=${boardType}, cp=1)}">&lt;&lt;</a></li> -->
-         <li><a th:href="@{/joonggo(cp=1)}">&lt;&lt;</a></li> 
+        <li>
+            <a th:href="@{${baseUrl}(cp=1, categoryId=${categoryId}, sortType=${sortType})}">&lt;&lt;</a>
+        </li>
 
-        <!-- 이전 목록 마지막 번호로 이동 -->
-        <!-- <li><a th:href="@{/{boardType}(boardType=${boardType}, cp=${pagination.prevPage})}">&lt;</a></li> -->
-          <li><a th:href="@{/joonggo(cp=${pagination.prevPage})}">&lt;</a></li> 
+        <li>
+            <a th:href="@{${baseUrl}(cp=${pagination.prevPage}, categoryId=${categoryId}, sortType=${sortType})}">&lt;</a>
+        </li>
 
 
-        <!-- 특정 페이지로 이동 -->
-        <!-- #numbers.sequence(시작, 끝 [, step]) -->
         <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
 
-            <!-- 현재 보고있는 페이지 -->
             <li th:if="${pagination.currentPage == i}">
                 <a class="current" th:text="${i}">현재 페이지</a>
             </li>
 
-            <!-- 현재 페이지를 제외한 나머지 -->
             <li th:unless="${pagination.currentPage == i}">
-               <!-- <a th:href="@{/{boardType}(boardType=${boardType}, cp=${i})}" th:text="${i}">나머지 페이지</a> -->
-               <a th:href="@{/joonggo(cp=${i})}" th:text="${i}">나머지 페이지</a>
+                <a th:href="@{${baseUrl}(cp=${i}, categoryId=${categoryId}, sortType=${sortType})}" th:text="${i}">나머지
+                    페이지</a>
             </li>
         </th:block>
 
 
-        <!-- 다음 목록 시작 번호로 이동 -->
-        <!-- <li><a th:href="@{/{boardType}(boardType=${boardType}, cp=${pagination.nextPage})}">&gt;</a></li> -->
-             <li><a th:href="@{/joonggo(cp=${pagination.nextPage})}">&gt;</a></li> 
+        <li>
+            <a th:href="@{${baseUrl}(cp=${pagination.nextPage}, categoryId=${categoryId}, sortType=${sortType})}">&gt;</a>
+        </li>
 
-        <!-- 끝 페이지로 이동 -->
-        <!-- <li><a th:href="@{/{boardType}(boardType=${boardType}, cp=${pagination.maxPage})}">&gt;&gt;</a></li> -->
-             <li><a th:href="@{/joonggo(cp=${pagination.maxPage})}">&gt;&gt;</a></li>
-        </ul>
+        <li>
+            <a
+                th:href="@{${baseUrl}(cp=${pagination.maxPage}, categoryId=${categoryId}, sortType=${sortType})}">&gt;&gt;</a>
+        </li>
 
     </div>
 

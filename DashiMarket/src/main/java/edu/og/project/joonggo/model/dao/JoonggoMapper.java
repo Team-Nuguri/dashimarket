@@ -22,14 +22,13 @@ public interface JoonggoMapper {
 	// 중고상품 특정 게시판에서 현재 페이지에 해당하는 부분에 대한 게시글 목록 조회 (KJK)
 	public List<Joonggo> selectJoonggoList(Map<String, Object> param, RowBounds rowBounds);
 
-	// 중고상품 목록정렬 (인기순) (KJK)
-	public List<Joonggo> sortJoonggoViews(Map<String, Object> param, RowBounds rowBounds);
+	// 중고상품 목록정렬 (최신순) (KJK)
+	public List<Joonggo> sortJoonggoLatest(Map<String, Object> param, RowBounds rowBounds);
 
 	// 중고상품 목록정렬 (낮은가격순) (KJK)
 	public List<Joonggo> sortJoonggoLowPrice(Map<String, Object> param, RowBounds rowBounds);
 
 	// 중고상품 목록정렬 (높은가격순) (KJK)
-	public List<Joonggo> sortJoonggoHighPrice(String boardType, RowBounds rowBounds);
 	public List<Joonggo> sortJoonggoHighPrice(Map<String, Object> param, RowBounds rowBounds);
 	
 	// 마이페이지에서 중고상품 내가 찜한 목록 (KJK)
@@ -108,16 +107,16 @@ public interface JoonggoMapper {
 	public List<Joonggo> joonggoSearch(String query);
 	
 	// 카테고리 카운트(대분류) (KJK)
-	public int getJoonggoCategoryListCount(String categoryId);
+	public int getJoonggoCategoryListCount(Map<String, Object> param);
 	
 	// 카테고리 카운트(중분류) (KJK)
-	public int getJoonggoCategoryListCount2(String categoryId);
+	public int getJoonggoCategoryListCount2(Map<String, Object> param);
 
 	// 카테고리 목록 (대분류) (KJK)
-	public List<Joonggo> selectJoonggoCategoryList(String categoryId, RowBounds rowBounds);
+	public List<Joonggo> selectJoonggoCategoryList(Map<String, Object> param, RowBounds rowBounds);
 
 	// 카테고리 목록 (중분류) (KJK)
-	public List<Joonggo> selectJoonggoCategoryList2(String categoryId, RowBounds rowBounds);
+	public List<Joonggo> selectJoonggoCategoryList2(Map<String, Object> param, RowBounds rowBounds);
 	
 	// 마이페이지에서 중고상품 내가 찜한 목록 (KJK)
 	// public List<Joonggo> selectJoonggoWishList(@Param("memberNo") int memberNo, RowBounds rowBounds);
@@ -126,6 +125,7 @@ public interface JoonggoMapper {
 	// 마이페이지 나의 위시리스트 삭제 (KJK)
 	 public int deleteJoonggoWishList(@Param("memberNo") int memberNo, @Param("boardNo")  String boardNo);
 	// public int deleteJoonggoWishList(int memberNo, String boardNo);
+
 	
 	
 }

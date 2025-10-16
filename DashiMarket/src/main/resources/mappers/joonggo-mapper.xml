@@ -83,16 +83,33 @@
    
    <!-- 게시글 수 조회 (KJK) -->
 	<select id="getJoonggoListCount">
-		SELECT COUNT(*) FROM BOARD
+		SELECT COUNT(*) FROM BOARD B
 		JOIN BOARD_TYPE USING(BOARD_CODE)
 		JOIN "MEMBER" USING(MEMBER_NO)
+		
+	    <if test="categoryId != null and categoryId != ''">
+        	JOIN CATEGORY C ON(C.CATEGORY_ID = B.CATEGORY_ID)
+    	</if>
+		
 		WHERE BOARD_TYPE = #{boardType}
 		AND DELETE_FL = 'N'
 		
-		<!-- MEMBER 테이블과 조인 후 작성하세요 -->
 		<if test="finalDong != null and finalDong != ''">
 			AND JIBUN_ADDRESS LIKE '%${finalDong}%'
 		</if>
+		
+	    <if test="categoryId != null and categoryId != ''">
+	    	<!-- 00으로 끝나면 대분류 -->
+	    	<choose>
+	    		<when test="categoryId.endsWith('00')">
+	    			AND C.PARENT_CATEGORY_NO = #{categoryId}
+	    		</when>
+	    		<otherwise>
+	    			<!-- 00으로 안 끝나면 중분류 -->
+	    			AND B.CATEGORY_ID = #{categoryId}
+	    		</otherwise>
+	    	</choose>
+        </if>
 		
 	</select>
 	
@@ -102,9 +119,14 @@
 		FROM BOARD A
 		JOIN BOARD_TYPE B ON(B.BOARD_CODE=A.BOARD_CODE)
 		JOIN CATEGORY C ON(C.CATEGORY_ID=A.CATEGORY_ID)
+		JOIN "MEMBER" USING(MEMBER_NO)
 		WHERE B.BOARD_TYPE = 'joonggo'
 		AND C.PARENT_CATEGORY_NO = #{categoryId}
 		AND A.DELETE_FL = 'N'
+		
+		<if test="finalDong != null and finalDong != ''">
+			AND JIBUN_ADDRESS LIKE '%${finalDong}%'
+		</if>
 	</select>
 	
 	  <!-- 카테고리(중분류) 게시글 수 조회 (KJK) -->
@@ -113,9 +135,14 @@
 		FROM BOARD A
 		JOIN BOARD_TYPE B ON(B.BOARD_CODE=A.BOARD_CODE)
 		JOIN CATEGORY C ON(C.CATEGORY_ID=A.CATEGORY_ID)
+		JOIN "MEMBER" USING(MEMBER_NO)
 		WHERE B.BOARD_TYPE = 'joonggo'
 		AND C.CATEGORY_ID = #{categoryId}
 		AND A.DELETE_FL = 'N'
+		
+		<if test="finalDong != null and finalDong != ''">
+			AND JIBUN_ADDRESS LIKE '%${finalDong}%'
+		</if>
 	</select>
 	
 	<!-- 중고상품 (전체) 목록 조회 (KJK) -->
@@ -196,7 +223,19 @@
 		WHERE DELETE_FL = 'N'
 		AND BOARD_TYPE = 'joonggo'
 		AND CA.PARENT_CATEGORY_NO = #{categoryId}
-		ORDER BY BOARD_CREATE_DATE DESC
+		
+		<if test="finalDong != null and finalDong != ''">
+			AND JIBUN_ADDRESS LIKE '%${finalDong}%'
+		</if>
+		
+		ORDER BY
+		
+	    <choose>
+	        <when test="sortType == 'latest'">BOARD_NO DESC</when>
+	        <when test="sortType == 'lowPrice'">JOONGGO_PRICE ASC</when>
+	        <when test="sortType == 'highPrice'">JOONGGO_PRICE DESC</when>
+	        <otherwise>BOARD_CREATE_DATE DESC</otherwise>
+	    </choose>
 	</select>
 	
 	<!-- 중고상품 카테고리(중분류) 목록 조회 (KJK) -->
@@ -234,13 +273,24 @@
 		AND BOARD_TYPE = 'joonggo'
 		AND B.CATEGORY_ID = #{categoryId}
 		AND CA.PARENT_CATEGORY_NO IS NOT NULL
-		ORDER BY BOARD_CREATE_DATE DESC
+		
+		<if test="finalDong != null and finalDong != ''">
+			AND JIBUN_ADDRESS LIKE '%${finalDong}%'
+		</if>
+		
+		ORDER BY
+	    <choose>
+	        <when test="sortType == 'latest'">BOARD_NO DESC</when>
+	        <when test="sortType == 'lowPrice'">JOONGGO_PRICE ASC</when>
+	        <when test="sortType == 'highPrice'">JOONGGO_PRICE DESC</when>
+	        <otherwise>BOARD_CREATE_DATE DESC</otherwise>
+	    </choose>
 	</select>
 	
 	
 	
-		<!-- 중고상품 목록 정렬 : 인기순(조회순?) (KJK) -->
-	<select id="sortJoonggoViews" resultMap="joonggo_rm">
+		<!-- 중고상품 목록 정렬 : 최신순 (KJK) -->
+	<select id="sortJoonggoLatest" resultMap="joonggo_rm">
 			SELECT B.BOARD_NO, BOARD_TITLE, MEMBER_NICKNAME, POST_VIEWS, JOONGGO_PRICE,
 		
 		   <![CDATA[     
@@ -269,6 +319,9 @@
 		JOIN "MEMBER" USING(MEMBER_NO)
 		JOIN BOARD_TYPE USING(BOARD_CODE)
 		JOIN "JOONGGO" J ON(J.BOARD_NO = B.BOARD_NO)
+		<if test="categoryId != null and categoryId != ''">
+			JOIN "CATEGORY" CA ON(CA.CATEGORY_ID = B.CATEGORY_ID)
+		</if>
 		WHERE DELETE_FL = 'N'
 		AND BOARD_TYPE = 'joonggo'
 		
@@ -276,7 +329,18 @@
 			AND JIBUN_ADDRESS LIKE '%${finalDong}%'
 		</if>
 		
-		ORDER BY POST_VIEWS DESC
+		<if test="categoryId != null and categoryId != ''">
+			<choose>
+				<when test="categoryId.endsWith('00')">
+					AND CA.PARENT_CATEGORY_NO = #{categoryId}
+				</when>
+				<otherwise>
+					AND B.CATEGORY_ID = #{categoryId}
+				</otherwise>
+			</choose>
+		</if>
+		
+		ORDER BY BOARD_NO DESC
 	</select>
 	
 		<!-- 중고상품 목록 정렬 : 낮은 가격순 (KJK) -->
@@ -309,11 +373,26 @@
 		JOIN "MEMBER" USING(MEMBER_NO)
 		JOIN BOARD_TYPE USING(BOARD_CODE)
 		JOIN "JOONGGO" J ON(J.BOARD_NO = B.BOARD_NO)
+		
+	    <if test="categoryId != null and categoryId != ''">
+        	JOIN "CATEGORY" CA ON(CA.CATEGORY_ID = B.CATEGORY_ID)
+    	</if>
 		WHERE DELETE_FL = 'N'
 		AND BOARD_TYPE = 'joonggo'
 		
 		<if test="finalDong != null and finalDong != ''">
 			AND JIBUN_ADDRESS LIKE '%${finalDong}%'
+		</if>
+		
+		<if test="categoryId != null and categoryId != ''">
+			<choose>
+				<when test="categoryId.endsWith('00')">
+					AND CA.PARENT_CATEGORY_NO = #{categoryId}
+				</when>
+				<otherwise>
+					AND B.CATEGORY_ID = #{categoryId}
+				</otherwise>
+			</choose>
 		</if>
 		
 		ORDER BY JOONGGO_PRICE ASC
@@ -349,11 +428,27 @@
 		JOIN "MEMBER" USING(MEMBER_NO)
 		JOIN BOARD_TYPE USING(BOARD_CODE)
 		JOIN "JOONGGO" J ON(J.BOARD_NO = B.BOARD_NO)
+		
+		<if test="categoryId != null and categoryId != ''">
+			JOIN "CATEGORY" CA ON(CA.CATEGORY_ID = B.CATEGORY_ID)
+		</if>
+		
 		WHERE DELETE_FL = 'N'
 		AND BOARD_TYPE = 'joonggo'
 		
 		<if test="finalDong != null and finalDong != ''">
 			AND JIBUN_ADDRESS LIKE '%${finalDong}%'
+		</if>
+		
+		<if test="categoryId != null and categoryId != ''">
+			<choose>
+				<when test="categoryId.endsWith('00')">
+					AND CA.PARENT_CATEGORY_NO = #{categoryId}
+				</when>
+				<otherwise>
+					AND B.CATEGORY_ID = #{categoryId}
+				</otherwise>
+			</choose>
 		</if>
 		
 		ORDER BY JOONGGO_PRICE DESC
