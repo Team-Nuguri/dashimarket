@@ -81,23 +81,29 @@
 	  <span class="myPage-title text-size-24 bold-text">내가 찜한 상품</span>
       <br><br>
 
-      <div class="list">
+   <div class="list">
 
     <!-- 반복문 시작 controller model로 넘어온 데이타 -->
     <div th:each="item : ${wishList}" class="item" th:attr="data-id=${item.boardNo}">
       
+      <div class="thumb-area">
       <!-- 썸네일 이미지 -->
       <img class="thumb" th:src="@{${item.thumbnail}}" alt="상품이미지" />
-
+      </div>
+      
       <div class="meta">
         <p class="title" th:text="${item.joonggoTitle}">상품 이름</p>
         <!-- 필요 시 옵션 정보 추가 -->
         <!-- <p class="opts">사이즈: 260 / 색상: 화이트</p> -->
       </div>
 
-      <div class="price-area">
+      <!--<div class="price-area">
         <div class="price" th:text="${item.joonggoPrice}">₩59,000</div>
+      </div>-->
+      
+      <div class="price-area" th:text="${#numbers.formatInteger(item.joonggoPrice, 3, 'COMMA')} + '원'">₩59,000
       </div>
+
 
       <div class="actions">
         <button class="btn btn-delete" th:attr="data-id=${item.joonggoNo}, data-action='delete'">
@@ -105,8 +111,10 @@
         </button>
       </div>
 
+     
     </div>
-    <hr th:each="item, iterStat : ${wishList}" th:if="${!iterStat.last}">
+   
+     <!--<hr th:each="item, iterStat : ${wishList}" th:if="${!iterStat.last}">-->
     <!-- 반복문 끝 -->
 
   </div>

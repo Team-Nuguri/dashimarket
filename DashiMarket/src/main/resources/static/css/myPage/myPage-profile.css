@@ -177,6 +177,12 @@ ul, li {
     height: 50px;
 }
 
+
+.nickname-area{
+    display: flex;
+    gap: 15px;
+}
+
 /*----------------------------*/
 /* 비밀번호 섹션 */
 .password-change-container {
@@ -185,6 +191,7 @@ ul, li {
     gap: 15px;
     flex-grow: 1;
 }
+
 
 .pwd-input-line {
     display: flex;

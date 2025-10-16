@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/myPage/myPage-order.css}">
+    <link rel="stylesheet" th:href="@{/css/common/header.css}">
+    <link rel="stylesheet" th:href="@{/css/common/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/common/font.css}">    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <title>중고 거래내역</title>
+</head>
+<body>
+    
+    <!--header-->
+    <th:block th:replace="~{common/header}"></th:block>
+
+    
+  <!--왼쪽 사이드메뉴-->
+
+<section class="myPage-content">
+
+  <section class="left-side">
+
+    <nav>
+
+    <div class="left-title text-size-28 bold-text">마이페이지</div>
+
+
+    <ul class="left-menu">
+        <li class="text-size-18 bold-text">
+            <img th:src="@{/images/myPage/shopping.png}" alt="주문내역/구매내역" width="40px" height="40px">
+            주문내역/구매내역
+
+            <ul>
+                    
+                    <li class="myPage-a"><a th:href="@{/myPage/order}">중고거래</a></li>
+                
+                    <li class="myPage-a"><a th:href="@{/myPage/goods}">굿즈</a></li>                                  
+                
+            </ul>        
+        </li>
+    </ul>
+
+    <ul class="left-menu">
+        <li class="text-size-18 bold-text">
+            <img th:src="@{/images/myPage/product.png}" alt="상품관리"  width="40px" height="40px">
+            상품관리
+            <ul class="left-submenu">
+                
+                    <li class="myPage-a"><a href=""></a>내가 찜한 상품</li>
+            
+            </ul>
+        </li>
+    </ul>
+
+    <ul class="left-menu">
+        <li class="text-size-18 bold-text">
+            <img th:src="@{/images/myPage/myinfo.png}" alt="내 정보 관리" width="40px" height="40px">
+            내 정보 관리       
+            <ul class="left-submenu">
+                
+                
+                    <li class="myPage-a"><a th:href="@{/myPage/profile}">프로필 관리</a></li>
+                
+                    <li class="myPage-a"><a th:href="@{/myPage/secession}">회원 탈퇴</a></li>
+                       
+            </ul>
+        </li>   
+    </ul>
+    </nav>
+    
+  </section>
+
+  <!-- 주문 내역 / 거래 내역 -->
+
+    <main>
+        <section class="myPage-order">
+           
+            <div class="myPage-orderTitle text-size-24 bold-text"> 중고 주문 내역 / 거래 내역</div>
+
+            <fieldset class="myPage-orderSearch">
+                <legend class="text-size-20 bold-text">검색</legend>
+                <input type="text">
+            </fieldset>
+
+            <div class="divider"></div>     
+
+                <div class="myPage-orderSelect">
+                <select name="" id="">
+                <option value="">구매내역</option>
+                <option value="">판매내역</option>               
+                </select>
+	<button class="btn-review" th:attr="data-boardNo='J31', data-memberNo=3"  onclick="openPopup(this)">
+                         이용후기
+                        </button>
+            </div>      
+
+            <!-- myPage-orderDetail: JavaScript가 동적으로 채움 -->
+            <section class="myPage-orderDetail">
+                <div style="text-align: center; padding: 60px 20px; color: #999;">
+                    <p style="font-size: 16px;">데이터를 불러오는 중...   
+						
+						<!--<button class="btn-review" th:attr="data-boardNo=${item.joonggoNo}, data-memberNo=${item.memberNo}"  onclick="openModal(this)">-->
+						<button class="btn-review" th:attr="data-boardNo='J31', data-memberNo=3"  onclick="openPopup(this)">
+                         이용후기
+                        </button>
+						
+						
+					</p>
+                </div>
+            </section>
+            
+
+            <div class="divider"></div>
+
+
+            <!-- 페이지네이션: JavaScript가 동적으로 채움 -->
+            <div class="myPage-pagination">
+                <!-- JavaScript가 여기에 페이지네이션 생성 -->
+            </div>
+
+        </section>
+    
+    </main>
+</section>
+    
+<!--footer-->
+<th:block th:replace="~{common/footer}"></th:block>
+
+
+<script th:src="@{/js/myPage/myPage-order.js}"></script>
+
+
+<script>
+	function openPopup(btn) {
+    const boardNo = btn.getAttribute('data-boardNo');
+    const memberNo = btn.getAttribute('data-memberNo');
+
+    // 팝업 URL에 파라미터 전달 (GET 방식)
+    const url = `/review/joonggo?boardNo=${boardNo}&memberNo=${memberNo}`;
+    
+    // 팝업 열기 (옵션: 크기, 위치, 스크롤 등)
+    window.open(
+        url,
+        'reviewPopup', 
+        'width=700,height=700,top=200,left=500,scrollbars=yes,resizable=no'
+    );
+}
+
+	
+</script>
+
+
+</body>
+</html>

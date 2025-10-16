@@ -13,48 +13,69 @@
   }
 
   .list{
-    width: 600px;
+    width: 700px;
     margin:0 auto;  /* 중앙정렬 */
   }
 
    .item{
-    width: 500px;
+   /*  width: 500px;*/
+    width: 100%;
     display: flex;
     justify-content: flex-start;   /* 좌측정렬 */
     margin-top: 20px;
     margin-bottom: 20px;
    }
 
-   .thumb {
+   .thumb-area {
+     /* width: 150px; */
+     width: 150px;
+     text-align: left;
+   }
+   
+    .thumb {
      width: 150px;
      height: 150px;
      text-align: left;
    }
 
    .meta {
-     width: 350px;
+     /* width: 350px; */
+     width: 270px;
      padding-left: 20px;
-    align-content: center;
+     align-content: center;
    }
 
    .price-area {
-    width: 100px;
+    width: 180px;
     align-content: center;
+    text-align: left; 
+     
+     display: flex;           /* flex 컨테이너로 만들기 */
+     align-items: center;     /* 세로 가운데 정렬 */
+     
    }
 
    .actions {
-     width: 80px;
+  /*   width: 80px; */
+     width: 150px;
      align-content: center;
+     text-align: center; 
    }
 
    
  .btn-delete {
-    /* border: 2px solid white; */
-    border-radius: 20%;
-    background-color: #166449;    
-    color:white;
-    width: 70px;
-    height: 35px;
+    
+    background-color: #166449;
+    color: white;
+    width: 80px;
+    height: 38px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.25s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 }
 
 

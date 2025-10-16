@@ -23,6 +23,7 @@ import edu.og.project.common.utility.ImageResizer;
 import edu.og.project.common.utility.Util;
 import edu.og.project.goods.model.dto.Goods;
 import edu.og.project.joonggo.model.dao.JoonggoMapper;
+import edu.og.project.joonggo.model.dto.Category;
 import edu.og.project.joonggo.model.dto.Joonggo;
 import edu.og.project.joonggo.model.dto.JoonggoWrite;
 import edu.og.project.joonggo.model.dto.SimilarItem;
@@ -434,6 +435,23 @@ public class JoonggoServiceImpl implements JoonggoService {
 		  map.put("boardList", boardList);
 		  
 		  return map;
+	}
+
+	
+	
+	// 메인카테고리 조회
+	@Override
+	public List<Category> selectMainCategory() {
+		return mapper.selectMainCategory();
+	}
+
+	
+	
+	// 서브 카테고리 조회
+	@Override
+	public List<Category> selectSubCategory(String parentCategoryId) {
+		
+		return mapper.selectSubCategory(parentCategoryId);
 	}
 
    
