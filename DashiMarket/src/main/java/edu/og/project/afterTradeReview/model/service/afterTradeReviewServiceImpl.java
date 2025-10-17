@@ -53,7 +53,7 @@ public class afterTradeReviewServiceImpl implements afterTradeReviewService {
                 reviewWrite.getReviewImage().transferTo(targetFile);
 
                 // 6️. DTO에 파일 정보 저장
-                reviewWrite.setReviewFilePath("/dashimarketImg/afterTradeReview/");
+                reviewWrite.setReviewFilePath("/images/afterTradeReview/");
                 reviewWrite.setReviewFileName(rename);
 
             } catch (IOException e) {
