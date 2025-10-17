@@ -103,7 +103,7 @@ public class JoonggoController {
 		return "joonggoPage/joonggoHome";
 	}
 
-	// 중고상품 목록 조회 (관심순, 낮은가격순, 높은가격순) (KJK)
+	// 중고상품 목록 조회 (최신순, 낮은가격순, 높은가격순) (KJK)
 	@GetMapping("/joonggo/{sortType:[a-zA-Z]+}")
 	public String sortJoonggoList(
 			// @PathVariable("boardType") String boardType,
@@ -125,7 +125,7 @@ public class JoonggoController {
 		// 정렬 텍스트 표시
 	    if (sortType.equals("lowPrice")) model.addAttribute("sortText", "낮은 가격순");
 	    else if (sortType.equals("highPrice")) model.addAttribute("sortText", "높은 가격순");
-	    else model.addAttribute("latest", "최신순");
+	    else if (sortType.equals("latest")) model.addAttribute("latest", "최신순");
 		
 	    model.addAttribute("isCategoryPage", false);
 		return "joonggoPage/joonggoHome";
@@ -145,6 +145,7 @@ public class JoonggoController {
 		Map<String, Object> map = service.selectJoonggoCategoryList(categoryId, finalDong, cp, sortType);
 		model.addAttribute("map", map);
 		model.addAttribute("categoryId", categoryId);
+		model.addAttribute("sortType", sortType);
 		model.addAttribute("isCategoryPage", true);
 
 		return "joonggoPage/joonggoHome";

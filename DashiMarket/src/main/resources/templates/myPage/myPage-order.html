@@ -19,60 +19,9 @@
 
     
   <!--왼쪽 사이드메뉴-->
-
-<section class="myPage-content">
-
-  <section class="left-side">
-
-    <nav>
-
-    <div class="left-title text-size-28 bold-text">마이페이지</div>
-
-
-    <ul class="left-menu">
-        <li class="text-size-18 bold-text">
-            <img th:src="@{/images/myPage/shopping.png}" alt="주문내역/구매내역" width="40px" height="40px">
-            주문내역/구매내역
-
-            <ul>
-                    
-                    <li class="myPage-a"><a th:href="@{/myPage/order}">중고거래</a></li>
-                
-                    <li class="myPage-a"><a th:href="@{/myPage/goods}">굿즈</a></li>                                  
-                
-            </ul>        
-        </li>
-    </ul>
-
-    <ul class="left-menu">
-        <li class="text-size-18 bold-text">
-            <img th:src="@{/images/myPage/product.png}" alt="상품관리"  width="40px" height="40px">
-            상품관리
-            <ul class="left-submenu">
-                
-                <li><a th:href="@{/myPage/wishlist}">내가 찜한 상품</a></li>
-            
-            </ul>
-        </li>
-    </ul>
-
-    <ul class="left-menu">
-        <li class="text-size-18 bold-text">
-            <img th:src="@{/images/myPage/myinfo.png}" alt="내 정보 관리" width="40px" height="40px">
-            내 정보 관리           
-            <ul class="left-submenu">
-                
-                
-                    <li class="myPage-a"><a th:href="@{/myPage/profile}">프로필 관리</a></li>
-                
-                    <li class="myPage-a"><a th:href="@{/myPage/secession}">회원 탈퇴</a></li>
-                       
-            </ul>
-        </li>   
-    </ul>
-    </nav>
-    
-  </section>
+  
+  <section class="myPage-content">
+    <th:block th:replace="~{common/myPageSideBar}">myPageSideBar.html</th:block>
 
   <!-- 주문 내역 / 거래 내역 -->
 
@@ -81,18 +30,20 @@
            
             <div class="myPage-orderTitle text-size-24 bold-text"> 중고 주문 내역 / 거래 내역</div>
 
-            <fieldset class="myPage-orderSearch">
+            <fieldset class="myPage-orderSearch">                
                 <legend class="text-size-20 bold-text">검색</legend>
-                <input type="text">
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" id="searchKeyword" placeholder="상품명을 입력하세요" style="flex: 1;">
+                </div>
             </fieldset>
 
             <div class="divider"></div>     
 
-                <div class="myPage-orderSelect">
-                <select name="" id="">
-                <option value="">구매내역</option>
-                <option value="">판매내역</option>               
-                </select>
+            <div class="myPage-orderSelect" style="margin-bottom: 60px;">
+            <select name="tradeType" id="tradeTypeSelect">
+            <option value="buy">구매내역</option>
+            <option value="sell">판매내역</option>               
+            </select>
 
             </div>      
 

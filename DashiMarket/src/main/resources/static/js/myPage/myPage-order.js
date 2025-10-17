@@ -16,18 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
             currentPage = 1; // 페이지 초기화
             loadTradeList();
         });
-    }
-    
-    // 검색 버튼 이벤트
-    const searchBtn = document.getElementById('searchBtn');
-    if (searchBtn) {
-        searchBtn.addEventListener('click', function() {
-            const searchInput = document.getElementById('searchKeyword');
-            currentKeyword = searchInput ? searchInput.value.trim() : '';
-            currentPage = 1; // 페이지 초기화
-            loadTradeList();
-        });
-    }
+    }       
     
     // 엔터키로 검색
     const searchInput = document.getElementById('searchKeyword');
@@ -187,8 +176,8 @@ function renderOrderList(dataList) {
                 
                 <div class="text-size-12 bold-text buyerSeller" style="margin-top: 10px; line-height: 1.4;">
                     ${currentTradeType === 'buy' ? 
-                        `판매자 번호: ${item.SELLERNO || '-'}` : 
-                        `구매자 번호: ${item.BUYERNO || '-'}`
+                        `판매자명: ${item.SELLERNAME || '-'}` : 
+                        `구매자명: ${item.BUYERNAME || '-'}`
                     }
                 </div>
             </div>
@@ -204,7 +193,7 @@ function renderOrderList(dataList) {
         
         // ReviewFl에 따라 버튼 다르게 표시
         let reviewButtonHTML;
-        if (item.reviewFl === 'Y') {
+        if (item.REVIEWFL === 'Y') {
             reviewButtonHTML = `
                 <button
                     class="myPage-reviewCompleted text-size-12 bold-text"

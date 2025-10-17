@@ -189,7 +189,7 @@
 			AND JIBUN_ADDRESS LIKE '%${finalDong}%'
 		</if>
 		
-		ORDER BY BOARD_CREATE_DATE DESC
+		ORDER BY B.BOARD_CREATE_DATE DESC
 	</select>
 	
 	<!-- 중고상품 카테고리(대분류) 목록 조회 (KJK) -->
