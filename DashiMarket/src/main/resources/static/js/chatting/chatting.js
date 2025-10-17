@@ -672,35 +672,18 @@ reportExit?.addEventListener("click", () => {
         };
 
         const width = 500;
-<<<<<<< HEAD
-<<<<<<< Updated upstream
 
         const left = (window.screen.width-width)/2;
-        window.open(
-            '/chatting/report/'+ selectChattingNo,  // 팝업으로 띄울 HTML 경로
-            'reportPopup',   // 팝업 이름
-            'width=500,height=600,resizable=yes,scrollbars=no, left='+left+",top=300"
-        
-    );
-=======
+       ;
+
         const height = 600;
 
-        const left = (window.screen.width-width)/2;
-=======
-        const height = 600;
-
-        const left = (window.screen.width-width)/2;
->>>>>>> 3aae966a24ad0cbdf0ae6117f12b1e2854c13a7a
         const top = (window.screen.width-height)/2;
 
         const popupUrl = '/chatting/report/' + selectChattingNo;
         const popupName = "reportPopup";
         const popupFeatures = "width=500,height=600,scrollbars=no,resizable=yes" + left + top;
         window.open(popupUrl, popupName, popupFeatures);
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> 3aae966a24ad0cbdf0ae6117f12b1e2854c13a7a
 
     } else {
         alert("취소되었습니다.");
