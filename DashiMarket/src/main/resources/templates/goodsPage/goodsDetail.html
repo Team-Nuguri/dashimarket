@@ -205,7 +205,8 @@
                         <div>
                             <!-- 유저 프로필 -->
                             <!--th:if="${session.loginMember.profileImg}"  -->
-                            <img th:src="@{/images/member/짱구.jpg}">
+                            <img th:if="${re.buyerProfileImg}"  th:src="${re.buyerProfileImg}">
+                            <img th:unless="${re.buyerProfileImg}"  th:src="@{/images/common/user.png}">
                         </div>
                         <div class="flex direction-column" style="gap: 10px;">
                             <div>
@@ -218,7 +219,7 @@
                                 <span class="medium-text" th:text="${re.rating}">구매 평점</span>
                             </div>
                             <div class="flex" style="gap: 10px;">
-                                <span class="light-text">holysik</span>
+                                <span class="light-text" th:text="${re.buyerNickname}">holysik</span>
                                 <span class="light-text" th:text="${re.reviewCreateDate}">2025.09.26</span>
                             </div>
                             <div>
@@ -232,7 +233,8 @@
 
                     <div>
                         <!-- 리뷰에 단 이미지 ? or 상품 대표 이미지 -->
-                        <img th:src="${re.reviewImgPath}+${re.reviewImgRename}">
+                        <img th:if="${re.reviewImgPath}" th:src="${re.reviewImgPath}+${re.reviewImgRename}">
+                        <img th:unless="${re.reviewImgPath}" th:src="${goods.image.imagePath}+${goods.image.imageRename}">
                     </div>
 
                 </li>
