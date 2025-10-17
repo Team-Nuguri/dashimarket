@@ -143,7 +143,7 @@ const selectNotificationList = () => {
 
                 // 알림 보낸 회원 프로필 이미지
                 const senderProfile = document.createElement("img");
-                if (data.sendMemberProfileImg == null) senderProfile.src = notificationDefaultImg;
+                if (data.sendMemberProfileImg == null) senderProfile.src = '/images/common/user.png';
                 else senderProfile.src = data.sendMemberProfileImg;
 
                 // 알림 내용 영역
@@ -232,6 +232,7 @@ if (iconImg) {
 
     if (path.includes("/joonggo")) {
         iconImg.setAttribute("src", "/images/svg/하트.svg");
+        iconImg.setAttribute("id", "wishListBtn");
     }
 
     if (path.includes("/goods")) {
@@ -245,11 +246,17 @@ if (iconImg) {
     }
 }
 
+// 나의 중고상품 찜목록
+document.getElementById("wishListBtn")?.addEventListener("click", e => {
+
+    location.href = "/myPage/wishlist";
+})
+
 
 // 장바구니
 document.getElementById("cartListBtn")?.addEventListener("click", e => {
 
-    location.href = "/goods/shoppingcart"
+    location.href = "/goods/shoppingcart";
 })
 
 // 커뮤니티 좋아요한 게시글
