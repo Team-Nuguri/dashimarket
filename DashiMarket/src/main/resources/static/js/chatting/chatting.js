@@ -674,7 +674,7 @@ reportExit?.addEventListener("click", () => {
         const width = 500;
 
         const left = (window.screen.width-width)/2;
-       ;
+       
 
         const height = 600;
 

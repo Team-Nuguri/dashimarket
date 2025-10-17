@@ -70,6 +70,8 @@
       <result property="buyerNo" column="BUYER_NO"/>   
       <result property="boardNo" column="BOARD_NO"/>   
       <result property="rating" column="RATING"/>   
+      <result property="buyerProfileImg" column="BUYER_PROFILE"/>
+      <result property="buyerNickname" column="BUYER_NICKNAME"/>
    </resultMap>
    
      <!-- qna RM-->
@@ -227,7 +229,11 @@
 	<select id="selectReviewList" resultMap="review_rm">	
 		SELECT R1.*,  (SELECT ROUND((QUESTION1 + QUESTION2 + QUESTION3 + QUESTION4)/4,1)
             FROM REVIEW_QUESTION R2
-            WHERE R2.REVIEW_NO = R1.REVIEW_NO) RATING
+            WHERE R2.REVIEW_NO = R1.REVIEW_NO) RATING,
+            (SELECT MEMBER_NICKNAME FROM MEMBER
+            WHERE MEMBER_NO = R1.BUYER_NO) BUYER_NICKNAME,
+            (SELECT PROFILE_PATH FROM MEMBER
+            WHERE MEMBER_NO = R1.BUYER_NO) BUYER_PROFILE
 		FROM REVIEW R1
 		WHERE BOARD_NO=#{boardNo}
 		
