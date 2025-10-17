@@ -251,39 +251,44 @@ ORDER BY p.PAT_DATE DESC
 
 <!-- 중고 거래내역 목록 조회 (페이지네이션 - RowBounds) -->
 <select id="selectOrderList" parameterType="map" resultType="map">
-    SELECT
-        t.BOARD_NO AS productNo,
-        t.TRADE_DATE AS tradeDate,
-        t.MEMBER_NO2 AS buyerNo,
-        t.MEMBER_NO AS sellerNo,
-        b.BOARD_TITLE AS productName,
-        NVL(t.REVIEW_FL, 'N') AS reviewFl,
-        (
-            SELECT sub.IMG_PATH || sub.IMG_RENAME
-            FROM (
-                SELECT IMG_PATH, IMG_RENAME
-                FROM IMAGE img
-                WHERE img.BOARD_NO = t.BOARD_NO
-                ORDER BY img.IMG_ORDER
-            ) sub
-            WHERE ROWNUM = 1
-        ) AS productImagePath
-    FROM TRADE t
-    JOIN BOARD b ON t.BOARD_NO = b.BOARD_NO
-    WHERE 1=1
-    <choose>
-        <when test="tradeType == 'buy'">
-            AND t.MEMBER_NO2 = #{memberNo}
-        </when>
-        <when test="tradeType == 'sell'">
-            AND t.MEMBER_NO = #{memberNo}
-        </when>
-    </choose>
-    <if test="keyword != null and keyword != ''">
-        AND b.BOARD_TITLE LIKE '%' || #{keyword} || '%'
-    </if>
-    ORDER BY t.TRADE_DATE DESC
+SELECT
+    t.BOARD_NO AS productNo,
+    t.TRADE_DATE AS tradeDate,
+    t.MEMBER_NO2 AS buyerNo,
+    t.MEMBER_NO AS sellerNo,
+    b.BOARD_TITLE AS productName,
+    NVL(t.REVIEW_FL, 'N') AS reviewFl,
+    seller.MEMBER_NICKNAME AS sellerName,
+    buyer.MEMBER_NICKNAME AS buyerName,
+    (
+        SELECT sub.IMG_PATH || sub.IMG_RENAME
+        FROM (
+            SELECT IMG_PATH, IMG_RENAME
+            FROM IMAGE img
+            WHERE img.BOARD_NO = t.BOARD_NO
+            ORDER BY img.IMG_ORDER
+        ) sub
+        WHERE ROWNUM = 1
+    ) AS productImagePath
+FROM TRADE t
+JOIN BOARD b ON t.BOARD_NO = b.BOARD_NO
+JOIN MEMBER seller ON t.MEMBER_NO = seller.MEMBER_NO
+JOIN MEMBER buyer ON t.MEMBER_NO2 = buyer.MEMBER_NO
+WHERE 1=1
+<choose>
+    <when test="tradeType == 'buy'">
+    AND t.MEMBER_NO2 = #{memberNo}
+    </when>
+    <when test="tradeType == 'sell'">
+    AND t.MEMBER_NO = #{memberNo}
+    </when>
+</choose>
+<if test="keyword != null and keyword != ''">
+    AND b.BOARD_TITLE LIKE '%' || #{keyword} || '%'
+</if>
+ORDER BY t.TRADE_DATE DESC
 </select>
+
 
 
    <!-- 중고상품 위시리스트 목록 조회 (KJK) -->
