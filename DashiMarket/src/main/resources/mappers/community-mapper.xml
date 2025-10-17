@@ -153,12 +153,12 @@
 		<choose>
 			<!-- 인기순 -->
 			<when test="sort == 'popular'">
-				LIKE_COUNT DESC, B.POST_VIEWS DESC, B.BOARD_NO DESC
+				LIKE_COUNT DESC, B.POST_VIEWS DESC, B.BOARD_CREATE_DATE DESC
 			</when>
 			
 			<!-- 최신순 -->
 			<otherwise>
-				B.BOARD_NO DESC
+				B.BOARD_CREATE_DATE DESC
 			</otherwise>
 		</choose>
 		
@@ -199,7 +199,7 @@
 		WHERE DELETE_FL = 'N'
 		AND BOARD_TYPE = #{boardType}
 		AND L.MEMBER_NO = ${memberNo}
-		ORDER BY BOARD_NO DESC
+		ORDER BY BOARD_CREATE_DATE
 	</select>
 	
 	<!-- 커뮤니티 상세조회 -->
