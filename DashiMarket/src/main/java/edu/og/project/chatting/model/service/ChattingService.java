@@ -73,11 +73,6 @@ public interface ChattingService {
 	 * @return true/false
 	 */
 	boolean reportAndExit(Map<String, Integer> map);
-<<<<<<< Updated upstream
-
-
-=======
->>>>>>> Stashed changes
 
 
 
