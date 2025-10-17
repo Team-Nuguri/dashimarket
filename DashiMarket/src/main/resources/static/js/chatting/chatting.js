@@ -694,7 +694,8 @@ justExit?.addEventListener("click", () => {
 
         const data = { 
             chattingNo: selectChattingNo, 
-            targetNo : selectTargetNo
+            targetNo : selectTargetNo,
+            productNo : selectProductNo
         };
 
         fetch("/chatting/exit", {
