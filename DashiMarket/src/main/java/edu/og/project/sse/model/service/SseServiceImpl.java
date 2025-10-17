@@ -38,7 +38,7 @@ public class SseServiceImpl implements SseService{
 				String chatNo = arr[arr.length-1];
 				
 				map.put("notificationNo", notification.getNotificationNo()); 
-				map.put("chattingRoomNo", chatNo);
+				map.put("chattingRoomNo", Integer.parseInt(chatNo));
 			}
 		}
 		return map;
