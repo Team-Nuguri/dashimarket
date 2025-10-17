@@ -36,7 +36,7 @@
 	
 	<!-- 채팅방 목록 조회 -->
 	<select id="selectRoomList" resultType="ChattingRoom">
-		SELECT CHATTING_NO, PRODUCT_NO, OPEN_MEMBER BUYER_NO, PARTCIPANT SELLER_NO,
+		SELECT CHATTING_NO, PRODUCT_NO, OPEN_MEMBER BUYER_NO, PARTCIPANT SELLER_NO, PRODUCT_NO,
 
 		    -- 가장 최근 메세지
 		    (SELECT MESSAGE_CONTENT FROM 
@@ -93,6 +93,16 @@
 		WHERE (MEMBER_NICKNAME LIKE '%${query}%' OR MEMBER_EMAIL LIKE '%${query}%')
 		AND SECESSIONFL = 'N'
 		AND MEMBER_NO != ${memberNo}
+		AND MEMBER_NO IN (
+		        SELECT CASE
+		                   WHEN R.OPEN_MEMBER = ${memberNo} THEN R.PARTCIPANT
+		                   ELSE R.OPEN_MEMBER
+		               END
+		        FROM CHATTING_ROOM R
+		        WHERE (R.OPEN_MEMBER = ${memberNo} OR R.PARTCIPANT = ${memberNo})
+		          AND R.CHAT_DELETE_FL = 'N'
+		    )
+		ORDER BY MEMBER_NICKNAME
 	</select>
 	
 	

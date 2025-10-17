@@ -21,6 +21,7 @@ public class TradeController {
 	@PostMapping("/complete")
 	@ResponseBody
 	public int tradeComplete(@RequestBody Trade trade) {
+		
 		return service.tradeComplete(trade);
 	}
 }

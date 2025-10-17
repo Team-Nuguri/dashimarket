@@ -17,9 +17,7 @@ public class TradeServiceImpl implements TradeService{
 		
 		int result = mapper.tradeComplete(trade);
 		
-		if(result == 0) {
-			return 0;
-		}
+		if(result == 0) return 0;
 		
 		return result;
 	}
