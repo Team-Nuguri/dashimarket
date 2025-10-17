@@ -200,7 +200,7 @@ function renderGoodsList(dataList) {
             <button 
                 class="myPage-orderPostWrite text-size-12 bold-text" 
                 id="review-btn-${item.ORDERITEMNO}" data-boardNo="${item.ORDERITEMNO}" data-memberNo="${item.MEMBERNO}" 
-                onclick="openPopupGoods()"
+                onclick="openPopupGoods(this)"
                 ${item.구매상태 === '구매확정' ? '' : 'disabled'}
                 style="white-space: nowrap; ${item.구매상태 === '구매확정' ? '' : 'opacity: 0.5; cursor: not-allowed;'}"
             >
@@ -224,6 +224,7 @@ function renderGoodsList(dataList) {
                 </button>
             </div>
         `;
+        
         
         rightContainer.appendChild(detailDiv);
         rightContainer.appendChild(buttonGroup);
