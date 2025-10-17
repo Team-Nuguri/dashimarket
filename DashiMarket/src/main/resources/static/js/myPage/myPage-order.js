@@ -215,7 +215,7 @@ function renderOrderList(dataList) {
                 </button>
             `;
         } else {
-            reviewButtonHTML = `
+           /* reviewButtonHTML = `
                 <button
                     class="myPage-orderPostWrite text-size-12 bold-text"
                     id="review-btn-${item.productNo}" 
@@ -224,7 +224,17 @@ function renderOrderList(dataList) {
                 >
                     거래 후기 작성
                 </button>
+            `;*/
+              reviewButtonHTML = `
+                <button
+                    class="myPage-orderPostWrite text-size-12 bold-text" id="review-btn-${item.productNo}" 
+                    data-boardNo="${item.productNo}" data-memberNo="${item.buyerNo}" 
+                    onclick="openPopupJoonggo(this)" style="white-space: nowrap; cursor: pointer;"
+                >
+                    거래 후기 작성
+                </button>
             `;
+            
         }
         
         buttonGroup.innerHTML = reviewButtonHTML;
@@ -317,8 +327,26 @@ function formatDate(dateString) {
 /**
  * 후기 작성 함수
  */
-function writeReview(productNo, buyerNo, sellerNo) {
+/*function writeReview(productNo, buyerNo, sellerNo) {
     console.log(`후기 작성: 제품번호 ${productNo}, 구매자 ${buyerNo}, 판매자 ${sellerNo}`);
  
     alert('거래 후기 작성 기능은 준비중입니다.');
+}*/
+
+
+// 중고물품 거래후기 팝업	
+function openPopupJoonggo(btn) {
+		
+    const boardNo = btn.getAttribute('data-boardNo');    // 게시글 번호
+    const memberNo = btn.getAttribute('data-memberNo');  // 회원 번호(구매자)
+
+    // 팝업 URL에 파라미터 전달 (GET 방식)
+    const url = `/review/joonggo?boardNo=${boardNo}&memberNo=${memberNo}`;
+    
+    // 팝업 열기 (옵션: 크기, 위치, 스크롤 등)
+    window.open(
+        url,
+        'reviewPopup', 
+        'width=700,height=700,top=200,left=500,scrollbars=yes,resizable=no'
+    );
 }
