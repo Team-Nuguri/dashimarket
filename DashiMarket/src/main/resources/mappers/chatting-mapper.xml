@@ -93,6 +93,16 @@
 		WHERE (MEMBER_NICKNAME LIKE '%${query}%' OR MEMBER_EMAIL LIKE '%${query}%')
 		AND SECESSIONFL = 'N'
 		AND MEMBER_NO != ${memberNo}
+		AND MEMBER_NO IN (
+		        SELECT CASE
+		                   WHEN R.OPEN_MEMBER = ${memberNo} THEN R.PARTCIPANT
+		                   ELSE R.OPEN_MEMBER
+		               END
+		        FROM CHATTING_ROOM R
+		        WHERE (R.OPEN_MEMBER = ${memberNo} OR R.PARTCIPANT = ${memberNo})
+		          AND R.CHAT_DELETE_FL = 'N'
+		    )
+		ORDER BY MEMBER_NICKNAME
 	</select>
 	
 	

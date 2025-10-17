@@ -658,6 +658,7 @@ reportExit?.addEventListener("click", () => {
         };
 
         const width = 500;
+<<<<<<< Updated upstream
 
         const left = (window.screen.width-width)/2;
         window.open(
@@ -666,6 +667,17 @@ reportExit?.addEventListener("click", () => {
             'width=500,height=600,resizable=yes,scrollbars=no, left='+left+",top=300"
         
     );
+=======
+        const height = 600;
+
+        const left = (window.screen.width-width)/2;
+        const top = (window.screen.width-height)/2;
+
+        const popupUrl = '/chatting/report/' + selectChattingNo;
+        const popupName = "reportPopup";
+        const popupFeatures = "width=500,height=600,scrollbars=no,resizable=yes" + left + top;
+        window.open(popupUrl, popupName, popupFeatures);
+>>>>>>> Stashed changes
 
     } else {
         alert("취소되었습니다.");

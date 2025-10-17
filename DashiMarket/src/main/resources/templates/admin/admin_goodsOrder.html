@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.thymeleaf.org">
+<html lang="ko" xmlns="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>굿즈 주문/거래 내역</title>
+    <title>굿즈 거래 내역</title>
 
     <!-- 폰트 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,56 +27,77 @@
                 <div id="admin-user">
                     <h1 class="admin-title">굿즈 거래 내역</h1>
                     <div class="admin-login">
-                        <img th:src="@{/images/admin/user.png}">
+                        <img th:src="@{/images/common/user.png}">
                         <p>관리자 계정</p>
                         <button id="logout">로그아웃</button>
                     </div>
                 </div>
 
                 <div class="admin-group-top">
-                    <form id="search-area">
+                    <form id="search-area" th:action="@{/admin/order}" method="get">
                         <!-- 검색창 -->
                         <div class="search-box">
                             <label>검색</label>
                             <fieldset>
-                                <button class="searchBtn fa-solid fa-magnifying-glass"></button>
-                                <input type="text" name="query" id="search-query" placeholder="구매자명/상품명을 입력하세요." autocomplete="off">
+                                <button type="submit" class="searchBtn fa-solid fa-magnifying-glass"></button>
+                                <input type="text" name="keyword" id="search-query" 
+                                       th:value="${param.keyword}"
+                                       placeholder="구매자명/상품명을 입력하세요." 
+                                       autocomplete="off">
                             </fieldset>
                         </div>
                         
-                        <!-- 판매상태 체크박스 영역 -->
+                        <!-- 배송 상태 체크박스 영역 -->
                         <div class="detail-search">
-                            <label>거래 상태</label>
+                            <label>배송 상태</label>
                             <div class="checkbox-group">
-                                <input type="checkbox">배송전
-                                <input type="checkbox">배송중
-                                <input type="checkbox">배송완료
+                                <label>
+                                    <input type="checkbox" name="deliveryStatus" value="배송전"
+                                        th:checked="${param.deliveryStatus != null and #strings.contains(param.deliveryStatus, '배송전')}">
+                                    배송전
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="deliveryStatus" value="배송중"
+                                        th:checked="${param.deliveryStatus != null and #strings.contains(param.deliveryStatus, '배송중')}">
+                                    배송중
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="deliveryStatus" value="배송완료"
+                                        th:checked="${param.deliveryStatus != null and #strings.contains(param.deliveryStatus, '배송완료')}">
+                                    배송완료
+                                </label>
                             </div>
                         </div>
 
-                        <!-- 등록일 검색 영역-->
+                        <!-- 결제일 검색 영역 -->
                         <div class="detail-search">
                             <label>결제일</label>
-                            <div>
-                                <button class="dateBtn button-default">1개월</button>
-                                <button class="dateBtn button-default">1년</button>
-                                <button class="dateBtn button-default">전체</button>
-                                <input type="date"> - <input type="date">
+                            <div class="date-filter">
+                                <button type="button" class="dateBtn button-default" data-period="1month">1개월</button>
+                                <button type="button" class="dateBtn button-default" data-period="1year">1년</button>
+                                <button type="button" class="dateBtn button-default" data-period="all">전체</button>
+                                <input type="date" name="startDate" id="startDate" class="date-input-large" th:value="${param.startDate}">
+                                <span>~</span>
+                                <input type="date" name="endDate" id="endDate" class="date-input-large" th:value="${param.endDate}">
                             </div>
 
                             <!-- 초기화/검색 버튼 -->
                             <div class="search-buttons">
-                                <button type="reset" class="basic-btn">초기화</button>
-                                <button type="button" class="color-btn" id="searchBtn">검색</button>
+                                <button type="button" class="basic-btn" id="resetBtn">초기화</button>
+                                <button type="submit" class="color-btn" id="searchBtn">검색</button>
                             </div>
                         </div>
                     </form>
                 </div>
 
                 <div class="result-middle">
-                    <select class="select-item" id="sortSelect" onchange="loadGoodsOrder()">
-                        <option th:value="'latest'">최신순</option>
-                        <option th:value="'price'">가격순</option>
+                    <!-- 조회된 거래 개수 표시 -->
+                    <p id="totalCount" th:text="'총 ' + ${pagination.listCount} + '개 거래'">총 0개 거래</p>
+
+                    <select class="select-item" id="sortSelect">
+                        <option value="">기본순</option>
+                        <option value="latest" th:selected="${#strings.equals(param.sort, 'latest')}">최신순</option>
+                        <option value="price" th:selected="${#strings.equals(param.sort, 'price')}">가격순</option>
                     </select>
                 </div>
                 
@@ -99,24 +120,36 @@
                     <tbody>
                         <tr th:each="order : ${orderList}">
                             <td th:text="${order.orderNo}">1</td>
-                            <td th:text="${order.deliveryStatus}">배송중</td>
+                            <td>
+                                <span th:if="${order.deliveryStatus == '배송전'}" class="status-badge status-before">배송전</span>
+                                <span th:if="${order.deliveryStatus == '배송중'}" class="status-badge status-shipping">배송중</span>
+                                <span th:if="${order.deliveryStatus == '배송완료'}" class="status-badge status-complete">배송완료</span>
+                            </td>
                             <td th:text="${order.recipientName}">수령인</td>
                             <td th:text="${order.recipientTel}">전화번호</td>
                             <td th:text="${order.orderedName}">상품명</td>
-                            <td th:text="${order.orderQuantity}">수량</td>
+                            <td th:text="${order.orderQuantity} + '개'">수량</td>
                             <td th:text="${order.address}">주소</td>
                             <td th:text="${order.payMethod}">카드</td>
-                            <td th:text="${order.payPrice}">가격</td>
+                            <td th:text="${#numbers.formatInteger(order.payPrice, 0, 'COMMA')} + '원'">가격</td>
                             <td th:text="${order.payDate}">2025-01-01</td>
+                        </tr>
+
+                        <!-- 거래가 없을 경우 -->
+                        <tr th:if="${#lists.isEmpty(orderList)}">
+                            <td colspan="10">거래 내역이 없습니다.</td>
                         </tr>
                     </tbody>
                 </table>
 
+                <!-- 페이지네이션 -->
+                <div style="margin: 40px 0; display: flex; justify-content: center;">
+                    <th:block th:replace="~{common/pagination}">pagination.html</th:block>
+                </div>
+
             </section>
         </section>
     </main>
-
-    <th:block th:replace="~{common/pagination}">pagination.html</th:block>
 
     <script th:src="@{/js/adminPage/admin.js}"></script>
 </body>
