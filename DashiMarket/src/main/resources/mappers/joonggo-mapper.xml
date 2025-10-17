@@ -491,8 +491,8 @@
 					                                        WHERE MEMBER_NO = (SELECT MEMBER_NO
 					                                                            FROM BOARD
 					                                                            WHERE BOARD_NO = #{joonggoNo}))))SELLER_RATING
-                , (SELECT COUNT(*) FROM TRADE
-            		WHERE BOARD_NO = #{joonggoNo}) AS TRADE_CHECK
+                , (SELECT COUNT(*) FROM TRADE T
+            		WHERE T.BOARD_NO = #{joonggoNo}) AS TRADE_CHECK
 		FROM BOARD B
 		JOIN CATEGORY SUB ON(B.CATEGORY_ID = SUB.CATEGORY_ID)
 		JOIN CATEGORY MAIN ON(SUB.PARENT_CATEGORY_NO = MAIN.CATEGORY_ID)
