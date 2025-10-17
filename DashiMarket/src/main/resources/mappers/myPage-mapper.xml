@@ -185,8 +185,9 @@
 <!-- 굿즈 거래내역 목록 조회 (페이지네이션 - RowBounds) -->
 <select id="selectGoodsList" parameterType="map" resultType="map">
 SELECT
-    oi.ORDER_ITEM_ID AS orderItemNo,
+    oi.ORDER_ITEM_NO AS orderItemNo,
     o.ORDER_NO AS orderNo,
+    o.MEMBER_NO AS memberNo,
     s.RECIPIENT_NAME AS recipientName,
     s.RECIPIENT_TEL AS recipientTel,
     s.POSTCODE AS postcode,

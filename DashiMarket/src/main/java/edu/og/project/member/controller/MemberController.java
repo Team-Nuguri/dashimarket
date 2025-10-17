@@ -83,8 +83,8 @@ public class MemberController {
 			ra.addFlashAttribute("message", "아이디 또는 비밀번호가 일치하지 않습니다.");
 		}
 		String referer = (String) session.getAttribute("referer");
-		path += (referer != null) ? referer : "/";
-		return path;
+		path += (loginMember != null) ? "/" : referer; // 로그인실패시 회원가입, 로그인 성공시 메인페이지
+		return path; 
 	}
 	
 	@GetMapping("/logout")
