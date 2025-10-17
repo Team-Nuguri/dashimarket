@@ -19,6 +19,7 @@ public class TradeController {
 
 	//채팅방에서 거래완료 후 TRADE 테이블에 데이터 삽입
 	@PostMapping("/complete")
+	@ResponseBody
 	public int tradeComplete(@RequestBody Trade trade) {
 		return service.tradeComplete(trade);
 	}
