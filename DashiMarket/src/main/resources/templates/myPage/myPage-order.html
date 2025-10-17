@@ -81,18 +81,20 @@
            
             <div class="myPage-orderTitle text-size-24 bold-text"> 중고 주문 내역 / 거래 내역</div>
 
-            <fieldset class="myPage-orderSearch">
+            <fieldset class="myPage-orderSearch">                
                 <legend class="text-size-20 bold-text">검색</legend>
-                <input type="text">
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" id="searchKeyword" placeholder="상품명을 입력하세요" style="flex: 1;">
+                </div>
             </fieldset>
 
             <div class="divider"></div>     
 
-                <div class="myPage-orderSelect">
-                <select name="" id="">
-                <option value="">구매내역</option>
-                <option value="">판매내역</option>               
-                </select>
+            <div class="myPage-orderSelect" style="margin-bottom: 60px;">
+            <select name="tradeType" id="tradeTypeSelect">
+            <option value="buy">구매내역</option>
+            <option value="sell">판매내역</option>               
+            </select>
 
             </div>      
 
