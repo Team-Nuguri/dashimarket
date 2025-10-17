@@ -1,3 +1,7 @@
+a {
+    text-decoration: none;
+    color: black;
+}
 /*----------------------------*/
 /*주문 내역/ 거래 내역*/ 
 
@@ -31,7 +35,6 @@
 }
 
 fieldset {
-    overflow: auto;
     margin-left: 20px;
     border: none;
     display: flex;
