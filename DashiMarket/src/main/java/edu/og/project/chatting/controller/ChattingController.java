@@ -31,8 +31,7 @@ public class ChattingController {
 
 	// 채팅 요청
 	@GetMapping("/chatting")
-	public String chatting(Model model, @SessionAttribute("loginMember") Member loginMember
-			, @SessionAttribute("seller") Member loginSeller) {
+	public String chatting(Model model, @SessionAttribute("loginMember") Member loginMember) {
 		
 		// 채팅방 목록 조회
 		List<ChattingRoom> roomList = service.selectRoomList(loginMember.getMemberNo());
@@ -96,7 +95,7 @@ public class ChattingController {
         return service.enterJoonggoChat(chat);
     }
 	
-	// 나가기 -> 채팅 메세지 삭제
+	// 나가기 -> 채팅방 DeleteFlag 업데이트
 	@PostMapping("/chatting/exit")
 	@ResponseBody
     public String exitChat(@RequestBody ChattingRoom request, 
@@ -112,7 +111,7 @@ public class ChattingController {
 		
         boolean result = service.exitChatRoom(map);
         return result ? "success" : "fail";
-    }
+    }	
 
 	// 신고 후 나가기 -> 신고 테이블에 삽입
     @PostMapping("/chatting/reportExit")

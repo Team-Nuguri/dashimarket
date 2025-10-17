@@ -45,8 +45,38 @@ public interface AdminService {
 	 */
 	List<Goods> selectProducts(String sort);
 	
-	// 상품 목록 조회 (페이징)
-	Map<String, Object> selectGoodsList(int cp, String sort);
+	/** 상품 목록 조회 (페이징 + 검색 + 필터)
+	 * @param cp 현재 페이지
+	 * @param keyword 검색어
+	 * @param goodsStatus 판매 상태
+	 * @param startDate 등록일 시작
+	 * @param endDate 등록일 종료
+	 * @param sort 정렬
+	 * @return Map (goodsList, pagination)
+	 */
+	Map<String, Object> selectGoodsList(int cp, String keyword, String goodsStatus, 
+	                                      String startDate, String endDate, String sort);
+	
+	/** 선택 상품 재입고
+	 * @param boardNos 재입고할 상품 번호 리스트
+	 * @param stock 재입고 수량
+	 * @return 처리된 개수
+	 */
+	int restockGoods(List<String> boardNos, int stock);
+
+
+	/** 선택 상품 삭제
+	 * @param boardNos 삭제할 상품 번호 리스트
+	 * @return 삭제된 개수
+	 */
+	int deleteGoods(List<String> boardNos);
+
+	/** 선택 상품 품절 처리
+	 * @param boardNos 품절 처리할 상품 번호 리스트
+	 * @return 처리된 개수
+	 */
+	int soldOutGoods(List<String> boardNos);
+
 
 	/** 신고 목록 조회 (페이징 + 검색 + 필터)
 	 * @param keyword 검색어
@@ -96,6 +126,16 @@ public interface AdminService {
 	 */
 	List<OrderDto> selectGoodsOrder(String sort);
 	
-	// 거래 내역 조회 (페이징)
-	Map<String, Object> selectOrderList(int cp, String sort);
+	/** 거래 내역 조회 (페이징 + 검색 + 필터)
+	 * @param cp 현재 페이지
+	 * @param keyword 검색어
+	 * @param deliveryStatus 배송 상태
+	 * @param startDate 결제일 시작
+	 * @param endDate 결제일 종료
+	 * @param sort 정렬
+	 * @return Map (orderList, pagination)
+	 */
+	Map<String, Object> selectOrderList(int cp, String keyword, String deliveryStatus, 
+	                                      String startDate, String endDate, String sort);
+
 }
