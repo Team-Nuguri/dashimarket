@@ -61,6 +61,45 @@
 		SET REVIEW_FL = 'Y'
 		WHERE BOARD_NO = #{boardNo}
 	</update>
+	
+	<!-- 중고상품 정보 가져오기 -->
+<select id="selectJoonggoReviewInfoMap" parameterType="map" resultType="map">
+ 
+SELECT 
+    B.BOARD_TITLE,              
+    S.MEMBER_NICKNAME AS SELLERNICKNAME,  
+    M.MEMBER_NICKNAME AS BUYERNICKNAME,  
+    J.JOONGGO_PRICE, 
+    	  (SELECT IMG_PATH || IMG_RENAME FROM IMAGE I
+		    WHERE I.BOARD_NO = B.BOARD_NO
+		    AND IMG_ORDER = 0) THUMBNAIL        
+FROM BOARD B
+JOIN JOONGGO J ON B.BOARD_NO = J.BOARD_NO
+JOIN TRADE T ON B.BOARD_NO = T.BOARD_NO
+JOIN MEMBER S ON T.MEMBER_NO = S.MEMBER_NO  
+JOIN MEMBER M ON T.MEMBER_NO2 = M.MEMBER_NO    
+WHERE B.BOARD_NO = #{boardNo}
+
+</select>
+
+<!-- 굿즈상품 정보 가져오기 -->
+<select id="selectGoodsReviewInfoMap" parameterType="map" resultType="map">
+ 
+
+SELECT B.BOARD_NO, BOARD_TITLE, MEMBER_NICKNAME, GOODS_PRICE, GOODS_STOCK,
+		
+		    (SELECT IMG_PATH || IMG_RENAME FROM IMAGE I
+		    WHERE I.BOARD_NO = B.BOARD_NO
+		    AND IMG_ORDER = 0) THUMBNAIL
+		    
+		FROM "BOARD" B
+		JOIN "MEMBER" USING(MEMBER_NO)
+		JOIN "GOODS" G ON(G.BOARD_NO = B.BOARD_NO)
+		WHERE DELETE_FL = 'N'
+		AND B.BOARD_NO = #{boardNo}
+
+</select>
+
  
  
 </mapper>

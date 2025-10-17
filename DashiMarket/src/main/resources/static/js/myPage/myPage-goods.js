@@ -4,6 +4,7 @@ let currentKeyword = ''; // 현재 검색어 저장
 
 // 페이지 로드 시 굿즈 거래내역 조회
 document.addEventListener('DOMContentLoaded', function() {
+    console.log("dom")
     loadGoodsList(1); // 첫 페이지 로드
     setupSearchFunction(); // 검색 기능 설정
 });
@@ -28,6 +29,7 @@ function setupSearchFunction() {
  * 굿즈 거래내역 목록 조회
  */
 function loadGoodsList(cp = 1) {
+    console.log("load")
     const keyword = currentKeyword || '';
     const url = `/myPage/api/goods/list?cp=${cp}${keyword ? '&keyword=' + encodeURIComponent(keyword) : ''}`;
     
@@ -90,7 +92,8 @@ function renderGoodsList(dataList) {
     container.innerHTML = '';
     
     dataList.forEach((item, index) => {        
-        
+        console.log(`[JS Render] Index ${index} - orderItemNo:`, item.ORDERITEMNO, typeof item.ORDERITEMNO); // <-- 추가
+
         // 각 주문 아이템 컨테이너
         const orderItemDiv = document.createElement('section');
         orderItemDiv.className = 'myPage-orderItem';
@@ -167,8 +170,8 @@ function renderGoodsList(dataList) {
         buttonGroup.innerHTML = `
             <button 
                 class="myPage-orderPostWrite text-size-12 bold-text" 
-                id="review-btn-${item.orderItemId}" 
-                onclick="writeReview('${item.orderItemId}', '${item.orderNo}')"
+                id="review-btn-${item.ORDERITEMNO}" 
+                onclick="writeReview('${item.ORDERITEMNO}', '${item.ORDERNO}')"
                 ${item.구매상태 === '구매확정' ? '' : 'disabled'}
                 style="white-space: nowrap; ${item.구매상태 === '구매확정' ? '' : 'opacity: 0.5; cursor: not-allowed;'}"
             >
@@ -177,15 +180,15 @@ function renderGoodsList(dataList) {
             <div style="display: flex; gap: 10px;">
                 <button 
                     class="myPage-orderConfirm text-size-12 bold-text" 
-                    id="confirm-btn-${item.orderItemId || 0}"
-                    onclick="confirmPurchase('${item.orderItemId}', '${item.orderNo}')"
+                    id="confirm-btn-${item.ORDERITEMNO || 0}"
+                    onclick="confirmPurchase('${item.ORDERITEMNO}', '${item.ORDERNO}')"
                     style="white-space: nowrap;"
                 >
                     구매확정
                 </button>
                 <button 
                     class="myPage-orderDelivery text-size-12 bold-text" 
-                    onclick="checkDelivery('${item.orderNo}', '${item.trackingNumber || ''}')"
+                    onclick="checkDelivery('${item.ORDERNO}', '${item.trackingNumber || ''}')"
                     style="white-space: nowrap;"
                 >
                     배송조회
@@ -303,8 +306,8 @@ function formatDate(dateStr) {
 /**
  * 거래 후기 작성
  */
-function writeReview(orderItemId, orderNo) {
-    console.log('거래 후기 작성:', orderItemId, orderNo);
+function writeReview(orderItemNo, orderNo) {
+    console.log('거래 후기 작성:', orderItemNo, orderNo);
     alert('거래 후기 작성 기능은 준비중입니다.');
 }
 
@@ -313,14 +316,16 @@ function writeReview(orderItemId, orderNo) {
  *//**
  * 구매 확정
  */
-function confirmPurchase(orderItemId, orderNo) {
+function confirmPurchase(orderItemNo, orderNo) {
+    console.log(`[JS Function] 구매확정 시도 - orderItemNo:`, orderItemNo, typeof orderItemNo); // <-- 추가
+    
     if (confirm('구매를 확정하시겠습니까?')) {        
         fetch('/myPage/api/goods/confirm', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: `orderItemId=${orderItemId}`
+            body: `orderItemNo=${orderItemNo}`
         })
         .then(response => response.json())
         .then(result => {

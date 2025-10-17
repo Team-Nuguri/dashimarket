@@ -52,4 +52,10 @@ public interface MyPageMapper {
 	// 마이페이지 나의 위시리스트 삭제 (KJK)
 	int deleteJoonggoWishList(int memberNo, String boardNo);
 	
+	// 중고 거래
+	int getOrderListCount(Map<String, Object> paramMap);
+
+	List<Map<String, Object>> selectOrderList(Map<String, Object> paramMap, RowBounds rowBounds);
+		
+		
 }

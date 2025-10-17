@@ -93,8 +93,12 @@
                 <option value="">구매내역</option>
                 <option value="">판매내역</option>               
                 </select>
-	<button class="btn-review" th:attr="data-boardNo='J31', data-memberNo=3"  onclick="openPopup(this)">
-                         이용후기
+           	<button class="btn-review" th:attr="data-boardNo='J40', data-memberNo=3"  onclick="openPopupJoonggo(this)">
+                         중고이용후기
+                        </button>
+                        
+                        <button class="btn-review" th:attr="data-boardNo='G01', data-memberNo=1"  onclick="openPopupGoods(this)">
+                         굿즈이용후기
                         </button>
             </div>      
 
@@ -104,9 +108,9 @@
                     <p style="font-size: 16px;">데이터를 불러오는 중...   
 						
 						<!--<button class="btn-review" th:attr="data-boardNo=${item.joonggoNo}, data-memberNo=${item.memberNo}"  onclick="openModal(this)">-->
-						<button class="btn-review" th:attr="data-boardNo='J31', data-memberNo=3"  onclick="openPopup(this)">
+						<!--<button class="btn-review" th:attr="data-boardNo='J40', data-memberNo=3"  onclick="openPopup(this)">
                          이용후기
-                        </button>
+                        </button>-->
 						
 						
 					</p>
@@ -135,12 +139,31 @@
 
 
 <script>
-	function openPopup(btn) {
+// 중고물품 거래후기 팝업	
+function openPopupJoonggo(btn) {
+		
     const boardNo = btn.getAttribute('data-boardNo');
     const memberNo = btn.getAttribute('data-memberNo');
 
     // 팝업 URL에 파라미터 전달 (GET 방식)
     const url = `/review/joonggo?boardNo=${boardNo}&memberNo=${memberNo}`;
+    
+    // 팝업 열기 (옵션: 크기, 위치, 스크롤 등)
+    window.open(
+        url,
+        'reviewPopup', 
+        'width=700,height=700,top=200,left=500,scrollbars=yes,resizable=no'
+    );
+}
+
+// 굿즈 거래후기 팝업
+function openPopupGoods(btn) {
+		
+    const boardNo = btn.getAttribute('data-boardNo');
+    const memberNo = btn.getAttribute('data-memberNo');
+
+    // 팝업 URL에 파라미터 전달 (GET 방식)
+    const url = `/review/goods?boardNo=${boardNo}&memberNo=${memberNo}`;
     
     // 팝업 열기 (옵션: 크기, 위치, 스크롤 등)
     window.open(

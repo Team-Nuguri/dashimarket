@@ -47,11 +47,11 @@
 
     <ul class="left-menu">
         <li class="text-size-18 bold-text">
-            <img th:src="@{/images/myPage/product.png}" alt="상품관리"  width="40px" height="40px">
-            상품관리
+            <img th:src="@{/images/myPage/myinfo.png}" alt="내 정보 관리" width="40px" height="40px">
+            내 정보 관리    
             <ul class="left-submenu">
                 
-                    <li><a href="">내가 찜한 상품</a></li>
+                <li><a th:href="@{/myPage/wishlist}">내가 찜한 상품</a></li>
             
             </ul>
         </li>
@@ -88,11 +88,15 @@
       
       <div class="thumb-area">
       <!-- 썸네일 이미지 -->
-      <img class="thumb" th:src="@{${item.thumbnail}}" alt="상품이미지" />
+          <a th:href="@{/joonggo/{boardNo}(boardNo=${item.joonggoNo})}">
+		  <img class="thumb" th:src="@{${item.thumbnail}}" alt="상품이미지" />
+		  </a>
       </div>
       
       <div class="meta">
+		 <a th:href="@{/joonggo/{boardNo}(boardNo=${item.joonggoNo})}"  style="text-decoration: none;">
         <p class="title" th:text="${item.joonggoTitle}">상품 이름</p>
+        </a>
         <!-- 필요 시 옵션 정보 추가 -->
         <!-- <p class="opts">사이즈: 260 / 색상: 화이트</p> -->
       </div>

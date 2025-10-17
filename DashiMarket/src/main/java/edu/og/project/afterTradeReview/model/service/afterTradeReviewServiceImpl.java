@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,14 +77,31 @@ public class afterTradeReviewServiceImpl implements afterTradeReviewService {
 			 return result;
 		 }
 		 
-		 // 중고상품, 굿즈 후기작성여부 update
+		 // 중고상품 후기작성여부 update (굿즈는 update 하지않음)
 		 result = mapper.reviewFlagUpdate(reviewWrite);
 		 
 		 if(result == 0) { 
-			 return result;
+			 return result+1;
 		 }
 		 
 		 return result;
+		
+	}
+
+	@Override
+	public Map<String, Object> getJoonggoReviewInfo(String boardNo, int memberNo) {
+		  Map<String, Object> params = new HashMap<>();
+		  params.put("boardNo", boardNo);
+		  params.put("memberNo", memberNo);
+		  return mapper.selectJoonggoReviewInfoMap(params);
+	}
+
+	@Override
+	public Map<String, Object> getGoodsReviewInfo(String boardNo, int memberNo) {
+		  Map<String, Object> params = new HashMap<>();
+		  params.put("boardNo", boardNo);
+		  params.put("memberNo", memberNo);
+		  return mapper.selectGoodsReviewInfoMap(params);
 		
 	}
 
