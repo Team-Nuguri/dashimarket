@@ -126,18 +126,67 @@ public class AdminController {
 		return service.searchReport(keyword);
 	}
 
-	// ✅ 상품 관리
+	// ✅ 상품 관리 (검색 + 필터 추가)
 	@GetMapping("/goods")
 	public String goods(
 	    @RequestParam(value = "cp", defaultValue = "1") int cp,
+	    @RequestParam(value = "keyword", required = false) String keyword,
+	    @RequestParam(value = "goodsStatus", required = false) String goodsStatus,
+	    @RequestParam(value = "startDate", required = false) String startDate,
+	    @RequestParam(value = "endDate", required = false) String endDate,
 	    @RequestParam(value = "sort", required = false) String sort,
 	    Model model
 	) {
-	    Map<String, Object> map = service.selectGoodsList(cp, sort);
+	    Map<String, Object> map = service.selectGoodsList(cp, keyword, goodsStatus, startDate, endDate, sort);
 	    model.addAttribute("goodsList", map.get("goodsList"));
 	    model.addAttribute("pagination", map.get("pagination"));
 	    return "admin/admin_goods";
 	}
+	
+	// ✅ 선택 상품 삭제
+	@PostMapping("/goods/delete")
+	@ResponseBody
+	public String deleteGoods(@RequestBody List<String> boardNos) {
+	    try {
+	        int result = service.deleteGoods(boardNos);
+	        return result > 0 ? "success" : "fail";
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return "fail";
+	    }
+	}
+
+	// ✅ 선택 상품 품절 처리
+	@PostMapping("/goods/soldout")
+	@ResponseBody
+	public String soldOutGoods(@RequestBody List<String> boardNos) {
+	    try {
+	        int result = service.soldOutGoods(boardNos);
+	        return result > 0 ? "success" : "fail";
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return "fail";
+	    }
+	}
+	
+	// ✅ 5. 선택 상품 재입고
+	@PostMapping("/goods/restock")
+	@ResponseBody
+	public String restockGoods(@RequestBody Map<String, Object> data) {
+	    try {
+	        @SuppressWarnings("unchecked")
+	        List<String> boardNos = (List<String>) data.get("boardNos");
+	        int stock = (int) data.get("stock");
+	        
+	        int result = service.restockGoods(boardNos, stock);
+	        return result > 0 ? "success" : "fail";
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return "fail";
+	    }
+	}
+
+
 	
 	// 상품 정보 조회
 	@GetMapping("/product")
@@ -154,18 +203,23 @@ public class AdminController {
 	}
 
 
-	// ✅ 거래 내역
+	// ✅ 거래 내역 (검색 + 필터 추가)
 	@GetMapping("/order")
 	public String order(
 	    @RequestParam(value = "cp", defaultValue = "1") int cp,
-	    @RequestParam(value= "sort", required = false) String sort,
+	    @RequestParam(value = "keyword", required = false) String keyword,
+	    @RequestParam(value = "deliveryStatus", required = false) String deliveryStatus,
+	    @RequestParam(value = "startDate", required = false) String startDate,
+	    @RequestParam(value = "endDate", required = false) String endDate,
+	    @RequestParam(value = "sort", required = false) String sort,
 	    Model model
 	) {
-	    Map<String, Object> map = service.selectOrderList(cp, sort);
+	    Map<String, Object> map = service.selectOrderList(cp, keyword, deliveryStatus, startDate, endDate, sort);
 	    model.addAttribute("orderList", map.get("orderList"));
 	    model.addAttribute("pagination", map.get("pagination"));
 	    return "admin/admin_goodsOrder";
 	}
+
 	
 	// 굿즈 거래내역 조회
 	@GetMapping("/purchase")

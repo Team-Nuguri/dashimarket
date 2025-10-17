@@ -846,3 +846,101 @@ td > a:hover {
     font-size: 16px;
     color: #666;
 }
+
+/* ================================================== */
+/* ✅ 상품 관리 - 판매 상태 뱃지 스타일 */
+/* ================================================== */
+
+.status-badge {
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.status-badge.selling {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.status-badge.soldout {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+/* 선택 개수 표시 */
+#selectedCount {
+    font-size: 16px;
+    color: #666;
+    margin-right: 10px;
+}
+
+/* ================================================== */
+/* ✅ 조회 개수 표시 스타일 */
+/* ================================================== */
+
+#totalCount {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-right: 15px;
+}
+
+/* ================================================== */
+/* ✅ 날짜 입력 칸 크기 증가 */
+/* ================================================== */
+
+.date-input-large {
+    width: 150px !important;
+    height: 40px !important;
+    padding: 8px 12px !important;
+    font-size: 16px !important;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.date-input-large:hover {
+    border-color: #52B291;
+}
+
+.date-input-large:focus {
+    outline: none;
+    border-color: #52B291;
+    box-shadow: 0 0 0 3px rgba(82, 178, 145, 0.2);
+}
+
+/* ================================================== */
+/* ✅ 재입고 버튼 스타일 */
+/* ================================================== */
+
+.restock-btn {
+    padding: 10px;
+    color: #1976d2;
+    font-weight: bold;
+}
+
+.restock-btn:hover {
+    background-color: #1976d2;
+    color: white;
+}
+
+/* ================================================== */
+/* ✅ 거래 내역 - 배송 상태 뱃지 스타일 */
+/* ================================================== */
+
+.status-before {
+    background-color: #fff3e0;
+    color: #e65100;
+}
+
+.status-shipping {
+    background-color: #e3f2fd;
+    color: #1565c0;
+}
+
+.status-complete {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}

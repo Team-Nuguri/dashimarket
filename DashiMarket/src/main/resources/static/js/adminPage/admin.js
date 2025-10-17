@@ -1,10 +1,9 @@
 console.log("admin.js loaded...")
 
 // 사이드메뉴
-// a태그 클릭시 해당 페이지로 이동 -> 글자색 52B291로 유지
 const move = document.querySelectorAll(".list-group a");
 
-// (희준추가) 로그아웃 버튼 이벤트 (모든 관리자 페이지 공통)
+// 로그아웃 버튼 이벤트 (모든 관리자 페이지 공통)
 const logoutBtn = document.getElementById("logout");
 if (logoutBtn) {
     logoutBtn.addEventListener("click", () => {
@@ -16,19 +15,15 @@ if (logoutBtn) {
 
 move.forEach(link => {
     link.addEventListener("click", (e) => {
-        //e.preventDefault(); // 페이지 이동 방지 (나중에 지우기)
-
-        // 모든 a 태그에서 active 제거
         move.forEach(i => i.classList.remove("selected"));
-
-        // 클릭한 a 태그만 active 추가
         link.classList.add("selected");
     });
 });
 
-// 통합 신고에서만 실행
-if (location.href == "http://localhost/admin/report") {
-
+// ========================================
+// ✅ 통합 신고 페이지 - 검색 기능
+// ========================================
+if (location.href.includes("/admin/report")) {
     document.addEventListener("DOMContentLoaded", () => {
         
         // 오늘 신고 카운트
@@ -38,10 +33,8 @@ if (location.href == "http://localhost/admin/report") {
             .then(data => {
                 const todayReport = document.getElementById("todayReport");
 
-                // 값이 바뀔 때만 부드럽게 애니메이션처럼 교체
-                if (todayReport.innerText != data.todayReportCount) {
+                if (todayReport && todayReport.innerText != data.todayReportCount) {
                     todayReport.style.opacity = 0;
-
                     setTimeout(() => {
                         todayReport.innerText = data.todayReportCount;
                         todayReport.style.opacity = 1;
@@ -51,193 +44,86 @@ if (location.href == "http://localhost/admin/report") {
             .catch(err => console.error("신고된 수 불러오기 오류:", err));
         };
 
-        // 최초 1회 실행
         loadReportStats();
+        setInterval(loadReportStats, 10 * 60 * 1000);
 
-        setInterval(loadReportStats, 10 * 60 * 1000); // 10분 마다 갱신 -> 새로고침 해야함
-    })
-
-    /* 필터(사유) 선택시 반영시키기 */
-    const reasonBtn = document.getElementById("btn1");
-    const reasonLinks = document.querySelectorAll(".dropdown-menu a");
-    const reasonMenu = document.getElementsByClassName("dropdown-menu")[0]
-    const dropDownImg = document.getElementById("dropdown-img");
-
-    /* 사유 선택창 토글 */
-    reasonBtn?.addEventListener("click", () => {
-        /* toggle의 리턴값: true = 열림, false = 닫힘 */
-        const isOpen = reasonMenu.classList.toggle("show");
-
-        // 드롭다운 펼쳐졌을 때
-        if (isOpen) {
-            reasonMenu.classList.remove("close")
-            dropDownImg.setAttribute("src", "/images/svg/color-drop-down-reverse.svg");
-
-        } else {
-            reasonMenu.classList.add("close")
-            dropDownImg.setAttribute("src", "/images/svg/color-drop-down.svg");
+        // 초기화 버튼
+        const resetBtn = document.getElementById("resetBtn");
+        if (resetBtn) {
+            resetBtn.addEventListener("click", () => {
+                location.href = "/admin/report";
+            });
         }
-    });
 
-
-    /* 사유 선택시 반영시키기 */
-    reasonLinks?.forEach(link => {
-        link.addEventListener("click", (e) => {
-            /* 이거 나중에 풀어야 함! (쿠키 또는 세션에 유지) */
-            e.preventDefault();
-
-            /* 선택한 사유명으로 반영하기 */
-            reasonBtn.innerText = link.innerText;
-            reasonMenu.classList.remove("close");
-            reasonMenu.classList.add("close")
-            
-            // fetch로 백엔드 전송
-            fetch("/admin/report/updateResult", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(reportList)
-            })
-            .then(res => res.text())
-            .then(result => {
+        // 검색 폼 제출 전 처리
+        const searchArea = document.getElementById("search-area");
+        if (searchArea) {
+            searchArea.addEventListener("submit", (e) => {
+                const keyword = document.getElementById("search-query")?.value.trim() || '';
+                const reportType = document.getElementById("reportTypeSelect")?.value || '';
+                const reportStatus = document.getElementById("reportStatusSelect")?.value || '';
+                const startDate = document.getElementById("startDate")?.value || '';
+                const endDate = document.getElementById("endDate")?.value || '';
                 
-                if (result == "success") {
-                    alert("처리 완료되었습니다!");
-                    location.reload();
-                } else {
-                    alert("처리 실패!");
+                // 모든 필드가 비어있는 경우만 경고
+                if (!keyword && !reportType && !reportStatus && !startDate && !endDate) {
+                    e.preventDefault();
+                    alert("검색어를 입력하거나 필터를 선택하세요.");
+                    return false;
                 }
-            })
-        })
-    })
-
-
-    // 전체선택
-    document.getElementById("checkAll").addEventListener("change", function () {
-        const checked = this.checked;
-        document.querySelectorAll("input[name='reportNo']").forEach(cb => cb.checked = checked);
-    });
-
-
-
-    // 처리완료 버튼 클릭
-    document?.getElementById("completeBtn").addEventListener("click", () => {
-        // const checked = [...document.querySelectorAll("input[name='reportNo']:checked")].map(cb => cb.value);
-        const checked = document.querySelectorAll("input[name='reportNo']:checked");
-        // const resultType = document.getElementById("resultType").value;
-
-        if (checked.length === 0) {
-            alert("처리할 신고를 선택하세요.");
-            return;
+            });
         }
 
-        // 선택된 신고번호와 각 처리 결과를 모아 배열로 만듦
-        const reportList = Array.from(checked).map(cb => {
-            const reportNo = cb.value;
-            const select = document.querySelector(`#result-${reportNo}`); // id로 해당 셀렉트 찾기
-            const resultType = select ? select.value : "-";
-            return { reportNo, resultType };
-        });
+        // 전체선택
+        const checkAll = document.getElementById("checkAll");
+        if (checkAll) {
+            checkAll.addEventListener("change", function () {
+                const checked = this.checked;
+                document.querySelectorAll("input[name='reportNo']").forEach(cb => cb.checked = checked);
+            });
+        }
 
-        console.log(reportList); // 예: [{reportNo: '101', resultType: '게시글삭제'}, ...]
+        // 처리완료 버튼 클릭
+        const completeBtn = document.getElementById("completeBtn");
+        if (completeBtn) {
+            completeBtn.addEventListener("click", () => {
+                const checked = document.querySelectorAll("input[name='reportNo']:checked");
 
+                if (checked.length === 0) {
+                    alert("처리할 신고를 선택하세요.");
+                    return;
+                }
 
-        // fetch로 백엔드 전송
-        fetch("/admin/report/updateResult", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(reportList)
-        })
-        .then(res => res.text())
-        .then(result => {
-            if (result === "success") {
-                alert("처리 완료되었습니다!");
-                location.reload();
-            } else {
-                alert("처리 실패!");
-            }
-        })
-        .catch(err => console.error(err));
+                // 선택된 신고번호와 각 처리 결과를 모아 배열로 만듦
+                const reportList = Array.from(checked).map(cb => {
+                    const reportNo = cb.value;
+                    const select = document.querySelector(`#result-${reportNo}`);
+                    const resultType = select ? select.value : "-";
+                    return { reportNo, resultType };
+                });
+
+                console.log(reportList);
+
+                // fetch로 백엔드 전송
+                fetch("/admin/report/updateResult", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(reportList)
+                })
+                .then(res => res.text())
+                .then(result => {
+                    if (result === "success") {
+                        alert("처리 완료되었습니다!");
+                        location.reload();
+                    } else {
+                        alert("처리 실패!");
+                    }
+                })
+                .catch(err => console.error(err));
+            });
+        }
     });
 }
-
-
-/* // 회원조회 페이지에서만 수행
-if (location.href == "http://localhost/admin/main") {
-
-    // 모든 문서 로딩후
-    document.addEventListener("DOMContentLoaded", () => {
-
-        // 통계 조회 함수 - 신규 가입자, 가입한 회원수
-        const loadStats = () => {
-            fetch("/admin/stats")
-            .then(resp => resp.json())
-            .then(data => {
-                const todayJoin = document.getElementById("todayJoin");
-                const totalUser = document.getElementById("totalUser");
-
-                // 값이 바뀔 때만 부드럽게 애니메이션처럼 교체
-                if (todayJoin.innerText != data.todayJoinCount) {
-                    todayJoin.style.opacity = 0;
-
-                    setTimeout(() => {
-                        todayJoin.innerText = data.todayJoinCount;
-                        todayJoin.style.opacity = 1;
-                    }, 200);
-                }
-
-                if (totalUser.innerText != data.totalUserCount) {
-                    totalUser.style.opacity = 0;
-
-                    setTimeout(() => {
-                        totalUser.innerText = data.totalUserCount;
-                        totalUser.style.opacity = 1;
-                    }, 200);
-                }
-            })
-            .catch(err => console.error("통계 불러오기 오류:", err));
-        };
-
-        // 최초 1회 실행
-        loadStats();
-
-        setInterval(loadStats, 10 * 60 * 1000); // 10분 마다 갱신 -> 새로고침 해야함
-
-        loadAllList();
-    })
-
-    // 회원 정보 조회 테이블
-    function loadAllList(){
-
-        fetch("/admin/members")
-        .then(resp => resp.json())
-        .then(memberList => {
-    
-            // table 만들기
-            const tbody = document.querySelector(".table-content tbody");
-
-            tbody.innerHTML = "";
-    
-            memberList.forEach(member => {
-                const row = document.createElement("tr")
-
-                row.innerHTML = `
-                <td>${member.memberNo}</td>
-                <td>${member.memberEmail}</td>
-                <td>${member.memberName}</td>
-                <td>${member.memberNickname}</td>
-                <td>${member.memberTel}</td>
-                <td>${member.address}</td>
-                <td>${member.secessionFl}</td>
-                <td>${member.enrollDate}</td>
-                <td>${member.boardCount}</td>
-                <td>${member.commentCount}</td>`;
-    
-                tbody.appendChild(row);
-            })
-        })
-        .catch(err => console.error("회원 정보를 가지고 올 수 없습니다.", err))
-    }
-} */
 
 // ========================================
 // ✅ 회원 조회 페이지 - 검색 기능
@@ -253,7 +139,6 @@ if (location.href.includes("/admin/main")) {
                 const todayJoin = document.getElementById("todayJoin");
                 const totalUser = document.getElementById("totalUser");
 
-                // 부드럽게 처리
                 if (todayJoin && todayJoin.innerText != data.todayJoinCount) {
                     todayJoin.style.opacity = 0;
                     setTimeout(() => {
@@ -291,17 +176,9 @@ if (location.href.includes("/admin/main")) {
                 const keyword = document.getElementById("search-query").value.trim();
                 const checkboxes = document.querySelectorAll('input[name="searchType"]:checked');
                 
-                // 키워드가 없고 상세검색도 선택되지 않은 경우
                 if (!keyword && checkboxes.length === 0) {
                     e.preventDefault();
                     alert("검색어를 입력하거나 상세검색 옵션을 선택하세요.");
-                    return false;
-                }
-
-                // 키워드는 있는데 2글자 미만
-                if (keyword && keyword.length < 2) {
-                    e.preventDefault();
-                    alert("검색어는 2글자 이상 입력해주세요.");
                     return false;
                 }
             });
@@ -309,264 +186,364 @@ if (location.href.includes("/admin/main")) {
     });
 }
 
-
-
-
-/* // 상품관리 페이지에서만 수행
-if (location.href == "http://localhost/admin/goods") {
-
-    // 상품 정보 조회 테이블
-    function loadProducts() {
-        const sort = document.getElementById("sortSelect").value;
-        const tbody = document.querySelector(".table-content tbody");
-
-        // sort가 없으면 기본 정렬
-        const url = sort ? `/admin/product?sort=${sort}` : `/admin/product`;
-
-        fetch(url)
-        .then(resp => resp.json())
-        .then(products => {
-            //console.log(products)
-            
-            // table 만들기
-            tbody.innerHTML = "";
-
-            products.forEach(item => {
-                const row = document.createElement("tr")
-                
-                row.innerHTML = `
-                <td><input type="checkbox"></td>
-                <td>${item.boardNo}</td>
-                <td>${item.boardTitle}</td>
-                <td>${item.goodsStock}</td>
-                <td>${item.goodsPrice}</td>
-                <td>${item.boardCreateDate}</td>
-                <td>
-                    <select class="table-item">
-                        <option value="">${'판매중'}</option>
-                        <option value="">${'판매완료'}</option>
-                    </select>
-                </td>`;
-
-                tbody.appendChild(row);
-            })
-            
-        })
-        .catch(error => console.error("상품 조회 오류:", error))
-    }
-
-    // 페이지 로드시 기본 목록 표시
-    document.addEventListener("DOMContentLoaded", loadProducts);
-} */
-
-
 // ========================================
-// ✅ 상품 관리 (수정됨)
+// ✅ 상품 관리 (최종 수정)
 // ========================================
 if (location.href.includes("/admin/goods")) {
-    // 정렬 변경시 현재 페이지 유지하면서 이동
-    document.getElementById("sortSelect")?.addEventListener("change", (e) => {
-        const sort = e.target.value;
-        const urlParams = new URLSearchParams(window.location.search);
-        const cp = urlParams.get('cp') || 1;
-        location.href = `/admin/goods?cp=${cp}&sort=${sort}`;
+    document.addEventListener("DOMContentLoaded", () => {
+        
+        // 초기화 버튼
+        const resetBtn = document.getElementById("resetBtn");
+        if (resetBtn) {
+            resetBtn.addEventListener("click", () => {
+                location.href = "/admin/goods";
+            });
+        }
+
+        // 날짜 빠른 선택 버튼
+        const dateBtns = document.querySelectorAll(".dateBtn");
+        const startDateInput = document.getElementById("startDate");
+        const endDateInput = document.getElementById("endDate");
+
+        dateBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                const period = btn.getAttribute("data-period");
+                const today = new Date();
+                const endDate = today.toISOString().split('T')[0];
+                
+                let startDate;
+                if (period === "1month") {
+                    const oneMonthAgo = new Date(today.setMonth(today.getMonth() - 1));
+                    startDate = oneMonthAgo.toISOString().split('T')[0];
+                } else if (period === "1year") {
+                    const oneYearAgo = new Date(today.setFullYear(today.getFullYear() - 1));
+                    startDate = oneYearAgo.toISOString().split('T')[0];
+                } else if (period === "all") {
+                    startDate = "";
+                    endDateInput.value = "";
+                    return;
+                }
+                
+                startDateInput.value = startDate;
+                endDateInput.value = endDate;
+            });
+        });
+
+        // 전체 선택 체크박스
+        const checkAllGoods = document.getElementById("checkAllGoods");
+        const goodsCheckboxes = document.querySelectorAll(".goods-checkbox");
+        const selectedCount = document.getElementById("selectedCount");
+
+        if (checkAllGoods) {
+            checkAllGoods.addEventListener("change", function() {
+                const checked = this.checked;
+                goodsCheckboxes.forEach(cb => cb.checked = checked);
+                updateSelectedCount();
+            });
+        }
+
+        // 개별 체크박스 변경 시
+        goodsCheckboxes.forEach(cb => {
+            cb.addEventListener("change", updateSelectedCount);
+        });
+
+        // 선택 개수 업데이트
+        function updateSelectedCount() {
+            const count = document.querySelectorAll(".goods-checkbox:checked").length;
+            selectedCount.textContent = `${count}개 선택됨`;
+        }
+
+        // 초기 선택 개수 표시
+        updateSelectedCount();
+
+        // 선택 상품 삭제
+        const deleteBtn = document.getElementById("deleteSelectedBtn");
+        if (deleteBtn) {
+            deleteBtn.addEventListener("click", () => {
+                const checked = document.querySelectorAll(".goods-checkbox:checked");
+                
+                if (checked.length === 0) {
+                    alert("삭제할 상품을 선택하세요.");
+                    return;
+                }
+
+                if (!confirm(`선택한 ${checked.length}개 상품을 삭제하시겠습니까?`)) {
+                    return;
+                }
+
+                const boardNos = Array.from(checked).map(cb => cb.value);
+
+                fetch("/admin/goods/delete", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(boardNos)
+                })
+                .then(res => res.text())
+                .then(result => {
+                    if (result === "success") {
+                        alert("상품이 삭제되었습니다!");
+                        location.reload();
+                    } else {
+                        alert("삭제 실패!");
+                    }
+                })
+                .catch(err => console.error(err));
+            });
+        }
+
+        // SOLD-OUT 버튼
+        const soldOutBtn = document.getElementById("soldOutBtn");
+        if (soldOutBtn) {
+            soldOutBtn.addEventListener("click", () => {
+                const checked = document.querySelectorAll(".goods-checkbox:checked");
+                
+                if (checked.length === 0) {
+                    alert("품절 처리할 상품을 선택하세요.");
+                    return;
+                }
+
+                if (!confirm(`선택한 ${checked.length}개 상품을 품절 처리하시겠습니까?`)) {
+                    return;
+                }
+
+                const boardNos = Array.from(checked).map(cb => cb.value);
+
+                fetch("/admin/goods/soldout", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(boardNos)
+                })
+                .then(res => res.text())
+                .then(result => {
+                    if (result === "success") {
+                        alert("품절 처리되었습니다!");
+                        location.reload();
+                    } else {
+                        alert("품절 처리 실패!");
+                    }
+                })
+                .catch(err => console.error(err));
+            });
+        }
+
+        // 재입고 버튼
+        const restockBtn = document.getElementById("restockBtn");
+        if (restockBtn) {
+            restockBtn.addEventListener("click", () => {
+                const checked = document.querySelectorAll(".goods-checkbox:checked");
+                
+                if (checked.length === 0) {
+                    alert("재입고할 상품을 선택하세요.");
+                    return;
+                }
+
+                const stockInput = prompt(`재입고 수량을 입력하세요 (숫자만):`, "10");
+                
+                if (stockInput === null) return;
+                
+                const stock = parseInt(stockInput);
+                
+                if (isNaN(stock) || stock <= 0) {
+                    alert("올바른 수량을 입력하세요.");
+                    return;
+                }
+
+                if (!confirm(`선택한 ${checked.length}개 상품을 ${stock}개씩 재입고하시겠습니까?`)) {
+                    return;
+                }
+
+                const boardNos = Array.from(checked).map(cb => cb.value);
+                const data = {
+                    boardNos: boardNos,
+                    stock: stock
+                };
+
+                fetch("/admin/goods/restock", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                })
+                .then(res => res.text())
+                .then(result => {
+                    if (result === "success") {
+                        alert("재입고되었습니다!");
+                        location.reload();
+                    } else {
+                        alert("재입고 실패!");
+                    }
+                })
+                .catch(err => console.error(err));
+            });
+        }
+
+        // ✅ 정렬 변경 (드롭다운 선택 유지)
+        const sortSelect = document.getElementById("sortSelect");
+        if (sortSelect) {
+            sortSelect.addEventListener("change", (e) => {
+                const sort = e.target.value;
+                const urlParams = new URLSearchParams(window.location.search);
+                
+                // sort 값 설정
+                if (sort) {
+                    urlParams.set('sort', sort);
+                } else {
+                    urlParams.delete('sort');
+                }
+                
+                // 1페이지로 이동
+                urlParams.set('cp', '1');
+                
+                // URL 생성 및 이동
+                location.href = `/admin/goods?${urlParams.toString()}`;
+            });
+        }
+
+        // ✅ 페이지네이션 버튼 재정의 (정렬 파라미터 유지)
+        const paginationButtons = document.querySelectorAll('.pagination button');
+        paginationButtons.forEach(btn => {
+            // 기존 onclick 제거하고 새로 정의
+            btn.removeAttribute('onclick');
+            
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // disabled 버튼은 무시
+                if (this.disabled) return;
+                
+                // 버튼에서 페이지 번호 추출
+                let cp;
+                if (this.classList.contains('pagination-btn')) {
+                    // 이전/다음 버튼
+                    const img = this.querySelector('img');
+                    if (img && img.src.includes('previous')) {
+                        // 이전 버튼
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const currentPage = parseInt(urlParams.get('cp') || '1');
+                        cp = Math.max(1, currentPage - 1);
+                    } else if (img && img.src.includes('next')) {
+                        // 다음 버튼
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const currentPage = parseInt(urlParams.get('cp') || '1');
+                        cp = currentPage + 1;
+                    }
+                } else {
+                    // 페이지 번호 버튼
+                    cp = this.textContent.trim();
+                }
+                
+                if (!cp) return;
+                
+                // 현재 URL의 모든 파라미터 가져오기
+                const urlParams = new URLSearchParams(window.location.search);
+                urlParams.set('cp', cp);
+                
+                // 페이지 이동
+                location.href = `/admin/goods?${urlParams.toString()}`;
+            });
+        });
     });
-    
-    // ❌ loadProducts() 함수 삭제됨!
 }
 
 
-/* // 굿즈 거래내역 페이지에서만 실행
-if(location.href == "http://localhost/admin/order"){
-
-    // 굿즈 주문/거래 내역 조회 테이블
-    function loadGoodsOrder() {
-        const sort = document.getElementById("sortSelect").value;
-        const tbody = document.querySelector(".table-content tbody");
-
-        // sort가 없으면 기본 정렬
-        const url = sort ? `/admin/purchase?sort=${sort}` : `/admin/purchase`;
-
-        fetch(url)
-        .then(resp => resp.json())
-        .then(orderList => {
-            console.log(orderList)
-            
-            // table 만들기
-            tbody.innerHTML = "";
-
-            orderList.forEach(order => {
-                const row = document.createElement("tr")
-                
-                row.innerHTML = `
-                <td>${order.orderNo}</td>
-                <td>${order.deliveryStatus}</td>
-                <td>${order.recipientName}</td>
-                <td>${order.recipientTel}</td>
-                <td>${order.orderedName}</td>
-                <td>${order.orderQuantity}</td>
-                <td>${order.address}</td>
-                <td>${order.payMethod}</td>
-                <td>${order.payPrice}</td>
-                <td>${order.payDate}</td>`;
-
-                tbody.appendChild(row);
-            })
-            
-        })
-        .catch(error => console.error("상품 조회 오류:", error))
-    }
-
-    // 페이지 로드시 기본 목록 표시
-    document.addEventListener("DOMContentLoaded", loadGoodsOrder);
-} */
 
 
 // ========================================
-// ✅ 거래 내역 (수정됨)
+// ✅ 거래 내역
 // ========================================
 if (location.href.includes("/admin/order")) {
-    // 정렬 변경시 현재 페이지 유지하면서 이동
-    document.getElementById("sortSelect")?.addEventListener("change", (e) => {
-        const sort = e.target.value;
-        const urlParams = new URLSearchParams(window.location.search);
-        const cp = urlParams.get('cp') || 1;
-        location.href = `/admin/order?cp=${cp}&sort=${sort}`;
+    document.addEventListener("DOMContentLoaded", () => {
+        
+        // 초기화 버튼
+        const resetBtn = document.getElementById("resetBtn");
+        if (resetBtn) {
+            resetBtn.addEventListener("click", () => {
+                location.href = "/admin/order";
+            });
+        }
+
+        // 날짜 빠른 선택 버튼 (수정됨)
+        const dateBtns = document.querySelectorAll(".dateBtn");
+        const startDateInput = document.getElementById("startDate");
+        const endDateInput = document.getElementById("endDate");
+
+        dateBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                const period = btn.getAttribute("data-period");
+                const today = new Date();
+                
+                let startDate = "";
+                let endDate = "";
+                
+                if (period === "1month") {
+                    const oneMonthAgo = new Date(today.setMonth(today.getMonth() - 1));
+                    startDate = oneMonthAgo.toISOString().split('T')[0];
+                    endDate = new Date().toISOString().split('T')[0];
+                } else if (period === "1year") {
+                    const oneYearAgo = new Date(today.setFullYear(today.getFullYear() - 1));
+                    startDate = oneYearAgo.toISOString().split('T')[0];
+                    endDate = new Date().toISOString().split('T')[0];
+                }
+                // period === "all"이면 빈 문자열 유지
+                
+                startDateInput.value = startDate;
+                endDateInput.value = endDate;
+            });
+        });
+
+        // 정렬 변경
+        const sortSelect = document.getElementById("sortSelect");
+        if (sortSelect) {
+            sortSelect.addEventListener("change", (e) => {
+                const sort = e.target.value;
+                const urlParams = new URLSearchParams(window.location.search);
+                
+                if (sort) {
+                    urlParams.set('sort', sort);
+                } else {
+                    urlParams.delete('sort');
+                }
+                
+                urlParams.set('cp', '1');
+                location.href = `/admin/order?${urlParams.toString()}`;
+            });
+        }
+
+        // 페이지네이션 버튼 재정의
+        const paginationButtons = document.querySelectorAll('.pagination button');
+        paginationButtons.forEach(btn => {
+            btn.removeAttribute('onclick');
+            
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                if (this.disabled) return;
+                
+                let cp;
+                if (this.classList.contains('pagination-btn')) {
+                    const img = this.querySelector('img');
+                    if (img && img.src.includes('previous')) {
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const currentPage = parseInt(urlParams.get('cp') || '1');
+                        cp = Math.max(1, currentPage - 1);
+                    } else if (img && img.src.includes('next')) {
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const currentPage = parseInt(urlParams.get('cp') || '1');
+                        cp = currentPage + 1;
+                    }
+                } else {
+                    cp = this.textContent.trim();
+                }
+                
+                if (!cp) return;
+                
+                const urlParams = new URLSearchParams(window.location.search);
+                urlParams.set('cp', cp);
+                
+                location.href = `/admin/order?${urlParams.toString()}`;
+            });
+        });
     });
-    
-    // ❌ loadGoodsOrder() 함수 삭제됨!
 }
 
 
-// 모든 관리자 페이지에서의 검색
-const searchInput = document.getElementById("search-query");
-const searchBtn = document.getElementById("searchBtn");
-const tbody = document.querySelector(".table-content tbody");
 
-document.addEventListener("DOMContentLoaded", ()=>{
-
-    if (!searchInput || !searchBtn || !tbody) {
-        console.warn("검색창 또는 테이블을 찾을 수 없습니다.");
-    }
-    
-    // 현재 페이지 식별
-    const path = window.location.pathname;
-    let pageType = "";
-    let searchUrl = "";
-    
-    if (path.includes("main")) {
-        pageType = "main";
-        searchUrl = "/admin/main/search";
-    } else if (path.includes("goods")) {
-        pageType = "goods";
-        searchUrl = "/admin/goods/search";
-    } else if (path.includes("report")) {
-        pageType = "report";
-        searchUrl = "/admin/report/search";
-    } else if (path.includes("order")) {
-        pageType = "order";
-        searchUrl = "/admin/order/search";
-    }
-    
-    console.log("현재 페이지:", pageType, "요청 URL:", searchUrl);
-    
-    // 검색 실행 함수
-    function executeSearch() {
-        const keyword = searchInput.value.trim();
-    
-        if (keyword.length < 2) {
-            alert("두 글자 이상 입력해주세요.");
-            return;
-        }
-
-        tbody.innerHTML = "";
-    
-        fetch(`${searchUrl}?keyword=${encodeURIComponent(keyword)}`)
-        .then(resp => {
-            if (!resp.ok) throw new Error("검색 요청 실패");
-            return resp.json();
-        })
-        .then(data => {
-            console.log(data)
-            renderTable(data, pageType, tbody);
-        })
-        .catch(err => console.error(err));
-    }
-    
-    searchBtn.addEventListener("click", executeSearch);
-
-    // // Enter 키로도 검색
-    // searchInput.addEventListener("keydown", e => {
-    //     if (e.key === "Enter") executeSearch();
-    // });
-    
-    // 검색 결과 테이블 렌더링 함수
-    function renderTable(data, pageType, tbody) {
-    
-        if (data.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="5">검색 결과가 없습니다.</td></tr>`;
-            return;
-        }
-    
-        data.forEach(item => {
-            const tr = document.createElement("tr");
-
-            if (pageType === "main") {
-                tr.innerHTML = `
-                    <td>${item.memberNo}</td>
-                    <td>${item.memberEmail}</td>
-                    <td>${item.memberName}</td>
-                    <td>${item.memberNickname}</td>
-                    <td>${item.memberTel}</td>
-                    <td>${item.address}</td>
-                    <td>${item.secessionFl}</td>
-                    <td>${item.enrollDate}</td>
-                    <td>${item.boardCount}</td>
-                    <td>${item.commentCount}</td>`;
-    
-            } else if (pageType === "report") {
-                tr.innerHTML = `
-                    <td><input type="checkbox"></td>
-                    <td>${item.reportNo}</td>
-                    <td>${item.reportMember}</td>
-                    <td>${item.reportTarget} # ${item.boardTitle}</td>
-                    <td>${item.targetMember}</td>
-                    <td>${item.reportName}</td>
-                    <td>${item.reportReason}</td>
-                    <td>${item.reportResult}</td>
-                    <td>${item.resultDate ? item.resultDate : ''}</td>`;
-    
-            } else if (pageType === "goods") {
-                tr.innerHTML = `
-                    <td><input type="checkbox"></td>
-                    <td>${item.boardNo}</td>
-                    <td>${item.boardTitle}</td>
-                    <td>${item.boardContent}</td>
-                    <td>${item.goodsStock}</td>
-                    <td>${item.goodsPrice}</td>
-                    <td>${item.boardCreateDate}</td>
-                    <td>
-                        <select class="table-item">
-                            <option value="">${'판매중'}</option>
-                            <option value="">${'판매완료'}</option>
-                        </select>
-                    </td>`;
-    
-            } else if (pageType === "order") {
-                tr.innerHTML = `
-                    <td>${item.orderNo}</td>
-                    <td>${item.deliveryStatus}</td>
-                    <td>${item.recipientName}</td>
-                    <td>${item.recipientTel}</td>
-                    <td>${item.orderedName}</td>
-                    <td>${item.orderQuantity}</td>
-                    <td>${item.address}</td>
-                    <td>${item.payMethod}</td>
-                    <td>${item.payPrice}</td>
-                    <td>${item.payDate}</td>`;
-            }
-    
-            tbody.append(tr);
-        });
-    }
-})
