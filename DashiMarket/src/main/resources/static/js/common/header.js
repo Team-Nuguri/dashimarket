@@ -143,7 +143,7 @@ const selectNotificationList = () => {
 
                 // 알림 보낸 회원 프로필 이미지
                 const senderProfile = document.createElement("img");
-                if (data.sendMemberProfileImg == null) senderProfile.src = notificationDefaultImg;
+                if (data.sendMemberProfileImg == null) senderProfile.src = '/images/common/user.png';
                 else senderProfile.src = data.sendMemberProfileImg;
 
                 // 알림 내용 영역
