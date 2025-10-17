@@ -91,14 +91,19 @@
                 <div class="myPage-orderSelect">
                 <select name="" id="">
                 <option value="">구매내역</option>
-                <option value="">판매내역</option>               
+                <option value="">판매내역</option>  
+                            
                 </select>
-           	<button class="btn-review" th:attr="data-boardNo='J40', data-memberNo=3"  onclick="openPopupJoonggo(this)">
+                 	    <button class="btn-review" th:attr="data-boardNo='J40', data-memberNo=3"  onclick="openPopupJoonggo(this)">
                          중고이용후기
                         </button>
                         
                         <button class="btn-review" th:attr="data-boardNo='G01', data-memberNo=1"  onclick="openPopupGoods(this)">
                          굿즈이용후기
+                        </button>
+                        
+                         <button class="btn-review" id="submitBtn">
+                         배송조회 
                         </button>
             </div>      
 
@@ -130,6 +135,16 @@
     
     </main>
 </section>
+
+ <form id="trackingForm" action="https://info.sweettracker.co.kr/tracking/5" method="post" target="trackingPopup">
+           
+              <input type="hidden" class="form-control" id="t_key" name="t_key" value="C7q8JuWj5ZyZAJ57LgiFdg"  title="제공받은 APIKEY(고정)">
+           
+              <input type="hidden" class="form-control" id="t_code" name="t_code" value="08" title="택배사 코드(롯데택배)(고정)">
+            
+              <input type="hidden" class="form-control" id="t_invoice" name="t_invoice" value="256895587454" title="운송장 번호(회원따라 변동)">
+            
+  </form>
     
 <!--footer-->
 <th:block th:replace="~{common/footer}"></th:block>
@@ -174,7 +189,17 @@ function openPopupGoods(btn) {
 }
 
 	
+ document.getElementById("submitBtn").addEventListener("click", function () {
+    // 1. 팝업 창 열기
+    window.open("", "trackingPopup", "width=800,height=800,resizable=yes,scrollbars=yes");
+
+    // 2. 폼 제출 (target="trackingPopup" 덕분에 팝업에서 열림)
+    document.getElementById("trackingForm").submit();
+  });
+  
 </script>
+
+
 
 
 </body>
