@@ -31,7 +31,8 @@ public class ChattingController {
 
 	// 채팅 요청
 	@GetMapping("/chatting")
-	public String chatting(Model model, @SessionAttribute("loginMember") Member loginMember) {
+	public String chatting(Model model, @SessionAttribute("loginMember") Member loginMember
+			, @SessionAttribute("seller") Member loginSeller) {
 		
 		// 채팅방 목록 조회
 		List<ChattingRoom> roomList = service.selectRoomList(loginMember.getMemberNo());
@@ -103,10 +104,11 @@ public class ChattingController {
         
 		int memberNo = loginMember.getMemberNo();
 		
-		Map<String, Integer> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<>();
 		map.put("chattingNo", request.getChattingNo());
 		map.put("targetNo", request.getTargetNo());
 		map.put("memberNo", memberNo);
+		map.put("productNo", request.getProductNo());
 		
         boolean result = service.exitChatRoom(map);
         return result ? "success" : "fail";
@@ -114,11 +116,18 @@ public class ChattingController {
 
 	// 신고 후 나가기 -> 신고 테이블에 삽입
     @PostMapping("/chatting/reportExit")
-    public String reportAndExit(@RequestBody Report request, 
+    @ResponseBody
+    public String reportAndExit(@RequestBody ChattingRoom request, 
     		@SessionAttribute("loginMember") Member loginMember) {
         
     	int reporterNo = loginMember.getMemberNo();
-        boolean result = service.reportAndExit(request, reporterNo);
+    	
+    	Map<String, Integer> map = new HashMap<>();
+		map.put("chattingNo", request.getChattingNo());
+		map.put("targetNo", request.getTargetNo());
+		map.put("memberNo", reporterNo);
+    	
+        boolean result = service.reportAndExit(map);
         return result ? "success" : "fail";
     }
 	

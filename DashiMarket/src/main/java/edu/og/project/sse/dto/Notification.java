@@ -22,7 +22,7 @@ public class Notification {
 	private int receiveMemberNo; // 알림 받는 사람
 	
 	private String notificationType; // 알림 내용을 구분해서 만드는 용도
-	private int pkNo; // 알림이 보내진 게시글 번호 또는 채팅방 번호
+	private String pkNo; // 알림이 보내진 게시글 번호(String) 또는 채팅방 번호, 댓글 번호
 	
 	private String sendMemberProfileImg; // 알림 보낸 사람 프로필 이미지
 }

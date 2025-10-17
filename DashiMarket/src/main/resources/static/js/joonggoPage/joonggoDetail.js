@@ -176,6 +176,7 @@ document.getElementById("like-heart").addEventListener("click", e=>{
     if(!document.getElementById("like-heart").classList.contains("fa-solid")){
         likeCheck = 0;
         console.log(likeCheck)
+        return;
     }
 
     // 좋아요 insert or delete
@@ -197,6 +198,13 @@ document.getElementById("like-heart").addEventListener("click", e=>{
             alert("좋아요 처리 실패했습니다.");
         }else{
             likeCount.innerText = result;
+
+            // 중고 좋아요 알림 보내기
+            const url = `${location.pathname}?cn=${joonggoNo}`;
+            const content = `${loginMember.memberNickname}님이 <strong>${joonggoTitle}</strong> 게시글을 좋아합니다.`;
+
+            sendNotification("boardLike", url, joonggoNo, content);
+            
         }
     })
     .catch(e => console.log(e))

@@ -176,7 +176,7 @@ header>section> div:nth-child(2)>div>a:hover{
     right: 25px;
     padding: 10px;
     list-style: none;
-    z-index: 2000;
+    z-index: 200;
     background: white;
     overflow-y: auto;
     border: 2px solid #52B291;
@@ -235,11 +235,11 @@ header>section> div:nth-child(2)>div>a:hover{
     height: 90%;
     position: relative;
     padding: 5px;
+    overflow-x: hidden;
 }
 
 .notification-title{
     font-size: 14px;
-    font-weight: bold;
     margin: 0;
 }
 
@@ -253,12 +253,15 @@ header>section> div:nth-child(2)>div>a:hover{
 .notice-deleteBtn{
     position: absolute;
     top: 0px;
-    right: 5px;
+    right: 0px;
+    z-index: 300;
     font-weight: bold;
     cursor: pointer;
     width: 25px;
     height: 25px;
+    margin: 5px;
     text-align: center;
+    background-color: transparent;
 }
 
 #login{

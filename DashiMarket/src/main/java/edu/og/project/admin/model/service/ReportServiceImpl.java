@@ -1,10 +1,13 @@
 package edu.og.project.admin.model.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.og.project.admin.model.dao.ReportMapper;
 import edu.og.project.admin.model.dto.Report;
+import edu.og.project.chatting.model.dao.ChattingMapper;
 import edu.og.project.common.dto.Member;
 import edu.og.project.member.model.dao.MemberMapper;
 
@@ -42,14 +45,14 @@ public class ReportServiceImpl implements ReportService {
 			return -1;
 		}
 		
-		
-		
-		
-		
-		
-		
-		
 		return result;
+	}
+	
+
+	// 채팅방 신고 당한 유저 정보 조회
+	@Override
+	public Member selectChattingInfo(Map<String, Integer> map) {
+		return memberMapper.selectChattingInfo(map);
 	}
 
 }

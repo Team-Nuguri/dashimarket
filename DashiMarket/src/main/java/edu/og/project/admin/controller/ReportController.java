@@ -1,5 +1,8 @@
 package edu.og.project.admin.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,17 +26,36 @@ public class ReportController {
 	private ReportService service;
 	
 	
-	// 신고 팝업
+	// 신고 팝업 
 	@GetMapping("/{boardType}/report/{targetNo}")
 	public String reportForward(
 			@PathVariable("targetNo") String targetNo,
 			@PathVariable("boardType") String boardType
-			, Model model
-			
+			, Model model , @SessionAttribute("loginMember") Member loginMember
 			) {
 		
-		// 해당 게시글 올린 회원 정보 조회
-		Member member = service.selectMemberInfo(targetNo);
+		Member member = null;
+		
+		if("chatting".equals(boardType)) {
+			
+			try {
+				int chatRoomNo = Integer.parseInt(targetNo);
+				
+				Map<String, Integer> map = new HashMap<>();
+				map.put("loginMemberNo", loginMember.getMemberNo());
+				map.put("chattingNo", chatRoomNo);
+				
+				member = service.selectChattingInfo(map);
+				
+			}catch(NumberFormatException e){
+				e.printStackTrace();
+				System.out.println("잘못된 채팅방 번호입니다.");
+			}
+			
+		}else {
+			// 해당 게시글 올린 회원 정보 조회
+			member = service.selectMemberInfo(targetNo);
+		}
 		
 		model.addAttribute("member", member);
 		
@@ -43,7 +65,6 @@ public class ReportController {
 	
 	
 	// 신고 삽입
-	
 	@PostMapping("/{boardType}/report/{targetNo}")
 	@ResponseBody
 	public int reportInsert(

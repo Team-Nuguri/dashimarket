@@ -1,6 +1,7 @@
 package edu.og.project.afterTradeReview.controller;
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,16 +33,29 @@ public class afterTradeReviewController {
 	// 중고상품 후기 페이지 이동
 	@GetMapping("/review/joonggo")
 	public String jonnggoReview(@RequestParam("boardNo") String boardNo, @RequestParam("memberNo") int memberNo, Model model) {
-	    model.addAttribute("boardNo", boardNo);
+	   
+		model.addAttribute("boardNo", boardNo);
 	    model.addAttribute("memberNo", memberNo);
+	    
+	    Map<String, Object> info = service.getJoonggoReviewInfo(boardNo, memberNo);
+
+	    model.addAttribute("reviewInfo", info);
+	    
 	    return "afterTradeReview/used_review";
 	}
 	
 	// 굿즈상품 후기 페이지 이동
 	@GetMapping("/review/goods")
 	public String goodsReview(@RequestParam("boardNo") String boardNo, @RequestParam("memberNo") int memberNo, Model model) {
-	    model.addAttribute("boardNo", boardNo);
+	   
+		model.addAttribute("boardNo", boardNo);
 	    model.addAttribute("memberNo", memberNo);
+	    
+	    Map<String, Object> info = service.getGoodsReviewInfo(boardNo, memberNo);
+
+	    model.addAttribute("reviewInfo", info);
+	    
+	    
 	    return "afterTradeReview/goods_review";
 	}
 	
@@ -71,11 +85,14 @@ public class afterTradeReviewController {
 		// 서비스
 	    int result = service.insertReview(reviewWrite);
 	    
-	    if(result > 0) {
+	    // System.out.println("result=");
+	    // System.out.println(result);
+	    
+	     if(result > 0) {
 	        model.addAttribute("message", "후기가 등록되었습니다.");
-	    } else {
-	        model.addAttribute("message", "후기 등록이 실패하였습니다.");
-	    }
+	     } else {
+	         model.addAttribute("message", "후기 등록이 실패하였습니다.");
+	     }
 
 	    // reviewPopupClose.html 뷰 반환
 	    return "afterTradeReview/reviewPopupClose";

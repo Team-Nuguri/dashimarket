@@ -229,7 +229,6 @@ document.getElementById("writeForm").addEventListener("submit", e => {
     .then(resp => resp.text())
     .then(result => {
 
-        console.log(result);
 
         if(result == 'fail'){
             alert("상품 등록에 실패하였습니다.");

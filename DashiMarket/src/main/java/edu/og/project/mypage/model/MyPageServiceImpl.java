@@ -219,6 +219,38 @@ public Map<String, Object> selectGoodsWithPagination(Map<String, Object> paramMa
 	    return mapper.confirmPurchase(paramMap);
 }
 
+	// 중고 거래 
+		@Override
+		public Map<String, Object> selectOrderWithPagination(Map<String, Object> paramMap) {
+		    int cp = (int) paramMap.get("cp");
+		    
+		    // 전체 게시글 수 조회
+		    int listCount = mapper.getOrderListCount(paramMap);
+		    
+		    // 페이지네이션 객체 생성
+		    Pagination pagination = new Pagination(cp, listCount);
+		    
+		    // RowBounds 사용 (동료 스타일)
+		    int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		    RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		    
+		    // 데이터 조회 (RowBounds 사용)
+		    List<Map<String, Object>> goodsList = mapper.selectOrderList(paramMap, rowBounds);
+		    
+		    // 조회 결과 return
+		    Map<String, Object> map = new HashMap<>();
+		    map.put("pagination", pagination);
+		    map.put("goodsList", goodsList);
+		    
+		    System.out.println("서비스임플 구매확정input" + map);
+		    
+		    return map;
+		}
+	
+	
+	
+	
+	
 	
 	// 나의 중고상품 위시리스트 목록 조회 (KJK)
 	@Override

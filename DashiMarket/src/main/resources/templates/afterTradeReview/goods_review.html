@@ -27,19 +27,29 @@
     </div>
 
     <div class="goods-detail-area-review">
+		
       <div class="goods-detail-img">
-        <img
-          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect fill='%23f0f0f0' width='100' height='100'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23999' font-size='14'%3E이미지%3C/text%3E%3C/svg%3E"
-          alt="상품 이미지">
+		  
+        <!-- <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect fill='%23f0f0f0' width='100' height='100'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23999' font-size='14'%3E이미지%3C/text%3E%3C/svg%3E" alt="상품 이미지"> -->
+        <img th:src="@{${reviewInfo.THUMBNAIL}}" alt="상품 이미지" style="width:200px; height:auto;">
+
+        
       </div>
       <div class="goods-detail-text">
-        <div class="goods-title">굿즈 상품명</div>
-        <div class="goods-meta">브랜드명(다시마켓)<br><br>판매 가격</div>
+        <div class="goods-title"><!-- 굿즈 상품명  -->
+			<h3 th:text="${reviewInfo.BOARD_TITLE}">판매글 제목</h3>
+		</div>
+        <div class="goods-meta"><!-- 브랜드명(다시마켓)<br><br>판매 가격 -->
+          <p>판매자: <span th:text="${reviewInfo.MEMBER_NICKNAME}"></span></p>
+          <p>가격: <span th:text="${#numbers.formatInteger(reviewInfo.GOODS_PRICE, 3, 'COMMA')}"></span>원</p>
+        
+        </div>
       </div>
+      
     </div>
 
     <div class="section">
-      <h3>구매자님,<br>디자인은 마음에 드셨나요?</h3>
+       <h3><!-- <span th:text="${reviewInfo.BUYERNICKNAME}"></span> 님,<br>-->디자인은 마음에 드셨나요?</h3>
       <div class="rating" id="rating1">
         <i class="rating__star1 far fa-star" data-rating="1"></i>
         <i class="rating__star1 far fa-star" data-rating="2"></i>
@@ -47,7 +57,6 @@
         <i class="rating__star1 far fa-star" data-rating="4"></i>
         <i class="rating__star1 far fa-star" data-rating="5"></i>
       </div>
-      <!--<input type="hidden" name="Q1" value="">-->
       <p class="selected-rating" id="selected-rating1"></p>
     </div>
     
