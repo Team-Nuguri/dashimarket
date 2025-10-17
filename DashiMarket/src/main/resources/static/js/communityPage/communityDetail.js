@@ -110,7 +110,7 @@ const likeBtn = document.getElementById("like-heart");
 
 likeBtn.addEventListener("click", e => {
     /* 로그인 하지 않은 회원인 경우 */
-    if(commLoginMemberNo == "") {
+    if(commLoginMemberNo == "" || commLoginMemberNo == null) {
         alert("로그인 후 이용해주세요.");
         return;
     }
@@ -514,7 +514,7 @@ document.getElementById('report-btn').addEventListener('click', () => {
 
     console.log(commLoginMemberNo);
 
-    if(commLoginMemberNo == null){
+    if(commLoginMemberNo == ""){
         alert("로그인 후 이용해주세요.");
         return;
     }
@@ -523,7 +523,7 @@ document.getElementById('report-btn').addEventListener('click', () => {
 
     const left = (window.screen.width-width)/2;
     window.open(
-        '/commnunity/report/'+boardNo,  // 팝업으로 띄울 HTML 경로
+        '/community/report/'+boardNo,  // 팝업으로 띄울 HTML 경로
         'reportPopup',   // 팝업 이름
         'width=500,height=600,resizable=yes,scrollbars=no, left='+left+",top=300"
     
