@@ -150,10 +150,10 @@ function renderOrderList(dataList) {
         imageDiv.style.flexShrink = '0';
         imageDiv.style.width = '120px';
 
-        if (item.productImagePath) {
+        if (item.PRODUCTIMAGEPATH) {
             imageDiv.innerHTML = `
-                <img src="${item.productImagePath}" 
-                    alt="${item.productName}" 
+                <img src="${item.PRODUCTIMAGEPATH}" 
+                    alt="${item.PRODUCTNAME}" 
                     style="width: 120px; height: 120px; object-fit: cover; border-radius: 8px; border: 1px solid #ddd;">
             `;
         } else {
@@ -181,14 +181,14 @@ function renderOrderList(dataList) {
         
         detailDiv.innerHTML = `
             <div style="display: flex; flex-direction: column;">
-                <div class="text-size-12 bold-text productName" style="margin-bottom: 5px; line-height: 1.4;">상품명: ${item.productName || '-'}</div>
-                <div class="text-size-12 bold-text productNo" style="margin-bottom: 5px; line-height: 1.4;">제품 번호: ${item.productNo || '-'}</div>
-                <div class="text-size-12 bold-text tradeDate" style="line-height: 1.4;">거래일시: ${formatDate(item.tradeDate)}</div>
+                <div class="text-size-12 bold-text productName" style="margin-bottom: 5px; line-height: 1.4;">상품명: ${item.PRODUCTNAME || '-'}</div>
+                <div class="text-size-12 bold-text productNo" style="margin-bottom: 5px; line-height: 1.4;">제품 번호: ${item.PRODUCTNO || '-'}</div>
+                <div class="text-size-12 bold-text tradeDate" style="line-height: 1.4;">거래일시: ${formatDate(item.TRADEDATE)}</div>
                 
                 <div class="text-size-12 bold-text buyerSeller" style="margin-top: 10px; line-height: 1.4;">
                     ${currentTradeType === 'buy' ? 
-                        `판매자 번호: ${item.sellerNo || '-'}` : 
-                        `구매자 번호: ${item.buyerNo || '-'}`
+                        `판매자 번호: ${item.SELLERNO || '-'}` : 
+                        `구매자 번호: ${item.BUYERNO || '-'}`
                     }
                 </div>
             </div>
