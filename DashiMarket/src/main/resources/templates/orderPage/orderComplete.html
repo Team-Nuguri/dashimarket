@@ -32,7 +32,7 @@
                     <h1>결제금액</h1>
                 </div>
                 <div class="order-item-row" th:each="item : ${orderCompleteList.orderItems}">
-                    <img th:src="@{/images/goods/tumbler.png}" alt="">
+                    <img th:src="${item.thumbnail}" alt="">
                     <span class="text-size-20 medium-text" th:text="${item.boardTitle}">주문 상품명</span>
                     <span class="text-size-20 medium-text" th:text="${item.quantity}">주문 수량</span>
                     <span class="text-size-20 medium-text" th:text="${#numbers.formatDecimal(item.goodsPrice * item.quantity, 0, 'COMMA', 0, 'POINT')} + '원'">상품 가격</span>

@@ -42,4 +42,8 @@ public interface OrderMapper {
 	// 주문 완료
 	OrderDto selectOrderCompleteList(String orderNo);
 
+	
+	// 장바구니에서 삭제
+	int deleteCartItem(Map<String, Object> paramMap);
+
 }
