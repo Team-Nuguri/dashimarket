@@ -1,4 +1,7 @@
-
+a {
+    text-decoration: none;
+    color: black;
+}
   .category_title{
     width: 600px;
     margin:0 auto;  /* 중앙정렬 */
