@@ -213,15 +213,13 @@
 //   });
 
 
-/* joonggoHome.js - 이 파일의 모든 내용을 아래 코드로 교체해주세요! */
 
-// 페이지가 완전히 로드되면, 아래 코드를 실행합니다.
 document.addEventListener("DOMContentLoaded", () => {
 
-    // --- 1. 정렬 텍스트가 현재 상태를 반영하도록 업데이트 ---
+    // 정렬 텍스트가 현재 상태를 반영하도록 업데이트
     const sortTextDiv = document.getElementById('sort-text');
     if (sortTextDiv) { // sort-text 요소가 있는지 먼저 확인
-        const path = window.location.pathname; // 현재 URL 경로 가져오기 (예: /joonggo/lowPrice)
+        const path = window.location.pathname; 
 
         if (path.includes('/lowPrice')) {
             sortTextDiv.textContent = '낮은 가격순';
@@ -236,17 +234,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    // --- 2. (보너스 기능!) 현재 선택된 정렬 메뉴 글씨 두껍게 만들기 ---
+    // 현재 선택된 정렬 메뉴 글씨 두껍게 만들기
     const sortLinks = document.querySelectorAll("#select-sort-box a");
     if (sortLinks.length > 0) { // 정렬 링크가 있는지 확인
         const currentPath = window.location.pathname;
 
         sortLinks.forEach(link => {
-            // a 태그의 href 속성값을 가져옵니다 (예: /joonggo/lowPrice?categoryId=J100)
-            // '?' 앞의 순수 경로만 비교하기 위해 split을 사용합니다.
             const linkPath = link.getAttribute('href').split('?')[0];
 
-            // 현재 URL 경로가 링크의 경로와 일치하면, 글씨를 두껍게 만듭니다!
+            // 현재 URL 경로가 링크의 경로와 일치하면 글씨 두껍게
             if (currentPath === linkPath) {
                 const innerDiv = link.querySelector('div');
                 if (innerDiv) {
@@ -257,3 +253,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 });
+
+/* 맵 팝업 띄우기 */
+const selectDong = document.getElementById("show-city-name");
+selectDong.addEventListener("click", () => {
+    const url = "/openMap"; // 팝업 띄울 url(요청주소): 스프링 부트니까 컨트롤러로 요청해서 컨트롤러가 찾아줘야 함!
+    const name = "동네 찾기"; // 팝업창 이름
+    
+    // 팝업 옵션 - location: 팝업창의 URL 입력란(주소창) Visible 여부 (없음으로 함)
+    const option = "width = 450, height = 450, top = 100, left = 200, location = no" 
+
+    // 팝업창 오픈
+    window.open(url, name, option);
+})
