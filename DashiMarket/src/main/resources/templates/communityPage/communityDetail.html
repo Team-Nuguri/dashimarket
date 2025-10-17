@@ -18,7 +18,7 @@
 
         <div id="post-category-header">
             <div class="text-size-24 bold-text" th:text="${board.categoryName}">카테고리명</div>
-            <div><a href="#" class="text-size-16 medium-text" id="go-list">목록</a></div>
+            <div><a href="#" class="text-size-16 medium-text" id="go-list">목록으로</a></div>
         </div>
 
         <div class="row1">
@@ -239,7 +239,7 @@
         let commLoginMemberNo = /*[[${session.loginMember?.memberNo}]]*/ "로그인한 회원 번호";
         let commMemberNickname = /*[[${session.loginMember?.memberNickname}]]*/ "로그인한 회원 닉네임";
         
-        if(commLoginMemberNo == null) loginMemberNo = ""; // 빈칸 처리
+        if(commLoginMemberNo == null) commLoginMemberNo = ""; // 빈칸 처리
 
         const boardNo = /*[[${board.communityNo}]]*/ "게시글 번호";
         const boardTitle = /*[[${board.communityTitle}]]*/ "게시글 제목";
