@@ -19,5 +19,6 @@ public class Trade {
 	private String tradeDate;
 	private String reviewFl;
 	private String boardNo; // 중고 상품 번호
+	private int chattingNo; // 채팅방 번호
 
 }

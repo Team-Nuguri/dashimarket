@@ -1,4 +1,10 @@
 /* 헤더 */
+
+a {
+  color: black !important;
+  text-decoration: none !important;
+}
+
 header{
     width: 100%;
     height: 250px;

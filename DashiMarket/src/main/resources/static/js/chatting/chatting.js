@@ -113,24 +113,26 @@ const closeBtn = document.getElementById("closeBtn")
 
 closeBtn?.addEventListener("click", ()=>{
     chattingPopup.classList.toggle("show")
+    location.reload();
 })
 
 // 중고 상세페이지에서 채팅하기 버튼 클릭시 채팅방 입장
 const jChatBtn = document.getElementById("chatting-btn");
-// const tradeComplete = document.getElementById("trade-complete");
+const tradeComplete = document.getElementById("trade-complete");
 
 jChatBtn?.addEventListener("click", (e)=>{
     const productNo = e.currentTarget.getAttribute("data-item");
     const sellerNo = e.currentTarget.getAttribute("data-seller");
     const buyerNo = loginMemberNo;
     
-    joonggoChatEnter(productNo, sellerNo, buyerNo); 
     
-    // if(tradeComplete){
-    //     alert("이미 거래가 완료된 상품입니다.");
-    //     return;
-    // }
-
+    if(tradeComplete){
+        alert("이미 거래가 완료된 상품입니다.");
+        return;
+        
+    }else{
+        joonggoChatEnter(productNo, sellerNo, buyerNo); 
+    }
 })
 
 
@@ -143,8 +145,11 @@ function joonggoChatEnter(productNo, sellerNo, buyerNo) {
     }
     console.log(data)
 
-    if(sellerNo == buyerNo) return;
-    
+    if(sellerNo == buyerNo) {
+        alert("판매자와 구매자가 같습니다.");
+        return;
+    }
+
     fetch("/chatting/enter", {
         method : "POST",
         headers : {"Content-Type" : "application/json"},
@@ -165,7 +170,6 @@ function joonggoChatEnter(productNo, sellerNo, buyerNo) {
             
             // 팝업 열기
             chattingPopup.classList.add("show"); 
-            // showSellerButtons(loginMemberNo, currentSellerNo)
             
             // 채팅방 목록 조회
             selectRoomList(); 
@@ -251,11 +255,6 @@ function chattingEnter(e) {
     .then(resp => resp.text())
     .then(chattingNo => {
 
-        console.log(targetNo)
-        console.log(chattingNo)
-        console.log(location.href)
-
-
         // 채팅방 목록 조회 - 새롭게 비동기로 화면 만듬
         selectRoomList();
 
@@ -283,11 +282,10 @@ function chattingEnter(e) {
 
 // 비동기로 채팅방 목록 조회
 function selectRoomList(){
-    console.log("📡 selectRoomList() 호출됨");
     fetch("/chatting/roomList")
     .then(resp => resp.json())
     .then(roomList => {
-        console.log("📦 서버에서 받은 roomList:", roomList);
+        // console.log("📦 서버에서 받은 roomList:", roomList);
 
         const chattingList = document.querySelector(".chatting-list")
         chattingList.innerHTML = "";
@@ -310,6 +308,7 @@ function selectRoomList(){
                 li.classList.add("select");
                 selectTargetName = room.targetNickname;
                 selectTargetProfile = room.targetProfile || 'images/common/user.png';
+                selectProductNo = room.productNo;
             }
 
             // item-header 부분
@@ -481,34 +480,6 @@ function selectMessage() {
                 msgLi.append(img, div)
             }
 
-            // if (msg.type === "image") {
-            //     // 이미지 메시지
-            //     const imgTag = document.createElement("img");
-            //     imgTag.src = msg.url;
-            //     imgTag.classList.add("chat-image");
-
-            //     if (msg.senderNo == loginMemberNo) {
-            //         msgLi.classList.add("my-chat");
-            //         msgLi.appendChild(imgTag);
-
-            //     } else {
-            //         msgLi.classList.add("target-chat");
-
-            //         // 상대 프로필
-            //         const profileImg = document.createElement("img");
-            //         profileImg.src = selectTargetProfile;
-
-            //         const div = document.createElement("div");
-                    
-            //         // 상대 이름
-            //         const name = document.createElement("b");
-            //         name.innerText = selectTargetName;
-
-            //         div.append(name, imgTag);
-            //         msgLi.append(profileImg, div);
-            //     }
-            // }
-
             ul.append(msgLi)
             ul.scrollTop = ul.scrollHeight
         }
@@ -520,11 +491,11 @@ function selectMessage() {
 function showSellerButtons(loginMemberNo, currentSellerNo) {
     console.log(loginMemberNo)
     console.log(currentSellerNo)
-    console.log(sellerNo)
 
     if (loginMemberNo === currentSellerNo) {
         reserve.style.display = "inline-block";
         complete.style.display = "inline-block";
+
     } else {
         reserve.style.display = "none";
         complete.style.display = "none";
@@ -533,7 +504,7 @@ function showSellerButtons(loginMemberNo, currentSellerNo) {
 
 
 // 예약, 거래완료 버튼 클릭시 이벤트
-const reserve = document.getElementById("reserve")
+const reserve = document.getElementById("reserve")      
 const complete = document.getElementById("complete")
 const imgSet = document.querySelectorAll(".img-set")
 
@@ -551,7 +522,7 @@ reserve?.addEventListener("click", () => {
         }
     } else {
         // 이미 예약된 상태일 때 → 취소 confirm
-        if (confirm("예약을 취소하시겠습니까?")) {
+        if (confirm("예약을 취소하시겠습니까?")) {        
             reserve.classList.remove("color-text");
             imgSet[0].setAttribute("src", "/images/svg/예약.svg");
             alert("예약이 취소되었습니다.");
@@ -559,9 +530,31 @@ reserve?.addEventListener("click", () => {
     }
 });
 
+
+// 거래완료
+complete?.addEventListener("click", ()=>{
+
+    const isComplete = complete.classList.add("color-text");
+
+    if(isComplete, confirm("거래를 완료 하시겠습니까?")){
+        imgSet[1].setAttribute("src", "/images/svg/거래완료-color.svg")
+        alert("거래완료 되었습니다.")
+
+        insertComplete();
+
+        // 버튼 비활성화
+        complete.disabled = true;
+
+    }else{
+        complete.classList.remove("color-text");
+    }
+})
+
+
+
 // 예약, 거래완료 상태 변경 함수
 function updateProductStatus(status) {
-    const productNo = document.getElementById("productNo").value;
+    const productNo = selectProductNo;
 
     fetch("/product/updateStatus", {
         method: "POST",
@@ -577,22 +570,43 @@ function updateProductStatus(status) {
     .catch(err => console.log(err));
 }
 
+// 거래완료 함수
+function insertComplete(){  
 
-// 거래완료
-complete?.addEventListener("click", ()=>{
+    // 전달할 데이터 (boardNo, chattingNo)
+    const data = {
+        boardNo : selectProductNo,
+        chattingNo : selectChattingNo
+    };
 
-    const isComplete = complete.classList.add("color-text");
+    console.log(data)
 
-        if(isComplete, confirm("거래를 완료 하시겠습니까?")){
-            imgSet[1].setAttribute("src", "/images/svg/거래완료-color.svg")
-            alert("거래완료 되었습니다.")
-    
-            // 버튼 비활성화
-            complete.disabled = true;
-        }else{
+    // 비동기 요청
+    fetch("/trade/complete", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    })
+    .then(resp => resp.text())
+    .then(result => {
+        
+        if (result == 1) {
+            console.log("거래 완료 처리됨");
+            updateProductStatus("거래완료"); // 상태 변경 함수 호출 (선택)
+
+        } else {
+            alert("거래 완료 처리 중 오류가 발생했습니다.");
+            complete.disabled = false;
             complete.classList.remove("color-text");
         }
-})
+    })
+    .catch(err => {
+        console.error(err);
+        alert("서버 통신 중 오류가 발생했습니다.");
+        complete.disabled = false;
+    });
+
+}
 
 // 케밥메뉴 클릭시 신고후 나가기, 나가기 보여주기
 const exit = document.getElementById("exit")
@@ -658,14 +672,15 @@ reportExit?.addEventListener("click", () => {
         };
 
         const width = 500;
+        const height = 600;
 
         const left = (window.screen.width-width)/2;
-        window.open(
-            '/chatting/report/'+ selectChattingNo,  // 팝업으로 띄울 HTML 경로
-            'reportPopup',   // 팝업 이름
-            'width=500,height=600,resizable=yes,scrollbars=no, left='+left+",top=300"
-        
-    );
+        const top = (window.screen.width-height)/2;
+
+        const popupUrl = '/chatting/report/' + selectChattingNo;
+        const popupName = "reportPopup";
+        const popupFeatures = "width=500,height=600,scrollbars=no,resizable=yes" + left + top;
+        window.open(popupUrl, popupName, popupFeatures);
 
     } else {
         alert("취소되었습니다.");
@@ -734,43 +749,6 @@ if(loginMemberNo != ""){
         console.error("WebSocket 에러:", e);
     };
 }
-
-// // 이미지 전송 처리
-// const imageInput = document.getElementById("imageInput");
-
-// imageInput.addEventListener("change", e => {
-//     const file = e.target.files[0];
-//     if (!file) return;
-
-//     if (!chattingSock || chattingSock.readyState !== SockJS.OPEN) {
-//         alert("채팅 서버와 연결되지 않았습니다.");
-//         return;
-//     }
-
-//     sendImage(file);
-
-//     // 이미지 전송 후 알림 보내기
-//     const url = `${location.pathname}?chat-no=${selectChattingNo}`;
-//     const content = `${memberNickname}님에게 이미지가 전송되었습니다.`;
-//     sendNotification("chatting", url, selectTargetNo, content);
-    
-//     imageInput.value = ""; 
-// });
-
-// // 이미지 파일 전송 함수
-// function sendImage(file) {
-//     const reader = new FileReader();
-
-//     reader.onload = function(e) {
-//         const arrayBuffer = e.target.result;
-
-//         // SockJS에서는 바이너리 전송을 위해 Blob으로 감싸야 함
-//         chattingSock.send(arrayBuffer);
-//         console.log("이미지 전송 완료:", file.name);
-//     };
-
-//     reader.readAsArrayBuffer(file);
-// }
 
 // 채팅 입력시
 const send = document.getElementById("send");
