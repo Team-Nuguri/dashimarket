@@ -84,7 +84,7 @@
 		JOIN MEMBER USING(MEMBER_NO)
 		WHERE BOARD_TYPE = #{boardType}
 		AND DELETE_FL = 'N'
-		AND JIBUN_ADDRESS = #{finalDong}
+		AND JIBUN_ADDRESS LIKE '%${finalDong}%'
 		
 		<if test="category != null and category != ''">
 			AND CATEGORY_ID = #{category}
