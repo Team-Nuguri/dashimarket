@@ -167,7 +167,7 @@ function renderGoodsList(dataList) {
 
         buttonGroup.style.marginLeft = '0px';
 
-        buttonGroup.innerHTML = `
+      /*  buttonGroup.innerHTML = `
             <button 
                 class="myPage-orderPostWrite text-size-12 bold-text" 
                 id="review-btn-${item.ORDERITEMNO}" 
@@ -187,6 +187,35 @@ function renderGoodsList(dataList) {
                     구매확정
                 </button>
                 <button 
+                    class="myPage-orderDelivery text-size-12 bold-text" 
+                    onclick="checkDelivery('${item.ORDERNO}', '${item.trackingNumber || ''}')"
+                    style="white-space: nowrap;"
+                >
+                    배송조회
+                </button>
+            </div>
+        `;*/
+        
+          buttonGroup.innerHTML = `
+            <button 
+                class="myPage-orderPostWrite text-size-12 bold-text" 
+                id="review-btn-${item.ORDERITEMNO}" data-boardNo="${item.ORDERITEMNO}" data-memberNo="${item.MEMBERNO}" 
+                onclick="openPopupGoods()"
+                ${item.구매상태 === '구매확정' ? '' : 'disabled'}
+                style="white-space: nowrap; ${item.구매상태 === '구매확정' ? '' : 'opacity: 0.5; cursor: not-allowed;'}"
+            >
+                거래 후기 작성
+            </button>
+            <div style="display: flex; gap: 10px;">
+                <button 
+                    class="myPage-orderConfirm text-size-12 bold-text" 
+                    id="confirm-btn-${item.ORDERITEMNO || 0}"
+                    onclick="confirmPurchase('${item.ORDERITEMNO}', '${item.ORDERNO}')"
+                    style="white-space: nowrap;"
+                >
+                    구매확정
+                </button>
+               <button 
                     class="myPage-orderDelivery text-size-12 bold-text" 
                     onclick="checkDelivery('${item.ORDERNO}', '${item.trackingNumber || ''}')"
                     style="white-space: nowrap;"
@@ -303,13 +332,7 @@ function formatDate(dateStr) {
     }
 }
 
-/**
- * 거래 후기 작성
- */
-function writeReview(orderItemNo, orderNo) {
-    console.log('거래 후기 작성:', orderItemNo, orderNo);
-    alert('거래 후기 작성 기능은 준비중입니다.');
-}
+
 
 /**
  * 구매 확정
@@ -349,10 +372,79 @@ function confirmPurchase(orderItemNo, orderNo) {
  * 배송 조회
  */
 function checkDelivery(orderNo, trackingNumber) {
-    console.log('배송 조회:', orderNo, trackingNumber);
+  /*  console.log('배송 조회:', orderNo, trackingNumber);
     if (!trackingNumber) {
         alert('운송장 번호가 없습니다.');
         return;
     }
-    alert('배송 조회 기능은 준비중입니다.'); 
+    alert('배송 조회 기능은 준비중입니다.'); */
+    
+    // 1. 폼 생성
+    const form = document.createElement('form');
+    form.id = 'trackingForm';
+    form.action = 'https://info.sweettracker.co.kr/tracking/5';
+    form.method = 'post';
+    form.target = 'trackingPopup';
+
+    // 2. hidden input 생성
+    const tKey = document.createElement('input');
+    tKey.type = 'hidden';
+    tKey.name = 't_key';
+    tKey.value = 'C7q8JuWj5ZyZAJ57LgiFdg';
+    tKey.title = '제공받은 APIKEY(고정)';
+    form.appendChild(tKey);
+
+    const tCode = document.createElement('input');
+    tCode.type = 'hidden';
+    tCode.name = 't_code';
+    tCode.value = '08';
+    tCode.title = '택배사 코드(롯데택배)(고정)';
+    form.appendChild(tCode);
+
+    const tInvoice = document.createElement('input');
+    tInvoice.type = 'hidden';
+    tInvoice.name = 't_invoice';
+    tInvoice.value = '256895587454';
+    tInvoice.title = '운송장 번호(회원따라 변동,추후 DB자료를 가져와야함)';
+    form.appendChild(tInvoice);
+    
+    // 3. form을 body에 추가
+    document.body.appendChild(form);
+    
+     // 4. 팝업 창 열기
+    window.open("", "trackingPopup", "width=800,height=800,resizable=yes,scrollbars=yes");
+
+    // 5. 폼 제출 (target="trackingPopup" 덕분에 팝업에서 열림)
+    // document.getElementById("trackingForm").submit();
+    form.submit();
+    
+    // 6. 폼 제거
+    document.body.removeChild(form);
+    
+}
+
+
+/**
+ *  굿즈 거래 후기 작성
+ */
+/*function writeReview(orderItemNo, orderNo) {
+    console.log('거래 후기 작성:', orderItemNo, orderNo);
+    alert('거래 후기 작성 기능은 준비중입니다.');
+}*/
+
+// 굿즈 거래후기 팝업	
+function openPopupGoods(btn) {
+		
+    const boardNo = btn.getAttribute('data-boardNo');     // 게시글 번호
+    const memberNo = btn.getAttribute('data-memberNo');   // 회원번호 (구매자)
+
+    // 팝업 URL에 파라미터 전달 (GET 방식)
+    const url = `/review/goods?boardNo=${boardNo}&memberNo=${memberNo}`;
+    
+    // 팝업 열기 (옵션: 크기, 위치, 스크롤 등)
+    window.open(
+        url,
+        'reviewPopup', 
+        'width=700,height=700,top=200,left=500,scrollbars=yes,resizable=no'
+    );
 }

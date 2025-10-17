@@ -6,7 +6,7 @@
     margin: 0;
 }
 
-.myPage-a a {
+a {
     text-decoration: none;
     color: black;
 }
@@ -66,6 +66,7 @@ ul, li {
     padding: 30px;
     box-sizing: border-box;
 }
+
 
 /*----------------------------*/
 /* 프로필 관리 */

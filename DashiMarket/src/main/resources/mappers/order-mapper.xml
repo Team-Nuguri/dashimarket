@@ -192,6 +192,13 @@
 		
 	</insert>
 	
+	<delete id="deleteCartItem">
+		DELETE FROM SHOPPING_CART
+		WHERE BOARD_NO IN (SELECT ORDER_ITEM_NO FROM ORDER_ITEM
+							WHERE ORDER_NO = ${orderNo})
+		
+	</delete>
+	
 	
 	
 </mapper>

@@ -1,0 +1,51 @@
+  <section class="left-side">
+
+    <nav>
+
+    <div class="left-title text-size-28 bold-text">마이페이지</div>
+
+
+    <ul class="left-menu">
+        <li class="text-size-18 bold-text">
+            <img th:src="@{/images/myPage/order.svg}" alt="주문내역/구매내역" width="40px" height="40px" class="side-icon">
+            <span class="menu-text">주문내역/구매내역</span>
+
+            <ul>
+                    
+                    <li class="myPage-a"><a th:href="@{/myPage/order}">중고거래</a></li>
+                
+                    <li class="myPage-a"><a th:href="@{/myPage/goods}">굿즈</a></li>                                  
+                
+            </ul>        
+        </li>
+    </ul>
+
+    <ul class="left-menu">
+        <li class="text-size-18 bold-text">
+            <img th:src="@{/images/myPage/product.svg}" alt="상품관리"  width="40px" height="40px" class="side-icon">
+            <span class="menu-text">상품 관리</span>
+            <ul class="left-submenu">
+                
+                <li><a th:href="@{/myPage/wishlist}">내가 찜한 상품</a></li>
+            
+            </ul>
+        </li>
+    </ul>
+
+    <ul class="left-menu">
+        <li class="text-size-18 bold-text">
+            <img th:src="@{/images/myPage/myPage.svg}" alt="내 정보 관리" width="40px" height="40px" class="side-icon">
+            <span class="menu-text">내 정보 관리</span>   
+            <ul class="left-submenu">
+                
+                
+                    <li class="myPage-a"><a th:href="@{/myPage/profile}">프로필 관리</a></li>
+                
+                    <li class="myPage-a"><a th:href="@{/myPage/secession}">회원 탈퇴</a></li>
+                       
+            </ul>
+        </li>   
+    </ul>
+    </nav>
+    
+  </section>

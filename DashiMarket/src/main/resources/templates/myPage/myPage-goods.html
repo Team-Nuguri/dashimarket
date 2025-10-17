@@ -22,59 +22,9 @@
 
 <section class="myPage-content">
 
-  <section class="left-side">
+    <th:block th:replace="~{common/myPageSideBar}"></th:block>
 
-    <nav>
-
-    <div class="left-title text-size-28 bold-text">마이페이지</div>
-
-
-    <ul class="left-menu">
-        <li class="text-size-18 bold-text">
-            <img th:src="@{/images/myPage/shopping.png}" alt="주문내역/구매내역" width="40px" height="40px">
-            주문내역/구매내역
-
-            <ul>
-                    
-                    <li class="myPage-a"><a th:href="@{/myPage/order}">중고거래</a></li>
-                
-                    <li class="myPage-a"><a th:href="@{/myPage/goods}">굿즈</a></li>                                  
-                
-            </ul>        
-        </li>
-    </ul>
-
-    <ul class="left-menu">
-        <li class="text-size-18 bold-text">
-            <img th:src="@{/images/myPage/product.png}" alt="상품관리"  width="40px" height="40px">
-            상품관리
-            <ul class="left-submenu">
-                
-                <li><a th:href="@{/myPage/wishlist}">내가 찜한 상품</a></li>
-            
-            </ul>
-        </li>
-    </ul>
-
-    <ul class="left-menu">
-        <li class="text-size-18 bold-text">
-            <img th:src="@{/images/myPage/myinfo.png}" alt="내 정보 관리" width="40px" height="40px">
-            내 정보 관리       
-            <ul class="left-submenu">
-                
-                
-                    <li class="myPage-a"><a th:href="@{/myPage/profile}">프로필 관리</a></li>
-                
-                    <li class="myPage-a"><a th:href="@{/myPage/secession}">회원 탈퇴</a></li>
-                       
-            </ul>
-        </li>   
-    </ul>
-    </nav>
-    
-  </section>
-
-  <!-- 주문 내역 / 거래 내역 -->
+    <!-- 주문 내역 / 거래 내역 -->
 
     <main>
         <section class="myPage-order">
@@ -83,7 +33,7 @@
 
             <fieldset class="myPage-orderSearch">
                 <legend class="text-size-20 bold-text">검색</legend>
-                <input type="text">
+                <input type="text" placeholder="상품명을 입력하세요">
             </fieldset>
 
             <div class="divider"></div>     

@@ -239,6 +239,7 @@ document.getElementById("purchaseBtn")?.addEventListener("click", e => {
 
     if (document.getElementById("realTotalPrice").value == 0) {
         alert("구매하실 상품을 선택해주세요.");
+        e.preventDefault();
         return;
     }
 

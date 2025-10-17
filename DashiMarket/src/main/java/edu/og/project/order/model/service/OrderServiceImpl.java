@@ -95,6 +95,10 @@ public class OrderServiceImpl implements OrderService {
 			return result;
 		}
 		
+		// 장바구니 해당 상품 삭제
+		int cartResult = mapper.deleteCartItem(paramMap);
+		
+		
 		result = mapper.insertPayment(paramMap);
 		
 		
