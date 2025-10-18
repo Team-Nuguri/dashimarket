@@ -29,9 +29,9 @@ public class OrderServiceImpl implements OrderService {
 		
 		int result =  mapper.insertOrder(paramMap);
 		
-		long orderNo = (long) paramMap.get("orderNo");
 		
 		if(result != 0) {
+			long orderNo = (long) paramMap.get("orderNo");
 			// 주문 상품 삽입
 			paramMap.put("orderNo", orderNo);
 			
@@ -61,8 +61,10 @@ public class OrderServiceImpl implements OrderService {
 			}
 			
 			map.put("orderNo", orderNo);
+			
 		} else {
-			throw new RuntimeException("주문 번호 생성에 실패");
+			map.put("orderNo", 0);
+			return map;
 		}
 		
 		

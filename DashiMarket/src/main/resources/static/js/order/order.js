@@ -205,8 +205,10 @@ document.getElementById("purchaseBtn").addEventListener("click", e => {
         .then(result => {
 
             console.log(result.channelKey);
-            if (result != null) {
+            if (result.orderNo != 0) {
                 requestPayment(result.channelKey, String(result.orderNo), result.storeId, result.totalPrice, recipientName, recipientTel, orderName);
+            }else{
+                alert("서버 문제로 인한 에러발생");
             }
 
             console.log(result);

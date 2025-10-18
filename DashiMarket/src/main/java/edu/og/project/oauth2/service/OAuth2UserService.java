@@ -27,7 +27,7 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class OAuth2UserService extends DefaultOAuth2UserService {
-									// Access Token 발급, 사용자 정보요청 , OAuth2User 생성
+									// Access Token으로 사용자 정보를 가져오는
 	private final MemberRepository userRepository;
 	private final SocialLoginRepository socialLoginRepository;
 	
@@ -142,9 +142,6 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
 					.jibunAddress("서울 종로구 관철동 45-1") // 기본값
 					.build();
 			userRepository.save(user); 
-			// save() 상황에 따라 INSERT 또는 UPDATE를 자동으로 결정
-			// 새 엔티티 INSERT
-			// 유저 번호는 시퀀스 번호로 자동 insert
 
 
 			SocialLogin newSocialLogin = SocialLogin.builder()
@@ -157,9 +154,9 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
 			System.out.println("회원가입 성공");
 		}
 
-		System.out.println(oauthType);
-		System.out.println(oauthId);
-		System.out.println(user);
+		//System.out.println(oauthType);
+		//System.out.println(oauthId);
+		//System.out.println(user);
 		
 		
 		Member loginMember = convertUserToMember(user);
