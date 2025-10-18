@@ -41,9 +41,9 @@
                             <fieldset>
                                 <button type="submit" class="searchBtn fa-solid fa-magnifying-glass"></button>
                                 <input type="text" name="keyword" id="search-query" 
-                                       th:value="${param.keyword}"
-                                       placeholder="상품명을 입력하세요." 
-                                       autocomplete="off">
+                                    th:value="${param.keyword}"
+                                    placeholder="상품명을 입력하세요." 
+                                    autocomplete="off">
                             </fieldset>
                         </div>
 
@@ -102,8 +102,6 @@
                         <option value="latest" th:selected="${param.sort != null and param.sort == 'latest'}">최신순</option>
                         <option value="price" th:selected="${param.sort != null and param.sort == 'price'}">가격순</option>
                     </select>
-
-
 
                 </div>
 

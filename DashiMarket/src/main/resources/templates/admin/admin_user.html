@@ -28,7 +28,7 @@
                 <div id="admin-user">
                     <h1 class="admin-title">회원 조회</h1>
                     <div class="admin-login">
-                        <img th:src="@{/images/admin/user.png}">
+                        <img th:src="@{/images/common/user.png}">
                         <p>관리자 계정</p>
                         <button id="logout">로그아웃</button>
                     </div>
@@ -42,9 +42,9 @@
                             <fieldset>
                                 <button type="submit" class="searchBtn fa-solid fa-magnifying-glass"></button>
                                 <input type="text" name="keyword" id="search-query" 
-                                       th:value="${param.keyword}" 
-                                       placeholder="회원ID/닉네임을 입력하세요." 
-                                       autocomplete="off">
+                                    th:value="${param.keyword}" 
+                                    placeholder="회원ID/닉네임을 입력하세요." 
+                                    autocomplete="off">
                             </fieldset>
                         </div>
     
@@ -122,6 +122,11 @@
                             <td th:text="${member.enrollDate}">2025-01-01</td>
                             <td th:text="${member.boardCount}">0</td>
                             <td th:text="${member.commentCount}">0</td>
+                        </tr>
+
+                        <!-- 회원이 없을 경우 -->
+                        <tr th:if="${#lists.isEmpty(memberList)}">
+                            <td colspan="10">회원이 없습니다.</td>
                         </tr>
                     </tbody>
                 </table>
