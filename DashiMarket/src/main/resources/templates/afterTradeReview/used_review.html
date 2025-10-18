@@ -13,7 +13,19 @@
 </head>
 
 <body>
-
+	
+	 <!-- reviewInfo가 없을 때 -->
+  <div th:unless="${reviewInfo != null}" style="text-align:center; margin-top:100px;">
+    
+    <h2>해당 후기가 없습니다. </h2>
+    <p></p>
+ 
+  </div>
+	
+	
+  <!-- reviewInfo가 있을 때 -->
+  <div th:if="${reviewInfo != null}">
+	
   <main>
 	  
 	  <form id="uploadForm" method="post" th:action="@{/review/write}" enctype="multipart/form-data">
@@ -127,6 +139,8 @@
 
 
   <script th:src="@{/js/afterTradeReview/used_review.js}"></script>
+  
+  </div>
   
 </body>
 
