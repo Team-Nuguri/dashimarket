@@ -65,9 +65,9 @@ a {
 }
 
 /* 드롭다운 메뉴 */
-.show {
+/* .show {
     display: block !important;
-}
+} */
 
 #select-sort-box {
     display: none;
