@@ -217,7 +217,7 @@ function renderOrderList(dataList) {
               reviewButtonHTML = `
                 <button
                     class="myPage-orderPostWrite text-size-12 bold-text" id="review-btn-${item.productNo}" 
-                    data-boardNo="${item.productNo}" data-memberNo="${item.buyerNo}" 
+                    data-boardNo="${item.PRODUCTNO}" data-memberNo="${item.BUYERNO}" 
                     onclick="openPopupJoonggo(this)" style="white-space: nowrap; cursor: pointer;"
                 >
                     거래 후기 작성

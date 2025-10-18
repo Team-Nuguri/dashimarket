@@ -47,19 +47,17 @@ public class SecurityConfig {
 						// 예시: 마이페이지, 프로필 수정 등은 로그인 필요
 						.requestMatchers("/member/myPage").authenticated()
 
-						// 이 규칙이 모든 공개 페이지(루트, 로그인, 게시판 등)를 처리합니다.
 						.anyRequest().permitAll())
 
-				// 2. OAuth2 소셜 로그인 기능 활성화
+				// OAuth2 소셜 로그인 기능 활성화
 				.oauth2Login(oauth2 -> oauth2
 						// 커스텀 로그인 페이지
 						.loginPage("/member/login")
 						// 로그인 성공이 완료되면 홈으로 이동
 						.defaultSuccessUrl("/") 
-						// 카카오 로그인 후 넘어온 사용자 정보 처리
 						// 인가코드 요청 / 수신
 						// 엑세스 토큰 획득
-						// 사용자 정보 조회까지
+						// 카카오 로그인 후 넘어온 사용자 정보 처리
 						.userInfoEndpoint(userInfo -> userInfo.userService(oAuth2UserService))
 						// 로그인 성공 시 실행되는 로직 -> 회원 정보 세션에 올려서 로그인 처리
 						.successHandler(customOAuth2SuccessHandler)
