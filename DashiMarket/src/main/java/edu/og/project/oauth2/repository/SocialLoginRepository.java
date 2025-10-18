@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface SocialLoginRepository extends JpaRepository<SocialLogin, Long> {
 
     /**
-     * 소셜 서비스 제공자와 소셜 ID를 이용하여 연동 정보를 조회합니다.
+     * 소셜 서비스 제공자와 소셜 ID를 이용하여 연동 정보를 조회
      * @param provider 소셜 서비스 제공자 (예: KAKAO, GOOGLE)
      * @param socialId 소셜 서비스에서 발급된 고유 ID
      * @return Optional<SocialLogin>
