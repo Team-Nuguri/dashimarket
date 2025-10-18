@@ -674,7 +674,6 @@ reportExit?.addEventListener("click", () => {
         const width = 500;
 
         const left = (window.screen.width-width)/2;
-       
 
         const height = 600;
 
@@ -718,7 +717,7 @@ justExit?.addEventListener("click", () => {
                 console.log("✅ 나가기 성공! 채팅 목록 새로고침 시작");
                 selectRoomList();
 
-                // selectChattingNo = null;
+                selectChattingNo = null;
 
             } else {
                 alert("오류가 발생했습니다.");
