@@ -176,7 +176,6 @@ document.getElementById("like-heart").addEventListener("click", e=>{
     if(!document.getElementById("like-heart").classList.contains("fa-solid")){
         likeCheck = 0;
         console.log(likeCheck)
-        return;
     }
 
     // 좋아요 insert or delete
