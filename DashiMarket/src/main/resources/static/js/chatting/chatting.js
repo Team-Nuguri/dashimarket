@@ -65,6 +65,7 @@ function roomListAddEvent(){
             // 전역변수에 채팅방 번호, 상대 번호, 상대 프로필, 상대 이름 저장
             selectChattingNo = item.getAttribute("chat-no");
             selectTargetNo = item.getAttribute("target-no");
+            selectProductNo = item.getAttribute("product-no")
             selectTargetName = item.children[1].children[0].children[0].innerText;
             selectTargetProfile = item.children[0].children[0].getAttribute("src");
 
@@ -84,6 +85,11 @@ function roomListAddEvent(){
 
             // 비동기로 메세지 목록 조회
             selectMessage();
+
+            // 로그인 회원 번호와 해당 채팅방 판매자 번호 전달
+            const loginMemberNo = window.loginMemberNo; // 세션에서 가져온 로그인 회원번호
+            const sellerNo = currentSellerNo; 
+            showSellerButtons(loginMemberNo, sellerNo);
         })
     }
 }
@@ -125,7 +131,6 @@ jChatBtn?.addEventListener("click", (e)=>{
     const sellerNo = e.currentTarget.getAttribute("data-seller");
     const buyerNo = loginMemberNo;
     
-    
     if(tradeComplete){
         alert("이미 거래가 완료된 상품입니다.");
         return;
@@ -141,7 +146,7 @@ function joonggoChatEnter(productNo, sellerNo, buyerNo) {
     const data = {
         productNo : productNo,
         sellerNo : sellerNo,
-        buyerNo : buyerNo
+        buyerNo : buyerNo,
     }
     console.log(data)
 
@@ -155,24 +160,49 @@ function joonggoChatEnter(productNo, sellerNo, buyerNo) {
         headers : {"Content-Type" : "application/json"},
         body : JSON.stringify(data)
     })
-    .then(resp => resp.text())
-    .then(chattingNo => {
-        console.log("Joonggo chattingNo : " + chattingNo)
+    .then(resp => resp.json())
+    .then(data => {
+        console.log("중고 상품 채팅방 입장 : " + data)
 
-        const chatNo = Number(chattingNo); // String으로 올 수 있으므로 숫자로 변환
-        
+        const chatNo = Number(data.chattingNo); // String으로 올 수 있으므로 숫자로 변환
+        const productInfo = data.product;
+
+        if (productInfo) {
+            // DOM에 값 넣기
+            const productName = document.getElementById("productName");
+            productName.textContent = productInfo;
+        }
+
         if(chatNo > 0){
             
             // 전역 변수 업데이트: 새로 생성/입장한 채팅방 번호 저장
             selectChattingNo = chatNo; 
             selectProductNo = productNo;
             console.log("중고상품 번호 : " + selectProductNo)
-            
+
             // 팝업 열기
             chattingPopup.classList.add("show"); 
             
             // 채팅방 목록 조회
             selectRoomList(); 
+
+            setTimeout(()=>{
+                const itemList = document.getElementsByClassName("chatting-item")
+
+                for(let item of itemList){
+
+                    // 목록 채팅방이 존재O
+                    if(chatNo == item.getAttribute("chat-no")){
+
+                        targetSearch.value = "";
+                        resultArea.innerHTML = "";
+                        resultArea.classList.add("hidden");
+
+                        item.click();
+                        return;
+                    }
+                }
+            }, 200);
 
         } else {
              // 채팅방 생성/조회 실패 처리
@@ -238,54 +268,19 @@ targetSearch?.addEventListener("input", e => {
             resultArea.append(li);
 
             // 검색한 회원 클릭 시 채팅방 입장 + 검색 결과 숨기기
-            li.addEventListener("click", chattingEnter);
+            li.addEventListener("click", joonggoChatEnter);
         }   
     })
     .catch(err => console.log(err))
 
 })
 
-
-// 채팅방 입장 함수 - 검색
-function chattingEnter(e) {
-    const targetNo = e.currentTarget.getAttribute("data-id") 
-    console.log(e.currentTarget)
-    console.log("targetNo : " + targetNo)
-    fetch("/chatting/enter?targetNo=" + targetNo)
-    .then(resp => resp.text())
-    .then(chattingNo => {
-
-        // 채팅방 목록 조회 - 새롭게 비동기로 화면 만듬
-        selectRoomList();
-
-        setTimeout(()=>{
-            const itemList = document.getElementsByClassName("chatting-item")
-
-            for(let item of itemList){
-
-                // 목록 채팅방이 존재O
-                if(chattingNo == item.getAttribute("chat-no")){
-
-                    targetSearch.value = "";
-                    resultArea.innerHTML = "";
-                    resultArea.classList.add("hidden");
-
-                    item.click();
-                    return;
-                }
-            }
-        }, 200);
-
-    })
-    .catch(err => console.log(err))
-}
-
 // 비동기로 채팅방 목록 조회
 function selectRoomList(){
     fetch("/chatting/roomList")
     .then(resp => resp.json())
     .then(roomList => {
-        // console.log("📦 서버에서 받은 roomList:", roomList);
+        console.log("📦 서버에서 받은 roomList:", roomList);
 
         const chattingList = document.querySelector(".chatting-list")
         chattingList.innerHTML = "";
@@ -297,6 +292,7 @@ function selectRoomList(){
             li.classList.add("chatting-item");
             li.setAttribute("chat-no", room.chattingNo);
             li.setAttribute("target-no", room.targetNo);
+            li.setAttribute("product-no", room.productNo);
 
             // 중고 상품으로 채팅방 구분
             if(room.productNo != null && room.productNo > 0){
@@ -307,7 +303,7 @@ function selectRoomList(){
             if(room.chattingNo == selectChattingNo){
                 li.classList.add("select");
                 selectTargetName = room.targetNickname;
-                selectTargetProfile = room.targetProfile || 'images/common/user.png';
+                selectTargetProfile = room.targetProfile || '/images/common/user.png';
                 selectProductNo = room.productNo;
             }
 
@@ -318,7 +314,7 @@ function selectRoomList(){
             const listProfile = document.createElement("img")
 
             if(room.targetProfile == undefined){
-                listProfile.setAttribute("src", "images/common/user.png")
+                listProfile.setAttribute("src", "/images/common/user.png")
             }else{
                 listProfile.setAttribute("src", room.targetProfile)
             }
@@ -488,16 +484,14 @@ function selectMessage() {
 }
 
 // 판매자만 예약, 거래완료 버튼 보이게함
-function showSellerButtons(loginMemberNo, currentSellerNo) {
-    console.log(loginMemberNo)
-    console.log(currentSellerNo)
+function showSellerButtons(loginMemberNo, sellerNo) {
+    console.log("로그인 회원번호:" + loginMemberNo)
+    console.log("판매자 회원번호:" + sellerNo)
 
-    if (loginMemberNo === currentSellerNo) {
-        reserve.style.display = "inline-block";
+    if (loginMemberNo == sellerNo) {
         complete.style.display = "inline-block";
 
     } else {
-        reserve.style.display = "none";
         complete.style.display = "none";
     }
 }

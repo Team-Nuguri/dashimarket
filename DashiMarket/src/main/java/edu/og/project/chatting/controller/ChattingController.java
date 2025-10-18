@@ -21,6 +21,7 @@ import edu.og.project.chatting.model.dto.ChattingMessage;
 import edu.og.project.chatting.model.dto.ChattingRoom;
 import edu.og.project.chatting.model.service.ChattingService;
 import edu.og.project.common.dto.Member;
+import edu.og.project.joonggo.model.dto.Joonggo;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -41,17 +42,6 @@ public class ChattingController {
 		return "chatting/chatting";
 	}
 	
-	// 채팅 입장(없으면 생성)
-	@GetMapping("/chatting/enter")
-	@ResponseBody
-	public int chattingEnter(int targetNo, @SessionAttribute("loginMember") Member loginMember) {
-		
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("targetNo", targetNo);
-		map.put("loginMemberNo", loginMember.getMemberNo());
-		
-		return service.checkChattingNo(map);
-	}
 	
 	// 채팅방 목록 조회
 	@GetMapping(value="/chatting/roomList", produces="application/json; charset=UTF-8")
@@ -91,8 +81,22 @@ public class ChattingController {
 	// 중고상품으로 채팅하기
 	@PostMapping("/chatting/enter")
 	@ResponseBody
-    public int enterJoonggoChat(@RequestBody ChattingRoom chat) {
-        return service.enterJoonggoChat(chat);
+    public Map<String, Object> enterJoonggoChat(@RequestBody ChattingRoom chat) {
+		
+		
+		
+		Map<String, Object> map = new HashMap<>();
+		int chattingNo = service.enterJoonggoChat(chat);
+		map.put("chattingNo", chattingNo);
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("productNo", chat.getProductNo());
+		param.put("sellerNo", chat.getSellerNo());
+		
+		String productInfo = service.selectProductInfo(param);
+		map.put("product", productInfo);
+		
+        return map;
     }
 	
 	// 나가기 -> 채팅방 DeleteFlag 업데이트

@@ -7,16 +7,11 @@ import org.apache.ibatis.annotations.Mapper;
 
 import edu.og.project.chatting.model.dto.ChattingRoom;
 import edu.og.project.common.dto.Member;
+import edu.og.project.joonggo.model.dto.Joonggo;
 import edu.og.project.chatting.model.dto.ChattingMessage;
 
 @Mapper
 public interface ChattingMapper {
-
-	// 채팅방 입장
-	public int checkChattingNo(Map<String, Integer> map);
-
-	// 채팅방 생성
-	public int createChattingRoom(Map<String, Integer> map);
 
 	// 채팅방 목록 조회
 	public List<ChattingRoom> selectRoomList(int memberNo);
@@ -41,5 +36,8 @@ public interface ChattingMapper {
 
 	// 채팅방 그냥 나가기
 	public boolean exitChatRoom(Map<String, Object> map);
+
+	// 채팅방 중고 상품 정보
+	public String selectProductInfo(Map<String, Object> param);
 	
 }

@@ -5,16 +5,11 @@ import java.util.Map;
 
 import edu.og.project.chatting.model.dto.ChattingRoom;
 import edu.og.project.common.dto.Member;
+import edu.og.project.joonggo.model.dto.Joonggo;
 import edu.og.project.admin.model.dto.Report;
 import edu.og.project.chatting.model.dto.ChattingMessage;
 
 public interface ChattingService {
-
-	/** 채팅방 입장
-	 * @param map
-	 * @return chattingNo
-	 */
-	int checkChattingNo(Map<String, Integer> map);
 
 	
 	/** 채팅방 목록 조회
@@ -73,6 +68,14 @@ public interface ChattingService {
 	 * @return true/false
 	 */
 	boolean reportAndExit(Map<String, Integer> map);
+
+
+	/** 채팅방에 중고 상품 정보
+	 * @param string 
+	 * @param 
+	 * @return productInfo
+	 */
+	String selectProductInfo(Map<String, Object> param);
 
 
 
