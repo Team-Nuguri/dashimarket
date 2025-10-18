@@ -20,6 +20,18 @@ public interface AdminMapper {
 
 	// 총 회원 수
 	Integer selectTotalUsercount();
+	
+	// 오늘 신고된 수
+	Integer getTodayReportCount();
+	
+	// 배송전
+	Integer getBeforeDelivery();
+
+	// 배송중
+	Integer getInDelivery();
+
+	// 배송완료
+	Integer getDeliveryCompleted();
 
 	// 전체 회원 조회
 	List<Member> selectAllMembers();
@@ -43,17 +55,12 @@ public interface AdminMapper {
 	// 선택 상품 재입고
 	int restockGoods(Map<String, Object> params);
 
-
-
 	// 선택 상품 삭제
 	int deleteGoods(String boardNo);
 
 	// 선택 상품 품절 처리
 	int soldOutGoods(String boardNo);
 
-	
-	// 오늘 신고된 수
-	Integer getTodayReportCount();
 
 	// 신고
 	
@@ -89,7 +96,5 @@ public interface AdminMapper {
 	// 거래 목록 조회 (페이징 + 검색 + 필터)
 	List<OrderDto> selectOrderListPaging(Map<String, Object> paramMap, RowBounds rowBounds);
 
-
-	
 
 }

@@ -70,13 +70,5 @@ public interface ChattingService {
 	boolean reportAndExit(Map<String, Integer> map);
 
 
-	/** 채팅방에 중고 상품 정보
-	 * @param string 
-	 * @param 
-	 * @return productInfo
-	 */
-	String selectProductInfo(Map<String, Object> param);
-
-
 
 }

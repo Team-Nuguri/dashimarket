@@ -72,10 +72,6 @@
                     <div class="button-img-box">
 
                         <th:block th:if="${session.loginMember}">
-                            <!-- <button id="reserve" >
-                                <img th:src="@{/images/svg/예약.svg}" class="img-set">
-                                <p>예약</p>
-                            </button> -->
                             <button id="complete">
                                 <img th:src="@{/images/svg/거래완료.svg}" class="img-set">
                                 <p>거래완료</p>
@@ -89,7 +85,6 @@
     
                             <!-- 드롭다운 -->
                             <div id="chatDropdown" class="chat-dropdown hidden">
-                                <!-- <p id="report-exit">신고후 나가기</p> -->
                                 <p id="just-exit">나가기</p>
                             </div>
                         </div>
@@ -104,8 +99,6 @@
                 <ul class="display-chatting"></ul>
                 
                 <div class="content-send">
-                    <!-- <label for="imageInput" id="img-send"><img th:src="@{/images/svg/image-btn.svg}"></label>
-                    <input type="file" name="imgSend" id="imageInput" accept="image/*"> -->
                     <textarea id="inputChatting" rows="3"></textarea>
                     <button id="send"><img th:src="@{/images/svg/Send-Btn.svg}"></button>
                 </div>

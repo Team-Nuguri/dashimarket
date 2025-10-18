@@ -24,6 +24,22 @@ public interface AdminService {
 	 * @return result
 	 */
 	Integer getTodayReportCount();
+	
+	/** 배송전
+	 * @return
+	 */
+	Integer getBeforeDelivery();
+
+	/** 배송중
+	 * @return
+	 */
+	Integer getInDelivery();
+
+	/** 배송완료
+	 * @return
+	 */
+	Integer getDeliveryCompleted();
+	
 
 	/** 전체 회원 조회
 	 * @return List<Member>
@@ -137,5 +153,6 @@ public interface AdminService {
 	 */
 	Map<String, Object> selectOrderList(int cp, String keyword, String deliveryStatus, 
 	                                      String startDate, String endDate, String sort);
+
 
 }

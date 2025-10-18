@@ -1,7 +1,24 @@
 console.log("admin.js loaded...")
 
-// 사이드메뉴
-const move = document.querySelectorAll(".list-group a");
+// 사이드 메뉴 (색상 유지)
+document.addEventListener("DOMContentLoaded", () => {
+    const links = document.querySelectorAll(".list-group a");
+    const currentPath = window.location.pathname;
+
+    links.forEach(link => {
+        // 현재 주소와 일치하면 selected 추가
+        if (link.getAttribute("href") === currentPath) {
+            link.classList.add("selected");
+        }
+
+        // 클릭 시에도 다른 selected 제거하고 본인만 유지
+        link.addEventListener("click", () => {
+            links.forEach(l => l.classList.remove("selected"));
+            link.classList.add("selected");
+        });
+    });
+});
+
 
 // 로그아웃 버튼 이벤트 (모든 관리자 페이지 공통)
 const logoutBtn = document.getElementById("logout");
@@ -12,13 +29,6 @@ if (logoutBtn) {
         }
     });
 }
-
-move.forEach(link => {
-    link.addEventListener("click", (e) => {
-        move.forEach(i => i.classList.remove("selected"));
-        link.classList.add("selected");
-    });
-});
 
 // ========================================
 // ✅ 통합 신고 페이지 - 검색 기능
@@ -452,6 +462,45 @@ if (location.href.includes("/admin/goods")) {
 // ========================================
 if (location.href.includes("/admin/order")) {
     document.addEventListener("DOMContentLoaded", () => {
+
+        // 배송 통계 조회
+        const loadDeliveryStats = () => {
+            fetch("/admin/stats")
+            .then(resp => resp.json())
+            .then(data => {
+                const beforeDelivery = document.getElementById("beforeDelivery");
+                const inDelivery = document.getElementById("inDelivery");
+                const deliveryCompleted = document.getElementById("deliveryCompleted");
+
+                if (beforeDelivery && beforeDelivery.innerText != data.beforeDelivery) {
+                    beforeDelivery.style.opacity = 0;
+                    setTimeout(() => {
+                        beforeDelivery.innerText = data.beforeDelivery;
+                        beforeDelivery.style.opacity = 1;
+                    }, 200);
+                }
+
+                if (inDelivery && inDelivery.innerText != data.inDelivery) {
+                    inDelivery.style.opacity = 0;
+                    setTimeout(() => {
+                        inDelivery.innerText = data.inDelivery;
+                        inDelivery.style.opacity = 1;
+                    }, 200);
+                }
+
+                if (deliveryCompleted && deliveryCompleted.innerText != data.deliveryCompleted) {
+                    deliveryCompleted.style.opacity = 0;
+                    setTimeout(() => {
+                        deliveryCompleted.innerText = data.deliveryCompleted;
+                        deliveryCompleted.style.opacity = 1;
+                    }, 200);
+                }
+            })
+            .catch(err => console.error("배송 통계 불러오기 오류:", err));
+        };
+        
+        loadDeliveryStats();
+        setInterval(loadDeliveryStats, 10 * 60 * 1000);
         
         // 초기화 버튼
         const resetBtn = document.getElementById("resetBtn");

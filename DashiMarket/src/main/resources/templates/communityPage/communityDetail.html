@@ -29,7 +29,7 @@
                 <!-- 프로필 사진 -->
                 <div class="profile-img">
                     <!-- 프로필 사진 없는 경우 -->
-                    <img th:unless="${board.profilePath}" th:src="@{/images/svg/just-dashima.svg}">
+                    <img th:unless="${board.profilePath}" th:src="@{/images/common/user.png}">
 
                     <!-- 프로필 사진 있는 경우 -->
                     <img th:if="${board.profilePath}" th:src="${board.profilePath}">
@@ -146,7 +146,7 @@
                         <!-- 프로필 사진 -->
                         <div class="comment-profile-img">
                             <!-- 프로필 사진 없는 경우 -->
-                            <img th:unless="${comment.profileImage}" th:src="@{/images/svg/just-dashima.svg}">
+                            <img th:unless="${comment.profileImage}" th:src="@{/images/common/user.png}">
         
                             <!-- 프로필 사진 있는 경우 -->
                             <img th:if="${comment.profileImage}" th:src="${comment.profileImage}">
@@ -212,7 +212,7 @@
                 <div class="reply-input-area">
                     <div class="comment-profile-img">
                         <!-- 프로필 사진 없는 경우 -->
-                        <img th:unless="${board.profilePath}" th:src="@{/images/svg/just-dashima.svg}">
+                        <img th:unless="${board.profilePath}" th:src="@{/images/common/user.png}">
 
                         <!-- 프로필 사진 있는 경우 -->
                         <img th:if="${board.profilePath}" th:src="${board.profilePath}">

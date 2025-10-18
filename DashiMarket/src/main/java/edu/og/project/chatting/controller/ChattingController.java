@@ -81,22 +81,11 @@ public class ChattingController {
 	// 중고상품으로 채팅하기
 	@PostMapping("/chatting/enter")
 	@ResponseBody
-    public Map<String, Object> enterJoonggoChat(@RequestBody ChattingRoom chat) {
+    public int enterJoonggoChat(@RequestBody ChattingRoom chat) {
 		
-		
-		
-		Map<String, Object> map = new HashMap<>();
 		int chattingNo = service.enterJoonggoChat(chat);
-		map.put("chattingNo", chattingNo);
 		
-		Map<String, Object> param = new HashMap<>();
-		param.put("productNo", chat.getProductNo());
-		param.put("sellerNo", chat.getSellerNo());
-		
-		String productInfo = service.selectProductInfo(param);
-		map.put("product", productInfo);
-		
-        return map;
+        return chattingNo;
     }
 	
 	// 나가기 -> 채팅방 DeleteFlag 업데이트

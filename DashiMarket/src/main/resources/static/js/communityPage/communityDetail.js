@@ -254,7 +254,7 @@ replySubmitBtn.forEach(submit => {
 
             // 답글 알림 보내기
             const url = `${location.pathname}?cn=${parentNo}`;
-            const content = `${commMemberNickname}님이 ${boardTitle} 게시글에 <br> 답글을 작성했습니다.`;
+            const content = `${commMemberNickname}님이 <b>${boardTitle}</b> 게시글에 <br> 답글을 작성했습니다.`;
 
             sendNotification("communityChildComment", url, parentNo, content)
 
