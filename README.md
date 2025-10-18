@@ -42,3 +42,18 @@
   모든 사용자가 자유롭게 소통하고 정보를 교환할 수 있는 게시판 제공
 - **활동 참여 독려**  
   게시글 작성, 댓글, 추천 기능 등을 통해 사용자 활동 참여 촉진
+
+
+# 🧑‍💻 프로젝트 참여자 (Contributors)
+
+프로젝트 개발에 기여한 멋진 팀원들입니다.  
+
+| 이름   | GitHub ID |
+|--------|-----------|
+| 이규식 | [holysik](https://github.com/holysik) |
+| 하예솔 | [예솔](https://github.com/사용자ID) |
+| 한지현 | [지현](https://github.com/사용자ID) |
+| 양희준 | [희준](https://github.com/사용자ID) |
+| 이남구 | [남구](https://github.com/사용자ID) |
+| 김종구 | [종구](https://github.com/사용자ID) |
+
