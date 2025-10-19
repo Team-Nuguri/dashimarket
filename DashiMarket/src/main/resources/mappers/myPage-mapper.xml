@@ -202,7 +202,9 @@ SELECT
     p.PAT_DATE AS 결제날짜,
     p.PAY_METHOD AS payMethod,
     p.PRICE AS price,
-    b.BOARD_CONTENT AS imagePath
+    (SELECT IMG_PATH || IMG_RENAME FROM IMAGE I
+		        WHERE I.BOARD_NO = b.BOARD_NO
+		        AND IMG_ORDER = 0)AS imagePath
 FROM ORDER_ITEM oi
 INNER JOIN "ORDER" o ON oi.ORDER_NO = o.ORDER_NO
 LEFT JOIN SHIPPING s ON o.ORDER_NO = s.ORDER_NO
@@ -223,7 +225,7 @@ ORDER BY p.PAT_DATE DESC
         SELECT o.ORDER_NO
         FROM ORDER_ITEM oi
         JOIN "ORDER" o ON oi.ORDER_NO = o.ORDER_NO
-        WHERE oi.ORDER_ITEM_NO = #{orderItemNo}
+        WHERE oi.ORDER_NO = ${orderItemNo}
           AND o.MEMBER_NO = #{memberNo}
     )
 </update>
