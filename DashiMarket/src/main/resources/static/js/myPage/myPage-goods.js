@@ -349,7 +349,7 @@ function confirmPurchase(orderItemNo, orderNo) {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: `orderItemNo=${orderItemNo}`
+            body: `orderItemNo=${orderNo}`
         })
         .then(response => response.json())
         .then(result => {
