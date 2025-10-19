@@ -89,13 +89,5 @@ public class ChattingServiceImpl implements ChattingService{
 		return false;
 	}
 
-	// 중고 상품 정보 - 채팅방
-	@Override
-	public String selectProductInfo(Map<String, Object> param) {
-		return mapper.selectProductInfo(param);
-	}
-
-
-	
 
 }

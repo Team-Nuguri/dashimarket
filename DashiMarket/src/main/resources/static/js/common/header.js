@@ -204,23 +204,23 @@ const notReadCheck = () => {
     if (!notificationLoginCheck) return;
 
     fetch("/notification/notReadCheck")
-        .then(resp => {
-            if (resp.ok) return resp.text();
-            throw new Error("알림 개수 조회 실패");
-        })
-        .then(count => {
-            console.log("count : " + count)
-            const noticeShowArea = document.querySelector(".notification-area");
+    .then(resp => {
+        if (resp.ok) return resp.text();
+        throw new Error("알림 개수 조회 실패");
+    })
+    .then(count => {
+        console.log("count : " + count)
+        const noticeShowArea = document.querySelector(".notification-area");
 
-            // 읽지 않은 알림 수 존재
-            if (count != 0) {
-                noticeShowArea.classList.add("show");
+        // 읽지 않은 알림 수 존재
+        if (count != 0) {
+            noticeShowArea.classList.add("show");
 
-            } else { // 모든 알림 읽음
-                noticeShowArea.classList.remove("show")
-            }
-        })
-        .catch(err => console.log(err))
+        } else { // 모든 알림 읽음
+            noticeShowArea.classList.remove("show")
+        }
+    })
+    .catch(err => console.log(err))
 }
 
 

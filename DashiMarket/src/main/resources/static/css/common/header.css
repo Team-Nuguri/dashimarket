@@ -127,6 +127,7 @@ header>section> div:nth-child(2)>div>a:hover{
     font-size: 20px;
     border: none;
     outline: none; 
+    position: relative;
 }
 
 #query::placeholder {
@@ -138,12 +139,13 @@ header>section> div:nth-child(2)>div>a:hover{
     list-style: none;
     width: 715px;
     padding: 10px 0;
-    z-index: 300;
+    z-index: 999;
     margin-left: 40px;
     background: white;
     border: 1px solid #166549;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
+    position: absolute;
 }
 
 #result > li:hover{
@@ -182,7 +184,7 @@ header>section> div:nth-child(2)>div>a:hover{
     right: 25px;
     padding: 10px;
     list-style: none;
-    z-index: 200;
+    z-index: 1000;
     background: white;
     overflow-y: auto;
     border: 2px solid #52B291;

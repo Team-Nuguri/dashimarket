@@ -5,6 +5,8 @@ let selectTargetNo; // 현재 채팅 대상
 let selectTargetName; // 채팅 상대 이름
 let selectTargetProfile; // 채팅 상대 프로필
 let selectProductNo; // 선택한 중고 상품 번호
+let selectedProductName; // 선택 중고 상품 이름
+let lastKnownSellerNo; //중고 상세 페이지의 판매자 번호
 
 // 문서 로딩 완료 후 수행할 기능
 document.addEventListener("DOMContentLoaded", ()=>{
@@ -68,7 +70,7 @@ function roomListAddEvent(){
             selectProductNo = item.getAttribute("product-no")
             selectTargetName = item.children[1].children[0].children[0].innerText;
             selectTargetProfile = item.children[0].children[0].getAttribute("src");
-
+            
             // 알림이 존재하는 경우 지우기
             if(item.children[1].children[1].children[1] != undefined){
                 item.children[1].children[1].children[1].remove();
@@ -88,7 +90,8 @@ function roomListAddEvent(){
 
             // 로그인 회원 번호와 해당 채팅방 판매자 번호 전달
             const loginMemberNo = window.loginMemberNo; // 세션에서 가져온 로그인 회원번호
-            const sellerNo = currentSellerNo; 
+            const sellerNo = lastKnownSellerNo; 
+            console.log(loginMemberNo, sellerNo)
             showSellerButtons(loginMemberNo, sellerNo);
         })
     }
@@ -109,8 +112,16 @@ chattingBtn?.addEventListener("click", ()=>{
     chattingPopup.classList.toggle("show")
 
     if (chattingPopup.classList.contains("show")) {
+
+        const productName = document.getElementById("productName");
+
+        if (selectedProductName && productName) {
+            productName.textContent = selectedProductName;
+        }
+
         selectRoomList();
         selectMessage();
+        showSellerButtons(loginMemberNo, sellerNo);
     }
 })
 
@@ -160,17 +171,20 @@ function joonggoChatEnter(productNo, sellerNo, buyerNo) {
         headers : {"Content-Type" : "application/json"},
         body : JSON.stringify(data)
     })
-    .then(resp => resp.json())
-    .then(data => {
-        console.log("중고 상품 채팅방 입장 : " + data)
+    .then(resp => resp.text())
+    .then(chattingNo => {
+        console.log("중고 상품 채팅방 입장 : " + chattingNo)
 
-        const chatNo = Number(data.chattingNo); // String으로 올 수 있으므로 숫자로 변환
-        const productInfo = data.product;
+        const chatNo = Number(chattingNo); // String으로 올 수 있으므로 숫자로 변환
+        
+        // html 전역변수 저장
+        selectedProductName = joonggoTitle;
+        lastKnownSellerNo = currentSellerNo;
 
-        if (productInfo) {
-            // DOM에 값 넣기
-            const productName = document.getElementById("productName");
-            productName.textContent = productInfo;
+        // DOM에 값 넣기
+        const productName = document.getElementById("productName");
+        if(productName){
+            productName.textContent = selectedProductName;
         }
 
         if(chatNo > 0){
@@ -294,12 +308,6 @@ function selectRoomList(){
             li.setAttribute("target-no", room.targetNo);
             li.setAttribute("product-no", room.productNo);
 
-            // 중고 상품으로 채팅방 구분
-            if(room.productNo != null && room.productNo > 0){
-                li.classList.add("product-chat"); // 중고 상품 채팅 전용 클래스 추가
-                li.setAttribute("product-no", room.productNo);
-            }
-
             if(room.chattingNo == selectChattingNo){
                 li.classList.add("select");
                 selectTargetName = room.targetNickname;
@@ -326,14 +334,6 @@ function selectRoomList(){
             itemBody.classList.add("item-body");
 
             const p = document.createElement("p");
-
-            // 중고 상품 채팅인 경우 [상품 문의] 라벨 추가
-            if(li.classList.contains("product-chat")){
-                const productLabel = document.createElement("span");
-                productLabel.classList.add("chat-type-label");
-                productLabel.innerText = "[상품 문의] "; // 시각적 구분자
-                p.append(productLabel);
-            }
 
             const targetName = document.createElement("span");
             targetName.classList.add("target-name");
@@ -531,7 +531,7 @@ complete?.addEventListener("click", ()=>{
     const isComplete = complete.classList.add("color-text");
 
     if(isComplete, confirm("거래를 완료 하시겠습니까?")){
-        imgSet[1].setAttribute("src", "/images/svg/거래완료-color.svg")
+        imgSet[0].setAttribute("src", "/images/svg/거래완료-color.svg")
         alert("거래완료 되었습니다.")
 
         insertComplete();

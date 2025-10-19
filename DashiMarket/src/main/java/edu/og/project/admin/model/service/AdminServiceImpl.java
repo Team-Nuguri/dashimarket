@@ -42,6 +42,24 @@ public class AdminServiceImpl implements AdminService{
 	public Integer getTodayReportCount() {
 		return mapper.getTodayReportCount();
 	}
+	
+	// 배송전
+	@Override
+	public Integer getBeforeDelivery() {
+		return mapper.getBeforeDelivery();
+	}
+
+	// 배송중
+	@Override
+	public Integer getInDelivery() {
+		return mapper.getInDelivery();
+	}
+
+	// 배송완료
+	@Override
+	public Integer getDeliveryCompleted() {
+		return mapper.getDeliveryCompleted();
+	}
 
 	// 전체 회원 조회
 	@Override
@@ -266,6 +284,5 @@ public class AdminServiceImpl implements AdminService{
 	    return map;
 	}
 
-	
 	
 }

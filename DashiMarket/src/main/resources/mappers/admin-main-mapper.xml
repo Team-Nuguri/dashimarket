@@ -617,6 +617,24 @@
 	        </otherwise>
 	    </choose>
 	</select>
+	
+	<!-- 배송전 -->
+	<select id="getBeforeDelivery" resultType="int">
+		SELECT COUNT(*) FROM SHIPPING
+		WHERE DELIVERY_STATUS = '배송전'
+	</select>
+	
+	<!-- 배송중 -->
+	<select id="getInDelivery" resultType="int">
+		SELECT COUNT(*) FROM SHIPPING
+		WHERE DELIVERY_STATUS = '배송중'
+	</select>
+	
+	<!-- 배송완료 -->
+	<select id="getDeliveryCompleted" resultType="int">
+		SELECT COUNT(*) FROM SHIPPING
+		WHERE DELIVERY_STATUS = '배송완료'
+	</select>
 
 
 </mapper>

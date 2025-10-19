@@ -45,7 +45,7 @@ public class AdminController {
 	}
 
 
-	// 오늘 가입자 수 + 총 회원 수 조회 + 오늘 신고된 수
+	// 오늘 가입자 수 + 총 회원 수 조회 + 오늘 신고된 수 + 배송전 + 배송중 + 배송완료
 	@GetMapping("/stats")
 	@ResponseBody
 	public Map<String, Integer> getTodayStats() {
@@ -54,6 +54,9 @@ public class AdminController {
 		result.put("todayJoinCount", service.getTodayJoinCount());
 		result.put("totalUserCount", service.getTotalUserCount());
 		result.put("todayReportCount", service.getTodayReportCount());
+		result.put("beforeDelivery", service.getBeforeDelivery());
+		result.put("inDelivery", service.getInDelivery());
+		result.put("deliveryCompleted", service.getDeliveryCompleted());
 		return result;
 	}
 
@@ -235,20 +238,5 @@ public class AdminController {
 	public List<OrderDto> searchOrder(@RequestParam String keyword){
 		return service.searchOrder(keyword);
 	}
-	
-	
-//	// 데이터 - 이용자 수 페이지 요청
-//	@GetMapping("/data/user")
-//	public String dataUser() {
-//
-//		return "admin/admin_dataUser";
-//	}
-//
-//	// 데이터 - 중고 상품별 페이지 요청
-//	@GetMapping("/data/goods")
-//	public String dataGoods() {
-//
-//		return "admin/admin_dataGoods";
-//	}
 
 }
