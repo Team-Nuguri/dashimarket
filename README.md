@@ -52,7 +52,7 @@
 |--------|-----------|
 | 이규식 | [holysik](https://github.com/holysik) |
 | 하예솔 | [예솔](https://github.com/사용자ID) |
-| 한지현 | [every3322-hash](https://github.com/every3322-hash) |
+| 한지현 | [JiHyeon](https://github.com/every3322-hash) |
 | 양희준 | [HarryYang25](https://github.com/HarryYang25) |
 | 이남구 | [남구](https://github.com/사용자ID) |
 | 김종구 | [종구](https://github.com/사용자ID) |
