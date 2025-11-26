@@ -51,7 +51,7 @@
 | 이름   | GitHub ID |
 |--------|-----------|
 | 이규식 | [holysik](https://github.com/holysik) |
-| 하예솔 | [예솔](https://github.com/peachpi3) |
+| 하예솔 | [peachpi3](https://github.com/peachpi3) |
 | 한지현 | [JiHyeon](https://github.com/every3322-hash) |
 | 양희준 | [HarryYang25](https://github.com/HarryYang25) |
 | 이남구 | [남구](https://github.com/사용자ID) |
