@@ -19,7 +19,7 @@
 | 핵심 백엔드           | JAVA, Spring Boot, Gradle | 핵심 비즈니스 로직 및 서버 구동 환경 |
 | 템플릿/프론트엔드      | HTML5, CSS3, JavaScript, Thymeleaf | 웹 페이지 구조 및 서버 사이드 렌더링 |
 | 데이터베이스           | ORACLE DB             | 영구 데이터 저장 및 관리 |
-| 결제/외부 API          | PortOne, KAKAO API    | 안전한 금융 거래 처리 및 소셜 로그인 |
+| 결제/외부 API          | PortOne, KAKAO API    | 안전한 금융 거래 처리 및 소셜 로그인, 지도 |
 
 ---
 
