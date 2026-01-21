@@ -48,12 +48,12 @@
 
 프로젝트 개발에 기여한 멋진 팀원들입니다.  
 
-| 이름   | GitHub ID |
+| 이름   | 담당 기능 |
 |--------|-----------|
-| 이규식 | [holysik](https://github.com/holysik) |
-| 하예솔 | [peachpi3](https://github.com/peachpi3) |
-| 한지현 | [every3322-hash](https://github.com/every3322-hash) |
-| 양희준 | [HarryYang25](https://github.com/HarryYang25) |
-| 이남구 | [남구](https://github.com/사용자ID) |
-| 김종구 | [종구](https://github.com/사용자ID) |
+| 이규식 | 중고(등록/수정/삭제), 굿즈CRUD 결제, 장바구니, 소셜로그인, 리뷰 조회/작성 |
+| 하예솔 | 커뮤니티CRUD, 위치정보 api, 커뮤니티 댓글 |
+| 한지현 | 통합검색, 채팅, 알림, 관리자페이지(회원/굿즈/거래)조회, 시각화 |
+| 양희준 | 공지/질문 사항 CRUD, 관리자페이지 검색/필터링/정렬 |
+| 이남구 | 회원가입/로그인, 마이페이지, 중고/굿즈 거래 및 주문 내역 |
+| 김종구 | 중고(조회), 찜한 상품, (중고/굿즈) 거래 후기, 배송 조회 api, 통합 신고 처리 |
 
